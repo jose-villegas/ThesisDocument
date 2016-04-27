@@ -1,0 +1,116 @@
+\section{Escenarios de Prueba}
+
+En esta sección se describe las distintas escenas y configuraciones a realizar para las distintas pruebas sobre la aplicación.
+
+\subsection{Escenas de Prueba y Objetos}
+
+Para la realización de pruebas de precisión y rendimiento se utilizaran siete escenas las cuales clasificaremos en dos categorías, escenas completas y ambientes de pruebas que llamaremos escenas \emph{sandbox}. Las escenas completas comprenden varios niveles de complejidad en cuanto a geometría e iluminación. La aplicación también incluye una serie de modelos precargados los cuales serán agregados a las escenas, estos objetos son considerados dinámicos.
+
+\subsubsection{Escenas Completas}
+
+Como escenas completas consideramos cuatro escenas comunes para pruebas de iluminación global. Estas escenas presentan varios niveles de complejidad geométrica y de propagación de luz. En la siguiente tabla listamos sus nombres y atributos.
+
+\begin{table}[h]
+\centering
+\label{tab:scenes_attributes}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Nombre            & Vértices & Triángulos & Texturas & Geometría & Iluminación \\ \hline
+Crytek Sponza     & 153.635  & 278.163    & Si       & Compleja  & Compleja     \\ \hline
+Conference Room   & 194.399  & 331.179    & No       & Compleja  & Compleja     \\ \hline
+Sibenik Cathedral & 40.479   & 75.283     & Si       & Media     & Media        \\ \hline
+Cornell Box       & 72       & 36         & No       & Simple    & Simple       \\ \hline
+\end{tabular}
+\caption{Escenas completas y sus atributos.}
+\end{table}
+
+\paragraph{Crytek Sponza:} Modelo del atrio del palacio Sponza en Dubrovnik, este modelo originalmente realizado por Marko Dabrovic y luego remodelado por Frank Meinl de Crytek con nuevos elementos como cortinas, vasos y plantas, además de mapas especulares, albedo y normales. Esta es una escena de dimensión considerable con propagación de luz compleja, especialmente en las áreas ocluidas por las cortinas y los pasillos superiores donde la luz difusa rebota luego de pasar a través de varias columnas.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\linewidth]{media/scenes/sponza.png}
+	\caption{Crytek Sponza con solo iluminacion directa desde una luz direccional mas luz ambiental para visualizar las áreas sombreadas.}
+	\label{fig:crytek_sponza}
+\end{figure}
+
+\paragraph{Conference Room:} Un modelo 3D basado en una sala de conferencias real del \emph{Lawrence Berkeley National Laboratory}. Esa es una escena pequeña pero de gran complejidad geométrica con muchos objetos repetidos. El transporte de luz es particularmente complejo en partes ocluidas como debajo de sillas o la mesa central, la escena es un interior cerrado y la única luz directa exterior entra a través de unas pequeñas rendijas cerca de las cortinas.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\linewidth]{media/scenes/conference.png}
+	\caption{Conference Room con solo iluminación directa desde una luz direccional mas luz ambiental para visualizar las áreas sombreadas..}
+	\label{fig:conference}
+\end{figure}
+
+\paragraph{Sibenik Cathedral:} El interior de una catedral. La luz entra a ella a través de ventanas y se propaga por toda la escena. La escena tiene una sección con columnas ideal para probar sombras. En esta misma sección de columnas hay un piso de mármol que permite apreciar reflexión especular. Una alfombra roja cubre gran parte de la catedral esta permite la visualización de reflexión difusa.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\linewidth]{media/scenes/sibenik.png}
+	\caption{Sibenik Cathedral con solo iluminacion directa desde una luz direccional mas luz ambienta para visualizar las áreas sombreadas.}
+	\label{fig:sibenik}
+\end{figure}
+
+\paragraph{Cornell Box:} Este es un modelo popular para la visualización de iluminación global. Creado por Donald Greenberg y estudiantes de \emph{Cornell University}. El Cornell Box está compuesto por una caja con dos paredes de colores, a la izquierda una roja y a la derecha una verde, estas permiten observar reflexión difusa y mezclado de colores. El resto de la caja es blanca. En la pared superior se observa un pequeño plano pensando para simular una fuente de luz de área. Dentro de esta caja se encuentran dos cajas más, una pequeña y otra más alta
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\linewidth]{media/scenes/cornell.png}
+	\caption{Cornell Box con solo iluminación directa desde una luz puntual con trazado de sombras.}
+	\label{fig:cornell}
+\end{figure}
+
+\subsubsection{Escenas Sandbox}
+
+Las escenas sandbox son entornos simples y vacíos donde se realizaran pruebas de aspectos específicos de la aplicación. Estas escenas no presentan mayor complejidad geométrica o complejidad de iluminación. En la siguiente tabla listamos sus nombres y atributos.
+
+\begin{table}[h]
+\centering
+\label{my-label}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Nombre            & Vértices & Triángulos & Texturas & Geometría & Iluminación \\ \hline
+Light Box         & 4.098    & 8.192      & No       & Simple    & Media        \\ \hline
+Plane Test        & 16       & 24         & No       & Simple    & Simple       \\ \hline
+Cornell Box Vacío & 24       & 12         & No       & Simple    & Simple       \\ \hline
+\end{tabular}
+\caption{Escenas Sandbox y sus atributos.}
+\end{table}
+
+Light Box es una interior donde los bordes son tan suaves que no hay oclusión ambiental, el interior es totalmente blanco y no hay cambios bruscos en geometría esto hace que la reflexión difusa se propague fácilmente. Plane Test es simplemente un plano, en una esquina se encuentra un cuboide fino pero de gran altura para permitir la voxelización de objetos sobre el plano. Cornell Box Vacío es la escena completa Cornell Box sin las cajas internas.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[t]{0.32\textwidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/scenes/lightbox.png}
+		\caption*{Escena Light Box con solo iluminación directa desde una luz puntual de baja intensidad.}
+	\end{subfigure}%
+		\hspace{0.01\textwidth}
+	\begin{subfigure}[t]{0.32\textwidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/scenes/plane.png}
+		\caption*{Escena Plane Test con solo iluminación directa desde una luz direccional.}
+	\end{subfigure}%
+		\hspace{0.01\textwidth}
+	\begin{subfigure}[t]{0.32\textwidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/scenes/cornell_empty.png}
+		\caption*{Escena Cornell Box Vació con iluminación indirecta con solo una luz puntual.}
+	\end{subfigure}
+	\caption{Escenas sandbox.}
+	\label{fig:sandboxscenes}
+\end{figure}
+
+\subsubsection{Objetos Precargados}
+La aplicación cuenta con una serie de objetos tridimensionales que pueden ser agregados a las escenas. Cada uno de estos objetos puede tener su propio material y matriz espacial. Estos objetos son considerados dinámicos por la aplicación. Los objetos están divididos en dos categorías: primitivas y modelos. Las primitivas son: Icosaedro, Cubo, Esfera, Cono, Toro, Plano y Cilindro. Los modelos son: Stanford Happy Buddha, Stanford Bunny, Stanford Dragon y Utah Teapot.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\linewidth]{media/scenes/models.png}
+	\caption{Objetos precargados. Arriba se encuentra los modelos Stanford Dragon, Stanford Bunny, Stanford Happy Buddha y Utah Teapot. El resto son primitivas, de izquierda a derecha: Cono, Esfera, Icosaedro, Cubo, Cilindro, Toro y Plano. Todos los objetos se encuentra en la escena Light Box utilizando una luz focal con trazado de sombras e iluminación indirecta.}
+	\label{fig:models}
+\end{figure}

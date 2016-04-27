@@ -1,0 +1,16 @@
+\section{Entorno de Pruebas}
+Todos los experimentos realizados en esta sección fueron ejecutados en un computador de escritorio con las siguientes características de hardware:
+
+\begin{enumerate}
+    \item Procesador AMD Phenom II X6 1055T 2.8 Ghz
+    \item 8 GB de Memoria RAM DD3
+    \item Disco duro de 1TB 
+    \item Tarjeta gráfica AMD R9 380
+    \item Sistema Operativo Windows 7 de 64 bits.
+\end{enumerate}
+
+\subsection{Configuración de la Aplicación}
+
+Con respecto a la representación en vóxeles distintos pasos del algoritmo solo se realizan dependiendo de ciertos eventos en escena. Sin embargo cada paso de este algoritmo es dependiente de pasos anteriores. El sombreado se vóxeles solo necesita volver a realizarse bajo algún cambio en los parámetros de iluminación, al actualizarse el sombreado también deben realizarse todos los pasos siguientes. Igualmente sucede con la voxelización dinámica bajo algún cambio sobre un objeto dinámico. La aplicación también permite el cambio de parámetros en la escena estática, esto implica realizar todos los pasos del algoritmo. En contraste el trazado de conos se realiza constantemente por frame durante el paso de iluminación del sombreado diferido.
+
+Para ejecutar pruebas que comprendan todos los aspectos del algoritmo la aplicación provee un modo de actualización forzosa por frame. Esto nos permite simular situaciones de estrés donde tanto objetos como luces se encuentran sufriendo constantes cambios. Para ciertos experimentos este modo será desactivado de manera que solo se obtengan datos relevantes a ese ambiente de prueba.

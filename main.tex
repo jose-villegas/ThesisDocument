@@ -1,0 +1,143 @@
+\documentclass[12pt,letterpaper,oneside,final]{book}		
+\usepackage[lmargin=3.0cm,rmargin=2.5cm,tmargin=2.5cm,bmargin=2.5cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{setspace}
+\usepackage{tabulary}
+\usepackage{mfirstuc}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{ifpdf}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[]{times}
+\usepackage[spanish]{babel}
+\usepackage[nottoc]{tocbibind}
+\usepackage{hyperref}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\usepackage{afterpage}
+\usepackage{subcaption}
+\usepackage{packages/algorithm_spa}
+\usepackage{algpseudocode}
+\usepackage{makeidx}
+\usepackage{color}
+\usepackage{adjustbox}
+% \usepackage{refcheck} % checks for unreferenced labels
+\usepackage{datetime}
+\usepackage{acro}
+\usepackage{mfirstuc}% provides \capitalisewords
+\usepackage{parskip}
+\usepackage{fancyhdr}
+
+\acsetup{list-long-format=\capitalisewords}
+
+\fancypagestyle{newstyle}{
+\fancyhf{} % clear all header and footer fields
+\fancyhead[l]{} % except the center
+\fancyfoot[R]{\thepage} % except the center
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+\pagestyle{newstyle}
+
+% \norefnames % no margin ref names
+% \nocitenames % no margin cite names
+
+\makeindex
+% \usepackage{showframe}
+\ifpdf
+  \usepackage{epstopdf}
+\fi
+
+\onehalfspacing
+\setlength{\parindent}{4em}
+
+\renewcommand\floatpagefraction{.9}
+\renewcommand\topfraction{.9}
+\renewcommand\bottomfraction{.9}
+\renewcommand\textfraction{.1}
+\addto\captionsspanish{%
+  \renewcommand{\tablename}%
+    {Tabla}%
+}
+
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+
+% Different font in captions
+\newcommand{\captionfonts}{\small}
+
+\makeatletter  % Allow the use of @ in command names
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\captionfonts #1: #2}}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\captionfonts #1: #2\par}
+  \else
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother   % Cancel the effect of \makeatletter
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage
+}
+
+\newcommand{\quotemarks}[1]{``#1''} 
+
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH] del \THEYEAR}
+
+\include{abbreviations}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\begin{document}
+    \frontmatter
+    % portada
+    \include{cover/cover}
+    % resumen
+    \include{cover/abstract}
+% Tabla de contenido, indice
+	\tableofcontents
+% contenido
+	% \printacronyms[include-classes=abbrev,name=Abreviaturas]
+	\afterpage{\blankpage} % pagina vacia despues del indice
+	% introducction
+	\include{introduction/introduction}
+	% objetivos generales y specificos
+	\include{introduction/goals}
+	% after introduction main matter starts
+    \mainmatter
+	% marco teorico - global illumination
+	\include{chapters/theory/theory}
+	% propuesta de aplicacion
+	\include{chapters/proposal/proposal}
+	% implementacion de aplicacion
+	\include{chapters/implementation/implementation}
+	% pruebas sobre implementacion
+	\include{chapters/tests/tests}
+	% conclusiones finales
+	\include{chapters/conclusion/conclusion}	
+	% Bibliografia
+	\bibliographystyle{IEEEtran}
+	\bibliography{references}
+	\backmatter
+\end{document}

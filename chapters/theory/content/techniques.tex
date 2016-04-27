@@ -1,0 +1,52 @@
+
+\section{Técnicas Comunes de Renderizado}
+En esta sección se explican técnicas comunes utilizadas en síntesis o renderizado de imágenes que son relevantes para este trabajo.
+\subsection{Mapeado de Sombras}
+\label{subsec:shadowmapping}
+Con la luz es representada en forma de rayo las superficies sombreadas reciben menos rayos de luz ya que estas están ocluidas por otras superficies que se encuentra entre ellas y los emisores de luz. En un pipeline de renderizado general, donde las superficies en escenas son representadas en geometría poligonal, trazar rayos por cada fragmento para comprobar la visibilidad del mismo no es una operación trivial.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth]{media/shadow_mapping.eps}
+	\caption{La profundidad almacenada en el mapa de sombra (amarillo) es comparada con la profundidad del punto en la superficie desde la luz (rojo).}
+	\label{fig:shadow_mapping}
+\end{figure}
+Los mapas de sombras, presentados inicialmente por Lance Williams en 1978 \cite{Williams:78} presentan una solución simple para el cálculo de visibilidad de un fragmento.
+
+La técnica consiste en proyectar la escena en una textura bidimensional desde la posición y con la dirección de una fuente de luz. La proyección es calculada utilizando una matriz de proyección $P_{l}$. Por cada píxel de esta textura la profundidad de cada fragmento sobre una superficie es almacenada. Esta textura es llamada mapa de sombra.
+Una que se pasa a renderizar la escena desde el punto de vista del observador, por cada fragmento con posición $p_{ws}$ en espacio de mundo, la posición en el mapa de sombra $p_{sh}$ es calculada utilizando la siguiente ecuación:
+\begin{equation}
+    p_{sh} = P_{l} * p_{ws}
+    \label{eq:p_to_shadowmap}
+\end{equation}
+Como se muestra en la figure \ref{fig:shadow_mapping} si la profundidad del fragmento desde la fuente de luz es mayor que el valor almacenado en el mapa de sombra entonces este punto esta sombreado. 
+
+El mapeado de sombras es una solución sencilla y efectiva al problema de pruebas de visibilidad pero este tiene dos mayores problemas. El mapa de sombras está limitado a la resolución de la textura y además este representa una discretización de la profundidad de la escena desde la fuente de luz y esto introduce una variedad de anomalías visuales. A partir de este concepto existe una variedad de algoritmos para el cálculo de sombras que intentan solventar estos problemas.
+\subsection{Sombreado Diferido}
+En sombreado directo la representación poligonal de la escena es rasterizada y operaciones por pixel como iluminación y sombreado son realizadas por cada fragmento generado por el proceso de rasterización. Esto es poco efectivo cuando consideramos que gran parte de los fragmentos no forman parte de la imagen final.
+Con sombreado diferido se pueden realizar estas operaciones por pixel solo sobre los fragmentos visibles. Este concepto está basado en el trabajo de Deering en y otros en 1998 \cite{Deering:1988}. La escena es renderizada solo una vez y varios atributos de la escena son almacenados en buffers. Este buffer es llamado \ac{GBuffer} y fue introducido por Saito y otros en 1990 \cite{Saito:1990}. El contenido general de un G-Buffer es profundidad, albedo y normal, esto puede cambiar según las necesidades de la aplicación. El propósito de almacenar esta información es separar las operaciones que solo son necesarias sobre los fragmentos visibles de la rasterización de toda la escena, de manera que cálculos como iluminación ahora son realizados en otro paso solo sobre cada píxel almacenado en el \ac{GBuffer}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[t]{0.32\textwidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/engine-Context2-Texture13level0.png}
+		\caption*{Normales.}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[t]{0.32\textwidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/engine-Context2-Texture14level0.png}
+		\caption*{Albedo.}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[t]{0.32\textwidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/engine-Context2-Texture17level0.png}
+		\caption*{Profundidad.}
+	\end{subfigure}%
+	\caption{El contenido de un buffer de geometría.}
+	\label{fig:gbuffer}
+\end{figure}
