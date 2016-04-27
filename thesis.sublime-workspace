@@ -1,0 +1,995 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"cone",
+				"coneShadowAperture"
+			],
+			[
+				"is",
+				"is"
+			],
+			[
+				"max",
+				"maxTracingDistance"
+			],
+			[
+				"worl",
+				"worldMaxPoint"
+			],
+			[
+				"visi",
+				"visibleFace"
+			],
+			[
+				"sample",
+				"samplePosition"
+			],
+			[
+				"aniso",
+				"AnistropicSample"
+			],
+			[
+				"world",
+				"worldMaxPoint"
+			],
+			[
+				"dire",
+				"direction"
+			],
+			[
+				"intere",
+				"intersectRayWithAABB"
+			],
+			[
+				"wo",
+				"voxelWorldSize"
+			],
+			[
+				"trace",
+				"traceOcclusion"
+			],
+			[
+				"voxel",
+				"voxelScale"
+			],
+			[
+				"ao",
+				"aoFalloff"
+			],
+			[
+				"volum",
+				"volumeDimension"
+			],
+			[
+				"volu",
+				"volumeGridSize"
+			],
+			[
+				"direc",
+				"direction"
+			],
+			[
+				"dir",
+				"direction"
+			],
+			[
+				"di",
+				"direction"
+			],
+			[
+				"op",
+				"opacity"
+			],
+			[
+				"static",
+				"staticVoxelFlag"
+			],
+			[
+				"flag",
+				"flagStaticVoxels"
+			],
+			[
+				"difu",
+				"diffuseConeWeights"
+			],
+			[
+				"gui",
+				"guide1"
+			],
+			[
+				"spe",
+				"specularTrace"
+			],
+			[
+				"bou",
+				"bounceStrength"
+			],
+			[
+				"colo",
+				"colorChannels"
+			],
+			[
+				"image",
+				"imageStore"
+			],
+			[
+				"tex",
+				"texPosition"
+			],
+			[
+				"vo",
+				"voxelPosition"
+			],
+			[
+				"shaodin",
+				"shadowingMethod"
+			],
+			[
+				"Voxel",
+				"VoxelToWorld"
+			],
+			[
+				"p",
+				"plane"
+			],
+			[
+				"con",
+				"contrast"
+			],
+			[
+				"indir",
+				"indirectLighting"
+			],
+			[
+				"dif",
+				"diffuseColor"
+			],
+			[
+				"tan",
+				"tangent"
+			],
+			[
+				"spec",
+				"specularFactor"
+			],
+			[
+				"greate",
+				"greaterThan"
+			],
+			[
+				"direct",
+				"directLighting"
+			],
+			[
+				"mi",
+				"mipOffsets"
+			],
+			[
+				"mip",
+				"mipDimension"
+			],
+			[
+				"wri",
+				"writeDirection"
+			],
+			[
+				"m",
+				"mipDimension"
+			],
+			[
+				"in",
+				"invalid"
+			],
+			[
+				"fi",
+				"firstBounce"
+			],
+			[
+				"al",
+				"alphaCorrection"
+			],
+			[
+				"te",
+				"texCoord"
+			],
+			[
+				"co",
+				"coordPos"
+			],
+			[
+				"write",
+				"writePos"
+			],
+			[
+				"sou",
+				"sourcePos"
+			],
+			[
+				"svo",
+				"sVoxelAlbedo"
+			],
+			[
+				"tar",
+				"targetNormal"
+			],
+			[
+				"Trace",
+				"TraceScattering"
+			],
+			[
+				"step",
+				"aStep"
+			],
+			[
+				"norma",
+				"normalize"
+			],
+			[
+				"accum",
+				"accumFog"
+			],
+			[
+				"camera",
+				"cameraPosition"
+			],
+			[
+				"alb",
+				"albedo"
+			],
+			[
+				"injec",
+				"injectionPass"
+			],
+			[
+				"wei",
+				"weight"
+			],
+			[
+				"albe",
+				"albedoToLowerMip"
+			],
+			[
+				"ani",
+				"anisoSample"
+			],
+			[
+				"sampl",
+				"samplePos"
+			],
+			[
+				"sto",
+				"storeLambert"
+			],
+			[
+				"inj",
+				"injectionPass"
+			],
+			[
+				"compo",
+				"compositeLighting"
+			],
+			[
+				"specu",
+				"specular"
+			],
+			[
+				"ini",
+				"indirectLighting"
+			],
+			[
+				"indi",
+				"indirectLighting"
+			],
+			[
+				"ambient",
+				"ambientOcclusion"
+			],
+			[
+				"am",
+				"ambientOcclusion"
+			],
+			[
+				"diffuse",
+				"diffuseTrace"
+			],
+			[
+				"ambi",
+				"ambientOcclusionFalloff"
+			],
+			[
+				"specul",
+				"specularTrace"
+			],
+			[
+				"Calculate",
+				"CalculateDirectLighting"
+			],
+			[
+				"weigh",
+				"diffuseConeWeights"
+			],
+			[
+				"n",
+				"normalize"
+			],
+			[
+				"In",
+				"IndirectDiffuse"
+			],
+			[
+				"a",
+				"average2"
+			],
+			[
+				"min",
+				"worldMinPoint"
+			],
+			[
+				"voxe",
+				"voxelScale"
+			],
+			[
+				"sam",
+				"samplePos"
+			],
+			[
+				"dim",
+				"diameter"
+			],
+			[
+				"li",
+				"lightDirT"
+			],
+			[
+				"light",
+				"lightDirT"
+			],
+			[
+				"lightpo",
+				"lightPosT"
+			],
+			[
+				"base",
+				"baseColor"
+			],
+			[
+				"textu",
+				"textureLod"
+			],
+			[
+				"samp",
+				"sampler3D"
+			],
+			[
+				"shado",
+				"shadowingMethod"
+			],
+			[
+				"tra",
+				"traceConeShadows"
+			],
+			[
+				"sha",
+				"shadowMapping"
+			],
+			[
+				"so",
+				"sourceDimension"
+			],
+			[
+				"src",
+				"sourcePos"
+			],
+			[
+				"directio",
+				"direction"
+			],
+			[
+				"po",
+				"position"
+			],
+			[
+				"view",
+				"viewProjectionI"
+			],
+			[
+				"vie",
+				"viewProjectionI"
+			],
+			[
+				"norm",
+				"normal"
+			],
+			[
+				"no",
+				"normal"
+			],
+			[
+				"vol",
+				"volumeDimension"
+			],
+			[
+				"texcoo",
+				"texcoord"
+			],
+			[
+				"ws",
+				"wsPosition"
+			],
+			[
+				"mom",
+				"moment2"
+			],
+			[
+				"d",
+				"dFdx"
+			],
+			[
+				"smooth",
+				"smoothstep"
+			],
+			[
+				"ligh",
+				"lightBleedingTolerance"
+			],
+			[
+				"bl",
+				"blurType"
+			],
+			[
+				"out",
+				"outColor"
+			],
+			[
+				"che",
+				"Chebyshev"
+			],
+			[
+				"dep",
+				"depthScale"
+			],
+			[
+				"ex",
+				"expCoefficient"
+			],
+			[
+				"smo",
+				"smoothstep"
+			],
+			[
+				"re",
+				"reduceLightBlending"
+			],
+			[
+				"ver",
+				"vertexPos"
+			],
+			[
+				"dst",
+				"dstVoxelTex"
+			],
+			[
+				"conve",
+				"convRGBA8ToVec4"
+			],
+			[
+				"un",
+				"uniformVoxelRes"
+			],
+			[
+				"En",
+				"EnlargedAxisAlignedBoundingBox"
+			],
+			[
+				"tri",
+				"triangleAABB"
+			],
+			[
+				"inve",
+				"inverseView"
+			],
+			[
+				"verte",
+				"vertexPosition"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "\\documentclass[12pt,letterpaper,oneside,final]{book}		\n\\usepackage[lmargin=3.0cm,rmargin=2.5cm,tmargin=2.5cm,bmargin=2.5cm]{geometry}\n\\usepackage[table]{xcolor}\n\\usepackage{setspace}\n\\usepackage{tabulary}\n\\usepackage{mfirstuc}\n\\usepackage{graphicx}\n\\usepackage{multicol}\n\\usepackage{caption}\n\\usepackage{float}\n\\usepackage{wrapfig}\n\\usepackage{lipsum}\n\\usepackage{ifpdf}\n\\usepackage[utf8]{inputenc}\n\\usepackage[T1]{fontenc}\n\\usepackage[]{times}\n\\usepackage[spanish]{babel}\n\\usepackage[nottoc]{tocbibind}\n\\usepackage{hyperref}\n\\usepackage{amsmath,amssymb}\n\\usepackage{array}\n\\usepackage{afterpage}\n\\usepackage{subcaption}\n\\usepackage{packages/algorithm_spa}\n\\usepackage{algpseudocode}\n\\usepackage{makeidx}\n\\usepackage{color}\n\\usepackage{adjustbox}\n% \\usepackage{refcheck} % checks for unreferenced labels\n\\usepackage{datetime}\n\\usepackage{acro}\n\\usepackage{mfirstuc}% provides \\capitalisewords\n\\usepackage{parskip}\n\\usepackage{fancyhdr}\n\n\\acsetup{list-long-format=\\capitalisewords}\n\n\\fancypagestyle{newstyle}{\n\\fancyhf{} % clear all header and footer fields\n\\fancyhead[l]{} % except the center\n\\fancyfoot[R]{\\thepage} % except the center\n\\renewcommand{\\headrulewidth}{0pt}\n\\renewcommand{\\footrulewidth}{0pt}}\n\n\\pagestyle{newstyle}\n\n% \\norefnames % no margin ref names\n% \\nocitenames % no margin cite names\n\n\\makeindex\n% \\usepackage{showframe}\n\\ifpdf\n  \\usepackage{epstopdf}\n\\fi\n\n\\onehalfspacing\n\\setlength{\\parindent}{4em}\n\n\\renewcommand\\floatpagefraction{.9}\n\\renewcommand\\topfraction{.9}\n\\renewcommand\\bottomfraction{.9}\n\\renewcommand\\textfraction{.1}\n\\addto\\captionsspanish{%\n  \\renewcommand{\\tablename}%\n    {Tabla}%\n}\n\n\\setcounter{totalnumber}{50}\n\\setcounter{topnumber}{50}\n\\setcounter{bottomnumber}{50}\n\n% Different font in captions\n\\newcommand{\\captionfonts}{\\small}\n\n\\makeatletter  % Allow the use of @ in command names\n\\long\\def\\@makecaption#1#2{%\n  \\vskip\\abovecaptionskip\n  \\sbox\\@tempboxa{{\\captionfonts #1: #2}}%\n  \\ifdim \\wd\\@tempboxa >\\hsize\n    {\\captionfonts #1: #2\\par}\n  \\else\n    \\hbox to\\hsize{\\hfil\\box\\@tempboxa\\hfil}%\n  \\fi\n  \\vskip\\belowcaptionskip}\n\\makeatother   % Cancel the effect of \\makeatletter\n\n\\hypersetup{\n    colorlinks,\n    citecolor=black,\n    filecolor=black,\n    linkcolor=black,\n    urlcolor=black\n}\n\n\\newcommand\\blankpage{%\n    \\null\n    \\thispagestyle{empty}%\n    \\addtocounter{page}{-1}%\n    \\newpage\n}\n\n\\newcommand{\\quotemarks}[1]{``#1''} \n\n\\newdateformat{monthyeardate}{%\n  \\monthname[\\THEMONTH] del \\THEYEAR}\n\n\\include{abbreviations}\n\n\\setcounter{tocdepth}{3}\n\\setcounter{secnumdepth}{3}\n\n\\begin{document}\n  \\frontmatter\n  % portada\n  \\include{cover/cover}\n  % resumen\n  \\include{cover/abstract}\n  % Tabla de contenido, indice\n  \\tableofcontents\n  % contenido\n  % \\printacronyms[include-classes=abbrev,name=Abreviaturas]\n  \\afterpage{\\blankpage} % pagina vacia despues del indice\n  % introducction\n  \\include{introduction/introduction}\n  % objetivos generales y specificos\n  \\include{introduction/goals}\n  % after introduction main matter starts\n  \\mainmatter\n  % marco teorico - global illumination\n  \\include{chapters/theory/theory}\n  % propuesta de aplicacion\n  \\include{chapters/proposal/proposal}\n  % implementacion de aplicacion\n  \\include{chapters/implementation/implementation}\n  % pruebas sobre implementacion\n  \\include{chapters/tests/tests}\n  % conclusiones finales\n  \\include{chapters/conclusion/conclusion}	\n  % Bibliografia\n  \\bibliographystyle{IEEEtran}\n  \\bibliography{references}\n  \\backmatter\n\\end{document}\n",
+			"file": "main.tex",
+			"file_size": 3475,
+			"file_write_time": 131062378067235830,
+			"settings":
+			{
+				"buffer_size": 3473,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "chapters/tests/content/scenes.tex",
+			"settings":
+			{
+				"buffer_size": 7746,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "cover/cover.tex",
+			"settings":
+			{
+				"buffer_size": 874,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "latex",
+		"selected_items":
+		[
+			[
+				"latex",
+				"LaTeXTools: View PDF"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"markdown brow",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"MARK",
+				"Build With: Markdown"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"hex",
+				"Hex Viewer: Find By Address"
+			],
+			[
+				"toggle he",
+				"Hex Viewer: Toggle Hex View"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Documents/Projects/Thesis",
+		"/D/Documents/Projects/Thesis/chapters",
+		"/D/Documents/Projects/Thesis/chapters/tests",
+		"/D/Documents/Projects/Thesis/chapters/tests/content"
+	],
+	"file_history":
+	[
+		"/D/Downloads/tesis-lic/intro.tex",
+		"/D/Downloads/tesis-lic/tesis-lic.tex",
+		"/C/Users/Jose/AppData/Local/Temp/7zE486EF39A/cap1.tex",
+		"/C/Users/Jose/AppData/Local/Temp/7zE4868CC7A/tesis-lic.tex",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/models/lightbox/LightBox01.mtl",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/depth_texture.frag",
+		"/D/Documents/Projects/VCTRenderer/.gitignore",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/models/crytek-sponza-noflag/sponza.mtl",
+		"/D/Documents/Projects/VCTRenderer/engine/rendering/primitives/sphere.mtl",
+		"/D/Downloads/builtin_shaders-5.3.4f1/CGIncludes/Lighting.cginc",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/models/conference/conference.mtl",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/blur.frag",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/models/science/madScience.mtl",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/models/san-miguel/san-miguel.mtl",
+		"/D/Downloads/builtin_shaders-5.3.4f1/DefaultResourcesExtra/Standard.shader",
+		"/D/Downloads/builtin_shaders-5.3.4f1/DefaultResourcesExtra/StandardSpecular.shader",
+		"/D/Downloads/builtin_shaders-5.3.4f1/DefaultResourcesExtra/Normal-Glossy.shader",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/light_pass.vert",
+		"/D/Dropbox/per_direction.comp",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/light_pass.frag",
+		"/D/Documents/primitives.mtl",
+		"/D/Dropbox/sparse_texture.cpp",
+		"/C/Users/Jose/AppData/Local/Temp/tmp7923.tmp.comp",
+		"/D/Downloads/gl3w-master/README.rst",
+		"/D/Downloads/gl3w-master/include/GL/glcorearb.h",
+		"/D/Dropbox/extensions",
+		"/D/Documents/Models/KingsTreasure/KingsTreasure.mtl",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/geometry_pass.vert",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/models/city/The_City.mtl",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/voxelization.frag",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/final_composition.frag",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/global_illumination_pass.frag",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/inject_radiance.comp",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/convert_to_rgba8.comp",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/inject_radiance_downsample.comp",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/inject_color_radiance.comp",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/depth_texture.vert",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/draw_voxels.vert",
+		"/D/Documents/Projects/VCTRenderer/README.md",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/blur.vert",
+		"/C/Users/Jose/AppData/Local/Temp/7zOC07D3D3E/main.c",
+		"/D/Documents/LearnSafari/Project/spanish-safari/.gitignore",
+		"/D/Documents/LearnSafari/Project/spanish-safari/.git/COMMIT_EDITMSG",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/shaders/inject_radiance.frag",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/models/sibenik/sibenik.mtl",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/models/sibenik/sibenik.obj.mtl",
+		"/D/Documents/Projects/VCTRenderer/engine/assets/models/sibenik/sibenik.obj",
+		"/C/Program Files/Sublime Text 3/sublime_text.exe"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"\\item",
+			"TraceShadowCone",
+			"coneShadowAperture",
+			"mramor6x6-bump",
+			"kamen-bump",
+			"map_bump",
+			"map_Bump",
+			"TraceShadowCone",
+			"anisoDimension",
+			"voxelSize",
+			"ray",
+			"rayOrigin",
+			"dst",
+			"sampleFactor",
+			"worldMaxPoint",
+			"conePosition",
+			"res",
+			"sample",
+			"blend",
+			"TraceShadowCone",
+			"boxMax",
+			"boxMin",
+			"tLeave",
+			"tEnter",
+			"Point",
+			"point",
+			"Point",
+			"point",
+			"cubemin",
+			"cubemax",
+			"cubemin",
+			"point",
+			"position",
+			"tracePosition",
+			"visibleFace",
+			"tracePosition",
+			"TraceCone",
+			"samplePosition",
+			"tracePosition",
+			"samplePos",
+			"aoAlpha",
+			"coneStepFactor",
+			"position",
+			"anisoSample",
+			"indirec",
+			"voxelComposite",
+			"propagationDirections",
+			"anisoLevel",
+			"volumeDimension",
+			"anisoLevel",
+			"mipLevel",
+			"20",
+			"3.0f *",
+			"position",
+			"wsPosition",
+			"volumeDimension.z",
+			".z",
+			"volumeDimension.z",
+			"3.0f * ",
+			"up",
+			"right",
+			"f,",
+			",",
+			"1",
+			"0",
+			"1",
+			"B",
+			"T",
+			"N",
+			"helper",
+			"baseColor",
+			"coneShadowUmbra",
+			"(1.0f - directLighting.a) * ",
+			"cout",
+			"+= current.a",
+			"+=",
+			"current.a",
+			"(1.0f + directLighting.a) * ",
+			"- directLighting.a",
+			"directLighting.a - current.a",
+			"current.a",
+			"(1.0f - directLighting.a) *",
+			"[0]",
+			"colorChannels",
+			"texture(voxelVisibility, voxelPos)",
+			"return vec3",
+			"max(0.0f, ",
+			"voxelSize",
+			"visibleFace",
+			", texPos",
+			".xyz",
+			"voxelPos",
+			"WorldToVoxelSample",
+			"texPos",
+			"texPost",
+			"voxelPosition",
+			"volumeDimension",
+			"voxelSize",
+			", 0.01f",
+			"TraceShadowCone",
+			"aperture",
+			"anisoSample",
+			"volumeDimension",
+			"normal",
+			"baseColor",
+			"0f",
+			"imageStore",
+			"FetchTexels",
+			"isEmissive",
+			"voxelAlbedo",
+			"bump.jpg",
+			"_bump",
+			"_Bump",
+			"_bump",
+			"Alp",
+			"=",
+			" = ",
+			" =",
+			"texCoord",
+			"ambientOcclusion",
+			"alp",
+			"spec",
+			"shininess",
+			"floor",
+			"clamp",
+			"emission",
+			"aperture",
+			", rgba8"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3473,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3298,
+								3298
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1232.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "chapters/tests/content/scenes.tex",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 7746,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								965,
+								965
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "cover/cover.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 874,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								765,
+								765
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 42.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 94.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.hex_viewer_inspector":
+	{
+		"height": 100.0
+	},
+	"output.markdown":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "Packages/LaTeXTools/LaTeX.sublime-build",
+	"project": "thesis.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 311.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

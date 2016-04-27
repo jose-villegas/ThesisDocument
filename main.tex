@@ -110,34 +110,34 @@
 \setcounter{secnumdepth}{3}
 
 \begin{document}
-    \frontmatter
-    % portada
-    \include{cover/cover}
-    % resumen
-    \include{cover/abstract}
-% Tabla de contenido, indice
-	\tableofcontents
-% contenido
-	% \printacronyms[include-classes=abbrev,name=Abreviaturas]
-	\afterpage{\blankpage} % pagina vacia despues del indice
-	% introducction
-	\include{introduction/introduction}
-	% objetivos generales y specificos
-	\include{introduction/goals}
-	% after introduction main matter starts
-    \mainmatter
-	% marco teorico - global illumination
-	\include{chapters/theory/theory}
-	% propuesta de aplicacion
-	\include{chapters/proposal/proposal}
-	% implementacion de aplicacion
-	\include{chapters/implementation/implementation}
-	% pruebas sobre implementacion
-	\include{chapters/tests/tests}
-	% conclusiones finales
-	\include{chapters/conclusion/conclusion}	
-	% Bibliografia
-	\bibliographystyle{IEEEtran}
-	\bibliography{references}
-	\backmatter
+  \frontmatter
+  % portada
+  \include{cover/cover}
+  % resumen
+  \include{cover/abstract}
+  % Tabla de contenido, indice
+  \tableofcontents
+  % contenido
+  % \printacronyms[include-classes=abbrev,name=Abreviaturas]
+  \afterpage{\blankpage} % pagina vacia despues del indice
+  % introducction
+  \include{introduction/introduction}
+  % objetivos generales y specificos
+  \include{introduction/goals}
+  % after introduction main matter starts
+  \mainmatter
+  % marco teorico - global illumination
+  \include{chapters/theory/theory}
+  % propuesta de aplicacion
+  \include{chapters/proposal/proposal}
+  % implementacion de aplicacion
+  \include{chapters/implementation/implementation}
+  % pruebas sobre implementacion
+  \include{chapters/tests/tests}
+  % conclusiones finales
+  \include{chapters/conclusion/conclusion}	
+  % Bibliografia
+  \bibliographystyle{IEEEtran}
+  \bibliography{references}
+  \backmatter
 \end{document}

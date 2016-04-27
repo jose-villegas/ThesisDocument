@@ -1,0 +1,15 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"file_exclude_patterns": 
+			[
+				"*.aux","*.toc","*.out","*.log","*.bbl","*.blg","*.idx","*.gz"
+			]
+		}
+	],
+    "settings": {
+        "TEXroot": "main.tex"
+    }
+}
