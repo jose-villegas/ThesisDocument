@@ -1,0 +1,15 @@
+\subsection{Estudio de Rendimiento}
+
+Para el estudio de rendimiento de utilizo la cantidad de tiempo entre rutinas relevantes a cada prueba en milisegundos. Para obtener tiempos precisos en GPU se utilizó el software GPU PerfStudio y análisis de frame. Este software nos permite observar los detalles en el pipeline de renderizado y tiempo total de cada llamada de dibujo o \emph{draw call} al API grafico OpenGL
+
+\subsubsection{Prueba Base}
+La prueba base de rendimiento comprende todos los pasos del algoritmo sin trazado de sombras o modificaciones sobre la escena estática. Para esta prueba se colocó la aplicación en actualización forzosa de tal manera que todos los pasos del algoritmo se realicen por frame. También se varían tres aspectos de la aplicación: resolución de pantalla, dimensión del volumen de vóxeles y factor de longitud de marcha del cono.
+
+Esta prueba utiliza todas las escenas completas. La configuración del escenario de prueba comprende una luz direccional con mapeado de sombras, y tres modelos precargados. Los modelos utilizados son Stanford Happy Buddha, Stanford Dragon y Stanford Bunny, estos modelos fueron seleccionados por su complejidad geométrica. Cada modelo tiene su propio material con un cono especular con apertura de 45, 27 y 9 grados respectivamente. La camara en escena es colocada de tal forma que todos los fragmentos visibles formen parte del trazado de conos.
+
+
+\subsubsection{Trazado de Sombras y Volumen de Visibilidad}
+
+\subsubsection{Apertura del Cono Especular}
+
+\subsubsection{Apertura del Cono de Sombreado}

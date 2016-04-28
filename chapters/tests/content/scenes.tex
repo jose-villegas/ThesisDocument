@@ -1,10 +1,10 @@
-\section{Escenarios de Prueba}
+\section{Escenarios de Estudio}
 
 En esta sección se describe las distintas escenas y configuraciones a realizar para las distintas pruebas sobre la aplicación.
 
 \subsection{Escenas de Prueba y Objetos}
 
-Para la realización de pruebas de precisión y rendimiento se utilizaran siete escenas las cuales clasificaremos en dos categorías, escenas completas y ambientes de pruebas que llamaremos escenas \emph{sandbox}. Las escenas completas comprenden varios niveles de complejidad en cuanto a geometría e iluminación. La aplicación también incluye una serie de modelos precargados los cuales serán agregados a las escenas, estos objetos son considerados dinámicos.
+Para la realización de pruebas de precisión y rendimiento se utilizaran siete escenas las cuales clasificaremos en dos categorías, escenas completas y ambientes de pruebas que llamaremos escenas \emph{sandbox}. Todas las escenas comprenden varios niveles de complejidad con respecto a geometría e iluminación. La aplicación también incluye una serie de modelos precargados los cuales serán agregados a las escenas, estos objetos son considerados dinámicos.
 
 \subsubsection{Escenas Completas}
 
@@ -77,7 +77,7 @@ Cornell Box Vacío & 24       & 12         & No       & Simple    & Simple      
 \caption{Escenas Sandbox y sus atributos.}
 \end{table}
 
-Light Box es un interior donde los bordes son tan suaves que no hay oclusión ambiental, el interior es totalmente blanco y no hay cambios bruscos en geometría esto hace que la reflexión difusa se propague fácilmente. Plane Test es sencillamente un plano, en una esquina se encuentra un cuboide fino pero de gran altura para permitir la voxelización de objetos sobre el plano. Cornell Box Vacío es la escena completa Cornell Box sin las cajas internas.
+Light Box es un interior donde los bordes son tan suaves que no hay oclusión ambiental, el interior es totalmente blanco y no hay cambios bruscos en geometría, esto maximiza la propagación de luz en esta escena. Plane Test es sencillamente un plano, en una esquina se encuentra un cuboide fino pero de gran altura para permitir la voxelización de objetos sobre el plano. Cornell Box Vacío es la escena completa Cornell Box sin las cajas internas.
 
 \begin{figure}[H]
 	\centering
@@ -99,7 +99,7 @@ Light Box es un interior donde los bordes son tan suaves que no hay oclusión am
 		\centering
 		\captionsetup{justification=centering}
 		\includegraphics[width=\linewidth]{media/scenes/cornell_empty.png}
-		\caption*{Escena Cornell Box Vació con iluminación indirecta con solo una luz puntual.}
+		\caption*{Escena Cornell Box Vació con iluminación indirecta y solo una luz puntual.}
 	\end{subfigure}
 	\caption{Escenas sandbox.}
 	\label{fig:sandboxscenes}
@@ -115,13 +115,13 @@ La aplicación cuenta con una serie de objetos tridimensionales que pueden ser a
 	\label{fig:models}
 \end{figure}
 
-\subsection{Criterios de Complejidad Geométrica e Iluminación}
+\subsubsection{Criterios de Complejidad Geométrica e Iluminación}
 
-El criterio utilizado para determinar la complejidad geométrica de cada escena es la cantidad de triángulos que estas poseen y no la cantidad de objetos a renderizar ya que este es el factor que mayor afecta el proceso de voxelización. 
+Para determinar la complejidad geométrica de cada escena se consideró la cantidad de triángulos que estas poseen y no la cantidad de objetos a renderizar ya que este es el factor que mayor afecta el proceso de voxelización.
 
-Para determinar la complejidad de iluminación se examinaron dos aspectos:
+Para determinar la complejidad de iluminación se consideraron los siguientes aspectos:
 
 \begin{enumerate}
-	\item El nivel de detalle de la representaciones en voxeles de la escena. En la escena Cornell Box la representación en vóxeles es muy similar a la geometría original. En contraste la escena Crytek Sponza difiere considerablemente de la geometría original en lugares con detalles finos como los vasos y plantas de esta escena.
-	\item Secciones ocluidas y facilidad de propagación de luz sobre distintas áreas de la escena. En la escena Cornell Box la luz se propaga fácilmente desde cualquier superficie difusa iluminada a otras partes de la escena. En contraste escenas como Conference Room o Crytek Sponza tienen complicadas secciones de geometría como las sillas del Conference Room y las cortinas inferiores en Crytek Sponza que reducen la luz a pequeños haces.
+	\item El nivel de detalle de la representación en vóxeles de la escena. En la escena Cornell Box la representación en vóxeles es muy similar a la geometría original. En contraste la escena Crytek Sponza difiere considerablemente de la geometría original en lugares con detalles finos como los vasos y plantas de esta escena.
+	\item Secciones ocluidas y facilidad de propagación de luz sobre distintas áreas de la escena. En la escena Cornell Box la luz se propaga fácilmente desde cualquier superficie iluminada a otras partes de la escena. En contraste escenas como Conference Room o Crytek Sponza tienen complicadas secciones de geometría como las sillas del Conference Room y las cortinas inferiores en Crytek Sponza que reducen la luz a pequeños haces.
 \end{enumerate}
