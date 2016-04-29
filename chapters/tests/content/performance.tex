@@ -59,6 +59,21 @@ Sponza      & 16.69                        & 7.01                         \\ \hl
 \label{tab:performance_display}
 \end{table}
 
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Longitud de Marcha & 0.1         & 0.25        & 0.5       & 2.5       \\ \hline
+Escena             & \multicolumn{4}{l|}{Trazado de Conos con Vóxeles} \\ \hline
+Sibenik            & 29.55       & 12.73       & 7.31      & 2.67      \\
+Cornell Box        & 26.80       & 11.57       & 7.23      & 2.68      \\
+Conference         & 29.73       & 12.93       & 7.50      & 2.85      \\
+Sponza             & 29.81       & 12.92       & 7.01      & 2.81      \\ \hline\end{tabular}
+\captionsetup{justification=centering}
+\caption{Rendimiento con distintas configuraciones de la longitud de marcha del cono. Esto solo afecta el trazado de conos con vóxeles.}
+\label{tab:performance_step}
+\end{table}
+
 %Considerando como tiempos interactivos todo resultando por debajo de $33.3 ms$ o aproximadamente 30 cuadros por segundo. Nuestra implementación logra colocarse por debajo de estos tiempos en la mayoría de los casos excepto en resoluciones de volumen mayores a $256^3$ 
 
 
