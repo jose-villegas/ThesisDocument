@@ -16,38 +16,38 @@ Como escenas completas consideramos cuatro escenas comunes para pruebas de ilumi
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 Nombre            & Vértices & Triángulos & Texturas & Geometría & Iluminación \\ \hline
-Crytek Sponza     & 153.635  & 278.163    & Si       & Compleja  & Compleja     \\ \hline
-Conference Room   & 194.399  & 331.179    & No       & Compleja  & Compleja     \\ \hline
-Sibenik Cathedral & 40.479   & 75.283     & Si       & Media     & Media        \\ \hline
+Sponza     & 153.635  & 278.163    & Si       & Compleja  & Compleja     \\ \hline
+Conference   & 194.399  & 331.179    & No       & Compleja  & Compleja     \\ \hline
+Sibenik & 40.479   & 75.283     & Si       & Media     & Media        \\ \hline
 Cornell Box       & 72       & 36         & No       & Simple    & Simple       \\ \hline
 \end{tabular}
 \caption{Escenas completas y sus atributos.}
 \end{table}
 
-\paragraph{Crytek Sponza:} Modelo del atrio del palacio Sponza en Dubrovnik, este modelo originalmente realizado por Marko Dabrovic y luego remodelado por Frank Meinl de Crytek con nuevos elementos como cortinas, vasos y plantas, además de mapas especulares, albedo y normales. Esta es una escena de dimensión considerable con propagación de luz compleja, especialmente en las áreas ocluidas por las cortinas y los pasillos superiores donde la luz difusa rebota luego de pasar a través de varias columnas.
+\paragraph{Sponza:} Modelo del atrio del palacio Sponza en Dubrovnik, este modelo originalmente realizado por Marko Dabrovic y luego remodelado por Frank Meinl de Crytek con nuevos elementos como cortinas, vasos y plantas, además de mapas especulares, albedo y normales. Esta es una escena de dimensión considerable con propagación de luz compleja, especialmente en las áreas ocluidas por las cortinas y los pasillos superiores donde la luz difusa rebota luego de pasar a través de varias columnas.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.65\linewidth]{media/scenes/sponza.png}
-	\caption{Crytek Sponza con solo iluminación directa desde una luz direccional más luz ambiental para visualizar las áreas sombreadas.}
+	\caption{Sponza con solo iluminación directa desde una luz direccional más luz ambiental para visualizar las áreas sombreadas.}
 	\label{fig:crytek_sponza}
 \end{figure}
 
-\paragraph{Conference Room:} Un modelo 3D basado en una sala de conferencias real del \emph{Lawrence Berkeley National Laboratory}. Esa es una escena pequeña pero de gran complejidad geométrica con muchos objetos repetidos. El transporte de luz es particularmente complejo en partes ocluidas como debajo de sillas o la mesa central, la escena es un interior cerrado y la única luz directa exterior entra a través de unas pequeñas rendijas cerca de las cortinas.
+\paragraph{Conference:} Un modelo 3D basado en una sala de conferencias real del \emph{Lawrence Berkeley National Laboratory}. Esa es una escena pequeña pero de gran complejidad geométrica con muchos objetos repetidos. El transporte de luz es particularmente complejo en partes ocluidas como debajo de sillas o la mesa central, la escena es un interior cerrado y la única luz directa exterior entra a través de unas pequeñas rendijas cerca de las cortinas.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.65\linewidth]{media/scenes/conference.png}
-	\caption{Conference Room con solo iluminación directa desde una luz direccional más luz ambiental para visualizar las áreas sombreadas.}
+	\caption{Conference con solo iluminación directa desde una luz direccional más luz ambiental para visualizar las áreas sombreadas.}
 	\label{fig:conference}
 \end{figure}
 
-\paragraph{Sibenik Cathedral:} El interior de una catedral. La luz entra a ella a través de ventanas y se propaga por toda la escena. La escena tiene una sección con columnas ideal para probar sombras. En esta misma sección de columnas hay un piso de mármol que permite apreciar reflexión especular. Una alfombra roja cubre gran parte de la catedral esta permite la visualización de reflexión difusa.
+\paragraph{Sibenik:} El interior de una catedral. La luz entra a ella a través de ventanas y se propaga por toda la escena. La escena tiene una sección con columnas ideal para probar sombras. En esta misma sección de columnas hay un piso de mármol que permite apreciar reflexión especular. Una alfombra roja cubre gran parte de la catedral esta permite la visualización de reflexión difusa.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.65\linewidth]{media/scenes/sibenik.png}
-	\caption{Sibenik Cathedral con solo iluminación directa desde una luz direccional más luz ambiental para visualizar las áreas sombreadas.}
+	\caption{Sibenik con solo iluminación directa desde una luz direccional más luz ambiental para visualizar las áreas sombreadas.}
 	\label{fig:sibenik}
 \end{figure}
 
@@ -66,7 +66,7 @@ Las escenas sandbox son entornos simples y vacíos donde se realizaran pruebas d
 
 \begin{table}[h]
 \centering
-\label{my-label}
+\label{tab:sandbox}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 Nombre            & Vértices & Triángulos & Texturas & Geometría & Iluminación \\ \hline
@@ -122,6 +122,6 @@ Para determinar la complejidad geométrica de cada escena se consideró la canti
 Para determinar la complejidad de iluminación se consideraron los siguientes aspectos:
 
 \begin{enumerate}
-	\item El nivel de detalle de la representación en vóxeles de la escena. En la escena Cornell Box la representación en vóxeles es muy similar a la geometría original. En contraste la escena Crytek Sponza difiere considerablemente de la geometría original en lugares con detalles finos como los vasos y plantas de esta escena.
-	\item Secciones ocluidas y facilidad de propagación de luz sobre distintas áreas de la escena. En la escena Cornell Box la luz se propaga fácilmente desde cualquier superficie iluminada a otras partes de la escena. En contraste escenas como Conference Room o Crytek Sponza tienen complicadas secciones de geometría como las sillas del Conference Room y las cortinas inferiores en Crytek Sponza que reducen la luz a pequeños haces.
+	\item El nivel de detalle de la representación en vóxeles de la escena. En la escena Cornell Box la representación en vóxeles es muy similar a la geometría original. En contraste la escena Sponza difiere considerablemente de la geometría original en lugares con detalles finos como los vasos y plantas de esta escena.
+	\item Secciones ocluidas y facilidad de propagación de luz sobre distintas áreas de la escena. En la escena Cornell Box la luz se propaga fácilmente desde cualquier superficie iluminada a otras partes de la escena. En contraste escenas como Conference o Sponza tienen complicadas secciones de geometría como las sillas en Conference y las cortinas inferiores en Sponza que reducen la luz a pequeños haces.
 \end{enumerate}

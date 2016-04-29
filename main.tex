@@ -6,6 +6,7 @@
 \usepackage{mfirstuc}
 \usepackage{graphicx}
 \usepackage{multicol}
+\usepackage{multirow}
 \usepackage{caption}
 \usepackage{float}
 \usepackage{wrapfig}
@@ -106,6 +107,16 @@
 
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
+
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{60}{1em}}}% no optional argument here, please!
+\newcommand\rotv[1]{\rotatebox[origin=c]{90}{#1}}% no optional argument here, please!
+
+\renewcommand{\arraystretch}{1.2}
 
 \begin{document}
   \frontmatter
