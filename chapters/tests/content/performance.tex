@@ -1,8 +1,8 @@
-\subsection{Estudio de Rendimiento}
+\section{Estudio de Rendimiento}
 
 Para el estudio de rendimiento de utilizo la cantidad de tiempo entre rutinas relevantes a cada prueba en milisegundos. Para obtener tiempos precisos en GPU se utilizó el software GPU PerfStudio y análisis de frame. Este software nos permite observar los detalles en el pipeline de renderizado y tiempo total de cada llamada de dibujo o \emph{draw call} al API grafico OpenGL
 
-\subsubsection{Prueba Base}
+\subsection{Prueba Base}
 La prueba base de rendimiento comprende todos los pasos del algoritmo sin trazado de sombras o modificaciones sobre la escena estática. Para esta prueba se colocó la aplicación en actualización forzosa de tal manera que todos los pasos del algoritmo se realicen por frame. También se varían tres aspectos de la aplicación: resolución de pantalla, dimensión del volumen de vóxeles y factor de longitud de marcha del cono.
 
 Esta prueba utiliza todas las escenas completas. La configuración del escenario comprende una luz direccional con mapeado de sombras, y tres modelos precargados. Los modelos utilizados son Stanford Happy Buddha, Stanford Dragon y Stanford Bunny, estos modelos fueron seleccionados por su complejidad geométrica. Cada modelo tiene su propio material con un cono especular con apertura de 45, 27 y 9 grados respectivamente. La cámara en escena es colocada de tal forma que todos los fragmentos visibles formen parte del trazado de conos. 
@@ -39,7 +39,7 @@ Esta prueba utiliza todas las escenas completas. La configuración del escenario
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Sponza}      & \multicolumn{1}{l|}{9.05}     & 4.55                                  & \multicolumn{1}{l|}{1.39}     & 6.87                         & \multicolumn{1}{l|}{11.16}     & 28.09                                 & \multicolumn{1}{l|}{10.79}     & \multicolumn{1}{l|}{7.64}            & \multicolumn{1}{l|}{70.49} \\ \hline
 \end{tabular}
 \captionsetup{justification=centering}
-\caption{Rendimiento bajo distintas resoluciones de la representación en vóxeles, todos los pasos del algoritmo se ven afectados por este parámetro.}
+\caption{Rendimiento en contraste con la tabla \ref{tab:performance_base} considerando distintas resoluciones para la representación en vóxeles, todos los pasos del algoritmo se ven afectados por este parámetro.}
 \label{tab:performance_depth}
 \end{table}
 
@@ -74,11 +74,17 @@ Sponza             & 29.81       & 12.92       & 7.01      & 2.81      \\ \hline
 \label{tab:performance_step}
 \end{table}
 
-%Considerando como tiempos interactivos todo resultando por debajo de $33.3 ms$ o aproximadamente 30 cuadros por segundo. Nuestra implementación logra colocarse por debajo de estos tiempos en la mayoría de los casos excepto en resoluciones de volumen mayores a $256^3$ 
+Considerando como tiempos interactivos todo resultado por debajo de $33.3 ms$ o aproximadamente 30 cuadros por segundo. Nuestra implementación logra colocarse por debajo de estos tiempos en todos los casos excepto los casos que comprenden resoluciones de volumenes mayores a $256^3$.
 
+\subsubsection{Densidad Geometrica y Velocidad de Voxelizacion.}
+La cantidad de triangulos dentro del volumen que representa un voxel afecta la velocidad de voxelizacion, esto debido a que este proceso requiere sincronizacion entre distintos hilos por fragmento. A mayor cantidad de triangulos por voxel mayor es la cantidad de fragmentos generados, cada uno de estos fragmentos compite por escribir en la misma posicion del volumen.
 
-\subsubsection{Trazado de Sombras y Volumen de Visibilidad}
+Se puede observar este efecto especialmente en la escena Conference. Esta es una escena pequena en escala, sin embargo de todas las escenas completas es la que posee mayor cantidad de triangulos. Tambien es notable como disminuye el tiempo de voxelizacion para algunas escenas al aumentar la resolucion del volumen y como aumenta al utilizar menores resoluciones, especialmente el salto entre $128^3$ a $6^34$.
 
-\subsubsection{Apertura del Cono Especular}
+\subsubsection{Vacuidad y Velocidad de Trazado.}
 
-\subsubsection{Apertura del Cono de Sombreado}
+\subsection{Trazado de Sombras y Volumen de Visibilidad}
+
+\subsection{Apertura del Cono Especular}
+
+\subsection{Apertura del Cono de Sombreado}
