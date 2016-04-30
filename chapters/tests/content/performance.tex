@@ -102,7 +102,7 @@ En la imagen \ref{fig:voxelization_times} se puede observar esta condición, esp
 		\includegraphics[width=\linewidth]{media/voxelzation_512_cropped.pdf}	
 		\caption*{Resolución de volúmenes: $512^3$}
 	\end{subfigure}
-	\caption{Tiempos de voxelización dinámica y estática de escenas completas con distintas resoluciones para la representación en vóxeles.}
+	\caption{Tiempos de voxelización dinámica y estática de escenas completas con distintas resoluciones para la representación en vóxeles. Tabla \ref{tab:performance_depth}}
 	\label{fig:voxelization_times}
 \end{figure}
 
@@ -126,15 +126,17 @@ Este problema se puede observar en la figura \ref{fig:gi_voxel_time} para las es
 
 La aplicación provee sombras suaves para luces direccionales, puntuales y focales utilizando trazado de conos. Si no se sombrea la representación en vóxeles la imagen resultante es incorrecta a pesar de definir los contornos de sombreado. La razón es que el trazado de conos para la iluminación indirecta consideraría estos vóxeles como iluminados en vez de ocluidos por sombras. Nuestra implementación provee un método de inclusión de sombras suaves durante el sombreado de vóxeles. En esta sección se examina el rendimiento de las distintas opciones para el trazado de sombras que provee nuestra implementación excepto mapeado de sombras (sección \ref{subsec:shadowmapping}) disponible solo para luces direccionales.
 
-Para estas pruebas se utilizaron todas las escenas completas. La configuración del escenario consto de solo una luz puntual con trazado de sombras habilitado. La cámara en escena fue colocada de tal forma que todos los píxeles visibles formen parte del trazado de conos. Con respecto a la configuración de la aplicación, se activó el modo de actualización forzosa para simular luces en constante movimiento y se desactivo la iluminación global de vóxeles. La resolución de la representación en vóxeles utilizada fue de $256^3$ y el factor de longitud de marcha del cono fue $0.5$.
+Para estas pruebas se utilizaron todas las escenas completas. La configuración del escenario consto de solo una luz puntual con trazado de sombras habilitado. La cámara en escena fue colocada de tal forma que todos los píxeles visibles formen parte del trazado de conos. 
 
-Para estas pruebas se estudió las distintas opciones en la aplicación relevantes al trazado de sombras. Estas opciones comprenden: trazado de sombras durante el sombreado de vóxeles, trazado de sombras con trazado de conos y vóxeles o muestreo del volumen de visibilidad y distintas aperturas del cono utilizado para trazado de sombras.
+Con respecto a la configuración de la aplicación, se activó el modo de actualización forzosa para simular luces en constante movimiento y se desactivo la iluminación global de vóxeles. La resolución de la representación en vóxeles utilizada fue de $256^3$ y el factor de longitud de marcha del cono fue $0.5$.
+
+Este estudió considera las distintas opciones en la aplicación relevantes al trazado de sombras. Estas opciones comprenden: trazado de sombras durante el sombreado de vóxeles, trazado de sombras con trazado de conos y vóxeles o muestreo del volumen de visibilidad.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{lll}
                                   &                                           &                                                                \\ \hline
-\multicolumn{1}{|l|}{Escena}      & \multicolumn{1}{l|}{Sombreado de Voxeles} & \multicolumn{1}{l|}{+Trazado de Sombras} \\ \hline
+\multicolumn{1}{|l|}{Escena}      & \multicolumn{1}{l|}{Sombreado de Voxeles} & \multicolumn{1}{l|}{Sombreado y Trazado de Sombras} \\ \hline
 \multicolumn{1}{|l|}{Sibenik}     & \multicolumn{1}{l|}{0.95}                 & \multicolumn{1}{l|}{4.57}                                      \\
 \multicolumn{1}{|l|}{Cornell Box} & \multicolumn{1}{l|}{1.33}                 & \multicolumn{1}{l|}{20.32}                                     \\
 \multicolumn{1}{|l|}{Conference}  & \multicolumn{1}{l|}{0.86}                 & \multicolumn{1}{l|}{4.77}                                      \\
@@ -147,11 +149,11 @@ Para estas pruebas se estudió las distintas opciones en la aplicación relevant
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.95\linewidth]{media/voxelshading_shadow_cropped.pdf}
-	\caption{Grafica para el tiempo agregado al sombreado de vóxeles con trazado de sombras.}
+	\caption{Grafica para el tiempo agregado al sombreado de vóxeles con trazado de sombras. Tabla \ref{tab:voxelshading_shadowing}.}
 	\label{fig:voxelshading_shadowing}
 \end{figure}
 
-En la imagen \ref{fig:voxelshading_shadowing} se puede observar un incremento del tiempo de cómputo invertido durante el sombreado de vóxeles al incluir sombras trazadas sobre el volumen. En la escena Cornell Box el incremento es mucho mayor al de las demás escenas. La razón es que esta escena es en gran parte vacía, por lo tanto la mayoría de los rayos trazados tienen que recorrer un largo camino antes de culminar. Sin embargo, la escena Sponza a pesar de tener los mismos problemas de vacuidad ya explicados en la sección \ref{subsubsec:emptyness} tiene un tiempo agregado similar a las demás escenas sin estos problemas. Esto se debe principalmente a que la fuente de luz puntual se encuentra en el interior de la escena. La posición de la fuente de luz a trazar en la escena afecta directamente el rendimiento, ya que esta determina en promedio que tan rápido la mayoría de los rayos terminan su recorrido.
+En la imagen \ref{fig:voxelshading_shadowing} se puede observar un incremento del tiempo de cómputo invertido durante el sombreado de vóxeles al incluir sombras trazadas sobre el volumen. En la escena Cornell Box este incremento es mucho mayor al de las demás escenas. La razón es que esta escena es en gran parte vacía, por lo tanto la mayoría de los rayos trazados tienen que recorrer un largo camino antes de culminar. Sin embargo, la escena Sponza a pesar de tener los mismos problemas de vacuidad ya explicados en la sección \ref{subsubsec:emptyness} tiene un tiempo agregado similar a las demás escenas sin estos problemas. Esto se debe principalmente a que la fuente de luz puntual se encuentra en el interior de la escena. La posición de la fuente de luz a trazar en la escena afecta directamente el rendimiento, ya que esta determina en promedio que tan rápido la mayoría de los rayos terminan su recorrido.
 
 \begin{table}[H]
 \centering
@@ -170,15 +172,15 @@ En la imagen \ref{fig:voxelshading_shadowing} se puede observar un incremento de
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.95\linewidth]{media/shadowtrace_time_cropped.pdf}
-	\caption{Grafica para el tiempo agregado al trazado de conos con vóxeles para el cálculo de iluminación indirecta. Se muestra el tiempo de inclusión de sombras utilizando mapeo del volumen de visibilidad y trazado de conos para sombras suaves.}
+	\caption{Grafica para el tiempo agregado al trazado de conos con vóxeles para el cálculo de iluminación indirecta. Se muestra el tiempo de inclusión de sombras utilizando mapeo del volumen de visibilidad y trazado de conos para sombras suaves. Tabla \ref{tab:shadowcone5}}
 	\label{fig:voxeltrace_shadowing}
 \end{figure}
 
-El mapeo del volumen de visibilidad ofrece mayor rendimiento a cambio de menor calidad de sombras. Trazado de conos con vóxeles incluye el tiempo invertido en mapeo de sombras en la prueba base \ref{tab:performance_base}. En contraste el mapeo del volumen de visibilidad es mucho más rápido ya que este solo es una instrucción de lectura más una simple operación aritmética para convertir la posición en espacio de mundo a una coordenada en espacio de textura. En algunos casos el trazado de conos para sombras puede incluso ser más rápido que la técnica de mapeo de sombras. Esto se observa en la escena Conference, la razón es que esta es una escena pequeña en escala y densa en geometría, los conos trazados suelen terminar rápidamente.
+El mapeo del volumen de visibilidad ofrece mayor rendimiento a cambio de menor calidad de sombras. El trazado de conos con vóxeles incluye el tiempo invertido en mapeo de sombras en la prueba base \ref{tab:performance_base}. En contraste el mapeo del volumen de visibilidad es mucho más rápido ya que este solo es una instrucción de lectura más una simple operación aritmética para convertir la posición en espacio de mundo a una coordenada en espacio de textura. En algunos casos el trazado de conos para sombras puede incluso ser más rápido que la técnica de mapeo de sombras. Esto se observa en la escena Conference, la razón es que esta es una escena pequeña en escala y densa en geometría, los conos trazados suelen terminar rápidamente.
 
 \subsection{Apertura del Cono Especular y Cono de Sombras}
 
-La apertura del cono de trazado afecta directamente el rendimiento del trazado de conos con voxeles. Mientras más fino es este cono más lenta es su expansión a través del espacio en escena ya que el incremento de la longitud de marchado es mucho más lenta. También mientras más fino es este cono mayor tiempo se invierte en los niveles más altos de detalle en la representación de vóxeles, en la tabla \ref{tab:performance_depth} se puede observar que a mayor resolución del volumen mayor es el tiempo de trazado.
+La apertura de los conos a trazar afecta directamente el rendimiento del trazado de conos con vóxeles. Mientras más fino es este cono más lenta es su expansión a través del espacio en escena ya que el incremento de la longitud de marchado es mucho más lenta. También mientras más fino es este cono mayor tiempo se invierte en los niveles más altos de detalle en la representación de vóxeles, en la tabla \ref{tab:performance_depth} se puede observar que a mayor resolución del volumen mayor es el tiempo de trazado.
 
 El objetivo de estas pruebas es demostrar la diferencia en rendimiento según distintas configuraciones de apertura del cono especular y el cono utilizado para el trazado de sombras suaves.
 
@@ -186,7 +188,17 @@ Para ambas pruebas se utilizó solo la escena completa Cornell Box. Para la prue
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\linewidth]{media/shadowcone_aperture_cropped.pdf}
-	\caption{Tiempo de trazado de conos con vóxeles con distintas aperturas del cono para el trazado de sombras suaves.}
-	\label{fig:shadowcone_aperture}
+	\begin{subfigure}{.7\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{media/shadowcone_aperture_cropped.pdf}
+		\caption{Tiempo de trazado de conos con vóxeles con distintas aperturas del cono para el trazado de sombras suaves.}
+		\label{fig:shadowcone_aperture}
+	\end{subfigure}
+	\par\bigskip
+	\begin{subfigure}{.7\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{media/specularcone_aperture_cropped.pdf}
+		\caption{Tiempo de trazado de conos con vóxeles con distintas aperturas del cono especular.}
+		\label{fig:specularcone_aperture}
+	\end{subfigure}
 \end{figure}
