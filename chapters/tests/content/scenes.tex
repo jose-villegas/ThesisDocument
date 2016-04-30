@@ -12,7 +12,6 @@ Como escenas completas consideramos cuatro escenas comunes para pruebas de ilumi
 
 \begin{table}[h]
 \centering
-\label{tab:scenes_attributes}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 Nombre            & Vértices & Triángulos & Texturas & Geometría & Iluminación \\ \hline
@@ -22,6 +21,7 @@ Sibenik & 40.479   & 75.283     & Si       & Media     & Media        \\ \hline
 Cornell Box       & 72       & 36         & No       & Simple    & Simple       \\ \hline
 \end{tabular}
 \caption{Escenas completas y sus atributos.}
+\label{tab:scenes_attributes}
 \end{table}
 
 \paragraph{Sponza:} Modelo del atrio del palacio Sponza en Dubrovnik, este modelo originalmente realizado por Marko Dabrovic y luego remodelado por Frank Meinl de Crytek con nuevos elementos como cortinas, vasos y plantas, además de mapas especulares, albedo y normales. Esta es una escena de dimensión considerable con propagación de luz compleja, especialmente en las áreas ocluidas por las cortinas y los pasillos superiores donde la luz difusa rebota luego de pasar a través de varias columnas.
@@ -66,7 +66,6 @@ Las escenas sandbox son entornos simples y vacíos donde se realizaran pruebas d
 
 \begin{table}[h]
 \centering
-\label{tab:sandbox}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 Nombre            & Vértices & Triángulos & Texturas & Geometría & Iluminación \\ \hline
@@ -75,6 +74,7 @@ Plane Test        & 16       & 24         & No       & Simple    & Simple       
 Cornell Box Vacío & 24       & 12         & No       & Simple    & Simple       \\ \hline
 \end{tabular}
 \caption{Escenas Sandbox y sus atributos.}
+\label{tab:sandbox}
 \end{table}
 
 Light Box es un interior donde los bordes son tan suaves que no hay oclusión ambiental, el interior es totalmente blanco y no hay cambios bruscos en geometría, esto maximiza la propagación de luz en esta escena. Plane Test es sencillamente un plano, en una esquina se encuentra un cuboide fino pero de gran altura para permitir la voxelización de objetos sobre el plano. Cornell Box Vacío es la escena completa Cornell Box sin las cajas internas.
