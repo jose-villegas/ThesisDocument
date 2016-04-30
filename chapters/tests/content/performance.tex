@@ -5,7 +5,7 @@ Para el estudio de rendimiento de utilizo la cantidad de tiempo entre rutinas re
 \subsection{Prueba Base}
 La prueba base de rendimiento comprende todos los pasos del algoritmo sin trazado de sombras o modificaciones sobre la escena estática. Para esta prueba se colocó la aplicación en actualización forzosa de tal manera que todos los pasos del algoritmo se realicen por frame. También se varían tres aspectos de la aplicación: resolución de pantalla, dimensión de la representación en vóxeles y factor de longitud de marcha del cono.
 
-Esta prueba utiliza todas las escenas completas. La configuración del escenario comprende una luz direccional con mapeado de sombras, y tres modelos precargados. Los modelos utilizados son Stanford Happy Buddha, Stanford Dragon y Stanford Bunny, estos modelos fueron seleccionados por su complejidad geométrica. Cada modelo tiene su propio material con un cono especular de apertura 45, 27 y 9 grados respectivamente. La cámara en escena es colocada de tal forma que todos los fragmentos visibles formen parte del trazado de conos. 
+Estas pruebas utilizan todas las escenas completas. La configuración del escenario comprende una luz direccional con mapeado de sombras, y tres modelos precargados. Los modelos utilizados son Stanford Happy Buddha, Stanford Dragon y Stanford Bunny, estos modelos fueron seleccionados por su complejidad geométrica. Cada modelo tiene su propio material con un cono especular de apertura 45, 27 y 9 grados respectivamente. La cámara en escena es colocada de tal forma que todos los fragmentos visibles formen parte del trazado de conos. 
 
 \begin{table}[h]
 \centering
@@ -110,7 +110,9 @@ En la imagen \ref{fig:voxelization_times} se puede observar esta condición, esp
 
 En escenas donde existen muchos espacios vacíos el trazado de rayos suele tardar un poco más que en escenas densas de objetos. Esto se debe a que mientras la representación en vóxeles sea vacía en la posición que describe la apertura, dirección y punto de origen del cono, este cono debe seguir expandiéndose. A consecuencia mientras más espacios vacíos la representación en vóxeles tenga, más distancia tiene que recorrer cada cono aumentando la cantidad de operaciones de lectura sobre la representación en vóxeles.
 
-Este problema se puede observar en la figura \ref{fig:gi_voxel_time} para las escenas Sponza y Cornell Box. La escena Cornell Box es en gran parte vacua con solo dos cuboides internos. La escena Sponza es densa en su interior por tanto la falta de objetos no es el principal problema. El problema de la Sponza reside en que la escena es larga y alta pero no ancha. Durante la voxelización cada triángulo se proyecta de forma ortogonal sobre cada eje para maximizar la voxelización, este frustum de proyección es cuadrado. Para las dimensiones de esta escena siempre quedara una cantidad considerable de vóxeles vacíos fuera de la geometría principal de la escena.
+Este problema se puede observar en la figura \ref{fig:gi_voxel_time} para las escenas Sponza y Cornell Box. La escena Cornell Box es en gran parte vacua con solo dos cuboides internos. La escena Sponza es densa en su interior por tanto la falta de objetos no es el principal problema. El problema de la Sponza reside en que la escena es larga y alta pero no ancha. Durante la voxelización cada triángulo se proyecta de forma ortogonal sobre cada eje para maximizar la voxelización, este frustum de proyección es cuadrado. Para las dimensiones de esta escena siempre quedara una cantidad considerable de vóxeles vacíos fuera de la geometría principal de la escena. 
+
+% Una forma de evitar estos problemas en escenas como Sponza es comprobar que la posicion de trazado actual esta fuera de los limites de la escena, sin embargo esto puede ocasionar problemas visuales dependiendo de la apertura del cono en ese punto, para limitar correctamente el punto de trazado con respecto a los limites de la escena es necesario calcular la interseccion del cono contra el volumen delimitante.
 
 \begin{figure}[h]
 	\centering
@@ -121,6 +123,12 @@ Este problema se puede observar en la figura \ref{fig:gi_voxel_time} para las es
 
 \subsection{Trazado de Sombras y Volumen de Visibilidad}
 
-\subsection{Apertura del Cono Especular}
+La aplicación provee sombras suaves para luces direccionales, puntuales y focales utilizando trazado de conos. Si no se sombrea la representación en vóxeles la imagen resultante es incorrecta a pesar de definir los contornos de sombreado. La razón es que el trazado de conos para la iluminación indirecta consideraría estos vóxeles como iluminados en vez de ocluidos por sombras. Nuestra implementación provee un método de inclusión de sombras suaves durante el sombreado de vóxeles. En esta sección se examina el rendimiento de las distintas opciones para el trazado de sombras que provee nuestra implementación excepto mapeado de sombras disponible solo para luces direccionales.
 
-\subsection{Apertura del Cono de Sombreado}
+Estas pruebas utilizan todas las escenas completas. La configuración del escenario comprende solo una luz puntual con trazado de sombras habilitado. La cámara en escena es colocada de tal forma que todos los fragmentos visibles formen parte del trazado de conos. Con respecto a la configuración de la aplicación, se activo el modo de actualizacion forzosa para simular luces en constante movimiento y se desactivo la illuminacion global de voxeles.
+
+Para estas pruebas se consideran distintas opciones en la aplicacion relevantes al trazado de sombras. Estas opciones comprenden: trazado de sombras durante el sombreado de vóxeles, trazado de sombras con trazado de conos y vóxeles o muestreo del volumen de visibilidad y distintas aperturas del cono utilizado para trazado de sombras.
+
+
+
+\subsection{Apertura del Cono Especular}
