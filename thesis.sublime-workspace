@@ -508,26 +508,10 @@
 			}
 		},
 		{
-			"file": "chapters/tests/content/scenes.tex",
-			"settings":
-			{
-				"buffer_size": 8818,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/tests/content/performance.tex",
-			"settings":
-			{
-				"buffer_size": 17565,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "main.pdf",
 			"settings":
 			{
-				"buffer_size": 15852966,
+				"buffer_size": 68381991,
 				"line_ending": "Unix"
 			}
 		},
@@ -535,7 +519,7 @@
 			"file": "chapters/tests/content/memory.tex",
 			"settings":
 			{
-				"buffer_size": 32,
+				"buffer_size": 29,
 				"line_ending": "Windows"
 			}
 		},
@@ -543,8 +527,16 @@
 			"file": "chapters/tests/content/quality.tex",
 			"settings":
 			{
-				"buffer_size": 41,
+				"buffer_size": 25966,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "references.bib",
+			"settings":
+			{
+				"buffer_size": 11823,
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -583,7 +575,7 @@
 			"file": "cover/cover.tex",
 			"settings":
 			{
-				"buffer_size": 874,
+				"buffer_size": 878,
 				"line_ending": "Unix"
 			}
 		}
@@ -596,9 +588,13 @@
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "latex",
+		"last_filter": "package",
 		"selected_items":
 		[
+			[
+				"package",
+				"Package Control: List Packages"
+			],
 			[
 				"latex",
 				"LaTeXTools: View PDF"
@@ -656,11 +652,16 @@
 		"/D/Documents/Projects/Thesis/chapters/tests/content",
 		"/D/Documents/Projects/Thesis/chapters/theory",
 		"/D/Documents/Projects/Thesis/chapters/theory/content",
+		"/D/Documents/Projects/Thesis/cover",
 		"/D/Documents/Projects/Thesis/introduction",
-		"/D/Documents/Projects/Thesis/media/scenes"
+		"/D/Documents/Projects/Thesis/media"
 	],
 	"file_history":
 	[
+		"/D/Documents/Projects/Thesis/chapters/tests/content/scenes.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/performance.tex",
+		"/F/Tesis/seminar/references.bib",
+		"/D/Documents/Projects/Thesis/media/shadowtrace_time_cropped.pdf",
 		"/D/Documents/Projects/Thesis/thesis.sublime-project",
 		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
 		"/D/Dropbox/voxelshading.vs",
@@ -729,6 +730,53 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Emisivos",
+			"spec_reflex",
+			"angulo",
+			"bigskip",
+			"s100",
+			"s050",
+			"sibenik_",
+			"distintas resoluciones para la representacion en voxeles",
+			"cornell_",
+			"_128",
+			"_256",
+			"gi_256",
+			"sibenik_",
+			"cornell_",
+			"\\caption*{}",
+			"\\caption*{$",
+			"$)",
+			"($",
+			"_128",
+			"_256",
+			"conf_",
+			"\\par\\bigskip",
+			".32",
+			"sibenik_",
+			"cornell_",
+			"[t]",
+			"sponza_",
+			"sibenik_",
+			"\\caption*",
+			"sibenik_",
+			"conf_",
+			"cornell_",
+			"linewidth",
+			"cornell",
+			"cornell_",
+			"\\end{subfigure}%",
+			"\\end{subfigure}",
+			"diff",
+			"perc",
+			"perce",
+			"pixel",
+			"xeles",
+			"pix",
+			"fragmentos visibles",
+			"33",
+			"2.17",
+			"Room",
 			"subsubsec:emptyness",
 			"subsubsection",
 			"\\rot{",
@@ -809,54 +857,7 @@
 			"boxMax",
 			"boxMin",
 			"tLeave",
-			"tEnter",
-			"Point",
-			"point",
-			"Point",
-			"point",
-			"cubemin",
-			"cubemax",
-			"cubemin",
-			"point",
-			"position",
-			"tracePosition",
-			"visibleFace",
-			"tracePosition",
-			"TraceCone",
-			"samplePosition",
-			"tracePosition",
-			"samplePos",
-			"aoAlpha",
-			"coneStepFactor",
-			"position",
-			"anisoSample",
-			"indirec",
-			"voxelComposite",
-			"propagationDirections",
-			"anisoLevel",
-			"volumeDimension",
-			"anisoLevel",
-			"mipLevel",
-			"20",
-			"3.0f *",
-			"position",
-			"wsPosition",
-			"volumeDimension.z",
-			".z",
-			"volumeDimension.z",
-			"3.0f * ",
-			"up",
-			"right",
-			"f,",
-			",",
-			"1",
-			"0",
-			"1",
-			"B",
-			"T",
-			"N",
-			"helper",
-			"baseColor"
+			"tEnter"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -874,7 +875,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -904,73 +905,16 @@
 						"translation.y": 336.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "chapters/tests/content/scenes.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8818,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8818,
-								8818
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1795.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "chapters/tests/content/performance.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 17565,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								17565
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2366.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "main.pdf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15852966,
+						"buffer_size": 68381991,
 						"regions":
 						{
 						},
@@ -989,24 +933,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 2,
 					"file": "chapters/tests/content/memory.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 32,
+						"buffer_size": 29,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								32,
-								32
+								29,
+								29
 							]
 						],
 						"settings":
@@ -1017,40 +961,71 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 3,
 					"file": "chapters/tests/content/quality.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 41,
+						"buffer_size": 25966,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								41,
-								41
+								0,
+								25966
 							]
 						],
 						"settings":
 						{
 							"auto_name": "",
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 10552.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 4,
+					"file": "references.bib",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11823,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								11823
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/Bibtex.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 84.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
 					"file": "chapters/tests/tests.tex",
 					"semi_transient": false,
 					"settings":
@@ -1074,11 +1049,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 6,
 					"file": "chapters/tests/content/enviroment.tex",
 					"semi_transient": false,
 					"settings":
@@ -1102,11 +1077,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 7,
 					"file": "chapters/theory/content/global_illumination.tex",
 					"semi_transient": false,
 					"settings":
@@ -1130,11 +1105,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 8,
 					"file": "chapters/theory/content/techniques.tex",
 					"semi_transient": false,
 					"settings":
@@ -1159,24 +1134,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 9,
 					"file": "cover/cover.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 874,
+						"buffer_size": 878,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								765,
-								765
+								288,
+								288
 							]
 						],
 						"settings":
@@ -1187,7 +1162,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
