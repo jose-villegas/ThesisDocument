@@ -1,6 +1,6 @@
 \section{Estudio de Rendimiento}
 
-Para el estudio de rendimiento de utilizo la cantidad de tiempo entre rutinas relevantes a cada prueba en milisegundos. Para obtener tiempos precisos en GPU se utilizó el software GPU PerfStudio y análisis de frame. Este software nos permite observar los detalles en el pipeline de renderizado y tiempo total de cada llamada de dibujo o \emph{draw call} al API grafico OpenGL
+Para el estudio de rendimiento de utilizo la cantidad de tiempo entre rutinas relevantes a cada prueba en milisegundos. Para obtener tiempos precisos en la \ac{GPU} se utilizó el software GPU PerfStudio y análisis de frame. Este software nos permite observar los detalles en el pipeline de renderizado y tiempo total de cada llamada de dibujo o \emph{draw call} al API grafico OpenGL
 
 \subsection{Prueba Base}
 La prueba base de rendimiento comprende todos los pasos del algoritmo sin trazado de sombras o modificaciones sobre la escena estática. Para esta prueba se colocó la aplicación en actualización forzosa de tal manera que todos los pasos del algoritmo se realicen por frame. También se varían tres aspectos de la aplicación: resolución de pantalla, dimensión de la representación en vóxeles y factor de longitud de marcha del cono.

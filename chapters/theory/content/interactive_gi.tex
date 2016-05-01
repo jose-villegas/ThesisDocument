@@ -130,7 +130,7 @@ Primero la escena es renderizada utilizando proyección ortogonal. Cada triangul
 	\label{fig:miplevels}
 \end{wrapfigure}
 
-Una vez llena la lista de vóxeles-fragmentos. Se genera un hilo de procesamiento por cada fragmento en la lista. Los fragmentos son introducidos en el árbol disperso que inicialmente solo tiene un nodo raíz. Cada vez que un nodo de este octree necesita ser dividido un nuevo nodo es creado y se almacena sobre memoria ya reservada en GPU. La posición del nodo en memoria es determinada por un contador atómico, el cual se incrementa con cada nuevo nodo. Al inicio del proceso de subdivisión de los nodos es de esperar una gran cantidad de colisiones entre hilos, por esto cada nodo tiene asociado un símbolo mutex.
+Una vez llena la lista de vóxeles-fragmentos. Se genera un hilo de procesamiento por cada fragmento en la lista. Los fragmentos son introducidos en el árbol disperso que inicialmente solo tiene un nodo raíz. Cada vez que un nodo de este octree necesita ser dividido un nuevo nodo es creado y se almacena sobre memoria ya reservada en la \ac{GPU}. La posición del nodo en memoria es determinada por un contador atómico, el cual se incrementa con cada nuevo nodo. Al inicio del proceso de subdivisión de los nodos es de esperar una gran cantidad de colisiones entre hilos, por esto cada nodo tiene asociado un símbolo mutex.
 
 \subsubsection{Contenido de un Vóxel}
 
