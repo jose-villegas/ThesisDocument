@@ -1,49 +1,15 @@
 \chapter{Solución Propuesta}
 \label{chap:proposal}
 
-\section{Voxelizacion} % (fold)
-\label{sec:voxelizacion}
+Un componente de considerable importancia en la composición de imágenes realistas es la iluminación. Para el cálculo de iluminación directa bajo el pipeline de renderizado estándar ya se tienen décadas de estudio y distintas técnicas que permiten tiempos de renderizado muy cortos en hardware moderno. En contraste el cálculo de iluminación indirecta sigue siendo una tarea computacionalmente compleja. 
 
-% section voxelizacion (end)
-\subsection{Voxelizacion Dinamica} % (fold)
-\label{sub:voxelizacion_dinamica}
+Para el cálculo de iluminación indirecta existen varios procedimientos muchos de estos inspirados en los ya explicados en la sección \ref{sub:render_eq_procedures}. Sin embargo estos procedimientos no están pensados para renderizado en tiempo real. En la sección \ref{sec:interactive_gi_takes} examinamos algunas aproximaciones para el cálculo de iluminación indirecta en tiempo real, estas técnicas explotan ciertas características de hardware o recursos del pipeline de renderizado.
 
-% subsection voxelizacion_dinamica (end)
+Nuestra implementación para el cálculo de iluminación global en tiempo real está fuertemente inspirada por el trabajo de Crassin y otros en 2011 \cite{CNSGE11b}. Este trabajo ya fue examinado en la sección \ref{sub:voxel_cone_tracing_orig}. La técnica fue escogida por que además de reflexión difusa también permite el cálculo de superficies lustrosas con reflexión especular a diferencia de otras técnicas como \ac{LPV} que solo permiten reflexión difusa. Una ventaja de esta aproximación es que los valores de radiancia ya se encuentran almacenados sobre una representación con vóxeles. Esto acelera el cálculo de luz incidente bajo el esquema de integración Monte Carlo visto en la sección \ref{subsec:monte_carlo_raytracing}, en este caso los conos permiten realizar una cruda aproximación de un grupo de rayos. Además de esto el algoritmo puede ser usado en escenas totalmente dinámicas.
 
-\section{Sombreado de Voxeles}
-
-\subsection{Trazado de Sombras sobre el Bolumen} % (fold)
-\label{sub:trazado_de_sombras}
-
-% subsection trazado_de_sombras (end)
-
-\section{Estructura Jerarquica} % (fold)
-\label{sec:estructura_jerarquica}
-
-% section estructura_jerarquica (end)
-
-
-\subsection{Mipmapping Direccional} % (fold)
-\label{sub:mipmapping_direccioanl}
-
-% section mipmapping_direccioanl (end)
-
-\section{Trazado de Conos con Voxeles} % (fold)
-\label{sec:trazado_de_conos_con_voxeles}
-
-\subsection{Sombras Suaves con Trazado de Conos} % (fold)
-\label{sub:sombras_suaves_con_trazado_de_conos}
-
-% subsection sombras_suaves_con_trazado_de_conos (end)
-
-% section trazado_de_conos_con_voxeles (end)
-
-\section{Iluminacion Global de Voxeles} % (fold)
-\label{sec:iluminacion_global_de_voxeles}
-
-% section iluminacion_global_de_voxeles (end)
-
-\section{Materiales Emisivos} % (fold)
-\label{sec:materiales_emisivos}
-
-% section materiales_emisivos (end)
+\input{chapters/proposal/content/voxelization}
+\input{chapters/proposal/content/voxel_shading}
+\input{chapters/proposal/content/voxel_structure}
+\input{chapters/proposal/content/cone_tracing}
+\input{chapters/proposal/content/voxel_gi}
+\input{chapters/proposal/content/emissive_voxels}

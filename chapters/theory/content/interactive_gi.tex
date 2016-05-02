@@ -1,4 +1,5 @@
 \section{Iluminación Global en Tiempo Real.}
+\label{sec:interactive_gi_takes}
 En esta sección se examinan algunos algoritmos para el cálculo de iluminación global en tiempos interactivos o \emph{real-time}. Iluminación indirecta con trazado de conos y vóxeles es revisada con detalle ya que esta técnica es de particular interés para este trabajo.
 
 \subsection{Luces Puntuales Virtuales}
@@ -108,6 +109,7 @@ Para una correcta propagación de la luz el algoritmo necesita conocer la geomet
 La propagación de luz se realiza de forma iterativa. La intensidad de luz en cada iteración es propagada a 6 vecinos por celda según eje direccional principal. Primero por cada celda adyacente el flujo de radiancia incidente por cada una de las celdas es calculado. Luego el flujo incidente de cada celda es transformado en emitancia radiante. Esto se logra creando \ac{VPL}s, cada una de estas luces virtuales colocadas sobre una de las caras de la celda y emitiendo un flujo radiancia similar el flujo de radiancia de la celda. Estas \ac{VPL} son acumuladas dentro del \ac{LPV} de nuevo y almacenadas como esféricos harmónicos utilizando el mismo proceso de inyección del primer paso. 
 
 \subsection{Iluminación Indirecta con Trazado de Conos y Vóxeles}
+\label{sub:voxel_cone_tracing_orig}
 Este algoritmo es presentado por Crassin y otros en 2011 \cite{CNSGE11b} para el cálculo de iluminación indirecta utilizando trazado de conos contra vóxeles o \emph{Indirect Illumination Using Voxel Cone tracing}. En este técnica se utiliza una estructura de árbol disperso o \emph{sparse} para almacenar ya filtrados los valores necesarios para el cálculo de iluminación indirecta en vóxeles. Este árbol es una representación tridimensional de la escena por tanto cada nodo tiene ocho hijos que representan las ocho particiones de un cubo en partes más pequeñas de forma uniforme. Esta clase de estructuras son llamadas \emph{octrees}. La estructura dispersa requiere menor consumo de memoria ya que solo los vóxeles necesarios son almacenados.
 
 \begin{figure}[H]
