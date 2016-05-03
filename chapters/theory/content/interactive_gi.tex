@@ -33,8 +33,8 @@ Las luces virtuales son generadas a partir de partículas lanzadas por las fuent
 \end{equation}
 Donde la escena es compuesta por $K$ elementos de superficie $A_{k}$ con una reflectividad promedio de $p_{d,k}$.
 
-\subsection{Mapas de Sombras Reflectivo}
-Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} o \emph{reflective shadow maps}. La técnica es \ac{RSM} presentada por Dachsbacher y otros en 2005 \cite{Dachsbacher:2005}.  Esta tecnica está inspirada en mapeado de sombras como ya fue explicado anteriormente en \ref{subsec:shadowmapping}, se utiliza proyección desde la fuente de luz para determinar el primer rebote de luz. Al renderizar la escena desde el punto de vista de la fuente de luz, se entiende que todos los fragmentos en el mapa de sombras son los únicos fragmentos involucrados en el primer rebote de luz. En \ac{RSM} cada uno de los pixeles en el mapa de sombras es considerado una fuente de luz. Por cada pixel $p$ además de la profundidad $d_{p}$, se necesita almacenar posición $x_{p}$, normal $n_{p}$, y el flujo de radiancia reflectada $\Theta_{p}$.
+\subsection{Mapas de Sombras Reflexivo}
+Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} o \emph{reflective shadow maps}. La técnica es \ac{RSM} presentada por Dachsbacher y otros en 2005 \cite{Dachsbacher:2005}.  Esta técnica está inspirada en mapeado de sombras como ya fue explicado anteriormente en \ref{subsec:shadowmapping}, se utiliza proyección desde la fuente de luz para determinar el primer rebote de luz. Al renderizar la escena desde el punto de vista de la fuente de luz, se entiende que todos los fragmentos en el mapa de sombras son los únicos fragmentos involucrados en el primer rebote de luz. En \ac{RSM} cada uno de los pixeles en el mapa de sombras es considerado una fuente de luz. Por cada pixel $p$ además de la profundidad $d_{p}$, se necesita almacenar posición $x_{p}$, normal $n_{p}$, y el flujo de radiancia reflectada $\Theta_{p}$.
 
 \begin{figure}[H]
 	\centering
@@ -48,7 +48,7 @@ Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} 
 		\centering
 		\captionsetup{justification=centering}
 		\includegraphics[width=\linewidth]{media/rsmp.png}
-		\caption*{Posicion.}
+		\caption*{Posición.}
 	\end{subfigure}
 	\begin{subfigure}[t]{.24\linewidth}
 		\centering
@@ -85,14 +85,13 @@ La iluminación indirecta de un punto se calcula sumando todas las intensidades 
 	\label{fig:lvp_results}
 \end{figure}
 
-Este método simula el transporte de luz utilizando técnicas similares en algoritmos para simulación de fluidos basados en cuadriculas \cite{Crane07} tridimensionales. La intensidad de luz es almacenada en una cuadricula y de forma iterativa cada celda transfiere la intensidad de la luz a sus vecinos. Esta cuadricula es llamada \ac{LPV}. Esta luz puede ser bloqueada por la geometría de la escena, la cual es obtenida de otra cuadricula llamada \ac{GV}. Para mejorar el rendimiento del algoritmo y reducir el consumo de memoria se utiliza un conjunto de cuadriculas anidadas. Para los objetos cercanos al observador la iluminación indirecta es calculada utilizando una cuadricula mucho más fina.
-
 \begin{wrapfigure}[11]{l}{0.3\linewidth}
 	\centering
 	\includegraphics[width=0.90\linewidth]{media/g4957.png}
 	\caption{Cuadriculas de \\ propagación anidadas, las cuadriculas se solapan.}
 	\label{fig:nested_lpv}
 \end{wrapfigure}
+Este método simula el transporte de luz utilizando técnicas similares en algoritmos para simulación de fluidos basados en cuadriculas \cite{Crane07} tridimensionales. La intensidad de luz es almacenada en una cuadricula y de forma iterativa cada celda transfiere la intensidad de la luz a sus vecinos. Esta cuadricula es llamada \ac{LPV}. Esta luz puede ser bloqueada por la geometría de la escena, la cual es obtenida de otra cuadricula llamada \ac{GV}. Para mejorar el rendimiento del algoritmo y reducir el consumo de memoria se utiliza un conjunto de cuadriculas anidadas. Para los objetos cercanos al observador la iluminación indirecta es calculada utilizando una cuadricula mucho más fina.
 
 Primero por cada fuente de luz, es necesario renderizar un \ac{RSM}. Cada texel del \ac{RSM} es considerado una \ac{VPL}. La intensidad del \ac{VPL} es acumulada y almacenada como un harmónico esférico dentro de las celdas de la cuadricula.
 
@@ -110,7 +109,7 @@ La propagación de luz se realiza de forma iterativa. La intensidad de luz en ca
 
 \subsection{Iluminación Indirecta con Trazado de Conos y Vóxeles}
 \label{sub:voxel_cone_tracing_orig}
-Este algoritmo es presentado por Crassin y otros en 2011 \cite{CNSGE11b} para el cálculo de iluminación indirecta utilizando trazado de conos contra vóxeles o \emph{Indirect Illumination Using Voxel Cone tracing}. En este técnica se utiliza una estructura de árbol disperso o \emph{sparse} para almacenar ya filtrados los valores necesarios para el cálculo de iluminación indirecta en vóxeles. Este árbol es una representación tridimensional de la escena por tanto cada nodo tiene ocho hijos que representan las ocho particiones de un cubo en partes más pequeñas de forma uniforme. Esta clase de estructuras son llamadas \emph{octrees}. La estructura dispersa requiere menor consumo de memoria ya que solo los vóxeles necesarios son almacenados.
+Este algoritmo es presentado por Crassin y otros en 2011 \cite{CNSGE11b} para el cálculo de iluminación indirecta utilizando trazado de conos contra vóxeles o \emph{Indirect Illumination Using Voxel Cone Tracing}. En este técnica se utiliza una estructura de árbol disperso o \emph{sparse} para almacenar ya filtrados los valores necesarios para el cálculo de iluminación indirecta en vóxeles. Este árbol es una representación tridimensional de la escena por tanto cada nodo tiene ocho hijos que representan las ocho particiones de un cubo en partes más pequeñas de forma uniforme. Esta clase de estructuras son llamadas \emph{octrees}. La estructura dispersa requiere menor consumo de memoria ya que solo los vóxeles necesarios son almacenados.
 
 \begin{figure}[H]
 	\centering
@@ -148,7 +147,8 @@ Cada vóxel representa varios parámetros. Entre ellos color, opacidad, normal, 
 \end{figure}
 
 \subsubsection{Filtrado Mip-mapping}
-Inicialmente cada uno de estos parámetros es almacenado dentro de las hojas del árbol disperso. Luego de forma iterativa estos valores son filtrados desde los niveles más bajos a los niveles más altos de la jerarquía, este proceso es llamado \emph{mip-mapping}. Cada nodo de un bloque es filtrado a partir de las $3^3$ celdas del nivel anterior en jerarquía. Para calcular el valor filtrado sobre el actual nodo el algoritmo promedia los valores de los nodos en el nivel anterior. Al calcular el valor filtrado cada vóxel debe ser pesado con la inversa de su multiplicidad, resultando en un kernel gaussiano de $3^3$.  
+Inicialmente cada uno de estos parámetros es almacenado dentro de las hojas del árbol disperso. Luego de forma iterativa estos valores son filtrados desde los niveles más bajos a los niveles más altos de la jerarquía, este proceso es llamado \emph{mip-mapping}. Cada nodo de un bloque es filtrado a partir de las $3^3$ celdas del nivel anterior en jerarquía. Para calcular el valor filtrado sobre el actual nodo el algoritmo promedia los valores de los nodos en el nivel anterior. Al calcular el valor filtrado cada vóxel debe ser pesado con la inversa de su multiplicidad, resultando en un kernel gaussiano de $3^3$. 
+ 
 \subsubsection{Trazado de Conos y Vóxeles}
 Una vez que el árbol disperso esta filtrado y completo este es utilizado para el cálculo de iluminación indirecta. Por cada fragmento un conjunto de conos es generado. La dirección y apertura de cada cono es determina por la \ac{BRDF} del material en ese fragmento. Por ejemplo la \ac{BRDF} Blinn-Phong vista en \ref{para:blinn_phong} puede ser descompuesta como un lóbulo ancho para la parte difusa y un lóbulo especular. Para el lóbulo difuso varios conos son generados orientados por la semiesfera con apertura y dirección maximizada a tal manera que los conos cubran parte de la misma. Para el lóbulo especular se genera un solo cono con una apertura que varía según el termino $n$ de la \ac{BRDF} Blinn-Phong. El cono especular tiene como dirección la dirección de la luz incidente reflectada $R$ visto en \ref{para:speculars}.
 

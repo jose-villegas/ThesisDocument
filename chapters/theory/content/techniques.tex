@@ -1,5 +1,5 @@
+\section{Técnicas Comunes en Renderizado de Imágenes}
 
-\section{Técnicas Comunes de Renderizado}
 En esta sección se explican técnicas comunes utilizadas en síntesis o renderizado de imágenes que son relevantes para este trabajo.
 \subsection{Mapeado de Sombras}
 \label{subsec:shadowmapping}
@@ -50,3 +50,43 @@ Con sombreado diferido se pueden realizar estas operaciones por pixel solo sobre
 	\caption{El contenido de un buffer de geometría.}
 	\label{fig:gbuffer}
 \end{figure}
+
+\subsection{Voxelización}
+\label{sec:voxelization}
+Un \emph{voxel} o a veces llamado píxel volumétrico representa una muestra singular o punto de data sobre un grid regular en un espacio 3-dimensional. Esta data puede ser cualquier valor definido por la aplicación o incluso múltiples valores. 
+
+El proceso de generar superficies discretas en una representación volumétrica a través de vóxeles se le llama voxelización.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.33\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{media/rigid01.pdf}
+		\captionsetup{width=0.95\textwidth}
+		\caption{Grid regular del vóxeles.}
+	\end{subfigure}%\\
+	\begin{subfigure}{0.33\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{media/rigid02.pdf}
+		\captionsetup{width=0.95\textwidth}
+		\caption{Superficie en el grid.}
+	\end{subfigure}%\\
+	\begin{subfigure}{0.33\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{media/rigid03.pdf}
+		\captionsetup{width=.95\textwidth}
+		\caption{Superficie en vóxeles.}
+	\end{subfigure}%
+	\caption{Representación de una superficie en vóxeles con voxelización fina.}
+	\label{fig:rigid_grid}
+\end{figure}
+
+Se puede distinguir el proceso de voxelización de superficies en dos clases: voxelización fina con separabilidad factor 6 y voxelización conversadora con todos los vóxeles que tocan la superficie activos o separabilidad factor 26. En el trabajo de Huang y otros en 1998 \cite{Huang:1998:AMV:288126.288181} se describe el proceso de voxelización y terminología con mayor detalle. También existen cuatro tipos de enfoques en voxelización:
+
+\begin{itemize}
+	\label{list:voxelization_types}
+	\item \textbf{Voxelización binaria:} Cada vóxel sólo almacena si hay geometría presente o no.
+	\item \textbf{Voxelización multi-valor:} Cada vóxel puede almacenar múltiples valores de data arbitraria como opacidad, normal, etc.
+	\item \textbf{Voxelización de contorno:} Sólo se voxeliza la superficie o contorno de los objetos.
+	\item \textbf{Voxelización sólida:} Además de la superficie también se voxeliza el interior del objeto.
+\end{itemize}
