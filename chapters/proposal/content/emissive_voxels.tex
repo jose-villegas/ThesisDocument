@@ -1,4 +1,4 @@
 \section{Materiales Emisivos} % (fold)
 \label{sec:materiales_emisivos}
-
+La estructura de vóxeles utilizada durante el trazado de conos almacena un valor de radiancia por cada vóxel. Considerando esto agregar materiales emisivos al proceso de voxelización es simple. Para la voxelización de materiales emisivos se utiliza otro volumen además de los ya existentes (albedo y normal) durante el proceso de voxelización. El valor de los vóxeles en este volumen es luego agregado al cálculo de radiancia final durante el proceso de sombreado de vóxeles.
 % section materiales_emisivos (end)

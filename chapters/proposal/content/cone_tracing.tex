@@ -15,31 +15,37 @@ Nuestra implementación realiza trazado de conos con vóxeles de la misma manera
 \subsection{Reflexión Difusa}
 La reflexión difusa de un fragmento puede ser aproximada utilizando integración Monte Carlo trazando un número de conos sobre la semiesfera orientada por la normal del fragmento y acumulando la radiancia a través del recorrido del cono. En el trabajo original de Crassin se utilizan tres conos para la reflexión difusa. En nuestra implementación utilizamos seis conos difusos distribuidos de forma uniforme sobre la semiesfera.
 \subsection{Oclusion Ambiental}
-La oclusión ambiental sobre un fragmento puede ser aproximada trazando conos sobre la semiesfera orientada por la normal de este. Para la oclusión ambiental solo es relevante acumular información de oclusión. El cono ambiental es ponderado por una función $f(r)$ donde su valor decae según la distancia recorrida. En nuestra aplicación utilizamos la descrita en el trabajo de Crassin: $\frac{1}{1+\lambda r}$.
+La oclusión ambiental sobre un fragmento puede ser aproximada trazando conos sobre la semiesfera orientada por la normal de este. Para la oclusión ambiental solo es relevante acumular información de oclusión. El cono ambiental es ponderado por una función $f(r)$ donde su valor decae según la distancia recorrida. En nuestra aplicación utilizamos la función descrita en el trabajo de Crassin:
+\begin{equation}
+	f(r) = \frac{1}{1+\lambda r}
+\end{equation}
+Donde $r$ representa el radio del cono y $\lambda$ una variable personalizada que describe la intensidad de declive según la distancia del termino de oclusión ambiental, básicamente la extensión del radio de oclusión.
 \subsection{Reflexión Especular}
 Nuestra implementación utiliza el modelo \ac{BRDF} Blinn-Phong. Para obtener la reflexión especular es necesario solo un cono en equivalencia al lóbulo especular de la \ac{BRDF} como se observa en la figura \ref{fig:brdf_cones}. La apertura del cono especular es depende del factor $n$ de Blinn-Phong, mientras más alto este valor más fino es el cono especular.
-
+función
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[t]{.33\linewidth}
+	\begin{subfigure}[t]{.32\linewidth}
 		\centering
 		\captionsetup{justification=centering}
-		\includegraphics[width=\linewidth]{media/diffuse_cones.png}
+		\includegraphics[width=\linewidth]{media/diffuse_cones_cropped.pdf}
 		\caption*{Conos sobre la semiesfera para reflexión difusa.}
-	\end{subfigure}\hfill
-	\begin{subfigure}[t]{.33\linewidth}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[t]{.32\linewidth}
 		\centering
 		\captionsetup{justification=centering}
-		\includegraphics[width=\linewidth]{media/spec_cone.png}
+		\includegraphics[width=\linewidth]{media/specular_cone_cropped.pdf}
 		\caption*{Cono para el lóbulo especular.}
-	\end{subfigure}\hfill
-	\begin{subfigure}[t]{.33\linewidth}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[t]{.32\linewidth}
 		\centering
 		\captionsetup{justification=centering}
-		\includegraphics[width=\linewidth]{media/brdfallcone.png}
+		\includegraphics[width=\linewidth]{media/brdf_cones_cropped.pdf}
 		\caption*{Discretización de la BRDF en conos.}
-	\end{subfigure}
-	\caption{Ilustración de la distribución de los conos utilizados para representar la \ac{BRDF} Blinn-Phong \cite{Oliver:2012:UEE:2341836.2341909}.}
+	\end{subfigure}%
+	\caption{Ilustración de la distribución de los conos utilizados para representar la \ac{BRDF} Blinn-Phong.}
 	\label{fig:brdf_cones2}
 \end{figure}
 
