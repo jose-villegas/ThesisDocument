@@ -1,0 +1,109 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <g>
+        <g latexdraw:type="rectangle" id="id116731652" transform="rotate(31.060860850931277) translate(94.24252750268704 -200.28371482487717)">
+            <rect x="249.5294117647058" y="241.29411764705873"
+                width="127.41176470588232" height="56.823529411764696"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="black"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id58803879">
+            <polyline points="60.0,360.0 400.0,360.0 "
+                stroke-width="2.0" stroke="black" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="circle" id="id51294790">
+            <circle cx="352.9411764705881" cy="117.64705882352936"
+                r="10.764705882352928" latexdraw:borderPos="outer"
+                stroke-width="2.0" stroke="white" fill="yellow"
+                stroke-linecap="round" stroke-dasharray="1, 7.291666666666667"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id1630230893">
+            <polyline
+                points="120.0,360.0 300.0,120.0 360.0,180.0 120.0,360.0 120.0,360.0 "
+                stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id1158981990">
+            <polyline
+                points="152.94117647058818,317.6470588235293 164.7058823529411,329.4117647058822 "
+                stroke-width="2.0" stroke="black" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id1451664412">
+            <polyline
+                points="352.9411764705881,117.64705882352936 330.0,140.0 "
+                stroke-width="2.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow1-1451664412)"/>
+        </g>
+        <g latexdraw:type="circle" id="id739398491">
+            <circle cx="301.470588235294" cy="179.11764705882337"
+                r="35.76470588235287" latexdraw:borderPos="outer"
+                stroke-width="2.0" stroke="black" fill="#666666"/>
+        </g>
+        <g latexdraw:type="circle" id="id366456219">
+            <circle cx="258.970588235294" cy="221.61764705882337"
+                r="28.26470588235287" latexdraw:borderPos="outer"
+                stroke-width="2.0" stroke="black" fill="#666666"/>
+        </g>
+        <g latexdraw:type="circle" id="id541339080">
+            <circle cx="226.47058823529397" cy="254.11764705882337"
+                r="20.76470588235287" latexdraw:borderPos="outer"
+                stroke-width="2.0" stroke="black" fill="#cccccc"/>
+        </g>
+        <g latexdraw:type="circle" id="id1327682751">
+            <circle cx="201.47058823529397" cy="279.11764705882337"
+                r="15.764705882352871" latexdraw:borderPos="outer"
+                stroke-width="2.0" stroke="black" fill="white"/>
+        </g>
+        <g latexdraw:type="circle" id="id2065112672">
+            <circle cx="181.47058823529397" cy="299.11764705882337"
+                r="10.764705882352871" latexdraw:borderPos="outer"
+                stroke-width="2.0" stroke="black" fill="white"/>
+        </g>
+        <g latexdraw:type="circle" id="id954189315">
+            <circle cx="168.97058823529397" cy="311.61764705882337"
+                r="8.264705882352871" latexdraw:borderPos="outer"
+                stroke-width="2.0" stroke="black" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id1271342786" fill="black"
+            latexdraw:position="bl" transform="rotate(-54.15415356329812) translate(-295.11513977294646 32.56907324761647)">
+            <text x="179.4117647058822" y="272.35294117647055"><![CDATA[Rayo-cono]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1838518735" fill="white"
+            latexdraw:position="bl" transform="rotate(33.224540093730745) translate(94.51635304917693 -197.9048982322152)">
+            <text x="284.4117647058822" y="257.35294117647055"><![CDATA[Oclusor]]></text>
+        </g>
+        <g latexdraw:type="text" id="id2011676169" fill="black" latexdraw:position="bl">
+            <text x="299.4117647058822" y="97.35294117647055"><![CDATA[Luz Puntual]]></text>
+        </g>
+    </g>
+    <defs>
+        <marker overflow="visible" orient="auto" id="arrow1-1451664412">
+            <path
+                d="M 0.0 0.0 L -4.652083333333334 1.6614583333333335 L -4.652083333333334 0.0 L -4.652083333333334 -1.6614583333333335 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+    </defs>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:latexIncludes><![CDATA[
+]]></latexdraw:latexIncludes>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:unit>CM</latexdraw:unit>
+            <latexdraw:zoom>2.3499999999999996</latexdraw:zoom>
+            <latexdraw:magneticGridStyle>CUSTOMISED</latexdraw:magneticGridStyle>
+            <latexdraw:gridGap>5</latexdraw:gridGap>
+            <latexdraw:magneticGrid>true</latexdraw:magneticGrid>
+            <latexdraw:version>3.3.1</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>960</latexdraw:width>
+                <latexdraw:height>1040</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>0.0</latexdraw:x>
+                <latexdraw:y>0.0</latexdraw:y>
+            </latexdraw:position>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

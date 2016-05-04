@@ -178,7 +178,9 @@ Una vez que el árbol disperso esta filtrado y completo este es utilizado para e
 	\label{fig:brdf_cones}
 \end{figure}
 
-El algoritmo utiliza trazado de conos aproximados para recolectar la intensidad de la luz incidente sobre el fragmento. Los valores son recolectados de varias muestras a través del recorrido del cono. Por cada muestra se examina el árbol disperso de vóxeles. El nivel del árbol a examinar es determinado por el diámetro del cono en esa posición.
+El algoritmo utiliza trazado de conos aproximados para acumular la intensidad de la luz incidente sobre el fragmento. Los valores son recolectados de varias muestras a través del recorrido del cono. Por cada muestra se examina el árbol disperso de vóxeles. El nivel del árbol a examinar es determinado por el diámetro del cono en esa posición.
+
+Por cada paso del trazado se obtiene un valor de oclusión $\alpha_{2}$ y valor de radiancia $c_2$. Para acumular los valores en muestreados a través del recorrido del cono se utiliza acumulación volumétrica \emph{front-to-back}. Para esto es necesario llevar pista de un valor oclusión $a$ y color $c$. La actualización de estos valores por cada paso se realiza de la siguiente manera: $c=c+(1-a)c_2$ y $a=a+(1-a)a_2$
 
 \subsubsection{Filtrado Anisótropo de Vóxeles.}
 \label{subsub:aniso_voxels_orig}
