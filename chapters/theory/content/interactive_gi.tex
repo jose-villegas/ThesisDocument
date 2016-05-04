@@ -34,7 +34,7 @@ Las luces virtuales son generadas a partir de partículas lanzadas por las fuent
 Donde la escena es compuesta por $K$ elementos de superficie $A_{k}$ con una reflectividad promedio de $p_{d,k}$.
 
 \subsection{Mapas de Sombras Reflexivo}
-Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} o \emph{reflective shadow maps}. La técnica es \ac{RSM} presentada por Dachsbacher y otros en 2005 \cite{Dachsbacher:2005}.  Esta técnica está inspirada en mapeado de sombras como ya fue explicado anteriormente en \ref{subsec:shadowmapping}, se utiliza proyección desde la fuente de luz para determinar el primer rebote de luz. Al renderizar la escena desde el punto de vista de la fuente de luz, se entiende que todos los fragmentos en el mapa de sombras son los únicos fragmentos involucrados en el primer rebote de luz. En \ac{RSM} cada uno de los pixeles en el mapa de sombras es considerado una fuente de luz. Por cada pixel $p$ además de la profundidad $d_{p}$, se necesita almacenar posición $x_{p}$, normal $n_{p}$, y el flujo de radiancia reflectada $\Theta_{p}$.
+Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} o \emph{reflective shadow maps}. La técnica es \ac{RSM} presentada por Dachsbacher y otros en 2005 \cite{Dachsbacher:2005}.  Esta técnica está inspirada en mapeado de sombras como ya fue explicado anteriormente en \ref{subsec:shadowmapping}, se utiliza proyección desde la fuente de luz para determinar el primer rebote de luz. Al renderizar la escena desde el punto de vista de la fuente de luz, se entiende que todos los fragmentos en el mapa de sombras son los únicos fragmentos involucrados en el primer rebote de luz. En \ac{RSM} cada uno de los píxeles en el mapa de sombras es considerado una fuente de luz. Por cada píxel $p$ además de la profundidad $d_{p}$, se necesita almacenar posición $x_{p}$, normal $n_{p}$, y el flujo de radiancia reflectada $\Theta_{p}$.
 
 \begin{figure}[H]
 	\centering
@@ -66,14 +66,14 @@ Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} 
 	\label{fig:rsm_fbo}
 \end{figure}
 
-Si asumimos que todas las superficies son reflectores difusos, la intensidad de la radiancia emitida en una dirección $\omega$ desde un pixel del \ac{RSM} es descrita por la siguiente ecuación.
+Si asumimos que todas las superficies son reflectores difusos, la intensidad de la radiancia emitida en una dirección $\omega$ desde un píxel del \ac{RSM} es descrita por la siguiente ecuación.
 
 \begin{equation}
     I_{p}(\omega) = \Theta_{p}max(0, n_{p} \cdot {w})
     \label{eq:rsm_radiance}
 \end{equation}
 
-La iluminación indirecta de un punto se calcula sumando todas las intensidades de todos los pixeles (considerados ahora como luces) en el \ac{RSM} visibles. Calcular esto es costoso, por tanto en vez sumar todos los pixeles visibles al punto se toma cierta cantidad de muestras del \ac{RSM}. La posición del punto iluminado $x_{p}$ es proyectado sobre el \ac{RSM} y las muestras son seleccionadas alrededor de esta posición proyectada. La densidad de las muestras decrece con la distancia cuadrada de la posición proyectada al punto iluminado. Esto asume que dos superficies cercanas proyectadas al \ac{RSM} también son cercanas en el \ac{RSM}. También se asume que la muestra es directamente visible desde la superficie iluminada.
+La iluminación indirecta de un punto se calcula sumando todas las intensidades de todos los píxeles (considerados ahora como luces) en el \ac{RSM} visibles. Calcular esto es costoso, por tanto en vez sumar todos los píxeles visibles al punto se toma cierta cantidad de muestras del \ac{RSM}. La posición del punto iluminado $x_{p}$ es proyectado sobre el \ac{RSM} y las muestras son seleccionadas alrededor de esta posición proyectada. La densidad de las muestras decrece con la distancia cuadrada de la posición proyectada al punto iluminado. Esto asume que dos superficies cercanas proyectadas al \ac{RSM} también son cercanas en el \ac{RSM}. También se asume que la muestra es directamente visible desde la superficie iluminada.
 
 \subsection{Volúmenes de Propagación de Luz en Cascada}
 \Ac{CLPV} o \emph{Cascaded Light Propagation Volumes} presentando por Kaplanyan y otros en 2010 \cite{Kaplanyan:2010} es un algoritmo para el cálculo de iluminación indirecta en tiempo real.
@@ -134,6 +134,7 @@ Primero la escena es renderizada utilizando proyección ortogonal. Cada triangul
 Una vez llena la lista de vóxeles-fragmentos. Se genera un hilo de procesamiento por cada fragmento en la lista. Los fragmentos son introducidos en el árbol disperso que inicialmente solo tiene un nodo raíz. Cada vez que un nodo de este octree necesita ser dividido un nuevo nodo es creado y se almacena sobre memoria ya reservada en la \ac{GPU}. La posición del nodo en memoria es determinada por un contador atómico, el cual se incrementa con cada nuevo nodo. Al inicio del proceso de subdivisión de los nodos es de esperar una gran cantidad de colisiones entre hilos, por esto cada nodo tiene asociado un símbolo mutex.
 
 \subsubsection{Contenido de un Vóxel}
+\label{subsub:voxelcontent_orig}
 
 El algoritmo está diseñado para hacer uso de filtrado tri-linear por hardware. Sin embargo dos vóxeles vecinos no necesariamente están posicionados de forma subsecuente en memoria. Por esto cada nodo contiene un bloque o \emph{brick}. Este bloque representa el entramado $3^3$ de la celda, donde estas celdas se encuentran en las esquinas de los hijos del nodo.
 
@@ -147,6 +148,7 @@ Cada vóxel representa varios parámetros. Entre ellos color, opacidad, normal, 
 \end{figure}
 
 \subsubsection{Filtrado Mip-mapping}
+\label{subsub:mipmaping_orig}
 Inicialmente cada uno de estos parámetros es almacenado dentro de las hojas del árbol disperso. Luego de forma iterativa estos valores son filtrados desde los niveles más bajos a los niveles más altos de la jerarquía, este proceso es llamado \emph{mip-mapping}. Cada nodo de un bloque es filtrado a partir de las $3^3$ celdas del nivel anterior en jerarquía. Para calcular el valor filtrado sobre el actual nodo el algoritmo promedia los valores de los nodos en el nivel anterior. Al calcular el valor filtrado cada vóxel debe ser pesado con la inversa de su multiplicidad, resultando en un kernel gaussiano de $3^3$. 
 
 \subsubsection{Trazado de Conos y Vóxeles}
@@ -178,19 +180,20 @@ Una vez que el árbol disperso esta filtrado y completo este es utilizado para e
 
 El algoritmo utiliza trazado de conos aproximados para recolectar la intensidad de la luz incidente sobre el fragmento. Los valores son recolectados de varias muestras a través del recorrido del cono. Por cada muestra se examina el árbol disperso de vóxeles. El nivel del árbol a examinar es determinado por el diámetro del cono en esa posición.
 
-\subsubsection{Filtrado Anisotrópico de Vóxeles.}
+\subsubsection{Filtrado Anisótropo de Vóxeles.}
+\label{subsub:aniso_voxels_orig}
 A pesar de que el filtrado gaussiano es suficiente para proveer resultados visuales coherentes, algunos problemas de calidad visual pueden ocurrir bajo ciertas condiciones. El primer problema se conoce como el problema de la pared rojo-verde. Al promediar valores dentro del octree si dos vóxeles opacos con diferentes colores provenientes de por ejemplo, dos paredes planas, el color resultante del vóxel describe ambas paredes como si estas fueran transparentes. Otro problema resulta también de promediar opacidad entre vóxeles totalmente transparentes y vóxeles totalmente opacos, resultando un valor filtrado semitransparente. Esto puede resultar en fugas de luz a través de la geometría en la escena.
-Para solventar este problema se realiza una representación anisotrópica de los vóxeles durante el proceso de mip-mapping. En vez de tener un solo canal de valores filtrados sin dirección, ahora los valores serán filtrados de forma direccional, almacenando 6 canales por cada eje positivo y negativo. Un valor direccional es calculado realizando un paso de integración volumétrica en profundidad y promediando los cuatro valores direccionales para obtener el valor resultante según una dirección.
+Para solventar este problema se realiza una representación anisótropa de los vóxeles durante el proceso de mip-mapping. En vez de tener un solo canal de valores filtrados sin dirección, ahora los valores serán filtrados de forma direccional, almacenando 6 canales por cada eje positivo y negativo. Un valor direccional es calculado realizando un paso de integración volumétrica en profundidad y promediando los cuatro valores direccionales para obtener el valor resultante según una dirección.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.95\linewidth]{media/image23177.png}
-	\caption{La caja izquierda describe el proceso de mipmapping de vóxeles sin (izquierda) y con (derecha) filtrado anisotrópico. Los pasos para la integración direccional en la caja central. La caja derecha muestra la diferencia entre un vóxel anisotrópico como resultado final versus un vóxel isotrópico filtrado por kernel gaussiano \cite{CNSGE11b}.}
+	\caption{La caja izquierda describe el proceso de mipmapping de vóxeles sin (izquierda) y con (derecha) filtrado anisótropo. Los pasos para la integración direccional en la caja central. La caja derecha muestra la diferencia entre un vóxel anisótropo como resultado final versus un vóxel isotrópico filtrado por kernel gaussiano \cite{CNSGE11b}.}
 	\label{fig:vct_anisofiltering}
 \end{figure}
 
 \subsubsection{Captura de Iluminación Directa}
 \label{subsub:voxel_capture}
-Para el cálculo de iluminación indirecta es necesario describir como la radiancia incidente es almacenada en los nodos del árbol. Este proceso está inspirado en \ac{RSM}, donde la escena es renderizada desde el punto de vista de la fuente de luz y se utiliza rasterización estándar para almacenar las posiciones de los fragmentos en una textura. Cada pixel en esta textura representa un fotón que rebota en escena. Esta textura se le llama mapa de luz-vista o \emph{light-view map}. Luego de generar este mapa es necesario almacenar los fotones en el árbol octree. Los fotones son almacenados como una distribución direccional y energía proporcional al casquete esférico del ángulo solido del pixel visto desde la luz.
+Para el cálculo de iluminación indirecta es necesario describir como la radiancia incidente es almacenada en los nodos del árbol. Este proceso está inspirado en \ac{RSM}, donde la escena es renderizada desde el punto de vista de la fuente de luz y se utiliza rasterización estándar para almacenar las posiciones de los fragmentos en una textura. Cada píxel en esta textura representa un fotón que rebota en escena. Esta textura se le llama mapa de luz-vista o \emph{light-view map}. Luego de generar este mapa es necesario almacenar los fotones en el árbol octree. Los fotones son almacenados como una distribución direccional y energía proporcional al casquete esférico del ángulo solido del píxel visto desde la luz.
 
-El procesamiento de la textura de fotones sobre el árbol se realiza por fragmento con un \emph{fragment shader}. Como usualmente la dimensión del \emph{light-view map} es mayor a la resolución de la cuadricula de vóxeles se puede asumir que los fotones serán almacenados directamente en las hojas del árbol octree. Además, los fotones siempre pueden ser almacenados en el nivel más fino de detalle en la representación con vóxeles porque estos describen información de la superficie geométrica. Es posible que muchos fotones terminen sobre un mismo vóxel, por esto es necesario utilizar adicción atómica para garantizar coherencia entre los hilos generados por cada fragmento.
+El procesamiento de la textura de fotones sobre el árbol se realiza en el procesador de fragmentos o \emph{fragment shader}. Como usualmente la dimensión del \emph{light-view map} es mayor a la resolución de la cuadricula de vóxeles se puede asumir que los fotones serán almacenados directamente en las hojas del árbol octree. Además, los fotones siempre pueden ser almacenados en el nivel más fino de detalle en la representación con vóxeles porque estos describen información de la superficie geométrica. Es posible que muchos fotones terminen sobre un mismo vóxel, por esto es necesario utilizar adicción atómica para garantizar coherencia entre los hilos generados por cada fragmento.
