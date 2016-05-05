@@ -1,0 +1,6 @@
+\section{Herramientas Utilizadas y Software de Terceros}
+Nuestra implementación para el cálculo de iluminación global está basado en la \ac{GPU}. Para acceder a distintas características del hardware grafico se utilizó la API de OpenGL junto al lenguaje de sombreado GLSL para implementación de shaders utilizando unidades de procesamiento dedicadas en la \ac{GPU}. 
+
+La aplicación hace uso de características relativamente recientes en OpenGL como lectura y escritura arbitraria y operaciones atómicas sobre texturas utilizando la extensión ya mencionada en la seccion \ref{sec:voxelizacion}. Esta extensión es parte del núcleo de OpenGL desde la versión 4.2. 
+
+Otro aspecto importante de la aplicación es el uso de \ac{GPGPU} para distintos cálculos de iluminación, filtrado y sombreado utilizando datos almacenados en volúmenes. El uso de \ac{GPGPU} nos permite realizar calculo paralelo masivo utilizando núcleos dedicados en la \ac{GPU}. Para esto existen distintas alternativas como CUDA y OpenCL o recientemente compute shaders. En nuestra aplicación se utilizaron compute shaders los cuales provee OpenGL desde la versión 4.3. Estos shaders permiten cálculo general en la GPU con la sintaxis ya familiar de GLSL además de mayor compatibilidad en contraste con tecnologías como CUDA que solo están disponibles en tarjetas gráficas NVIDIA.
