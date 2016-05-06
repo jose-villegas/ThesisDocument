@@ -1,6 +1,16 @@
 \section{Pipeline de Voxelización} % (fold)
 \label{sec:pipeline_de_voxelizacion}
 El algoritmo de voxelización de escenas es implementado en la clase \emph{VoxelizerRenderer}. Como se explicó en la sección anterior esta es una clase que hereda de la clase Renderer. En el método Render, residen la lógica de voxelización, sombreado de vóxeles, mipmapping para vóxeles anisótropos e iluminación global de vóxeles. En esta sección se describe en detalle solo el proceso de voxelización y su arquitectura.
+\subsection{Arquitectura}
+
+La arquitectura de nuestro proceso de voxelización describe un pipeline, donde la entrada es geometría, materiales, texturas y matrices de proyección y la salida es una serie de volúmenes de vóxeles los cuales describen una discretización de esta geometría.
+
+El algoritmo de voxelización se ejecuta entre el geometry shader y el fragment shader. En el geometry shader se proyecta y traslada los vértices de cada triangulo para generar un triángulo expandido. La rasterización conservativa de cada triangulo es tarea de ambos shaders. El fragment shader primeramente descarta fragmentos excedentes de la expansión del triángulo en el geometry shader para formar un polígono delimitante. La voxelización de geometría estática y dinámica se realiza sobre este mismo pipeline, el fragment shader debe garantizar que los vóxeles estáticos no sean sobrescritos, finalmente se realiza una operación de promedio sobre todos los atributos de cada fragmento que forma parte del espacio que envuelve un vóxel, este valor es almacenado luego en cada volumen por atributo.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{media/voxel_pipeline_cropped.pdf}
+    \caption{Descripción grafica del pipeline de voxelización.}
+\end{figure}
 
 \subsection{Voxelización Conservativa} % (fold)
 \label{sub:voxelization_impl}
@@ -93,7 +103,7 @@ En el algoritmo \ref{CalculateAxis} primero se obtiene la normal del triángulo.
 \subsubsection{Extensión del Triángulo y Polígono Delimitante}
 Una vez proyectados todos los vértices del triángulo según el eje direccional escogido (esto es multiplicar cada vértice por la matriz de proyección) entonces se procede a expandir los vértices de este triángulo. Antes de esto primero es importante definir un \ac{AABB} para el triángulo. Este volumen delimitante es utilizado en el fragment shader para descartar fragmentos excedentes del triángulo expandido. El punto mínimo y máximo se expanden según la longitud diagonal de un pixel, en nuestra implementación este valor es $\frac{1}{V_{res}}$ donde $V_{res}$ representa la resolución del volumen.
 \\
-\begin{lstlisting}[caption={Creacion de un \ac{AABB} para el triángulo proyectado.}, label=AxisAlignedBoundingBox]
+\begin{lstlisting}[caption={Creación de un \ac{AABB} para el triángulo proyectado.}, label=AxisAlignedBoundingBox]
 vec4 AxisAlignedBoundingBox(vec4 pos[3], vec2 pixelDiagonal)
 {
 	vec4 aabb;
@@ -104,7 +114,6 @@ vec4 AxisAlignedBoundingBox(vec4 pos[3], vec2 pixelDiagonal)
 	// enlarge by half-pixel
 	aabb.xy -= pixelDiagonal;
 	aabb.zw += pixelDiagonal;
-
 	return aabb;
 }
 \end{lstlisting}
@@ -146,18 +155,159 @@ trianglePlane.xyz = normalize(trianglePlane.xyz);
 trianglePlane.w = -dot(pos[0].xyz, trianglePlane.xyz);
 // calculate dilated triangle vertices
 float z[3];
-z[0] = -(intersection[0].x * trianglePlane.x + intersection[0].y * trianglePlane.y + trianglePlane.w) / trianglePlane.z;
-z[1] = -(intersection[1].x * trianglePlane.x + intersection[1].y * trianglePlane.y + trianglePlane.w) / trianglePlane.z;
-z[2] = -(intersection[2].x * trianglePlane.x + intersection[2].y * trianglePlane.y + trianglePlane.w) / trianglePlane.z;
+z[0] = (-intersection[0].x * trianglePlane.x - intersection[0].y * trianglePlane.y - trianglePlane.w) / trianglePlane.z;
+z[1] = (-intersection[1].x * trianglePlane.x - intersection[1].y * trianglePlane.y - trianglePlane.w) / trianglePlane.z;
+z[2] = (-intersection[2].x * trianglePlane.x - intersection[2].y * trianglePlane.y - trianglePlane.w) / trianglePlane.z;
 pos[0].xyz = vec3(intersection[0].xy, z[0]);
 pos[1].xyz = vec3(intersection[1].xy, z[1]);
 pos[2].xyz = vec3(intersection[2].xy, z[2]);
 \end{lstlisting}
 
-Este nuevo triangulo expandido es enviado al pipeline de rasterización donde cada fragmento generado será procesado por el fragment shader. En el fragment shader se almacenara los datos de la escena sobre el volumen de vóxeles.
+Este nuevo triangulo expandido es enviado al pipeline de rasterización donde cada fragmento generado será procesado por el fragment shader. En el fragment shader se almacenara los datos de la escena sobre cada volumen de vóxeles.
 
 \subsubsection{Composición de Fragmentos y Vóxeles}
 
-% Cada vez que se revoxeliza la escena los volúmenes utilizados durante el proceso de voxelización deben ser limpiados antes de usarse. Para la voxelización estática esto es sencillo, OpenGL provee una función llamada \emph{glClearImage} desde la versión 4.4 la cual permite llenar una textura con un valor indicado a esta función. Debido a que utilizamos el mismo volumen para la voxelización estática no podemos utilizar esta función durante la voxelización dinámica ya que se eliminarían todos los vóxeles estáticos.
+Este proceso se realiza en el fragment shader. En la sección anterior se mencionó la creación de una \ac{AABB} para el triángulo expandido. Lo primero a realizar durante la composición de fragmentos es descartar los fragmentos excedentes del triángulo. Esto se realiza con siguiente comparación:
+\\
+\begin{lstlisting}[caption={Descarte de fragmentos excedentes en el fragment shader.}, label=TPlanes4]
+    if( In.position.x < In.triangleAABB.x || 
+    	In.position.y < In.triangleAABB.y || 
+		In.position.x > In.triangleAABB.z || 
+		In.position.y > In.triangleAABB.w )
+	{
+		discard;
+	}
+\end{lstlisting}
+Básicamente si la posición del fragmento esta fuera de la \ac{AABB} del triángulo este fragmento no es procesado. Esto resulta finalmente en un polígono delimitante ya descrito en la figura \ref{fig:expanded_bbpolygon}.
 
+Una vez ya finalizada la rasterización conservativa de cada triangulo, ahora se procede a almacenar información de la escena en texturas tridimensionales.  En nuestra aplicación se almacena en vóxeles el albedo, normal, y emisión de la geometría en escena. Un vóxel puede envolver a varios fragmentos y cada uno de estos fragmentos puede tener distintos valores para los atributos mencionados. Una forma simple de almacenar todos estos valores es utilizando un promedio de todos los valores por fragmento que envuelve el vóxel. 
+
+Como ya fue mencionado antes cada fragmento es tratado como un hilo individual por tanto no hay forma de saber el orden en el que se envían fragmentos a la posición de un vóxel. La extensión \emph{{GL\_ARB\_shader\_image\_load\_store}} provee instrucciones atómicas para solventar esto. La forma más simple de obtener un promedio seria utilizar la función \emph{imageAtomicAdd} y luego dividir por la cantidad de fragmentos. Para mantener un conteo de estos fragmentos se necesita un contador por cada vóxel. La idea es utilizar el canal alfa en un formato RGBA como contador. 
+
+Sin embargo todas las funciones atómicas en esta extensión solo están reservadas para imágenes con formato entero de 32 bits. Generalmente el formato apropiado para estos valores seria RGBA8 o RGBA16F. Por tanto la función \emph{imageAdd} no puede ser utilizada para este propósito.
+
+Se utiliza entonces la función \emph{atomicCompSwap} para emular la adición atómica. La idea es iterar por cada escritura sobre el volumen hasta que ya no haya más conflictos entre fragmentos y el valor actual del vóxel no ha sido cambiado por otro hilo de algún fragmento.
+
+El promedio en cada vóxel debe ser calculado de forma incremental. Con el formato RGBA8 solo 8 bits están disponibles por canal. Por tanto es sencillo sobrepasar el valor límite de este formato mientras se suman valores. Para hacer esto se utiliza la siguiente formula:
+
+\begin{equation}
+	C_{i+1} = \frac{iC_{i}+x_i+1}{i+1}
+\end{equation}
+
+El siguiente algoritmo expone este procedimiento en la función \emph{imageAtomicRGBA8Avg}.
+\\
+\begin{lstlisting}[caption={Conversion entre RGBA8 y R32UI y promedio incremental.}, label=imageAtomicRGBA8Avg]
+vec4 convRGBA8ToVec4(uint val)]
+{
+    return vec4(float((val & 0x000000FF)), 
+    float((val & 0x0000FF00) >> 8U), 
+    float((val & 0x00FF0000) >> 16U), 
+    float((val & 0xFF000000) >> 24U));
+}
+uint convVec4ToRGBA8(vec4 val)
+{
+    return (uint(val.w) & 0x000000FF) << 24U | 
+    (uint(val.z) & 0x000000FF) << 16U | 
+    (uint(val.y) & 0x000000FF) << 8U | 
+    (uint(val.x) & 0x000000FF);
+}
+void imageAtomicRGBA8Avg(layout(r32ui) volatile coherent uimage3D grid, ivec3 coords, vec4 value)
+{
+    value.rgb *= 255.0;                 // optimize following calculations
+    uint newVal = convVec4ToRGBA8(value);
+    uint prevStoredVal = 0;
+    uint curStoredVal;
+    uint numIterations = 0;
+
+    while((curStoredVal = imageAtomicCompSwap(grid, coords, prevStoredVal, newVal)) 
+            != prevStoredVal
+            && numIterations < 255)
+    {
+        prevStoredVal = curStoredVal;
+        vec4 rval = convRGBA8ToVec4(curStoredVal);
+        rval.rgb = (rval.rgb * rval.a); // Denormalize
+        vec4 curValF = rval + value;    // Add
+        curValF.rgb /= curValF.a;       // Renormalize
+        newVal = convVec4ToRGBA8(curValF);
+        ++numIterations;
+    }
+}
+\end{lstlisting}
+
+Esta función es llamada por cada fragmento para almacenar la normal, el albedo y la emisión del promedio de todos los fragmentos sobre el espacio que envuelve un vóxel, estos vóxeles se almacenan en texturas tridimensionales.
+\\
+\begin{lstlisting}[caption={Composición de fragmentos y vóxeles}, label=Voxelization2]
+layout(binding = 0, r32ui) uniform volatile coherent uimage3D voxelAlbedo;
+layout(binding = 1, r32ui) uniform volatile coherent uimage3D voxelNormal;
+layout(binding = 2, r32ui) uniform volatile coherent uimage3D voxelEmission;
+
+void main()
+{
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+	imageAtomicRGBA8Avg(voxelNormal, position, normal);
+	imageAtomicRGBA8Avg(voxelAlbedo, position, albedo);
+	imageAtomicRGBA8Avg(voxelEmission, position, emissive);
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+}
+\end{lstlisting}
+
+\subsubsection{Bandera Estática}
+El proceso de voxelización para geometría estática y dinámica es el mismo. Como se explicó en la sección \ref{sub:voxelizacion_dinamica}. En nuestra implementación se evitó la creación de nuevos volúmenes para vóxeles estáticos y dinámicos. Para garantizar esto se utiliza un volumen con un solo componente entero, formato R8.
+
+Durante la voxelización estática se almacena en este volumen un valor para marcar esta posición como estática (en este caso valor 1) de la siguiente forma:
+\\
+\begin{lstlisting}[caption={Escritura de la bandera estática durante voxelización de geometría estática}, label=Voxelization3]
+layout(binding = 3, r8) uniform image3D staticVoxelFlag;
+
+void main()
+{
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+    // doing a static flagging pass for static geometry voxelization
+    if(flagStaticVoxels)
+    {
+        imageStore(staticVoxelFlag, position, vec4(1.0));
+    }
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+}
+\end{lstlisting}
+En contraste durante la voxelización dinámica se lee este volumen para descartar la escritura sobre vóxeles estáticos.
+\\
+\begin{lstlisting}[caption={Lectura de la bandera estática durante voxelización de geometría dinámica.}, label=Voxelization3]
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+    if(!flagStaticVoxels)
+    {
+        bool isStatic = imageLoad(staticVoxelFlag, position).r > 0.0f;
+        // writing is canceled
+        if(isStatic) { discard; }
+    }
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+\end{lstlisting}
+
+\subsection{Revoxelización y Limpieza de Volúmenes}
+Cada vez que se revoxeliza la escena los volúmenes utilizados durante el proceso de voxelización deben ser limpiados antes de usarse. Para la voxelización estática esto es sencillo, OpenGL provee una función llamada \emph{glClearImage} desde la versión 4.4 la cual permite llenar una textura con un valor indicado. Debido a que utilizamos el mismo volumen para la voxelización dinámica no podemos utilizar esta función durante la voxelización dinámica ya que se eliminarían todos los vóxeles estáticos.
+
+Para solventar esto antes de llamar al proceso de voxelización con la geometría dinámica se limpian del volumen todos los vóxeles que no son estáticos utilizando un compute shader. El siguiente algoritmo expone este proceso:
+\\
+\begin{lstlisting}[caption={Limpieza de vóxeles no estáticos.}, label=ClearVoxels]
+void main()
+{
+    int volumeDimension = imageSize(voxelAlbedo).x;
+
+	if(gl_GlobalInvocationID.x >= volumeDimension ||
+		gl_GlobalInvocationID.y >= volumeDimension ||
+		gl_GlobalInvocationID.z >= volumeDimension) return;
+
+    ivec3 writePos = ivec3(gl_GlobalInvocationID);
+    // empty voxel
+    if(imageLoad(voxelAlbedo, writePos).a < EPSILON) { return; }
+    // static flag is true
+    if(texelFetch(staticVoxelFlag, writePos, 0).r > EPSILON) { return; }
+    // is a non-static voxel and the voxel in that position isn't empty
+    // clear the volumnes with 0,0,0,0
+    imageStore(voxelAlbedo, writePos, vec4(0.0));
+    imageStore(voxelNormal, writePos, vec4(0.0));
+    imageStore(voxelEmissive, writePos, vec4(0.0));
+}
+\end{lstlisting}
+Primero se verifica si ya el vóxel está vacío, luego si este es estático y finalmente si este no lo es se le coloca un color totalmente negro y transparente, esto indica que allí no hay un vóxel.
 % section pipeline_de_voxelizacion (end)
