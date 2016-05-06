@@ -31,6 +31,7 @@
 \usepackage{mfirstuc}% provides \capitalisewords
 \usepackage{parskip}
 \usepackage{fancyhdr}
+\usepackage{listings}
 
 \acsetup{list-long-format=\capitalisewords}
 
@@ -117,6 +118,21 @@
 \newcommand\rotv[1]{\rotatebox[origin=c]{90}{#1}}% no optional argument here, please!
 
 \renewcommand{\arraystretch}{1.2}
+
+\lstset{
+  language=C++,
+  captionpos=b,
+  frame=tb,
+  tabsize=4,
+  breaklines=true,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\color{blue}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  commentstyle=\color{green}\ttfamily,
+  morecomment=[l][\color{magenta}]{\#}
+}
+
+\renewcommand{\lstlistingname}{Codigo}
 
 \begin{document}
   \frontmatter

@@ -1,4 +1,42 @@
-\section{Pipeline de Voxelizacion} % (fold)
+\section{Pipeline de Voxelización} % (fold)
 \label{sec:pipeline_de_voxelizacion}
+El algoritmo de voxelización de escenas es implementado en la clase \emph{VoxelizerRenderer}. Como se explicó en la sección anterior esta es una clase que hereda de la clase Renderer. En el método Render, residen la lógica de voxelización, sombreado de vóxeles, mipmapping para vóxeles anisótropos e iluminación global de vóxeles. En esta sección se describe en detalle solo el proceso de voxelización y su arquitectura.
 
+\subsection{Voxelización Conservativa} % (fold)
+\label{sub:voxelization_impl}
+Nuestra implementación utiliza una representación simplificada de la escena en vóxeles, esta representación es generada de forma conservativa por tanto si existe algún triangulo dentro del espacio de un vóxel se generara un vóxel por más pequeño que sea este triángulo.
+ 
+\subsubsection{Matrices de Proyección por Eje}
+
+Como se explicó en la sección \ref{sub:voxelizacion_conservativa} cada triangulo debe ser proyectado sobre un eje direccional. El primer paso a realizar es definir estas matrices de proyección. Estas están definidas por una \ac{AABB}. En nuestra implementación se toma la \ac{AABB} que envuelve toda la escena por simplicidad. En el código \ref{UpdateProjectionMatrices} se encuentra el algoritmo de la función que realiza esto. Esta método es llamada cada vez que se cambia carga una escena o cuando se cambiar la resolución de la representación en vóxeles.
+
+La \ac{AABB} puede estar definida de dos formas: por un punto que indica el centro de la caja y un vector extensión que indica la longitud media de la caja en cada eje a partir del centro o por un punto mínimo y un punto máximo. 
+
+En el código se observa que primero se obtiene la longitud total en cada eje que define la \ac{AABB} que envuelve la escena. Luego en la misma función se actualizan dos variables: \emph{volumeGridSize} que indica el tamaño de la cuadricula tridimensional de vóxeles en espacio de mundo y \emph{voxelSize} que indica el tamaño de cada vóxel dentro de esta cuadricula. 
+
+El tronco de proyección es un cubo uniforme por tanto se utiliza la mayor longitud según cada eje. Esto asegura que desde cualquier eje direccional la proyección abarca toda la escena. De esta longitud se extrae la matriz de proyección ortogonal. Luego se configura cada matriz de vista por cada eje direccional. Finalmente se almacena la multiplicación de ambas matrices.
+\\
+\\
+\begin{lstlisting}[caption={Código utilizado para obtener matrices de proyección ortogonal por eje}, label=UpdateProjectionMatrices]
+void VoxelizerRenderer::UpdateProjectionMatrices(const BoundingBox &sceneBox)
+{
+    auto axisSize = sceneBox.Extent() * 2.0f;
+    auto &center = sceneBox.Center();
+    volumeGridSize = glm::max(axisSize.x, glm::max(axisSize.y, axisSize.z));
+    voxelSize = volumeGridSize / volumeDimension;
+    auto halfSize = volumeGridSize / 2.0f;
+    // projection matrices
+    auto projection = glm::ortho(-halfSize, halfSize, -halfSize, halfSize, 0.0f, volumeGridSize);
+    // view matrices
+    viewProjectionMatrix[0] = lookAt(center + glm::vec3(halfSize, 0.0f, 0.0f), center, glm::vec3(0.0f, 1.0f, 0.0f));
+    viewProjectionMatrix[1] = lookAt(center + glm::vec3(0.0f, halfSize, 0.0f), center, glm::vec3(0.0f, 0.0f, -1.0f));
+    viewProjectionMatrix[2] = lookAt(center + glm::vec3(0.0f, 0.0f, halfSize), center, glm::vec3(0.0f, 1.0f, 0.0f));
+    // multiply projection with view
+    for (auto &matrix : viewProjectionMatrix)
+    {
+        matrix = projection * matrix;
+    }
+}
+\end{lstlisting}
+% subsection voxelizacion_estatica (end)
 % section pipeline_de_voxelizacion (end)
