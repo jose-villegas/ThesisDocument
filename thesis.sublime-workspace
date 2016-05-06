@@ -500,42 +500,74 @@
 	"buffers":
 	[
 		{
+			"file": "chapters/proposal/content/voxelization.tex",
+			"settings":
+			{
+				"buffer_size": 6499,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "chapters/implementation/content/architecture.tex",
+			"settings":
+			{
+				"buffer_size": 3870,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "chapters/implementation/content/voxel_pipeline.tex",
+			"settings":
+			{
+				"buffer_size": 10671,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "main.tex",
 			"settings":
 			{
-				"buffer_size": 3736,
+				"buffer_size": 4075,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "main.pdf",
+			"file": "/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
 			"settings":
 			{
-				"buffer_size": 68381991,
+				"buffer_size": 15067,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "chapters/tests/content/memory.tex",
+			"file": "chapters/implementation/implementation.tex",
 			"settings":
 			{
-				"buffer_size": 29,
+				"buffer_size": 212,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "chapters/implementation/content/technology.tex",
+			"settings":
+			{
+				"buffer_size": 4183,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "chapters/tests/content/quality.tex",
+			"file": "abbreviations.tex",
 			"settings":
 			{
-				"buffer_size": 25966,
-				"line_ending": "Windows"
+				"buffer_size": 1152,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "references.bib",
 			"settings":
 			{
-				"buffer_size": 11823,
+				"buffer_size": 14075,
 				"line_ending": "Unix"
 			}
 		},
@@ -564,19 +596,19 @@
 			}
 		},
 		{
-			"file": "chapters/theory/content/techniques.tex",
-			"settings":
-			{
-				"buffer_size": 4415,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "cover/cover.tex",
 			"settings":
 			{
 				"buffer_size": 878,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "chapters/tests/content/quality.tex",
+			"settings":
+			{
+				"buffer_size": 26234,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -588,7 +620,7 @@
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "package",
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -647,24 +679,37 @@
 	[
 		"/D/Documents/Projects/Thesis",
 		"/D/Documents/Projects/Thesis/chapters",
-		"/D/Documents/Projects/Thesis/chapters/proposal",
 		"/D/Documents/Projects/Thesis/chapters/tests",
-		"/D/Documents/Projects/Thesis/chapters/tests/content",
-		"/D/Documents/Projects/Thesis/chapters/theory",
-		"/D/Documents/Projects/Thesis/chapters/theory/content",
-		"/D/Documents/Projects/Thesis/cover",
-		"/D/Documents/Projects/Thesis/introduction",
-		"/D/Documents/Projects/Thesis/media"
+		"/D/Documents/Projects/Thesis/chapters/tests/content"
 	],
 	"file_history":
 	[
-		"/D/Documents/Projects/Thesis/chapters/tests/content/scenes.tex",
-		"/D/Documents/Projects/Thesis/chapters/tests/content/performance.tex",
-		"/F/Tesis/seminar/references.bib",
-		"/D/Documents/Projects/Thesis/media/shadowtrace_time_cropped.pdf",
 		"/D/Documents/Projects/Thesis/thesis.sublime-project",
 		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
+		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXToolsMinted.sublime-settings",
+		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools-Minted.sublime-settings",
+		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/untitled.sublime-build",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_shading.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/performance.tex",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/techniques.tex",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/interactive_gi.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_structure.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/proposal.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/quality.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/cone_tracing.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/technology.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/implementation.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/emissive_voxels.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_gi.tex",
+		"/D/Documents/Projects/Thesis/main.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/memory.tex",
+		"/D/Documents/Projects/Thesis/main.pdf",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxelization.tex",
 		"/D/Dropbox/voxelshading.vs",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/rendering_equation.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/scenes.tex",
+		"/F/Tesis/seminar/references.bib",
+		"/D/Documents/Projects/Thesis/media/shadowtrace_time_cropped.pdf",
 		"/D/Downloads/tesis-lic/intro.tex",
 		"/D/Downloads/tesis-lic/tesis-lic.tex",
 		"/C/Users/Jose/AppData/Local/Temp/7zE486EF39A/cap1.tex",
@@ -720,9 +765,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -730,6 +776,32 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"tradi",
+			"delimitante",
+			"}\n",
+			".\n",
+			"pesar",
+			"include",
+			"\\hfill",
+			"wrapfigure",
+			"figure",
+			"Monte Carlo",
+			"pixel",
+			"tropi",
+			"aniso",
+			"anis",
+			"Anisotrópicos",
+			"shader",
+			"  199: El procesamiento de la textura de fotones sobre el árbol se realiza en procesador de fragmentos o  por cada fragmento generado. Como usualmente la dimensión del \\emph{light-view map} es mayor a la resolución de la cuadricula de vóxeles se puede asumir que los fotones serán almacenados directamente en las hojas del árbol octree. Además, los fotones siempre pueden ser almacenados en el nivel más fino de detalle en la representación con vóxeles porque estos describen información de la superficie geométrica. Es posible que muchos fotones terminen sobre un mismo vóxel, por esto es necesario utilizar adicción atómica para garantizar coherencia entre los hilos generados por cada fragmento.\n",
+			"shader",
+			"geometry",
+			"}.\n",
+			"por el",
+			"$}",
+			"} ",
+			"GPU",
+			"gpu",
+			"GPU",
 			"Emisivos",
 			"spec_reflex",
 			"angulo",
@@ -831,33 +903,7 @@
 			"ornell",
 			"\\}",
 			"&",
-			" &",
-			"& Limpieza de Voxeles Dinamicos & Voxelizacion Dinamica & Sombreado de Voxeles & Mipmapping Direccional & Iluminacion Global de Voxeles & Mipmapping Direccional & Trazado de Conos con Voxeles & Tiempo Conjunto & Tiempo Dinamico \\\\ \\hline\nSibenik Cathedral &                       &         ",
-			"&",
-			"\\item",
-			"TraceShadowCone",
-			"coneShadowAperture",
-			"mramor6x6-bump",
-			"kamen-bump",
-			"map_bump",
-			"map_Bump",
-			"TraceShadowCone",
-			"anisoDimension",
-			"voxelSize",
-			"ray",
-			"rayOrigin",
-			"dst",
-			"sampleFactor",
-			"worldMaxPoint",
-			"conePosition",
-			"res",
-			"sample",
-			"blend",
-			"TraceShadowCone",
-			"boxMax",
-			"boxMin",
-			"tLeave",
-			"tEnter"
+			" &"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -865,6 +911,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"píxel"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -875,59 +922,174 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "main.tex",
+					"file": "chapters/proposal/content/voxelization.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3736,
+						"buffer_size": 6499,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								313,
-								313
+								912,
+								912
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 336.0,
+						"translation.y": 224.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "main.pdf",
+					"file": "chapters/implementation/content/architecture.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 68381991,
+						"buffer_size": 3870,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1468,
+								1470
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 546.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "chapters/implementation/content/voxel_pipeline.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10671,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10671,
+								10671
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2520.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "main.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4075,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3055,
+								3055
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1260.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15067,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7190,
+								7190
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1669.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "chapters/implementation/implementation.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 212,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								212,
+								212
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -937,78 +1099,78 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "chapters/tests/content/memory.tex",
+					"buffer": 6,
+					"file": "chapters/implementation/content/technology.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29,
+						"buffer_size": 4183,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								29,
-								29
+								3105,
+								3105
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 224.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "abbreviations.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1152,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1148,
+								1112
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "chapters/tests/content/quality.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 25966,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								25966
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 10552.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
+					"buffer": 8,
 					"file": "references.bib",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11823,
+						"buffer_size": 14075,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								11823
+								13586,
+								13586
 							]
 						],
 						"settings":
@@ -1018,14 +1180,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 84.0,
+						"translation.y": 5294.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 9,
 					"file": "chapters/tests/tests.tex",
 					"semi_transient": false,
 					"settings":
@@ -1049,11 +1211,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 10,
 					"file": "chapters/tests/content/enviroment.tex",
 					"semi_transient": false,
 					"settings":
@@ -1065,8 +1227,8 @@
 						"selection":
 						[
 							[
-								0,
-								1704
+								454,
+								454
 							]
 						],
 						"settings":
@@ -1077,11 +1239,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 11,
 					"file": "chapters/theory/content/global_illumination.tex",
 					"semi_transient": false,
 					"settings":
@@ -1093,8 +1255,8 @@
 						"selection":
 						[
 							[
-								667,
-								667
+								1147,
+								1147
 							]
 						],
 						"settings":
@@ -1105,40 +1267,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "chapters/theory/content/techniques.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4415,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4415,
-								4415
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
+					"buffer": 12,
 					"file": "cover/cover.tex",
 					"semi_transient": false,
 					"settings":
@@ -1162,7 +1295,36 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "chapters/tests/content/quality.tex",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 26234,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5987,
+								5319
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1722.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]

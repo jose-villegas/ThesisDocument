@@ -156,7 +156,7 @@ pos[2].xyz = vec3(intersection[2].xy, z[2]);
 
 Este nuevo triangulo expandido es enviado al pipeline de rasterización donde cada fragmento generado será procesado por el fragment shader. En el fragment shader se almacenara los datos de la escena sobre el volumen de vóxeles.
 
-\subsubsection{Composicion de Fragmentos y Voxeles}
+\subsubsection{Composición de Fragmentos y Vóxeles}
 
 % Cada vez que se revoxeliza la escena los volúmenes utilizados durante el proceso de voxelización deben ser limpiados antes de usarse. Para la voxelización estática esto es sencillo, OpenGL provee una función llamada \emph{glClearImage} desde la versión 4.4 la cual permite llenar una textura con un valor indicado a esta función. Debido a que utilizamos el mismo volumen para la voxelización estática no podemos utilizar esta función durante la voxelización dinámica ya que se eliminarían todos los vóxeles estáticos.
 
