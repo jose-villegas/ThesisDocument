@@ -15,6 +15,7 @@ Nuestra implementación realiza trazado de conos con vóxeles de la misma manera
 \subsection{Reflexión Difusa}
 La reflexión difusa de un fragmento puede ser aproximada utilizando integración Monte Carlo trazando un número de conos sobre la semiesfera orientada por la normal del fragmento y acumulando la radiancia a través del recorrido del cono. En el trabajo original de Crassin se utilizan tres conos para la reflexión difusa. En nuestra implementación utilizamos seis conos difusos distribuidos de forma uniforme sobre la semiesfera.
 \subsection{Oclusion Ambiental}
+\label{sub:occl_ambt_prop}
 La oclusión ambiental sobre un fragmento puede ser aproximada trazando conos sobre la semiesfera orientada por la normal de este. Para la oclusión ambiental solo es relevante acumular información de oclusión. El cono ambiental es ponderado por una función $f(r)$ donde su valor decae según la distancia recorrida. En nuestra aplicación utilizamos la función descrita en el trabajo de Crassin:
 \begin{equation}
 	f(r) = \frac{1}{1+\lambda r}
