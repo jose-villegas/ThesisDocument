@@ -1,0 +1,368 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <g>
+        <g latexdraw:type="text" id="id1848215241" fill="black" latexdraw:position="bl">
+            <text x="150.0" y="190.0"><![CDATA[\Huge q]]></text>
+        </g>
+        <g latexdraw:type="drawing" id="id1840787655">
+            <g latexdraw:type="rectangle" id="id2061306702">
+                <rect x="181.0" y="141.0" width="78.0" height="78.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="none"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id581999287">
+                <ellipse cx="180.0" cy="140.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id1260628573">
+                <ellipse cx="180.0" cy="220.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id672001979">
+                <ellipse cx="260.0" cy="140.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id983041679">
+                <ellipse cx="260.0" cy="220.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+        </g>
+        <g latexdraw:type="text" id="id312865243" fill="black" latexdraw:position="bl">
+            <text x="230.0" y="180.0"><![CDATA[\Huge r]]></text>
+        </g>
+        <g latexdraw:type="drawing" id="id1043846464">
+            <g latexdraw:type="rectangle" id="id484136521">
+                <rect x="261.0" y="141.0" width="78.0" height="78.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="none"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id1249670861">
+                <ellipse cx="260.0" cy="140.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id231421966">
+                <ellipse cx="260.0" cy="220.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id1998453574">
+                <ellipse cx="340.0" cy="140.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id825398002">
+                <ellipse cx="340.0" cy="220.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+        </g>
+        <g latexdraw:type="text" id="id759206411" fill="black" latexdraw:position="bl">
+            <text x="310.0" y="180.0"><![CDATA[\Huge s]]></text>
+        </g>
+        <g latexdraw:type="text" id="id117986104" fill="black" latexdraw:position="bl">
+            <text x="160.0" y="260.0"><![CDATA[\Huge l]]></text>
+        </g>
+        <g latexdraw:type="drawing" id="id602769584">
+            <g latexdraw:type="rectangle" id="id407982087">
+                <rect x="181.0" y="221.0" width="78.0" height="78.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="none"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id1284378699">
+                <ellipse cx="180.0" cy="220.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id1414595927">
+                <ellipse cx="180.0" cy="300.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id1909569581">
+                <ellipse cx="260.0" cy="220.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id1670520696">
+                <ellipse cx="260.0" cy="300.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+        </g>
+        <g latexdraw:type="text" id="id203937682" fill="black" latexdraw:position="bl">
+            <text x="220.0" y="260.0"><![CDATA[\Huge m]]></text>
+        </g>
+        <g latexdraw:type="drawing" id="id1136682670">
+            <g latexdraw:type="rectangle" id="id1596086025">
+                <rect x="261.0" y="221.0" width="78.0" height="78.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="none"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id50694663">
+                <ellipse cx="260.0" cy="220.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id2137610906">
+                <ellipse cx="260.0" cy="300.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id217314256">
+                <ellipse cx="340.0" cy="220.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+            <g latexdraw:type="ellipse" id="id1101297496">
+                <ellipse cx="340.0" cy="300.0" rx="9.0" ry="9.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="#009999"/>
+            </g>
+        </g>
+        <g latexdraw:type="text" id="id145202530" fill="black" latexdraw:position="bl">
+            <text x="310.0" y="260.0"><![CDATA[\Huge n]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1887502652" fill="black" latexdraw:position="bl">
+            <text x="150.0" y="340.0"><![CDATA[\Huge g]]></text>
+        </g>
+        <g latexdraw:type="text" id="id210241117" fill="black" latexdraw:position="bl">
+            <text x="230.0" y="340.0"><![CDATA[\Huge h]]></text>
+        </g>
+        <g latexdraw:type="text" id="id802129719" fill="black" latexdraw:position="bl">
+            <text x="320.0" y="340.0"><![CDATA[\Huge i]]></text>
+        </g>
+        <g latexdraw:type="joinedLines" id="id285493058">
+            <polyline points="390.0,220.0 480.0,220.0 "
+                stroke-width="8.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow1-285493058)"/>
+        </g>
+        <g latexdraw:type="drawing" id="id93268222">
+            <g latexdraw:type="text" id="id1851689177" fill="black" latexdraw:position="bl">
+                <text x="500.0" y="150.0"><![CDATA[\Huge q]]></text>
+            </g>
+            <g latexdraw:type="drawing" id="id1532408322">
+                <g latexdraw:type="rectangle" id="id1219016651">
+                    <rect x="531.0" y="101.0" width="78.0" height="78.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="none"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id710154033">
+                    <ellipse cx="530.0" cy="100.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id819354338">
+                    <ellipse cx="530.0" cy="180.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id1585330264">
+                    <ellipse cx="610.0" cy="100.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id1399179955">
+                    <ellipse cx="610.0" cy="180.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+            </g>
+            <g latexdraw:type="text" id="id1501737585" fill="black" latexdraw:position="bl">
+                <text x="580.0" y="140.0"><![CDATA[\Huge r]]></text>
+            </g>
+            <g latexdraw:type="text" id="id1526854377" fill="black" latexdraw:position="bl">
+                <text x="510.0" y="220.0"><![CDATA[\Huge l]]></text>
+            </g>
+            <g latexdraw:type="text" id="id1947381033" fill="black" latexdraw:position="bl">
+                <text x="570.0" y="220.0"><![CDATA[\Huge m]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id135143791">
+            <g latexdraw:type="text" id="id157270346" fill="black" latexdraw:position="bl">
+                <text x="510.0" y="290.0"><![CDATA[\Huge l]]></text>
+            </g>
+            <g latexdraw:type="drawing" id="id1157819178">
+                <g latexdraw:type="rectangle" id="id289460185">
+                    <rect x="531.0" y="251.0" width="78.0" height="78.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="none"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id1893352253">
+                    <ellipse cx="530.0" cy="250.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id125340157">
+                    <ellipse cx="530.0" cy="330.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id1433500035">
+                    <ellipse cx="610.0" cy="250.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id1121475315">
+                    <ellipse cx="610.0" cy="330.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+            </g>
+            <g latexdraw:type="text" id="id1622751806" fill="black" latexdraw:position="bl">
+                <text x="570.0" y="290.0"><![CDATA[\Huge m]]></text>
+            </g>
+            <g latexdraw:type="text" id="id600666293" fill="black" latexdraw:position="bl">
+                <text x="500.0" y="370.0"><![CDATA[\Huge g]]></text>
+            </g>
+            <g latexdraw:type="text" id="id2100213806" fill="black" latexdraw:position="bl">
+                <text x="580.0" y="370.0"><![CDATA[\Huge h]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id1497308465">
+            <g latexdraw:type="text" id="id2107730618" fill="black" latexdraw:position="bl">
+                <text x="680.0" y="140.0"><![CDATA[\Huge r]]></text>
+            </g>
+            <g latexdraw:type="drawing" id="id1424017402">
+                <g latexdraw:type="rectangle" id="id476077323">
+                    <rect x="711.0" y="101.0" width="78.0" height="78.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="none"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id336030049">
+                    <ellipse cx="710.0" cy="100.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id1652893153">
+                    <ellipse cx="710.0" cy="180.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id805888348">
+                    <ellipse cx="790.0" cy="100.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id773745235">
+                    <ellipse cx="790.0" cy="180.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+            </g>
+            <g latexdraw:type="text" id="id24990352" fill="black" latexdraw:position="bl">
+                <text x="760.0" y="140.0"><![CDATA[\Huge s]]></text>
+            </g>
+            <g latexdraw:type="text" id="id1251788147" fill="black" latexdraw:position="bl">
+                <text x="670.0" y="220.0"><![CDATA[\Huge m]]></text>
+            </g>
+            <g latexdraw:type="text" id="id1038737277" fill="black" latexdraw:position="bl">
+                <text x="760.0" y="220.0"><![CDATA[\Huge n]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id1819638677">
+            <g latexdraw:type="text" id="id1626895969" fill="black" latexdraw:position="bl">
+                <text x="670.0" y="290.0"><![CDATA[\Huge m]]></text>
+            </g>
+            <g latexdraw:type="drawing" id="id192565564">
+                <g latexdraw:type="rectangle" id="id669100669">
+                    <rect x="711.0" y="251.0" width="78.0" height="78.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="none"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id1409326027">
+                    <ellipse cx="710.0" cy="250.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id2003346516">
+                    <ellipse cx="710.0" cy="330.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id784525364">
+                    <ellipse cx="790.0" cy="250.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+                <g latexdraw:type="ellipse" id="id81403347">
+                    <ellipse cx="790.0" cy="330.0" rx="9.0" ry="9.0"
+                        latexdraw:borderPos="outer" stroke-width="2.0"
+                        stroke="black" fill="#009999"/>
+                </g>
+            </g>
+            <g latexdraw:type="text" id="id1414795328" fill="black" latexdraw:position="bl">
+                <text x="760.0" y="290.0"><![CDATA[\Huge n]]></text>
+            </g>
+            <g latexdraw:type="text" id="id1714177178" fill="black" latexdraw:position="bl">
+                <text x="680.0" y="370.0"><![CDATA[\Huge h]]></text>
+            </g>
+            <g latexdraw:type="text" id="id1603703587" fill="black" latexdraw:position="bl">
+                <text x="770.0" y="370.0"><![CDATA[\Huge i]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="joinedLines" id="id199223322">
+            <polyline points="390.0,200.0 390.0,120.0 "
+                stroke-width="2.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow1-199223322)"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id1633601195">
+            <polyline points="380.0,190.0 460.0,190.0 "
+                stroke-width="2.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow1-1633601195)"/>
+        </g>
+        <g latexdraw:type="text" id="id1114029120" fill="black" latexdraw:position="bl">
+            <text x="440.0" y="180.0"><![CDATA[\Large x]]></text>
+        </g>
+        <g latexdraw:type="text" id="id586508780" fill="black" latexdraw:position="bl">
+            <text x="400.0" y="140.0"><![CDATA[\Large y]]></text>
+        </g>
+    </g>
+    <defs>
+        <marker overflow="visible" orient="auto" id="arrow1-285493058">
+            <path
+                d="M 0.0 0.0 L -3.263020833333333 1.1653645833333333 L -3.263020833333333 0.0 L -3.263020833333333 -1.1653645833333333 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow1-199223322">
+            <path
+                d="M 0.0 0.0 L -4.652083333333334 1.6614583333333335 L -4.652083333333334 0.0 L -4.652083333333334 -1.6614583333333335 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow1-1633601195">
+            <path
+                d="M 0.0 0.0 L -4.652083333333334 1.6614583333333335 L -4.652083333333334 0.0 L -4.652083333333334 -1.6614583333333335 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+    </defs>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:latexIncludes><![CDATA[
+
+
+]]></latexdraw:latexIncludes>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:unit>CM</latexdraw:unit>
+            <latexdraw:zoom>1.0</latexdraw:zoom>
+            <latexdraw:magneticGridStyle>CUSTOMISED</latexdraw:magneticGridStyle>
+            <latexdraw:gridGap>10</latexdraw:gridGap>
+            <latexdraw:magneticGrid>true</latexdraw:magneticGrid>
+            <latexdraw:version>3.3.1</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>960</latexdraw:width>
+                <latexdraw:height>1040</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>960.0</latexdraw:x>
+                <latexdraw:y>0.0</latexdraw:y>
+            </latexdraw:position>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

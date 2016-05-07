@@ -1,6 +1,6 @@
 \section{Sombreado de Vóxeles} % (fold)
 \label{sec:sombreado_de_voxeles_impl}
-Para calcular la iluminación indirecta es necesario sombrear los vóxeles. Cada vóxel representa una simplificación de la radiancia saliente sobre un espacio en la escena. Esta información es utilizada por el algoritmo de trazado de conos para calcular la radiancia incidente sobre un fragmento.
+Para calcular la iluminación indirecta es necesario sombrear los vóxeles. Cada vóxel representa una simplificación de la radiancia saliente sobre un espacio en la escena. Llamaremos a la textura tridimensional resultante del sombreado de voxeles, \emph{textura base}. Esta información es utilizada por el algoritmo de trazado de conos para calcular la radiancia incidente sobre un fragmento.
 
 En nuestra implementación la iluminación de los vóxeles comprende solo componente difuso. En el proceso de voxelización se puede observar que ningún volumen está relacionado al componente especular de un material. Esto debido a dos razones: primero memoria ya que para incluir la especular durante el sombreado de vóxeles tendría que crearse otro volumen y segundo que usualmente el componente especular es un detalle fino de alta frecuencia, la voxelización siendo una simplificación de la escena podría perder detalle en especulares con lóbulos finos e incluso ocasionar errores de sombreado.
 
@@ -24,11 +24,11 @@ vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 }
 \end{lstlisting}
 
-\begin{wrapfigure}{l}{0.4\linewidth}
+\begin{wrapfigure}{l}{0.3\linewidth}
 	\centering
 	\captionsetup{justification=centering}
 	\includegraphics[width=\linewidth]{media/gimped_normals.pdf}
-	\caption{Descripción grafica de geometría dentro de un vóxel con normales disparejas.}
+	\caption{Normales disparejas en un vóxel.}
 	\label{fig:error_normals}
 \end{wrapfigure}
 Calcular el sombreado de vóxeles de esta forma es suficiente para generar resultados de buena calidad sobre el trazado de conos. Sin embargo uno de los problemas que surgen al simplificar las normales en vóxeles es que algunos vóxeles tienen normales incorrectas o desviadas. Esto sucede especialmente cuando un vóxel contiene geometría con normales muy disparejas. 
@@ -90,7 +90,6 @@ vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 	\label{fig:compositve_vshading}
 \end{figure}
 
-
 \subsection{Mapeo y Trazado de Sombras}
 
 Para obtener resultados coherentes también es necesario ocluir vóxeles. 
@@ -142,24 +141,6 @@ float TraceShadow(vec3 position, vec3 direction, float maxTracingDistance)
 
 El valor de \emph{traceShadowHit} es definido por el usuario. Este controla el peso de cada colisión del rayo con algún vóxel. Si este valor es $1$ esto equivale a detener el rayo apenas se encuentra una colisión. La acumulación de valores se hace de manera \emph{front-to-back}, el peso de los valores acumulados disminuye con la distancia recorrida del rayo.
 
-El valor de oclusión promedio por cada luz que traza sombras es almacenado en el componente alfa del volumen de normales, esta información puede ser utilizada para realizar mapeado de sombras con una textura tridimensional. La proyección de la posición en el volumen es mucho más sencilla que mapeo de sombras tradicional. Sin embargo la calidad es mucho más baja ya que el volumen es de baja resolución. Como ejemplo en nuestra aplicación la resolución por defecto del volumen es de $256^3$. Para proyectar la posición de un vóxel en espacio de mundo y viceversa se utilizan este par de funciones:
-\\
-\begin{lstlisting}[caption={Transformación de espacio entre coordenadas de textura y posiciones de mundo.}, label=SpaceTransform]
-vec3 VoxelToWorld(vec3 pos)
-{
-	vec3 result = pos;
-	result *= voxelSize;
-	return result + worldMinPoint;
-}
-vec3 WorldToVoxel(vec3 position)
-{
-    vec3 voxelPos = position - worldMinPoint;
-    return voxelPos * voxelScale;
-}
-\end{lstlisting}
-
-Estas funciones son utilizadas en varias partes del algoritmo en general. \emph{VoxelToWorld} convierte una coordenada en espacio de textura a una posición en espacio de mundo, mientras que \emph{WorldToVoxel} hace lo contrario. La variable \emph{voxelSize} representa el tamaño de un vóxel dentro de la cuadricula de vóxeles, \emph{voxelScale} representa la escala de la cuadricula de vóxeles, \emph{worldMinPoint} es el mínimo punto del \emph{AABB} que comprende el volumen de voxelización.
-
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.49\textwidth}
@@ -178,6 +159,24 @@ Estas funciones son utilizadas en varias partes del algoritmo en general. \emph{
 	\caption{Valor de oclusión almacenado en el componente alfa del volumen de normales.}
 	\label{fig:vshadows_hit}
 \end{figure}
+
+El valor de oclusión promedio por cada luz que traza sombras es almacenado en el componente alfa del volumen de normales, esta información puede ser utilizada para realizar mapeado de sombras con una textura tridimensional. La proyección de la posición en el volumen es mucho más sencilla que mapeo de sombras tradicional. Sin embargo la calidad es mucho más baja ya que el volumen es de baja resolución. Como ejemplo en nuestra aplicación la resolución por defecto del volumen es de $256^3$. Para proyectar la posición de un vóxel en espacio de mundo y viceversa se utilizan este par de funciones:
+\\
+\begin{lstlisting}[caption={Transformación de espacio entre coordenadas de textura y posiciones de mundo.}, label=SpaceTransform]
+vec3 VoxelToWorld(vec3 pos)
+{
+	vec3 result = pos;
+	result *= voxelSize;
+	return result + worldMinPoint;
+}
+vec3 WorldToVoxel(vec3 position)
+{
+    vec3 voxelPos = position - worldMinPoint;
+    return voxelPos * voxelScale;
+}
+\end{lstlisting}
+
+Estas funciones son utilizadas en varias partes del algoritmo en general. \emph{VoxelToWorld} convierte una coordenada en espacio de textura a una posición en espacio de mundo, mientras que \emph{WorldToVoxel} hace lo contrario. La variable \emph{voxelSize} representa el tamaño de un vóxel dentro de la cuadricula de vóxeles, \emph{voxelScale} representa la escala de la cuadricula de vóxeles, \emph{worldMinPoint} es el mínimo punto del \emph{AABB} que comprende el volumen de voxelización.
 
 \subsection{Vóxeles Emisivos}
 La forma en la que se almacenan materiales emisivos en la representación con vóxeles es muy sencilla. Al culminar el sombreado de un vóxel, al color resultante se le suma el valor de emisión obtenido del proceso de voxelización. El propósito de esto es aproximar de forma muy cruda el valor de $L_e(x\to\Theta)$, este describe la luz emitida por un punto $x$ sobre una superficie. Entonces continuando la ecuación \ref{eq:shading_voxels} ahora considerando emisión:
