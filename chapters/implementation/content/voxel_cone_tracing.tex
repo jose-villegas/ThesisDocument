@@ -1,4 +1,105 @@
-\section{Trazado de Conos con Voxeles} % (fold)
+\section{Trazado de Conos con Vóxeles} % (fold)
 \label{sec:trazado_de_conos}
+El trazado de conos es utilizado para distintos aspectos visuales de la aplicación. En nuestra implementación este proceso se realiza durante el cálculo de iluminación utilizando sombreado diferido (sección \ref{sub:deferred_rendering_theory}). Utilizar sombreado diferido muy conveniente ya que durante el cálculo de iluminación solo necesario trazar conos sobre cada pixel en vez de cada fragmento incluyendo no visibles.
+
+Como se menciona en la sección \ref{sec:trazado_de_conos_con_voxeles}. El trazado de conos es similar a ray-marching con la única diferencia que el volumen a muestrear incrementa de tamaño según la distancia recorrida. Esto es producto de la expansión de la apertura del cono a través de su distancia recorrida. Las muestras de mayor tamaño se obtienen utilizando los niveles de mip map descritos en la sección anterior.
+
+Al utilizar vóxeles anisótropos se necesita saber que volúmenes direccionales van a ser utilizados para muestrear a través del recorrido del cono. Esto se determina según el signo de cada eje del vector direccional del cono. También es necesario calcular el peso de cada eje para obtener un resultado ponderado entre los tres volúmenes:
+\\
+\begin{lstlisting}[caption={Lógica para determinar volúmenes direccionales a utilizar durante el trazado de conos y peso por eje.}, label=Trace0]
+vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
+{
+    uvec3 visibleFace;
+    visibleFace.x = (direction.x < 0.0) ? 0 : 1;
+    visibleFace.y = (direction.y < 0.0) ? 2 : 3;
+    visibleFace.z = (direction.z < 0.0) ? 4 : 5;
+    // weight per axis for aniso sampling
+    vec3 weight = direction * direction;
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+}
+\end{lstlisting}
+
+Durante el recorrido del cono se utiliza la función de GLSL \emph{textureLod}. Esta función tiene como entrada una textura, una coordenada y un nivel mip. Durante la marcha del cono el nivel mip se obtiene del diámetro del cono dado una distancia desde el origen:
+\begin{equation}
+	V_{level} = \log_2(\frac{d}{V_{size}})
+\end{equation}
+Donde $d$ es el diámetro del círculo del cono según la distancia recorrida y $V_{size}$ es el tamaño de un vóxel en la cuadricula de vóxeles en el máximo nivel de detalle. El valor de $d$ se puede obtener de la siguiente ecuación:
+\begin{equation}
+	d = 2t\cdot\tan(\frac{\theta}{2})
+\end{equation}
+Donde $t$ es la distancia recorrida por el cono desde el punto de origen y $\theta$ es el ángulo de apertura del cono. En la siguiente figura podemos observar una representación visual de este recorrido:
+\begin{figure}[H]
+	\centering
+	\captionsetup{justification=centering}
+	\includegraphics[width=.9\linewidth]{media/cone.pdf}
+	\caption{Visualizacion del recorrido de un cono.}
+\end{figure}
+
+En nuestra implementación el punto de origen del cono es trasladado según el tamaño de un vóxel. Esto se hace para evitar que el cono colisione con el vóxel de origen:
+\\
+\begin{lstlisting}[caption={Traslado de origen del cono.}, label=Trace1]
+vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
+{
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+	// move further to avoid self collision
+	float dst = voxelWorldSize;
+	vec3 startPosition = position + normal * dst;
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+}
+\end{lstlisting}
+Finalmente se comienza el trazado del cono a través de la escena:
+\\
+\begin{lstlisting}[caption={Trazado de cono con voxeles.}, label=Trace2]
+layout(binding = 7) uniform sampler3D voxelTex;
+layout(binding = 8) uniform sampler3D voxelTexMipmap[6];
+
+vec4 AnistropicSample(vec3 coord, vec3 weight, uvec3 face, float lod)
+{
+    // anisotropic volumes level
+    float anisoLevel = max(lod - 1.0f, 0.0f);
+    // directional sample
+    vec4 anisoSample = weight.x * textureLod(voxelTexMipmap[face.x], coord, anisoLevel)
+                     + weight.y * textureLod(voxelTexMipmap[face.y], coord, anisoLevel)
+                     + weight.z * textureLod(voxelTexMipmap[face.z], coord, anisoLevel);
+    // linearly interpolate on base level
+    if(lod < 1.0f)
+    {
+        vec4 baseColor = texture(voxelTex, coord);
+        anisoSample = mix(baseColor, anisoSample, clamp(lod, 0.0f, 1.0f));
+    }
+
+    return anisoSample;                    
+}
+vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
+{
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+    // final results
+    vec4 coneSample = vec4(0.0f);
+    float maxDistance = maxTracingDistanceGlobal / voxelScale
+
+    while(coneSample.a < 1.0f && dst <= maxDistance)
+    {
+        vec3 conePosition = startPosition + direction * dst;
+        // cone expansion and respective mip level based on diameter
+        float diameter = 2.0f * aperture * dst;
+        float mipLevel = log2(diameter / voxelWorldSize);
+        // convert position to texture coord
+        vec3 coord = WorldToVoxel(conePosition);
+        // get directional sample from anisotropic representation
+        vec4 anisoSample = AnistropicSample(coord, weight, visibleFace, mipLevel);
+        // front to back composition
+        coneSample += (1.0f - coneSample.a) * anisoSample;
+        // move further into volume
+        dst += diameter * samplingFactor;
+    }
+
+    return coneSample;
+}
+\end{lstlisting}
+En el método \emph{AnistropicSample} se puede observar el muestreo direccional, ponderado por el peso de cada eje en la dirección del cono y el uso de la función \emph{mix()} para interpolar entre los volúmenes direccionales y la textura base. 
+
+Durante el trazado se observa cómo se obtiene la posición del cono según la distancia recorride y el uso de las operaciones ya mencionadas para obtener el diámetro y el nivel mip. La función \emph{WorldToVoxel} aparece para cambiar una posición en espacio de mundo a espacio de textura como fue mencionado para el algoritmo \ref{SpaceTransform}. La distancia recorrida es alterada por una variable \emph{samplingFactor} esto permite disminuir la distancia entre muestreos para lograr resultados más suaves con un costo en rendimiento.
+
+Para acumular los valores muestreados través del recorrido del cono se utiliza acumulación volumétrica \emph{front-to-back}. Para esto es necesario llevar pista de un valor oclusión $a$ y color $c$. La actualización de estos valores por cada paso se realiza de la siguiente manera: $c=c+(1-a)c_2$ y $a=a+(1-a)a_2$. En el algoritmo se puede observar que esto se realiza con la variable \emph{coneSample}.
 
 % section trazado_de_conos (end)
