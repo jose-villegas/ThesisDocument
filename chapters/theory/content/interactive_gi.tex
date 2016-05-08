@@ -76,6 +76,7 @@ Si asumimos que todas las superficies son reflectores difusos, la intensidad de 
 La iluminación indirecta de un punto se calcula sumando todas las intensidades de todos los píxeles (considerados ahora como luces) en el \ac{RSM} visibles. Calcular esto es costoso, por tanto en vez sumar todos los píxeles visibles al punto se toma cierta cantidad de muestras del \ac{RSM}. La posición del punto iluminado $x_{p}$ es proyectado sobre el \ac{RSM} y las muestras son seleccionadas alrededor de esta posición proyectada. La densidad de las muestras decrece con la distancia cuadrada de la posición proyectada al punto iluminado. Esto asume que dos superficies cercanas proyectadas al \ac{RSM} también son cercanas en el \ac{RSM}. También se asume que la muestra es directamente visible desde la superficie iluminada.
 
 \subsection{Volúmenes de Propagación de Luz en Cascada}
+\label{sub:clpv}
 \Ac{CLPV} o \emph{Cascaded Light Propagation Volumes} presentando por Kaplanyan y otros en 2010 \cite{Kaplanyan:2010} es un algoritmo para el cálculo de iluminación indirecta en tiempo real.
 
 \begin{figure}[H]

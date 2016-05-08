@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"mip",
+				"mipLevel"
+			],
+			[
 				"cone",
 				"coneShadowAperture"
 			],
@@ -166,10 +170,6 @@
 			[
 				"mi",
 				"mipOffsets"
-			],
-			[
-				"mip",
-				"mipDimension"
 			],
 			[
 				"wri",
@@ -500,10 +500,21 @@
 	"buffers":
 	[
 		{
-			"file": "chapters/proposal/content/voxelization.tex",
+			"file": "chapters/implementation/content/voxel_cone_tracing.tex",
 			"settings":
 			{
-				"buffer_size": 6499,
+				"buffer_size": 16531,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "\\section{Estudio de Rendimiento}\n\nPara el estudio de rendimiento de utilizo la cantidad de tiempo entre rutinas relevantes a cada prueba en milisegundos. Para obtener tiempos precisos en la \\ac{GPU} se utilizó el software GPU PerfStudio y análisis de frame. Este software permite observar entre muchas otras cosas el tiempo total de cada llamada de dibujo o \\emph{draw call} al API grafico OpenGL\n\n\\subsection{Prueba Base}\nLa prueba base de rendimiento comprende todos los pasos del algoritmo sin trazado de sombras o modificaciones sobre la escena estática. Para esta prueba se colocó la aplicación en actualización forzosa de tal manera que todos los pasos del algoritmo se realicen por frame. También se varían tres aspectos de la aplicación: resolución de pantalla, dimensión de la representación en vóxeles y factor de longitud de marcha del cono.\n\nPara estas pruebas se utilizaron todas las escenas completas. La configuración del escenario consto de una luz direccional con mapeado de sombras y tres modelos precargados. Los modelos utilizados fueron Stanford Happy Buddha, Stanford Dragon y Stanford Bunny, seleccionados por su complejidad geométrica. Cada modelo tiene su propio material con un cono especular con apertura de 45, 27 y 9 grados respectivamente. La cámara en escena fue colocada de tal forma que todos los píxeles  visibles formen parte del trazado de conos. \n\n\\begin{table}[h]\n\\centering\n\\begin{tabular}{llllllllll}\n\\rot{Escena}                    & \\rot{Voxelización Estática} & \\rot{Limpieza de Vóxeles Dinámicos} & \\rot{Voxelización Dinámica} & \\rot{Sombreado de Vóxeles} & \\rot{Mipmapping Direccional} & \\rot{Iluminación Global de Vóxeles} & \\rot{Mipmapping Direccional} & \\rot{Trazado de Conos con Vóxeles} & \\rot{Tiempo Dinámico}    \\\\ \\hline\n\\multicolumn{1}{|l|}{Sibenik}     & \\multicolumn{1}{l|}{1.80}     & 0.58                                  & \\multicolumn{1}{l|}{2.11}     & 0.95                         & \\multicolumn{1}{l|}{1.39}      & 3.88                                  & \\multicolumn{1}{l|}{1.38}      & \\multicolumn{1}{l|}{7.31}            & \\multicolumn{1}{l|}{17.60} \\\\\n\\multicolumn{1}{|l|}{Cornell Box} & \\multicolumn{1}{l|}{0.51}     & 0.78                                  & \\multicolumn{1}{l|}{1.30}     & 1.33                         & \\multicolumn{1}{l|}{1.38}      & 8.41                                  & \\multicolumn{1}{l|}{1.37}      & \\multicolumn{1}{l|}{7.23}            & \\multicolumn{1}{l|}{21.81} \\\\\n\\multicolumn{1}{|l|}{Conference}  & \\multicolumn{1}{l|}{46.04}    & 0.56                                  & \\multicolumn{1}{l|}{1.52}     & 0.86                         & \\multicolumn{1}{l|}{1.38}      & 3.23                                  & \\multicolumn{1}{l|}{1.37}      & \\multicolumn{1}{l|}{7.50}            & \\multicolumn{1}{l|}{16.42} \\\\\n\\multicolumn{1}{|l|}{Sponza}      & \\multicolumn{1}{l|}{11.29}    & 0.60                                  & \\multicolumn{1}{l|}{2.03}     & 1.13                         & \\multicolumn{1}{l|}{1.37}      & 5.44                                  & \\multicolumn{1}{l|}{1.38}      & \\multicolumn{1}{l|}{7.01}            & \\multicolumn{1}{l|}{18.97} \\\\ \\hline\n\\end{tabular}\n\\captionsetup{justification=centering}\n\\caption{Rendimiento de todas las partes del algoritmo en distintas escenas utilizando volúmenes de resolución $256^3$, factor de longitud de marcha de $0.5$ y resolución de pantalla de $1280x720$. Todos los tiempos en milisegundos.}\n\\label{tab:performance_base}\n\\end{table}\n\n\\begin{table}[H]\n\\centering\n\\begin{tabular}{lllllllllll}\n\\rot{Resolucion de Volumenes}                 & \\rot{Escena}                   & \\rot{Voxelización Estática} & \\rot{Limpieza de Vóxeles Dinámicos} & \\rot{Voxelización Dinámica} & \\rot{Sombreado de Vóxeles} & \\rot{Mipmapping Direccional} & \\rot{Iluminación Global de Vóxeles} & \\rot{Mipmapping Direccional} & \\rot{Trazado de Conos con Vóxeles} & \\rot{Tiempo Dinámico}    \\\\ \\hline\n\\multicolumn{1}{|l|}{\\multirow{4}{*}{\\rotv{$64^3$}}}  & \\multicolumn{1}{l|}{Sibenik}     & \\multicolumn{1}{l|}{3.00}     & 0.01                                  & \\multicolumn{1}{l|}{9.17}     & 0.04                         & \\multicolumn{1}{l|}{0.11}      & 0.12                                  & \\multicolumn{1}{l|}{0.10}      & \\multicolumn{1}{l|}{5.17}            & \\multicolumn{1}{l|}{14.74} \\\\\n\\multicolumn{1}{|l|}{}                     & \\multicolumn{1}{l|}{Cornell Box} & \\multicolumn{1}{l|}{0.07}     & 0.02                                  & \\multicolumn{1}{l|}{2.13}     & 0.06                         & \\multicolumn{1}{l|}{0.11}      & 0.29                                  & \\multicolumn{1}{l|}{0.11}      & \\multicolumn{1}{l|}{4.79}            & \\multicolumn{1}{l|}{7.51}  \\\\\n\\multicolumn{1}{|l|}{}                     & \\multicolumn{1}{l|}{Conference}  & \\multicolumn{1}{l|}{39.68}    & 0.01                                  & \\multicolumn{1}{l|}{5.98}     & 0.03                         & \\multicolumn{1}{l|}{0.11}      & 0.10                                  & \\multicolumn{1}{l|}{0.11}      & \\multicolumn{1}{l|}{5.38}            & \\multicolumn{1}{l|}{11.72} \\\\\n\\multicolumn{1}{|l|}{}                     & \\multicolumn{1}{l|}{Sponza}      & \\multicolumn{1}{l|}{22.87}    & 0.01                                  & \\multicolumn{1}{l|}{13.93}    & 0.05                         & \\multicolumn{1}{l|}{0.17}      & 0.13                                  & \\multicolumn{1}{l|}{0.17}      & \\multicolumn{1}{l|}{5.49}            & \\multicolumn{1}{l|}{19.97} \\\\ \\hline\n\\multicolumn{1}{|l|}{\\multirow{4}{*}{\\rotv{$128^3$}}} & \\multicolumn{1}{l|}{Sibenik}     & \\multicolumn{1}{l|}{2.17}     & 0.08                                  & \\multicolumn{1}{l|}{3.93}     & 0.17                         & \\multicolumn{1}{l|}{0.26}      & 0.62                                  & \\multicolumn{1}{l|}{0.26}      & \\multicolumn{1}{l|}{2.17}            & \\multicolumn{1}{l|}{3.93}  \\\\\n\\multicolumn{1}{|l|}{}                     & \\multicolumn{1}{l|}{Cornell Box} & \\multicolumn{1}{l|}{0.16}     & 0.10                                  & \\multicolumn{1}{l|}{1.38}     & 0.28                         & \\multicolumn{1}{l|}{0.26}      & 1.62                                  & \\multicolumn{1}{l|}{0.26}      & \\multicolumn{1}{l|}{5.75}            & \\multicolumn{1}{l|}{1.38}  \\\\\n\\multicolumn{1}{|l|}{}                     & \\multicolumn{1}{l|}{Conference}  & \\multicolumn{1}{l|}{39.19}    & 0.07                                  & \\multicolumn{1}{l|}{2.47}     & 0.15                         & \\multicolumn{1}{l|}{0.26}      & 0.54                                  & \\multicolumn{1}{l|}{0.26}      & \\multicolumn{1}{l|}{6.42}           & \\multicolumn{1}{l|}{2.47}  \\\\\n\\multicolumn{1}{|l|}{}                     & \\multicolumn{1}{l|}{Sponza}      & \\multicolumn{1}{l|}{15.15}    & 0.08                                  & \\multicolumn{1}{l|}{4.00}     & 0.20                         & \\multicolumn{1}{l|}{0.26}      & 0.82                                  & \\multicolumn{1}{l|}{0.26}      & \\multicolumn{1}{l|}{5.47}           & \\multicolumn{1}{l|}{4.00}  \\\\ \\hline\n\\multicolumn{1}{|l|}{\\multirow{4}{*}{\\rotv{$512^3$}}} & \\multicolumn{1}{l|}{Sibenik}     & \\multicolumn{1}{l|}{2.36}     & 4.51                                  & \\multicolumn{1}{l|}{1.35}     & 6.06                         & \\multicolumn{1}{l|}{10.92}     & 23.23                                 & \\multicolumn{1}{l|}{10.91}     & \\multicolumn{1}{l|}{8.57}            & \\multicolumn{1}{l|}{65.55} \\\\\n\\multicolumn{1}{|l|}{}                     & \\multicolumn{1}{l|}{Cornell Box} & \\multicolumn{1}{l|}{6.18}     & 6.08                                  & \\multicolumn{1}{l|}{1.80}     & 7.54                         & \\multicolumn{1}{l|}{10.70}     & 41.14                                 & \\multicolumn{1}{l|}{10.87}     & \\multicolumn{1}{l|}{7.87}            & \\multicolumn{1}{l|}{86.00} \\\\\n\\multicolumn{1}{|l|}{}                     & \\multicolumn{1}{l|}{Conference}  & \\multicolumn{1}{l|}{47.44}    & 4.46                                  & \\multicolumn{1}{l|}{1.28}     & 5.63                         & \\multicolumn{1}{l|}{11.57}     & 18.70                                 & \\multicolumn{1}{l|}{11.35}     & \\multicolumn{1}{l|}{8.56}            & \\multicolumn{1}{l|}{61.56} \\\\\n\\multicolumn{1}{|l|}{}                     & \\multicolumn{1}{l|}{Sponza}      & \\multicolumn{1}{l|}{9.05}     & 4.55                                  & \\multicolumn{1}{l|}{1.39}     & 6.87                         & \\multicolumn{1}{l|}{11.16}     & 28.09                                 & \\multicolumn{1}{l|}{10.79}     & \\multicolumn{1}{l|}{7.64}            & \\multicolumn{1}{l|}{70.49} \\\\ \\hline\n\\end{tabular}\n\\captionsetup{justification=centering}\n\\caption{Rendimiento en contraste con la tabla \\ref{tab:performance_base} considerando distintas resoluciones para la representación en vóxeles, todos los pasos del algoritmo se ven afectados por este parámetro.}\n\\label{tab:performance_depth}\n\\end{table}\n\\begin{table}[H]\n\\centering\n\\begin{tabular}{|l|l|l|}\n\\hline\nResolución Pantalla  & 1920x1080                    & 1280x720                     \\\\ \\hline\nEscena      & Trazado de Conos con Vóxeles & Trazado de Conos con Vóxeles \\\\ \\hline\nSibenik     & 14.30                        & 7.31                         \\\\\nCornell Box & 15.17                        & 7.23                         \\\\\nConference  & 16.27                        & 7.50                         \\\\\nSponza      & 16.69                        & 7.01                         \\\\ \\hline\n\\end{tabular}\n\\captionsetup{justification=centering}\n\\caption{Rendimiento con una mayor resolución de pantalla. Esto solo afecta el trazado de conos con vóxeles.}\n\\label{tab:performance_display}\n\\end{table}\n\\begin{table}[H]\n\\centering\n\\begin{tabular}{|l|l|l|l|l|}\n\\hline\nLongitud de Marcha & 0.1         & 0.25        & 0.5       & 2.5       \\\\ \\hline\nEscena             & \\multicolumn{4}{l|}{Trazado de Conos con Vóxeles} \\\\ \\hline\nSibenik            & 29.55       & 12.73       & 7.31      & 2.67      \\\\\nCornell Box        & 26.80       & 11.57       & 7.23      & 2.68      \\\\\nConference         & 29.73       & 12.93       & 7.50      & 2.85      \\\\\nSponza             & 29.81       & 12.92       & 7.01      & 2.81      \\\\ \\hline\\end{tabular}\n\\captionsetup{justification=centering}\n\\caption{Rendimiento con distintas configuraciones de la longitud de marcha del cono. Esto solo afecta el trazado de conos con vóxeles.}\n\\label{tab:performance_step}\n\\end{table}\n\nConsiderando como tiempos interactivos todo resultado por debajo de $33.3 ms$ o aproximadamente 30 cuadros por segundo. Nuestra implementación logra colocarse por debajo de este tiempo en todos los casos excepto los casos que comprenden resoluciones de volúmenes mayores a $256^3$.\n\n\\subsubsection{Densidad Geométrica y Velocidad de Voxelización.}\nLa cantidad de triángulos dentro del espacio que representa un vóxel afecta la velocidad de voxelización. Esto se debe a que este proceso requiere sincronización entre distintos hilos por fragmento. A mayor cantidad de triángulos en este espacio mayor es la cantidad de fragmentos generados por el proceso de rasterización. Cada uno de estos hilos debe esperar a escribir en la misma posición del volumen para garantizar atomicidad.\n\nEn la imagen \\ref{fig:voxelization_times} se puede observar esta condición, especialmente en la escena Conference. Esta es una escena pequeña en escala, sin embargo de todas las escenas completas es la que posee mayor cantidad de triángulos como se puede observar en la tabla \\ref{tab:scenes_attributes}. También es notable como disminuye el tiempo de voxelización para algunas escenas al aumentar la resolución del volumen y como aumenta al utilizar menores resoluciones, especialmente el salto entre $128^3$ a $64^3$.\n\n\\begin{figure}[H]\n	\\centering\n	\\begin{subfigure}{.49\\textwidth}\n		\\centering\n		\\includegraphics[width=\\linewidth]{media/voxelzation_64_cropped.pdf}\n		\\caption*{Resolución de volúmenes: $64^3$}\n	\\end{subfigure}\n	\\begin{subfigure}{.49\\textwidth}\n		\\centering\n		\\includegraphics[width=\\linewidth]{media/voxelzation_128_cropped.pdf}	\n		\\caption*{Resolución de volúmenes: $128^3$}\n	\\end{subfigure}\n	\\par\\bigskip\n	\\begin{subfigure}{.49\\textwidth}\n		\\centering\n		\\includegraphics[width=\\linewidth]{media/voxelzation_256_cropped.pdf}\n		\\caption*{Resolución de volúmenes: $256^3$}\n	\\end{subfigure}\n	\\begin{subfigure}{.49\\textwidth}\n		\\centering\n		\\includegraphics[width=\\linewidth]{media/voxelzation_512_cropped.pdf}	\n		\\caption*{Resolución de volúmenes: $512^3$}\n	\\end{subfigure}\n	\\caption{Tiempos de voxelización dinámica y estática de escenas completas con distintas resoluciones para la representación en vóxeles. Tabla \\ref{tab:performance_depth}}\n	\\label{fig:voxelization_times}\n\\end{figure}\n\n\\subsubsection{Vacuidad y Velocidad de Trazado para la Iluminación Global de Vóxeles.}\n\\label{subsubsec:emptyness}\n\nEn escenas donde existen muchos espacios vacíos el trazado de rayos suele tardar un poco más que en escenas densas de objetos. Esto se debe a que mientras la representación en vóxeles sea vacía en la posición que describe la apertura, dirección y punto de origen del cono, este cono debe seguir expandiéndose. A consecuencia mientras más espacios vacíos la representación en vóxeles tenga, más distancia tiene que recorrer cada cono aumentando la cantidad de operaciones de lectura sobre la representación en vóxeles.\n\nEste problema se puede observar en la figura \\ref{fig:gi_voxel_time} para las escenas Sponza y Cornell Box. La escena Cornell Box es en gran parte vacua con solo dos cuboides internos. La escena Sponza es densa en su interior por tanto la falta de objetos no es el principal problema. El problema de la Sponza reside en que la escena es larga y alta pero no ancha. Durante la voxelización cada triángulo se proyecta de forma ortogonal sobre cada eje para maximizar la voxelización, este frustum de proyección es cuadrado. Para las dimensiones de esta escena siempre quedara una cantidad considerable de vóxeles vacíos fuera de la geometría principal de la escena. \n\n% Una forma de evitar estos problemas en escenas como Sponza es comprobar que la posición de trazado actual está fuera de los límites de la escena, sin embargo esto puede ocasionar problemas visuales dependiendo de la apertura del cono en ese punto, para limitar correctamente el punto de trazado con respecto a los límites de la escena es necesario calcular la intersección del cono contra el volumen delimitante.\n\n\\begin{figure}[h]\n	\\centering\n	\\includegraphics[width=0.95\\linewidth]{media/voxel_gi_time_cropped.pdf}\n	\\caption{Tiempos de cálculo de iluminación global sobre la representación en vóxeles para todas las escenas completas.}\n	\\label{fig:gi_voxel_time}\n\\end{figure}\n\n\\subsection{Trazado de Sombras y Volumen de Visibilidad}\n\nLa aplicación provee sombras suaves para luces direccionales, puntuales y focales utilizando trazado de conos. Si no se sombrea la representación en vóxeles la imagen resultante es incorrecta a pesar de definir los contornos de sombreado. La razón es que el trazado de conos para la iluminación indirecta consideraría estos vóxeles como iluminados en vez de ocluidos por sombras. Nuestra implementación provee un método de inclusión de sombras suaves durante el sombreado de vóxeles. En esta sección se examina el rendimiento de las distintas opciones para el trazado de sombras que provee nuestra implementación excepto mapeado de sombras (sección \\ref{subsec:shadowmapping}) disponible solo para luces direccionales.\n\nPara estas pruebas se utilizaron todas las escenas completas. La configuración del escenario consto de solo una luz puntual con trazado de sombras habilitado. La cámara en escena fue colocada de tal forma que todos los píxeles visibles formen parte del trazado de conos. \n\nCon respecto a la configuración de la aplicación, se activó el modo de actualización forzosa para simular luces en constante movimiento y se desactivo la iluminación global de vóxeles. La resolución de la representación en vóxeles utilizada fue de $256^3$ y el factor de longitud de marcha del cono fue $0.5$.\n\nEste estudió considera las distintas opciones en la aplicación relevantes al trazado de sombras. Estas opciones comprenden: trazado de sombras durante el sombreado de vóxeles, trazado de sombras con trazado de conos y vóxeles o muestreo del volumen de visibilidad.\n\n\\begin{table}[h]\n\\centering\n\\begin{tabular}{lll}\n                                  &                                           &                                                                \\\\ \\hline\n\\multicolumn{1}{|l|}{Escena}      & \\multicolumn{1}{l|}{Sombreado de Voxeles} & \\multicolumn{1}{l|}{Sombreado y Trazado de Sombras} \\\\ \\hline\n\\multicolumn{1}{|l|}{Sibenik}     & \\multicolumn{1}{l|}{0.95}                 & \\multicolumn{1}{l|}{4.57}                                      \\\\\n\\multicolumn{1}{|l|}{Cornell Box} & \\multicolumn{1}{l|}{1.33}                 & \\multicolumn{1}{l|}{20.32}                                     \\\\\n\\multicolumn{1}{|l|}{Conference}  & \\multicolumn{1}{l|}{0.86}                 & \\multicolumn{1}{l|}{4.77}                                      \\\\\n\\multicolumn{1}{|l|}{Sponza}      & \\multicolumn{1}{l|}{1.13}                 & \\multicolumn{1}{l|}{3.31}                                      \\\\ \\hline\n\\end{tabular}\n\\caption{Tiempos de sombreado de vóxeles con y sin trazado de sombras sobre el volumen.}\n\\label{tab:voxelshading_shadowing}\n\\end{table}\n\n\\begin{figure}[h]\n	\\centering\n	\\includegraphics[width=0.95\\linewidth]{media/voxelshading_shadow_cropped.pdf}\n	\\caption{Grafica para el tiempo agregado al sombreado de vóxeles con trazado de sombras. Tabla \\ref{tab:voxelshading_shadowing}.}\n	\\label{fig:voxelshading_shadowing}\n\\end{figure}\n\nEn la imagen \\ref{fig:voxelshading_shadowing} se puede observar un incremento del tiempo de cómputo invertido durante el sombreado de vóxeles al incluir sombras trazadas sobre el volumen. En la escena Cornell Box este incremento es mucho mayor al de las demás escenas. La razón es que esta escena es en gran parte vacía, por lo tanto la mayoría de los rayos trazados tienen que recorrer un largo camino antes de culminar. Sin embargo, la escena Sponza a pesar de tener los mismos problemas de vacuidad ya explicados en la sección \\ref{subsubsec:emptyness} tiene un tiempo agregado similar a las demás escenas sin estos problemas. Esto se debe principalmente a que la fuente de luz puntual se encuentra en el interior de la escena. La posición de la fuente de luz a trazar en la escena afecta directamente el rendimiento, ya que esta determina en promedio que tan rápido la mayoría de los rayos terminan su recorrido.\n\n\\begin{table}[H]\n\\centering\n\\begin{tabular}{llll}\n                                  &                                       &                                             &                                         \\\\ \\hline\n\\multicolumn{1}{|l|}{Escena}      & \\multicolumn{1}{l|}{Trazado de Conos} & \\multicolumn{1}{l|}{Volumen de Visibilidad} & \\multicolumn{1}{l|}{Conos para Sombras} \\\\ \\hline\n\\multicolumn{1}{|l|}{Sibenik}     & \\multicolumn{1}{l|}{7.31}             & \\multicolumn{1}{l|}{6.03}                   & \\multicolumn{1}{l|}{8.58}               \\\\\n\\multicolumn{1}{|l|}{Cornell Box} & \\multicolumn{1}{l|}{7.23}             & \\multicolumn{1}{l|}{6.50}                   & \\multicolumn{1}{l|}{10.31}              \\\\\n\\multicolumn{1}{|l|}{Conference}  & \\multicolumn{1}{l|}{7.50}             & \\multicolumn{1}{l|}{5.65}                   & \\multicolumn{1}{l|}{5.65}               \\\\\n\\multicolumn{1}{|l|}{Sponza}      & \\multicolumn{1}{l|}{7.01}             & \\multicolumn{1}{l|}{6.28}                   & \\multicolumn{1}{l|}{8.30}               \\\\ \\hline\n\\end{tabular}\n\\caption{Tiempo agregado al paso de trazado de conos con vóxeles al incluir trazado de sombras con conos.}\n\\label{tab:shadowcone5}\n\\end{table}\n\n\\begin{figure}[H]\n	\\centering\n	\\includegraphics[width=0.95\\linewidth]{media/shadowtrace_time_cropped.pdf}\n	\\caption{Grafica para el tiempo agregado al trazado de conos con vóxeles utilizando conos para sombras suaves o mapeo del volumen de visibilidad. Tabla \\ref{tab:shadowcone5}.}\n	\\label{fig:voxeltrace_shadowing}\n\\end{figure}\n\nEl mapeo del volumen de visibilidad ofrece mayor rendimiento a cambio de menor calidad de sombras. El trazado de conos con vóxeles incluye el tiempo invertido en mapeo de sombras en la prueba base \\ref{tab:performance_base}. En contraste el mapeo del volumen de visibilidad es mucho más rápido ya que este solo es una instrucción de lectura más una simple operación aritmética para convertir la posición en espacio de mundo a una coordenada en espacio de textura. En algunos casos el trazado de conos para sombras puede incluso ser más rápido que la técnica de mapeo de sombras. Esto se observa en la escena Conference, la razón es que esta es una escena pequeña en escala y densa en geometría, los conos trazados suelen terminar rápidamente.\n\n\\subsection{Apertura del Cono Especular y Cono de Sombras}\n\nLa apertura de los conos a trazar afecta directamente el rendimiento del trazado de conos con vóxeles. Mientras más fino es este cono más lenta es su expansión a través del espacio en escena ya que el incremento de la longitud de marchado es mucho más lenta. También mientras más fino es este cono mayor tiempo se invierte en los niveles más altos de detalle en la representación de vóxeles, en la tabla \\ref{tab:performance_depth} se puede observar que a mayor resolución del volumen mayor es el tiempo de trazado.\n\nEl objetivo de estas pruebas es demostrar la diferencia en rendimiento según distintas configuraciones de apertura del cono especular y el cono utilizado para el trazado de sombras suaves.\n\nPara ambas pruebas se utilizó solo la escena completa Cornell Box. Para la prueba del cono de sombras se colocó dentro de la escena una luz puntual con trazado de sombras habilitado. Para la prueba del cono especular se colocó dentro la escena una esfera con un material especular y una luz puntual con trazado de sombras inhabilitado. Para ambas pruebas la resolución de la representación en vóxeles y la longitud de marcha del cono es de $256^3$ y $0.5$ respectivamente. El ángulo de apertura para ambas pruebas es 1, 5, 20, y 45 grados.\n\n\\begin{figure}[H]\n	\\centering\n	\\begin{subfigure}{.7\\textwidth}\n		\\centering\n		\\includegraphics[width=\\linewidth]{media/shadowcone_aperture_cropped.pdf}\n		\\caption{Tiempo de trazado de conos con vóxeles con distintas aperturas del cono para el trazado de sombras suaves.}\n		\\label{fig:shadowcone_aperture}\n	\\end{subfigure}\n	\\par\\bigskip\n	\\begin{subfigure}{.7\\textwidth}\n		\\centering\n		\\includegraphics[width=\\linewidth]{media/specularcone_aperture_cropped.pdf}\n		\\caption{Tiempo de trazado de conos con vóxeles con distintas aperturas del cono especular.}\n		\\label{fig:specularcone_aperture}\n	\\end{subfigure}\n\\end{figure}\n\n\\subsection{Comparasiones} % (fold)\n\\label{sub:comparasiones}\nPara el estudior el rendimiento con respecto a otras aproximaciones para calculo de iluminacion indirecta se considero una aplicacion con trazado de conos con voxeles utilizando octrees dispersos para la representacion con voxeles y otra aplicacion utilizando \\acl{CLPV} visto en la seccion \\ref{sub:clpv}. Para ambos programas se utilizo la escena Sponza con camara y luces en posiciones y direcciones semejantes. La aplicacion fue colocada bajo actualizacion forzosa. Solo se muestra el tiempo final de renderizado en milisegundos.\n\n\n% subsection comparasiones (end)",
+			"file": "chapters/tests/content/performance.tex",
+			"file_size": 23944,
+			"file_write_time": 131071637530115748,
+			"settings":
+			{
+				"buffer_size": 23541,
 				"line_ending": "Windows"
 			}
 		},
@@ -519,23 +530,23 @@
 			"file": "chapters/implementation/content/voxel_pipeline.tex",
 			"settings":
 			{
-				"buffer_size": 10671,
+				"buffer_size": 19857,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "chapters/conclusion/conclusion.tex",
+			"settings":
+			{
+				"buffer_size": 6227,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "main.tex",
 			"settings":
 			{
-				"buffer_size": 4075,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
-			"settings":
-			{
-				"buffer_size": 15067,
+				"buffer_size": 4100,
 				"line_ending": "Unix"
 			}
 		},
@@ -543,7 +554,47 @@
 			"file": "chapters/implementation/implementation.tex",
 			"settings":
 			{
-				"buffer_size": 212,
+				"buffer_size": 424,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "chapters/theory/content/interactive_gi.tex",
+			"settings":
+			{
+				"buffer_size": 19803,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "chapters/theory/content/techniques.tex",
+			"settings":
+			{
+				"buffer_size": 6567,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "chapters/implementation/content/voxel_gi.tex",
+			"settings":
+			{
+				"buffer_size": 4002,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "chapters/implementation/content/hierarchy.tex",
+			"settings":
+			{
+				"buffer_size": 8503,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "main.pdf",
+			"settings":
+			{
+				"buffer_size": 74206587,
 				"line_ending": "Unix"
 			}
 		},
@@ -567,7 +618,7 @@
 			"file": "references.bib",
 			"settings":
 			{
-				"buffer_size": 14075,
+				"buffer_size": 15128,
 				"line_ending": "Unix"
 			}
 		},
@@ -601,14 +652,6 @@
 			{
 				"buffer_size": 878,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/tests/content/quality.tex",
-			"settings":
-			{
-				"buffer_size": 26234,
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -679,13 +722,26 @@
 	[
 		"/D/Documents/Projects/Thesis",
 		"/D/Documents/Projects/Thesis/chapters",
+		"/D/Documents/Projects/Thesis/chapters/conclusion",
+		"/D/Documents/Projects/Thesis/chapters/implementation",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content",
+		"/D/Documents/Projects/Thesis/chapters/proposal",
 		"/D/Documents/Projects/Thesis/chapters/tests",
-		"/D/Documents/Projects/Thesis/chapters/tests/content"
+		"/D/Documents/Projects/Thesis/chapters/tests/content",
+		"/D/Documents/Projects/Thesis/chapters/theory",
+		"/D/Documents/Projects/Thesis/chapters/theory/content",
+		"/D/Documents/Projects/Thesis/cover"
 	],
 	"file_history":
 	[
-		"/D/Documents/Projects/Thesis/thesis.sublime-project",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/cone_tracing.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_structure.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxelization.tex",
 		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_shading.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_cone_tracing",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_pipeline.tex",
+		"/D/Documents/Projects/Thesis/thesis.sublime-project",
 		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXToolsMinted.sublime-settings",
 		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools-Minted.sublime-settings",
 		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/untitled.sublime-build",
@@ -693,10 +749,8 @@
 		"/D/Documents/Projects/Thesis/chapters/tests/content/performance.tex",
 		"/D/Documents/Projects/Thesis/chapters/theory/content/techniques.tex",
 		"/D/Documents/Projects/Thesis/chapters/theory/content/interactive_gi.tex",
-		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_structure.tex",
 		"/D/Documents/Projects/Thesis/chapters/proposal/proposal.tex",
 		"/D/Documents/Projects/Thesis/chapters/tests/content/quality.tex",
-		"/D/Documents/Projects/Thesis/chapters/proposal/content/cone_tracing.tex",
 		"/D/Documents/Projects/Thesis/chapters/implementation/content/technology.tex",
 		"/D/Documents/Projects/Thesis/chapters/implementation/implementation.tex",
 		"/D/Documents/Projects/Thesis/chapters/proposal/content/emissive_voxels.tex",
@@ -704,7 +758,6 @@
 		"/D/Documents/Projects/Thesis/main.tex",
 		"/D/Documents/Projects/Thesis/chapters/tests/content/memory.tex",
 		"/D/Documents/Projects/Thesis/main.pdf",
-		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxelization.tex",
 		"/D/Dropbox/voxelshading.vs",
 		"/D/Documents/Projects/Thesis/chapters/theory/content/rendering_equation.tex",
 		"/D/Documents/Projects/Thesis/chapters/tests/content/scenes.tex",
@@ -776,6 +829,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"injectionPass",
+			"El trazado de conos puede ser utilizado para obtener sombras suaves. El traza de este cono es exactamente igual al metodo \\emph{TraceCone} sin embargo lo unico que es necesario acumula es la opacidad en el canal alfa de \n",
+			" \n",
+			"Voxelization3",
+			"0.25",
+			".33",
+			".25",
+			".0",
+			"[11]{l}{0.3\\linewidth}",
+			"figure",
+			"mov",
 			"tradi",
 			"delimitante",
 			"}\n",
@@ -892,18 +956,7 @@
 			"sponza",
 			"Sponza",
 			"sponza",
-			"Sponza",
-			"sponza",
-			"Sponza",
-			"conference",
-			"Conference",
-			"Cornell",
-			"cornell",
-			"Cornell",
-			"ornell",
-			"\\}",
-			"&",
-			" &"
+			"Sponza"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -922,24 +975,54 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "chapters/proposal/content/voxelization.tex",
+					"file": "chapters/implementation/content/voxel_cone_tracing.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6499,
+						"buffer_size": 16531,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								912,
-								912
+								0,
+								16531
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4199.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "chapters/tests/content/performance.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23541,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								21747,
+								21747
 							]
 						],
 						"settings":
@@ -948,14 +1031,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 224.0,
+						"translation.y": 3015.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "chapters/implementation/content/architecture.tex",
 					"semi_transient": false,
 					"settings":
@@ -967,65 +1050,95 @@
 						"selection":
 						[
 							[
-								1468,
-								1470
+								2122,
+								1866
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 546.0,
+						"translation.y": 388.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "chapters/implementation/content/voxel_pipeline.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18057,
+								18057
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2280.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "chapters/implementation/content/voxel_pipeline.tex",
+					"buffer": 4,
+					"file": "chapters/conclusion/conclusion.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10671,
+						"buffer_size": 6227,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10671,
-								10671
+								0,
+								6227
 							]
 						],
 						"settings":
 						{
-							"auto_name": "",
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2520.0,
+						"translation.y": 675.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "main.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4075,
+						"buffer_size": 4100,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3055,
-								3055
+								3269,
+								3269
 							]
 						],
 						"settings":
@@ -1035,56 +1148,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1260.0,
+						"translation.y": 1514.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15067,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7190,
-								7190
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1669.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "chapters/implementation/implementation.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 212,
+						"buffer_size": 424,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								212,
-								212
+								424,
+								424
 							]
 						],
 						"settings":
@@ -1095,11 +1179,154 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "chapters/theory/content/interactive_gi.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19803,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5393,
+								5393
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1125.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "chapters/theory/content/techniques.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6567,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4466,
+								3662
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 765.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 9,
+					"file": "chapters/implementation/content/voxel_gi.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4002,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								4002
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "chapters/implementation/content/hierarchy.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8503,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8288,
+								8296
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "main.pdf",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 74206587,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
 					"file": "chapters/implementation/content/technology.tex",
 					"semi_transient": false,
 					"settings":
@@ -1111,8 +1338,8 @@
 						"selection":
 						[
 							[
-								3105,
-								3105
+								0,
+								4183
 							]
 						],
 						"settings":
@@ -1123,11 +1350,11 @@
 						"translation.y": 224.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 13,
 					"file": "abbreviations.tex",
 					"semi_transient": false,
 					"settings":
@@ -1139,8 +1366,8 @@
 						"selection":
 						[
 							[
-								1148,
-								1112
+								334,
+								338
 							]
 						],
 						"settings":
@@ -1153,41 +1380,41 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 14,
 					"file": "references.bib",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14075,
+						"buffer_size": 15128,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13586,
-								13586
+								15128,
+								15128
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/LaTeX/Bibtex.sublime-syntax",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5294.0,
+						"translation.y": 6629.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 15,
 					"file": "chapters/tests/tests.tex",
 					"semi_transient": false,
 					"settings":
@@ -1211,11 +1438,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 16,
 					"file": "chapters/tests/content/enviroment.tex",
 					"semi_transient": false,
 					"settings":
@@ -1227,8 +1454,8 @@
 						"selection":
 						[
 							[
-								454,
-								454
+								346,
+								346
 							]
 						],
 						"settings":
@@ -1239,11 +1466,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 17,
 					"file": "chapters/theory/content/global_illumination.tex",
 					"semi_transient": false,
 					"settings":
@@ -1267,11 +1494,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 18,
 					"file": "cover/cover.tex",
 					"semi_transient": false,
 					"settings":
@@ -1283,8 +1510,8 @@
 						"selection":
 						[
 							[
-								288,
-								288
+								150,
+								42
 							]
 						],
 						"settings":
@@ -1295,36 +1522,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "chapters/tests/content/quality.tex",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 26234,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5987,
-								5319
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1722.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
+					"stack_index": 18,
 					"type": "text"
 				}
 			]
@@ -1332,7 +1530,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 34.0
+		"height": 23.0
 	},
 	"input":
 	{
@@ -1363,7 +1561,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 94.0
+		"height": 100.0
 	},
 	"output.find_results":
 	{
@@ -1381,7 +1579,7 @@
 	"project": "thesis.sublime-project",
 	"replace":
 	{
-		"height": 40.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":

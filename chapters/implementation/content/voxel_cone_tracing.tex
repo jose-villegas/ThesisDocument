@@ -21,18 +21,18 @@ vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 
 Durante el recorrido del cono se utiliza la función de GLSL \emph{textureLod}. Esta función tiene como entrada una textura, una coordenada y un nivel mip. Durante la marcha del cono el nivel mip se obtiene del diámetro del cono dado una distancia desde el origen:
 \begin{equation}
-	V_{level} = \log_2(\frac{d}{V_{size}})
+    V_{level} = \log_2(\frac{d}{V_{size}})
 \end{equation}
 Donde $d$ es el diámetro del círculo del cono según la distancia recorrida y $V_{size}$ es el tamaño de un vóxel en la cuadricula de vóxeles en el máximo nivel de detalle. El valor de $d$ se puede obtener de la siguiente ecuación:
 \begin{equation}
-	d = 2t\cdot\tan(\frac{\theta}{2})
+    d = 2t\cdot\tan(\frac{\theta}{2})
 \end{equation}
 Donde $t$ es la distancia recorrida por el cono desde el punto de origen y $\theta$ es el ángulo de apertura del cono. En la siguiente figura podemos observar una representación visual de este recorrido:
 \begin{figure}[H]
-	\centering
-	\captionsetup{justification=centering}
-	\includegraphics[width=.9\linewidth]{media/cone.pdf}
-	\caption{Visualizacion del recorrido de un cono.}
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=.9\linewidth]{media/cone.pdf}
+    \caption{Visualización del recorrido de un cono.}
 \end{figure}
 
 En nuestra implementación el punto de origen del cono es trasladado según el tamaño de un vóxel. Esto se hace para evitar que el cono colisione con el vóxel de origen:
@@ -41,15 +41,15 @@ En nuestra implementación el punto de origen del cono es trasladado según el t
 vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 {
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
-	// move further to avoid self collision
-	float dst = voxelWorldSize;
-	vec3 startPosition = position + normal * dst;
+    // move further to avoid self collision
+    float dst = voxelWorldSize;
+    vec3 startPosition = position + normal * dst;
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
 }
 \end{lstlisting}
 Finalmente se comienza el trazado del cono a través de la escena:
 \\
-\begin{lstlisting}[caption={Trazado de cono con voxeles.}, label=Trace2]
+\begin{lstlisting}[caption={Trazado de cono con vóxeles.}, label=Trace2]
 layout(binding = 7) uniform sampler3D voxelTex;
 layout(binding = 8) uniform sampler3D voxelTexMipmap[6];
 
@@ -102,11 +102,11 @@ Durante el trazado se observa cómo se obtiene la posición del cono según la d
 
 Para acumular los valores muestreados través del recorrido del cono se utiliza acumulación volumétrica \emph{front-to-back}. Para esto es necesario llevar pista de un valor oclusión $a$ y color $c$. La actualización de estos valores por cada paso se realiza de la siguiente manera: $c=c+(1-a)c_2$ y $a=a+(1-a)a_2$. En el algoritmo se puede observar que esto se realiza con la variable \emph{coneSample}.
 
-\subsection{Reflexion Difusa} % (fold)
+\subsection{Reflexión Difusa} % (fold)
 \label{sub:reflexion_difuse}
 Para el cálculo de reflexión difusa se utilizan seis conos dentro de la semiesfera orientada por el vector normal como se describen en la figura \ref{fig:brdf_cones2}. El código para la integración de estos conos es el siguiente:
 \\
-\begin{lstlisting}[caption={Conos para reflexion difusa.}, label=Trace3]
+\begin{lstlisting}[caption={Conos para reflexión difusa.}, label=Trace3]
 const vec3 diffuseConeDirections[] =
 {
     vec3(0.0f, 1.0f, 0.0f),
@@ -161,11 +161,11 @@ vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 spe
 }
 \end{lstlisting}
 Las direcciones, pesos de integración y tangente del ángulo ya se encuentran pre-calculados. Para rotar a lo largo del vector normales se obtienen vectores direccionales perpendiculares a la normal utilizando un vector guía.
-\subsection{Reflexion Especular} % (fold)
+\subsection{Reflexión Especular} % (fold)
 \label{sub:reflexion_especular}
 La reflexión especular es un solo cono con la dirección del lóbulo especular y una apertura adecuada a la potencia especular de un material para la \ac{BRDF} Blinn-Phong. El código para el cono especular es el siguiente:
 \\
-\begin{lstlisting}[caption={Cono para reflexion especular.}, label=Trace4]
+\begin{lstlisting}[caption={Cono para reflexión especular.}, label=Trace4]
 vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 specular)
 {
     vec4 specularTrace = vec4(0.0f);
@@ -197,7 +197,7 @@ vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture, bool 
     // final results
     vec4 coneSample = vec4(0.0f);
     float maxDistance = maxTracingDistanceGlobal / voxelScale
-   	float occlusion = 0.0f;
+    float occlusion = 0.0f;
     float falloff = 0.5f * aoFalloff * voxelScale;
 
     while(coneSample.a < 1.0f && dst <= maxDistance)
@@ -225,7 +225,67 @@ vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture, bool 
 }
 \end{lstlisting}
 El trazado del cono ambiental es muy similar a la acumulación completa la diferencia es la multiplicación por la función $f(r)$ descrita en la sección \ref{sub:occl_ambt_prop} Acá nuestro $\lambda$ es la variable \emph{falloff} pre-multiplicada por $0.5$ para obtener el radio del cono. La oclusión ambiental es almacenada en el alfa del vector retornado por $TraceCone$ esta será utilizada luego para la composición final de la imagen.
-% subsection oclusion_ambient (end)
-% subsection reflexion_especular (end)
-% subsection reflexion_difuse (end)
-% section trazado_de_conos (end)
+
+\subsection{Sombras Suaves con Trazado de Conos} % (fold)
+\label{sub:sombras_con_trazado_de_conos}
+El trazado de conos puede ser utilizado para obtener sombras suaves. La traza de este cono es exactamente igual al método \emph{TraceCone} sin embargo lo único que es necesario acumular es la opacidad de los vóxeles:
+\\
+\begin{lstlisting}[caption={Trazado de sombras con conos.}, label=ShadowCone]
+float TraceShadowCone(vec3 position, vec3 direction, float aperture, float maxTracingDistance)
+{
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+    // cone will only trace the needed distance
+    maxDistance = min(maxDistance, maxTracingDistance);
+    // final results
+    float visibility = 0.0f;
+    
+    while(visibility.a < 1.0f && dst <= maxDistance)
+    {
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+        // accumulate front to back composition
+        visibility += (1.0f - visibility) * anisoSample.a * k;
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+    }
+
+    return 1.0f - visibility;
+}
+\end{lstlisting}
+En nuestra implementación multiplicamos la opacidad por un valor \emph{k} definido por el usuario. Este valor indica que tan suave es la sombra.
+
+Este cono es trazado por cada fuente de luz que habilita trazado de sombras. La posición del cono es la posición del fragmento a iluminar y la dirección es la dirección de la luz. La función también recibe la distancia de trazado, esto es útil para luces puntuales y focales las cuales comprenden un volumen de influencia en escena.
+% subsection sombras_con_trazado_de_conos (end)
+
+\subsection{Composición Final} % (fold)
+\label{sub:composicion_final}
+Incluyendo oclusión ambiental, reflexión especular y reflexión difusa la función \emph{CalculateIndirectLighting} culmina de la siguiente forma:
+\\
+\begin{lstlisting}[caption={Composición para la iluminación indirecta.}, label=Trace6]
+vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 specular, bool ambientOcclusion)
+{
+    (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+    vec3 result = bounceStrength * (diffuseTrace.rgb + specularTrace.rgb);
+
+    return vec4(result, ambientOcclusion ? clamp(1.0f - diffuseTrace.a + aoAlpha, 0.0f, 1.0f) : 1.0f);
+}
+\end{lstlisting}
+La variable \emph{bounceStrength} tiene un valor personalizado por el usuario, este factor indica la intensidad de la iluminación indirecta. La oclusión ambiental es almacenada en el componente alfa del vector retornado por la función. La variable \emph{aoAlpha} es también indicada por el usuario, esta determina la minima intensidad para la oclusión ambiental resultante.
+
+Una vez finalizado el cálculo de la iluminación directa a esta se le suma la iluminación indirecta y se multiplican ambas por la oclusión ambiental, luego se suma la emisión:
+\\
+\begin{lstlisting}[caption={Composición final de imagen.}, label=Trace7]
+layout(location = 0) out vec4 fragColor;
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+void main()
+{
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+    indirectLighting = CalculateIndirectLighting(position, normal, albedo, specular, true);
+    directLighting = CalculateDirectLighting(position, normal, albedo, specular);
+    // final composite lighting (direct + indirect) * ambient occlusion
+    compositeLighting = (directLighting + indirectLighting.rgb) * indirectLighting.a;
+    compositeLighting += emissive;
+(*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+    fragColor = vec4(compositeLighting, 1.0f);
+}
+\end{lstlisting}
+Después de obtener el valor final se puede aplicar corrección gamma, mapeo de tonos o \emph{tonemapping} o cualquier otro pos-proceso sobre la imagen. En nuestra implementación se hace solo corrección gamma y Reinhard tonemapping sobre la variable \emph{compositeLighting} sin pos-procesamiento.
+% subsection composicion_final (end)
