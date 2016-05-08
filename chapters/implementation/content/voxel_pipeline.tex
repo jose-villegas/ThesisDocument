@@ -1,11 +1,11 @@
 \section{Pipeline de Voxelización} % (fold)
 \label{sec:pipeline_de_voxelizacion}
-El algoritmo de voxelización de escenas es implementado en la clase \emph{VoxelizerRenderer}. Como se explicó en la sección anterior esta es una clase que hereda de la clase Renderer. En el método Render, residen la lógica de voxelización, sombreado de vóxeles, mipmapping para vóxeles anisótropos e iluminación global de vóxeles. En esta sección se describe en detalle solo el proceso de voxelización y su arquitectura.
+El algoritmo de voxelización de escenas es implementado en una clase que hereda de la clase Renderer. En el método Render, residen la lógica por el lado de la CPU de voxelización, sombreado de vóxeles, mipmapping para vóxeles anisótropos e iluminación global de vóxeles. En esta sección se describe en detalle solo el proceso de voxelización y su arquitectura.
 \subsection{Arquitectura}
 
 La arquitectura de nuestro proceso de voxelización describe un pipeline, donde la entrada es geometría, materiales, texturas y matrices de proyección y la salida es una serie de volúmenes de vóxeles los cuales describen una discretización de esta geometría.
 
-El algoritmo de voxelización se ejecuta entre el geometry shader y el fragment shader. En el geometry shader se proyecta y traslada los vértices de cada triangulo para generar un triángulo expandido. La rasterización conservativa de cada triangulo es tarea de ambos shaders. El fragment shader primeramente descarta fragmentos excedentes de la expansión del triángulo en el geometry shader para formar un polígono delimitante. La voxelización de geometría estática y dinámica se realiza sobre este mismo pipeline, el fragment shader debe garantizar que los vóxeles estáticos no sean sobrescritos, finalmente se realiza una operación de promedio sobre todos los atributos de cada fragmento que forma parte del espacio que envuelve un vóxel, este valor es almacenado luego en cada volumen por atributo.
+El algoritmo de voxelización se ejecuta entre el geometry shader y el fragment shader. En el geometry shader se proyecta y traslada los vértices de cada triangulo para generar un triángulo expandido. La rasterización conservativa de cada triangulo es tarea de ambos shaders. El fragment shader primeramente descarta fragmentos excedentes de la expansión del triángulo en el geometry shader para formar un polígono delimitante. La voxelización de geometría estática y dinámica se realiza sobre este mismo pipeline, el fragment shader debe garantizar que los vóxeles estáticos no sean sobrescritos, finalmente se realiza una operación de promedio sobre todos los atributos de cada fragmento que forma parte del espacio que envuelve un vóxel, este valor es almacenado luego en cada vóxel por atributo.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{media/voxel_pipeline_cropped.pdf}
@@ -18,7 +18,7 @@ Nuestra implementación utiliza una representación simplificada de la escena en
  
 \subsubsection{Matrices de Proyección por Eje}
 
-Como se explicó en la sección \ref{sub:voxelizacion_conservativa} cada triangulo debe ser proyectado sobre un eje direccional. El primer paso a realizar es definir estas matrices de proyección. Estas están definidas por una \ac{AABB}. En nuestra implementación se toma la \ac{AABB} que envuelve toda la escena por simplicidad. En el código \ref{UpdateProjectionMatrices} se encuentra el algoritmo de la función que realiza esto. Esta método es llamada cada vez que se cambia carga una escena o cuando se cambiar la resolución de la representación en vóxeles.
+Como se explicó en la sección \ref{sub:voxelizacion_conservativa} cada triangulo debe ser proyectado sobre un eje direccional. El primer paso a realizar es definir estas matrices de proyección. Estas están definidas por una \ac{AABB}. En nuestra implementación se toma la \ac{AABB} que envuelve toda la escena por simplicidad. En el código \ref{UpdateProjectionMatrices} se encuentra el algoritmo de la función que realiza esto. Esta método se invoca cada vez que se carga una escena o cuando se cambia la resolución de la representación en vóxeles.
 
 La \ac{AABB} puede estar definida de dos formas: por un punto que indica el centro de la caja y un vector extensión que indica la longitud media de la caja en cada eje a partir del centro o por un punto mínimo y un punto máximo. 
 
@@ -51,7 +51,7 @@ void VoxelizerRenderer::UpdateProjectionMatrices(const BoundingBox &sceneBox)
 Una vez obtenidas las matrices de proyección el algoritmo procede a voxelizar la escena. El proceso de voxelización estática y dinámica utilizan el mismo programa de sombreado o \emph{shader}, la diferencia reside sobre cual geometría es enviada al pipeline de rasterización y durante el fragment shader si se lee o se escribe sobre una textura que indica las posiciones de vóxeles estáticos.
 
 \subsubsection{Selección del Eje Dominante}
-Para maximizar el área de voxelización y generar la mayor cantidad de fragmentos posibles cada triangulo es proyectado sobre uno de los ejes direccionales. Este eje se escoge según la normal definida por el plano formado por los tres vértices del triángulo. Este proceso se realiza en el geometry shader. En el geometry shader se puede realizar operaciones sobre los vértices generales por el procesador de vértices o \emph{vertex shader}. Esto es de particular interés para el proceso de voxelización conservativa ya que como fue explicado anteriormente cada vértice de cada triangulo necesita ser expandido.
+Para maximizar el área de voxelización y generar la mayor cantidad de fragmentos posibles cada triangulo es proyectado sobre uno de los ejes direccionales. Este eje se escoge según la normal definida por el plano formado por los tres vértices del triángulo. Este proceso se realiza en el geometry shader. En el geometry shader se puede realizar operaciones sobre los vértices generados por el procesador de vértices o \emph{vertex shader}. Esto es de particular interés para el proceso de voxelización conservativa ya que como fue explicado anteriormente cada vértice de cada triangulo necesita ser expandido.
 \\
 \begin{lstlisting}[caption={Selección del eje dominante para la proyección ortogonal.}, label=CalculateAxis]
 int CalculateAxis()
@@ -79,7 +79,7 @@ int CalculateAxis()
 }
 \end{lstlisting}
 
-En el algoritmo \ref{CalculateAxis} primero se obtiene la normal del triángulo. El arreglo \emph{gl\_in} contiene información de todos los vértices generados por el vertex shader. Para la aplicación esto es forzado a solo triángulos, por tanto la longitud de gl\_in siempre es tres. Luego según el peso en cada eje de la normal del plano se escoge un eje direccional. Esto se retorna en forma de un número entero. Este número entero indica cuál de las matrices de proyección generadas en la sección anterior va ser utilizada para proyectar cada vértice del triángulo.
+En el algoritmo \ref{CalculateAxis} primero se obtiene la normal del triángulo. El arreglo \emph{gl\_in} contiene información de todos los vértices generados por el vertex shader. Para la aplicación esto es forzado a solo triángulos, por tanto la longitud de gl\_in siempre es tres. Luego según el peso en cada eje del vector normal del plano se escoge un eje direccional. Esto se retorna como un número entero. Este número indica cuál de las matrices de proyección generadas en la sección anterior va ser utilizada para proyectar cada vértice del triángulo.
 
 \begin{figure}[H]
 	\centering
@@ -101,7 +101,7 @@ En el algoritmo \ref{CalculateAxis} primero se obtiene la normal del triángulo.
 \end{figure}
 
 \subsubsection{Extensión del Triángulo y Polígono Delimitante}
-Una vez proyectados todos los vértices del triángulo según el eje direccional escogido (esto es multiplicar cada vértice por la matriz de proyección) entonces se procede a expandir los vértices de este triángulo. Antes de esto primero es importante definir un \ac{AABB} para el triángulo. Este volumen delimitante es utilizado en el fragment shader para descartar fragmentos excedentes del triángulo expandido. El punto mínimo y máximo se expanden según la longitud diagonal de un pixel, en nuestra implementación este valor es $\frac{1}{V_{res}}$ donde $V_{res}$ representa la resolución del volumen.
+Una vez proyectados todos los vértices del triángulo según el eje direccional escogido (esto es multiplicar cada vértice por la matriz escogida) entonces se procede a expandir los vértices de este triángulo. Antes de esto primero es importante definir un \ac{AABB} para el triángulo. Esta area delimitante es utilizada en el fragment shader para descartar fragmentos excedentes del triángulo expandido. El punto mínimo y máximo se expanden según la longitud diagonal de un pixel, en nuestra implementación este valor es $\frac{1}{V_{res}}$ donde $V_{res}$ representa la resolución del volumen.
 \\
 \begin{lstlisting}[caption={Creación de un \ac{AABB} para el triángulo proyectado.}, label=AxisAlignedBoundingBox]
 vec4 AxisAlignedBoundingBox(vec4 pos[3], vec2 pixelDiagonal)
@@ -118,7 +118,7 @@ vec4 AxisAlignedBoundingBox(vec4 pos[3], vec2 pixelDiagonal)
 }
 \end{lstlisting}
 
-Primero se calculan los planos formados por cada par de vértices del triángulo, perpendiculares al triangulo. Estos planos son trasladados medio pixel hacia afuera con respecto triangulo proyectado.
+Primero se calculan los planos perpendiculares al triangulo formados por cada par de vértices del triángulo. Estos planos son trasladados medio pixel hacia afuera con respecto triangulo proyectado.
 \\
 \begin{lstlisting}[caption={Planos por cada par de vértices del triángulo proyectado.}, label=TPlanes]
 vec2 halfPixel = vec2(1.0f / volumeDimension);
@@ -180,9 +180,9 @@ Este proceso se realiza en el fragment shader. En la sección anterior se mencio
 \end{lstlisting}
 Básicamente si la posición del fragmento esta fuera de la \ac{AABB} del triángulo este fragmento no es procesado. Esto resulta finalmente en un polígono delimitante ya descrito en la figura \ref{fig:expanded_bbpolygon}.
 
-Una vez ya finalizada la rasterización conservativa de cada triangulo, ahora se procede a almacenar información de la escena en texturas tridimensionales.  En nuestra aplicación se almacena en vóxeles el albedo, normal, y emisión de la geometría en escena. Un vóxel puede envolver a varios fragmentos y cada uno de estos fragmentos puede tener distintos valores para los atributos mencionados. Una forma simple de almacenar todos estos valores es utilizando un promedio de todos los valores por fragmento que envuelve el vóxel. 
+Una vez ya finalizada la rasterización conservativa de cada triangulo, ahora se procede a almacenar información de la escena en texturas tridimensionales. En nuestra aplicación se almacena en vóxeles el albedo, normal, y emisión de la geometría en escena. Un vóxel puede envolver a varios fragmentos y cada uno de estos fragmentos puede tener distintos valores para los atributos mencionados. Una forma simple de almacenar todos estos valores es utilizando un promedio de todos los valores por fragmento que envuelve el vóxel. 
 
-Como ya fue mencionado antes cada fragmento es tratado como un hilo individual por tanto no hay forma de saber el orden en el que se envían fragmentos a la posición de un vóxel. La extensión \emph{{GL\_ARB\_shader\_image\_load\_store}} provee instrucciones atómicas para solventar esto. La forma más simple de obtener un promedio seria utilizar la función \emph{imageAtomicAdd} y luego dividir por la cantidad de fragmentos. Para mantener un conteo de estos fragmentos se necesita un contador por cada vóxel. La idea es utilizar el canal alfa en un formato RGBA como contador. 
+Cada fragmento es tratado como un hilo individual por tanto no hay forma de saber el orden en el que se envían fragmentos a la posición de un vóxel. La extensión \emph{{GL\_ARB\_shader\_image\_load\_store}} provee instrucciones atómicas para solventar esto. La forma más simple de obtener un promedio seria utilizar la función \emph{imageAtomicAdd} y luego dividir por la cantidad de fragmentos. Para mantener un conteo de estos fragmentos se necesita un contador por cada vóxel. La idea es utilizar el canal alfa en un formato RGBA como contador. 
 
 Sin embargo todas las funciones atómicas en esta extensión solo están reservadas para imágenes con formato entero de 32 bits. Generalmente el formato apropiado para estos valores seria RGBA8 o RGBA16F. Por tanto la función \emph{imageAdd} no puede ser utilizada para este propósito.
 
@@ -252,7 +252,7 @@ void main()
 \end{lstlisting}
 
 \subsubsection{Bandera Estática}
-El proceso de voxelización para geometría estática y dinámica es el mismo. Como se explicó en la sección \ref{sub:voxelizacion_dinamica}. En nuestra implementación se evitó la creación de nuevos volúmenes para vóxeles estáticos y dinámicos. Para garantizar esto se utiliza un volumen con un solo componente entero, formato R8.
+El proceso de voxelización para geometría estática y dinámica es el mismo. Como se explicó en la sección \ref{sub:voxelizacion_dinamica} en nuestra implementación se evitó la creación de nuevos volúmenes para vóxeles estáticos y dinámicos. Para garantizar esto se utiliza un volumen con un solo componente entero, formato R8.
 
 Durante la voxelización estática se almacena en este volumen un valor para marcar esta posición como estática (en este caso valor 1) de la siguiente forma:
 \\
@@ -309,5 +309,5 @@ void main()
     imageStore(voxelEmissive, writePos, vec4(0.0));
 }
 \end{lstlisting}
-Primero se verifica si ya el vóxel está vacío, luego si este es estático y finalmente si este no lo es se le coloca un color totalmente negro y transparente, esto indica que allí no hay un vóxel.
+Primero se verifica si ya el vóxel está vacío, luego si este es estático y finalmente si este no lo es se le coloca el valor cero en todos los canales de color y el alfa, esto indica que allí no hay un vóxel.
 % section pipeline_de_voxelizacion (end)

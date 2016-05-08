@@ -11,11 +11,11 @@ Una escena en la aplicación está definida por cámaras, luces, materiales, tex
 	\caption{Diagrama de clases relevantes para la definición de escenas en el motor gráfico para el renderizado de iluminación global.}
 \end{figure}
 
-Como se observa en el diagrama cada \emph{Node} o nodo tiene un grupo \emph{meshes} o mallados asociado. Cada una de estas \emph{Mesh} o mallas tiene un material (clase \emph{Material}) asignado, este material puede o no tener uso de texturas. Los nodos en escena puede definirse como estáticos o dinámicos, esto propiedad es importante para diferenciar entre voxelización estática y dinámica.
+Como se observa en el diagrama cada \emph{Node} o nodo tiene un grupo \emph{meshes} o mallados asociado. Cada una de estas \emph{Mesh} o mallas tiene un material (clase \emph{Material}) asignado, este material puede o no tener uso de texturas. Los nodos en la escena puede definirse como estáticos o dinámicos, esta propiedad es importante para diferenciar entre voxelización estática y dinámica.
 
-Se puede observar también que tanto nodos como mallas tienen un miembro \emph{boundaries} o delimítate, este miembro define una \ac{AABB} utilizada para determinar si estos objetos se encuentra dentro de la tronco cuadrado que define el volumen de proyección de la cámara. Esta técnica es llamada \emph{frustum culling}. 
+Se puede observar también que tanto nodos como mallas tienen un miembro \emph{boundaries} o delimítate, este miembro define una \ac{AABB} utilizada para determinar si estos objetos se encuentra dentro del tronco cuadrado que define el volumen de proyección de la cámara. Esta técnica es llamada \emph{frustum culling}. 
 
-Existen tres tipos de luces en nuestra implementación como ya fue ha sido mencionado anteriormente, luces direccionales, puntuales y focales. Una de las ventajas de realizar el sombreado a través de compute shaders utilizando el volumen de normales es que podemos colocar muchas luces en escena sin necesidad de crear mapas luz-vista por cada uno de estos.
+Existen tres tipos de luces en nuestra implementación como ya fue mencionado anteriormente: luces direccionales, puntuales y focales. Una de las ventajas de realizar el sombreado a través de compute shaders es que podemos colocar muchas luces en escena sin necesidad de crear mapas luz-vista por cada uno de estos.
 
 \begin{figure}[H]
 	\centering
@@ -35,5 +35,5 @@ En el diagrama observamos la clase base \emph{Renderer}. En nuestra implementaci
 	\caption{Descripción del flujo de ejecución del método \emph{MainLoop} en donde reside el ciclo de renderizado.}
 \end{figure}
 
-Los métodos \emph{Render}, \emph{Draw} y \emph{Update} son abstractos. Mientras que los métodos \emph{RenderAll}, \emph{UpdateAll} y \emph{DrawAll} son métodos estáticos públicos accesibles por la clase \emph{EngineBase}. Estos métodos estáticos llaman a todos las implementaciones de los métodos abstractos por cada clase que hereda de Renderer, Interface o Behavior respectivamente. El método MainLoop en EngineBase por tanto se abstrae de la implementación de estos métodos y simplemente actualiza todas las implementaciones por cuadro.
+Los métodos \emph{Render}, \emph{Draw} y \emph{Update} son abstractos. Mientras que los métodos \emph{RenderAll}, \emph{UpdateAll} y \emph{DrawAll} son métodos estáticos públicos accesibles por la clase \emph{EngineBase}. Estos métodos estáticos invocan a todos las implementaciones de los métodos abstractos por cada clase que hereda de Renderer, Interface o Behavior respectivamente. El método MainLoop en EngineBase por tanto se abstrae de la implementación de estos métodos y simplemente invoca todas las implementaciones por cada nuevo frame.
 % section arquitectura_de_la_aplicacion (end)
