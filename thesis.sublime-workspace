@@ -516,6 +516,14 @@
 			}
 		},
 		{
+			"file": "chapters/tests/content/memory.tex",
+			"settings":
+			{
+				"buffer_size": 1099,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "chapters/tests/content/quality.tex",
 			"settings":
 			{
@@ -532,10 +540,10 @@
 			}
 		},
 		{
-			"contents": "Searching 213 files for \"Trace7\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_cone_tracing.tex:\n  273  Una vez finalizado el cálculo de la iluminación directa a esta se le suma la iluminación indirecta y se multiplican ambas por la oclusión ambiental, luego se suma la emisión:\n  274  \\\\\n  275: \\begin{lstlisting}[caption={Composición final de imagen.}, label=Trace7]\n  276  layout(location = 0) out vec4 fragColor;\n  277  (*@\\centerline{\\raisebox{-1pt}[0pt][0pt]{$\\vdots$}}@*)\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2  \\label{sec:iluminacion_global_de_voxeles}\n    3: En la sección anterior se expone el cálculo de iluminación indirecta de solo un rebote. Si observamos el algoritmo \\ref{Trace7} los únicos datos necesarios para este cálculo con solo el componente difuso son: albedo, normal, posición e iluminación directa.\n    4  \n    5  Todos estos datos se encuentran disponibles en nuestra representación en vóxeles. La iluminación directa en vóxeles la obtenemos luego del proceso de sombreado de vóxeles. Mientras que albedo y normal son volúmenes producto del proceso de voxelización. La posición puede ser fácilmente proyectada utilizando la función \\emph{VoxelToWorld} del algoritmo \\ref{SpaceTransform}.\n    .\n    7  Nuestra implementación realiza iluminación global de solo el componente difuso sobre los vóxeles utilizando un compute shader. El algoritmo de trazado es exactamente el mismo al expuesto en la sección anterior. La única diferencia es que este proceso se realiza por vóxel en vez de por pixel. El siguiente algoritmo expone este proceso:\n    8  \\\\\n    9: \\begin{lstlisting}[caption={Iluminacion global sobre voxeles.}, label=Trace7]\n   10  layout(binding = 0, rgba8) uniform image3D voxelComposite;\n   11  layout(binding = 1, rgba8) uniform sampler3D voxelAlbedo;\n\n3 matches across 2 files\n",
+			"contents": "Searching 213 files for \"Trace7\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_cone_tracing.tex:\n  273  Una vez finalizado el cálculo de la iluminación directa a esta se le suma la iluminación indirecta y se multiplican ambas por la oclusión ambiental, luego se suma la emisión:\n  274  \\\\\n  275: \\begin{lstlisting}[caption={Composición final de imagen.}, label=Trace7]\n  276  layout(location = 0) out vec4 fragColor;\n  277  (*@\\centerline{\\raisebox{-1pt}[0pt][0pt]{$\\vdots$}}@*)\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2  \\label{sec:iluminacion_global_de_voxeles}\n    3: En la sección anterior se expone el cálculo de iluminación indirecta de solo un rebote. Si observamos el algoritmo \\ref{Trace7} los únicos datos necesarios para este cálculo con solo el componente difuso son: albedo, normal, posición e iluminación directa.\n    4  \n    5  Todos estos datos se encuentran disponibles en nuestra representación en vóxeles. La iluminación directa en vóxeles la obtenemos luego del proceso de sombreado de vóxeles. Mientras que albedo y normal son volúmenes producto del proceso de voxelización. La posición puede ser fácilmente proyectada utilizando la función \\emph{VoxelToWorld} del algoritmo \\ref{SpaceTransform}.\n    .\n    7  Nuestra implementación realiza iluminación global de solo el componente difuso sobre los vóxeles utilizando un compute shader. El algoritmo de trazado es exactamente el mismo al expuesto en la sección anterior. La única diferencia es que este proceso se realiza por vóxel en vez de por pixel. El siguiente algoritmo expone este proceso:\n    8  \\\\\n    9: \\begin{lstlisting}[caption={Iluminacion global sobre voxeles.}, label=Trace7]\n   10  layout(binding = 0, rgba8) uniform image3D voxelComposite;\n   11  layout(binding = 1, rgba8) uniform sampler3D voxelAlbedo;\n\n3 matches across 2 files\n\n\nSearching 213 files for \"iluminacion_global_de_voxeles\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2: \\label{sec:iluminacion_global_de_voxeles}\n    3  En la sección anterior se expone el cálculo de iluminación indirecta de solo un rebote. Si observamos el algoritmo \\ref{Trace7} los únicos datos necesarios para este cálculo con solo el componente difuso son: albedo, normal, posición e iluminación directa.\n    4  \n    .\n   70  	\\label{fig:vgi_scenes}\n   71  \\end{figure}\n   72: % section iluminacion_global_de_voxeles (end)\n   73  \n\nD:\\Documents\\Projects\\Thesis\\chapters\\proposal\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2: \\label{sec:iluminacion_global_de_voxeles}\n    3  Almacenando solo la radiancia producto de la iluminación directa nos permite obtener iluminación indirecta de un solo rebote durante el proceso de trazado de conos con vóxeles. Esto provee buenos resultados visuales ya que el primer rebote es usualmente el que más contribuye en el transporte de luz de una escena.\n    4  \n    .\n    6  \n    7  Luego del proceso de sombreado de vóxeles es completado y se filtran estos valores para generar vóxeles anisótropos, se agrega otro pasó para calcular el primer rebote de iluminación global sobre el volumen de radiancia. Similar al trazado de conos por fragmento explicado en \\ref{sub:voxel_cone_tracing_orig} ahora por cada vóxel se trazan conos acumulando la radiancia incidente sobre el vóxel. Este método solo comprende reflexión difusa ya que en nuestra implementación no se almacena información especular durante el proceso de voxelización. Al finalizar de calcular la iluminación global sobre cada vóxel se vuelve a realizar el filtrado anisótropo. El volumen resultante ahora es utilizado durante la composición final de la imagen por el trazado de conos con vóxeles, donde ahora estos conos acumulan radiancia producto de tanto iluminación directa como indirecta difusa.\n    8: % section iluminacion_global_de_voxeles (end)\n    9  \n\n4 matches across 2 files\n\n\nSearching 213 files for \"iluminacion_global_de_voxeles\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2: \\label{sec:iluminacion_global_de_voxeles_impl}\n    3  En la sección anterior se expone el cálculo de iluminación indirecta de solo un rebote. Si observamos el algoritmo \\ref{Trace7} los únicos datos necesarios para este cálculo con solo el componente difuso son: albedo, normal, posición e iluminación directa.\n    4  \n    .\n   70  	\\label{fig:vgi_scenes}\n   71  \\end{figure}\n   72: % section iluminacion_global_de_voxeles (end)\n   73  \n\nD:\\Documents\\Projects\\Thesis\\chapters\\proposal\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2: \\label{sec:iluminacion_global_de_voxeles}\n    3  Almacenando solo la radiancia producto de la iluminación directa nos permite obtener iluminación indirecta de un solo rebote durante el proceso de trazado de conos con vóxeles. Esto provee buenos resultados visuales ya que el primer rebote es usualmente el que más contribuye en el transporte de luz de una escena.\n    4  \n    .\n    6  \n    7  Luego del proceso de sombreado de vóxeles es completado y se filtran estos valores para generar vóxeles anisótropos, se agrega otro pasó para calcular el primer rebote de iluminación global sobre el volumen de radiancia. Similar al trazado de conos por fragmento explicado en \\ref{sub:voxel_cone_tracing_orig} ahora por cada vóxel se trazan conos acumulando la radiancia incidente sobre el vóxel. Este método solo comprende reflexión difusa ya que en nuestra implementación no se almacena información especular durante el proceso de voxelización. Al finalizar de calcular la iluminación global sobre cada vóxel se vuelve a realizar el filtrado anisótropo. El volumen resultante ahora es utilizado durante la composición final de la imagen por el trazado de conos con vóxeles, donde ahora estos conos acumulan radiancia producto de tanto iluminación directa como indirecta difusa.\n    8: % section iluminacion_global_de_voxeles (end)\n    9  \n\n4 matches across 2 files\n",
 			"settings":
 			{
-				"buffer_size": 1938,
+				"buffer_size": 6187,
 				"line_ending": "Windows",
 				"name": "Find Results",
 				"scratch": true
@@ -545,7 +553,7 @@
 			"file": "chapters/implementation/content/architecture.tex",
 			"settings":
 			{
-				"buffer_size": 3870,
+				"buffer_size": 3837,
 				"line_ending": "Windows"
 			}
 		},
@@ -553,7 +561,15 @@
 			"file": "chapters/implementation/content/voxel_pipeline.tex",
 			"settings":
 			{
-				"buffer_size": 19857,
+				"buffer_size": 19750,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "chapters/proposal/content/voxel_shading.tex",
+			"settings":
+			{
+				"buffer_size": 8828,
 				"line_ending": "Windows"
 			}
 		},
@@ -566,10 +582,18 @@
 			}
 		},
 		{
+			"file": "introduction/introduction.tex",
+			"settings":
+			{
+				"buffer_size": 4312,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "main.tex",
 			"settings":
 			{
-				"buffer_size": 4100,
+				"buffer_size": 4032,
 				"line_ending": "Unix"
 			}
 		},
@@ -601,7 +625,7 @@
 			"file": "chapters/implementation/content/voxel_gi.tex",
 			"settings":
 			{
-				"buffer_size": 4003,
+				"buffer_size": 4008,
 				"line_ending": "Windows"
 			}
 		},
@@ -617,7 +641,7 @@
 			"file": "main.pdf",
 			"settings":
 			{
-				"buffer_size": 77363003,
+				"buffer_size": 77368362,
 				"line_ending": "Unix"
 			}
 		},
@@ -749,11 +773,13 @@
 		"/D/Documents/Projects/Thesis/chapters/implementation",
 		"/D/Documents/Projects/Thesis/chapters/implementation/content",
 		"/D/Documents/Projects/Thesis/chapters/proposal",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content",
 		"/D/Documents/Projects/Thesis/chapters/tests",
 		"/D/Documents/Projects/Thesis/chapters/tests/content",
 		"/D/Documents/Projects/Thesis/chapters/theory",
 		"/D/Documents/Projects/Thesis/chapters/theory/content",
-		"/D/Documents/Projects/Thesis/cover"
+		"/D/Documents/Projects/Thesis/cover",
+		"/D/Documents/Projects/Thesis/introduction"
 	],
 	"file_history":
 	[
@@ -852,6 +878,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"iluminacion_global_de_voxeles",
+			"[",
 			".49",
 			"media/leaking_detail.png",
 			"Methods",
@@ -977,8 +1005,6 @@
 			"cornell",
 			"Cornell",
 			"sibenik",
-			"Sibenik",
-			"sibenik",
 			"Sibenik"
 		],
 		"highlight": true,
@@ -998,7 +1024,7 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 10,
 			"sheets":
 			[
 				{
@@ -1028,7 +1054,7 @@
 						"translation.y": 5174.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -1057,11 +1083,39 @@
 						"translation.y": 435.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+					"file": "chapters/tests/content/memory.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1099,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								485,
+								485
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "chapters/tests/content/quality.tex",
 					"semi_transient": false,
 					"settings":
@@ -1086,11 +1140,11 @@
 						"translation.y": 11849.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "/D/Downloads/lpv-release/application/config.xml",
 					"semi_transient": false,
 					"settings":
@@ -1114,15 +1168,15 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1938,
+						"buffer_size": 6187,
 						"regions":
 						{
 							"match":
@@ -1141,6 +1195,38 @@
 									[
 										1773,
 										1779
+									],
+									[
+										2146,
+										2175
+									],
+									[
+										2523,
+										2552
+									],
+									[
+										2711,
+										2740
+									],
+									[
+										3990,
+										4019
+									],
+									[
+										4268,
+										4297
+									],
+									[
+										4650,
+										4679
+									],
+									[
+										4838,
+										4867
+									],
+									[
+										6117,
+										6146
 									]
 								],
 								"scope": ""
@@ -1149,15 +1235,15 @@
 						"selection":
 						[
 							[
-								555,
-								555
+								4273,
+								4273
 							]
 						],
 						"settings":
 						{
 							"detect_indentation": false,
 							"line_numbers": false,
-							"output_tag": 1,
+							"output_tag": 3,
 							"result_base_dir": "",
 							"result_file_regex": "^([^ 	].*):$",
 							"result_line_regex": "^ +([0-9]+):",
@@ -1165,27 +1251,27 @@
 							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1215.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "chapters/implementation/content/architecture.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3870,
+						"buffer_size": 3837,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2122,
-								1866
+								2861,
+								2861
 							]
 						],
 						"settings":
@@ -1194,27 +1280,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 388.0,
+						"translation.y": 450.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "chapters/implementation/content/voxel_pipeline.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19857,
+						"buffer_size": 19750,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18057,
-								18057
+								19750,
+								19750
 							]
 						],
 						"settings":
@@ -1224,14 +1310,43 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2280.0,
+						"translation.y": 6164.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
+					"file": "chapters/proposal/content/voxel_shading.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8828,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3786,
+								3786
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 315.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
 					"file": "chapters/conclusion/conclusion.tex",
 					"semi_transient": false,
 					"settings":
@@ -1243,7 +1358,7 @@
 						"selection":
 						[
 							[
-								0,
+								6220,
 								6220
 							]
 						],
@@ -1252,27 +1367,55 @@
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 630.0,
+						"translation.y": 375.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "main.tex",
+					"buffer": 10,
+					"file": "introduction/introduction.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4100,
+						"buffer_size": 4312,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3269,
-								3269
+								3327,
+								3327
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 507.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "main.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4032,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3509,
+								3509
 							]
 						],
 						"settings":
@@ -1282,14 +1425,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 719.0,
+						"translation.y": 2024.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 12,
 					"file": "chapters/implementation/implementation.tex",
 					"semi_transient": false,
 					"settings":
@@ -1313,11 +1456,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 13,
 					"file": "chapters/theory/content/interactive_gi.tex",
 					"semi_transient": false,
 					"settings":
@@ -1342,11 +1485,11 @@
 						"translation.y": 1125.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 14,
 					"file": "chapters/theory/content/techniques.tex",
 					"semi_transient": false,
 					"settings":
@@ -1371,24 +1514,24 @@
 						"translation.y": 765.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 15,
 					"file": "chapters/implementation/content/voxel_gi.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4003,
+						"buffer_size": 4008,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1142,
-								1142
+								1765,
+								1765
 							]
 						],
 						"settings":
@@ -1397,14 +1540,14 @@
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 720.0,
+						"translation.y": 315.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 16,
 					"file": "chapters/implementation/content/hierarchy.tex",
 					"semi_transient": false,
 					"settings":
@@ -1428,16 +1571,16 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 17,
 					"file": "main.pdf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 77363003,
+						"buffer_size": 77368362,
 						"regions":
 						{
 						},
@@ -1456,11 +1599,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 18,
 					"file": "chapters/implementation/content/technology.tex",
 					"semi_transient": false,
 					"settings":
@@ -1484,11 +1627,11 @@
 						"translation.y": 224.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 19,
 					"file": "abbreviations.tex",
 					"semi_transient": false,
 					"settings":
@@ -1500,8 +1643,8 @@
 						"selection":
 						[
 							[
-								334,
-								338
+								754,
+								754
 							]
 						],
 						"settings":
@@ -1514,11 +1657,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 20,
 					"file": "references.bib",
 					"semi_transient": false,
 					"settings":
@@ -1544,11 +1687,11 @@
 						"translation.y": 1379.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 21,
 					"file": "chapters/tests/tests.tex",
 					"semi_transient": false,
 					"settings":
@@ -1572,11 +1715,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 22,
 					"file": "chapters/tests/content/enviroment.tex",
 					"semi_transient": false,
 					"settings":
@@ -1600,11 +1743,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 23,
 					"file": "chapters/theory/content/global_illumination.tex",
 					"semi_transient": false,
 					"settings":
@@ -1628,11 +1771,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 24,
 					"file": "cover/cover.tex",
 					"semi_transient": false,
 					"settings":
@@ -1656,7 +1799,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 24,
 					"type": "text"
 				}
 			]

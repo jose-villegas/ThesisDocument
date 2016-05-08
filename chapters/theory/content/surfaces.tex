@@ -11,7 +11,7 @@
 	\label{fig:bssrdf}
 \end{wrapfigure}
 
-Los materiales interaccionan con la luz de distintas maneras. Esto hace que la apariencia de ciertos materiales difiera según la condiciones de la luz en una escena. Algunos materiales parecen espejos mientras que otros son totalmente difusos; son visualmente distinguible materiales como vidrio, madera o metales. Las propiedades de reflectancia de una superficie afectan la apariencia del objeto \cite{advanced_gi2006}, estos objetos se distinguen por la cantidad de luz reflectada en ciertas direcciones. 
+Los materiales interaccionan con la luz de distintas maneras. Esto hace que la apariencia de ciertos materiales difiera según la condiciones de la luz en una escena. Algunos materiales parecen espejos mientras que otros son totalmente difusos. Son visualmente distinguible materiales como vidrio, madera o metales. Las propiedades de reflectancia de una superficie afectan la apariencia del objeto \cite{advanced_gi2006}, estos objetos se distinguen por la cantidad de luz reflectada en ciertas direcciones. 
 
 En el caso más general, un rayo de luz entra en algún punto $p$ sobre una superficie en una escena, este rayo de luz tiene una dirección incidente $\Psi$ y puede salir de esta superficie sobre otro punto $q$ con dirección saliente $\Theta$. La función que define esta relación entre la radiancia incidente y la radiancia reflectada se llama \ac{BSSRDF}.
 
@@ -57,7 +57,7 @@ Dependiendo del comportamiento de la \ac{BRDF}, el material se verá como una su
 \end{figure}
 
 \paragraph{Superficies Difusas:}
-Algunos materiales reflectan la luz de forma uniforme sobre la totalidad de la semiesfera de reflectancia. Esto quiere decir que según la distribución de la irradiancia, la radiancia reflectada es independiente de la dirección de salida. Estos materiales son llamados reflectores difusos y el valor de su \ac{BRDF} es constante para todos los vales $\Theta$ y $\Psi$. Para un observador un punto sobre una superficie difusa se ve igual desde todas las direcciones \cite{advanced_gi2006}. Para una superficie difusa ideal, la reflexión difusa puede ser representada como:
+Algunos materiales reflectan la luz de forma uniforme sobre la totalidad de la semiesfera de reflectancia. Esto quiere decir que según la distribución de la irradiancia, la radiancia reflectada es independiente de la dirección de salida. Estos materiales son llamados reflectores difusos y el valor de su \ac{BRDF} es una constante para todos los valores $\Theta$ y $\Psi$. Para un observador un punto sobre una superficie difusa se ve igual desde todas las direcciones \cite{advanced_gi2006}. Para una superficie difusa ideal, la reflexión difusa puede ser representada como:
 
 \begin{equation}
     f_{r}(x, \Psi\leftrightarrow\Theta) = \frac{\rho_{d}}{\pi}
@@ -68,9 +68,9 @@ La reflectancia $\rho_{d}$ representa la fracción de la energía incidente que 
 
 \paragraph{Superficies Especulares:}
 \label{para:speculars}
-Superficies especulares perfectas solo reflectan o refractan luz en una dirección específica.
+Superficies especulares perfectas solo reflejan o refractan luz en una dirección específica.
 \subparagraph{Reflexión Especular:}
-La dirección de reflexión puede ser obtenido utilizando la ley de reflexión, esta indica que la dirección de la luz incidente y saliente tienen un ángulo equivalente con la normal de la superficie. Dado que la luz es incidente con respecto a la superficie con vector dirección $\Psi$, y la normal de la superficie es $N$, la luz incidente es reflectada en la dirección $R$:
+La dirección de reflexión puede ser obtenida utilizando la ley de reflexión, esta indica que la dirección de la luz incidente y saliente tienen un ángulo equivalente con la normal de la superficie. Dado que la luz es incidente con respecto a la superficie con vector dirección $\Psi$, y la normal de la superficie es $N$, la luz incidente es reflectada en la dirección $R$:
 
 \begin{equation}
     R = 2(N\cdot\Psi)N - \Psi
@@ -184,6 +184,7 @@ La \ac{NDF} introducida por Alain Fournier \cite{fournier1992d} describe la dens
     f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
     \label{eq:ndf_ex1}
 \end{equation}
+
 En la función gaussiana el termino $\sigma^2$ es llamado variancia y el termino $\mu$ es llamado media. Tanto el producto como la convolución de dos distribuciones gaussianas es también una distribución gaussiana \cite{tina-2003}.
 
 La función gaussiana puede ser utilizada como una representación direccional. En este caso la media es un vector promedio $D$ del lóbulo gaussiano. Como es descrito en el trabajo de Toksvig para el mipmapping de mapas de normales \cite{Toksvig05}, el valor de $\sigma$ puede ser calculado por la longitud del vector promedio $D$ utilizando la siguiente ecuación.
@@ -200,7 +201,7 @@ Esto permite obtener lóbulos gaussianos a partir de dos o más vectores para re
 	\label{fig:lobes_example}
 \end{figure}
 
-Algunas \ac{BRDF} también pueden describirse como distribuciones gaussianos, las propiedades de producto y convolución se mantienen.
+Algunas \ac{BRDF} también pueden describirse como distribuciones gaussianas, las propiedades de producto y convolución se mantienen.
 
 \begin{figure}[H]
 	\centering
