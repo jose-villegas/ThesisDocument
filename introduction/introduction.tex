@@ -1,3 +1,52 @@
 \addcontentsline{toc}{chapter}{Introducción}
 \chapter*{Introducción}
 \label{ch:intro}
+La síntesis de imágenes realistas siempre ha sido un objetivo de la computación gráfica. La iluminación de escenas es uno de los aspectos importantes para este objetivo. El cálculo preciso de iluminación es un proceso complejo ya que la luz no solo sale de un punto y llega a otro, esta se propaga, rebota y es absorbida por distintos elementos es escena.
+
+En el pipeline de renderizado estándar se utilizan triángulos los cuales son rasterizados para generar fragmentos que luego son coloreados. La representación de superficies en forma de triángulos es efectiva para cálculos como iluminación directa, sin embargo esta posee grandes limitaciones para incorporar fenómenos de iluminación más complejos como iluminación global.
+
+Existen ya varios trabajos sobre técnicas para el cálculo aproximado de iluminación global. Con el incremento de la capacidad de cómputo de la \ac{GPU} y nuevas características en el pipeline de renderizado algunas de estas estrategias han permitido acelerar el cálculo de la iluminación global, incluso en tiempos interactivos.
+
+Técnicas recientes han surgido donde se utiliza una representación de la escena utilizando vóxeles para simplificar geometría en escena y hacer posible el cálculo de iluminación global en tiempo real. Un vóxel representa un elemento volumétrico en una cuadricula tridimensional uniforme, es también referido como píxel volumétrico o tridimensional.
+
+\addcontentsline{toc}{section}{Objetivos}
+\section*{Objetivos} % (fold)
+\label{sec:section_name}
+\addcontentsline{toc}{subsection}{Objetivo General}
+\subsection*{Objetivo General} % (fold)
+\label{sub:subsection_name}
+Desarrollar un método para el cómputo de iluminación global en tiempo real basado en trazado de conos y vóxeles en escenas interactivas.
+% subsection subsection_name (end)
+\addcontentsline{toc}{subsection}{Objetivos Específicos}
+\subsection*{Objetivos Específicos} % (fold)
+\label{sub:objetivo_especifico}
+\begin{itemize}
+\item Realizar proceso de voxelización de la geometría en escena.
+\item Implementar la técnica de \emph{deferred shading}.
+\item Implementar una estructura de vóxeles para representar una simplificación de la escena.
+\item Construir una descripción jerárquica para esta estructura de vóxeles para almacenar distintos niveles de detalle.
+\item Implementar la actualización dinámica de esta estructura al detectar cualquier cambio relevante en escena.
+\item Diseñar la representación interna de cada vóxel.
+\item Implementar el trazado aproximado de conos contra vóxeles.
+\item Garantizar fenómenos de iluminación global como oclusión ambiental e iluminación indirecta.
+\item Implementar sombreado de vóxeles para su uso en trazado de conos.
+\item Incluir oclusión con sombras para el sombreado de vóxeles.
+\item Generar sombras suaves utilizando trazado de conos.
+\item Aproximar materiales emisivos con la inclusión de emisión durante el sombreado de vóxeles.
+\item Aproximar iluminación indirecta de uno y dos rebotes.
+\item Realizar pruebas de rendimiento y precisión sobre diversas escenas y resoluciones.
+\end{itemize}
+% subsection objetivo_especifico (end)
+% section section_name (end)
+\addcontentsline{toc}{section}{Estructura del Documento}
+\section*{Estructura del Documento} % (fold)
+\label{sec:estructura_del_documento}
+Este trabajo está divido en cinco capítulos:
+\begin{itemize}
+\item \textbf{Capitulo 1} provee parte del fondo teórico en iluminación global y su renderizado, la descripción de algunas técnicas utilizadas en este trabajo y un grupo de aproximaciones existentes para el cálculo de iluminación global en tiempo real.
+\item \textbf{Capitulo 2} expone la teoría e ideas generales asociadas a la propuesta e implementación de este trabajo de forma general.
+\item \textbf{Capitulo 3} detalla los algoritmos implementados y la estructura de la aplicación utilizada para el desarrollo de esta propuesta.
+\item \textbf{Capitulo 4} se estudian distintos entornos de prueba para obtener resultados en cuanto rendimiento y calidad de imagen bajo distintas condiciones en nuestra propuesta.
+\item \textbf{Capitulo 5} se presentan las conclusiones sobre el trabajo realizado y posibles mejoras para trabajos futuros.
+\end{itemize}
+% section estructura_del_documento (end)

@@ -720,3 +720,67 @@ Nuestra implementación permite la aproximación de materiales emisivos con la a
 	\caption{Detalles finos en materiales con emisión utilizando texturizado.}
 	\label{fig:fine_emissive}
 \end{figure}
+
+\subsection{Defectos o Artefactos Visuales} % (fold)
+\label{sub:defectos_o_artefactos_visuales}
+
+\begin{figure}[H]
+	\centering
+	\centering
+	\begin{subfigure}[b]{0.623\linewidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/leaking.png}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[b]{0.357\linewidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/leaking_detail.png}
+	\end{subfigure}%
+	\caption{Fuga de luz o \emph{light-leaking} en escena Sibenik.}
+	\label{fig:leaking}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\centering
+	\begin{subfigure}[b]{0.623\linewidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/color_banding.png}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[b]{0.357\linewidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/color_banding_detail.png}
+	\end{subfigure}%
+	\caption{Bandas de colores o \emph{color banding}.}
+	\label{fig:banding}
+\end{figure}
+
+\subsection{Comparación} % (fold)
+\label{sub:comparacion}
+\begin{figure}[H]
+	\centering
+	\centering
+	\begin{subfigure}[b]{0.49\linewidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/lpv.png}
+		\caption{}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[b]{0.49\linewidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/vct.png}
+		\caption{}
+	\end{subfigure}%
+	\caption{Comparación de nuestra implementación (a) con algoritmo para el cálculo de iluminación indirecta con \acl{CLPV} (b).}
+	\label{fig:comp_quality}
+\end{figure}
+
+% subsection comparacion (end)
+% subsection defectos_o_artefactos_visuales (end)

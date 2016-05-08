@@ -1,5 +1,5 @@
 \section{Iluminación Global de Vóxeles} % (fold)
-\label{sec:iluminacion_global_de_voxeles}
+\label{sec:iluminacion_global_de_voxeles_impl}
 En la sección anterior se expone el cálculo de iluminación indirecta de solo un rebote. Si observamos el algoritmo \ref{Trace7} los únicos datos necesarios para este cálculo con solo el componente difuso son: albedo, normal, posición e iluminación directa.
 
 Todos estos datos se encuentran disponibles en nuestra representación en vóxeles. La iluminación directa en vóxeles la obtenemos luego del proceso de sombreado de vóxeles. Mientras que albedo y normal son volúmenes producto del proceso de voxelización. La posición puede ser fácilmente proyectada utilizando la función \emph{VoxelToWorld} del algoritmo \ref{SpaceTransform}.

@@ -202,3 +202,20 @@ Para ambas pruebas se utilizó solo la escena completa Cornell Box. Para la prue
 		\label{fig:specularcone_aperture}
 	\end{subfigure}
 \end{figure}
+
+\subsection{Comparaciones} % (fold)
+\label{sub:comparasiones}
+Para el estudio el rendimiento con respecto a otras aproximaciones para cálculo de iluminación indirecta se consideró una aplicación con trazado de conos con voxeles utilizando octrees dispersos para la representación con voxeles y otra aplicación utilizando \acl{CLPV} visto en la sección \ref{sub:clpv}. Para ambos programas se utilizó la escena Sponza con cámara y luces en posiciones y direcciones semejantes. La aplicación fue colocada bajo actualización forzosa. Solo se muestra el tiempo final de renderizado en milisegundos.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+                             &                                             &                                  &                            \\ \hline
+\multicolumn{1}{|l|}{Escena} & \multicolumn{1}{l|}{Nuestra Implementación} & \multicolumn{1}{l|}{Con Octrees} & \multicolumn{1}{l|}{CLPV}  \\ \hline
+\multicolumn{1}{|l|}{Sponza} & \multicolumn{1}{l|}{20.83}                  & \multicolumn{1}{l|}{89.13}      & \multicolumn{1}{l|}{18.19} \\ \hline
+\end{tabular}
+\caption{Comparación de rendimiento con otras aplicaciones.}
+\label{tab:compare}
+\end{table}
+
+% subsection comparasiones (end)
