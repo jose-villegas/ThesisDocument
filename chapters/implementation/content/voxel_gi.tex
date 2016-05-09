@@ -40,7 +40,7 @@ void main()
     imageStore(voxelComposite, writePos, radiance);
 }
 \end{lstlisting}
-El método \emph{CalculateIndirectLighting} es el mismo visto en la sección anterior, igualmente el trazado pero sin oclusión ambiental. La textura \emph{voxelComposite} es la textura resultante del sombreado de vóxeles. Una vez terminado el cálculo de iluminación global sobre los vóxeles el proceso de filtrado anisótropo descrito en la sección \ref{sub:voxeles_anisotropos} debe volver a realizarse. Almacenar la iluminación global producto del primer rebote sobre los vóxeles nos permite aproximar el segundo rebote durante el proceso de trazado de conos de la sección anterior.
+El método \emph{CalculateIndirectLighting} es el mismo visto en la sección anterior, igualmente el trazado pero sin oclusión ambiental. La textura \emph{voxelComposite} es la textura resultante del sombreado de vóxeles. Una vez terminado el cálculo de iluminación global sobre los vóxeles debe volver a realizarse el proceso de filtrado anisótropo descrito en la sección \ref{sub:voxeles_anisotropos}. Almacenar la iluminación global producto del primer rebote sobre los vóxeles nos permite aproximar el segundo rebote durante el proceso de trazado de conos de la sección anterior.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.49\textwidth}

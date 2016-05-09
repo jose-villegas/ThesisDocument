@@ -1,8 +1,8 @@
 \section{Trazado de Conos con Vóxeles} % (fold)
 \label{sec:trazado_de_conos}
-El trazado de conos es utilizado para distintos aspectos visuales de la aplicación. En nuestra implementación este proceso se realiza durante el cálculo de iluminación utilizando sombreado diferido (sección \ref{sub:deferred_rendering_theory}). Utilizar sombreado diferido muy conveniente ya que durante el cálculo de iluminación solo necesario trazar conos sobre cada pixel en vez de cada fragmento incluyendo no visibles.
+El trazado de conos es utilizado para distintos aspectos visuales de la aplicación. En nuestra implementación este proceso se realiza durante el cálculo de iluminación utilizando sombreado diferido (sección \ref{sub:deferred_rendering_theory}). Utilizar sombreado diferido es muy conveniente ya que durante el cálculo de iluminación solo es necesario trazar conos sobre cada pixel en vez de cada fragmento incluyendo los no visibles.
 
-Como se menciona en la sección \ref{sec:trazado_de_conos_con_voxeles}. El trazado de conos es similar a ray-marching con la única diferencia que el volumen a muestrear incrementa de tamaño según la distancia recorrida. Esto es producto de la expansión de la apertura del cono a través de su distancia recorrida. Las muestras de mayor tamaño se obtienen utilizando los niveles de mip map descritos en la sección anterior.
+Como se menciona en la sección \ref{sec:trazado_de_conos_con_voxeles}. El trazado de conos es similar a ray-marching con la única diferencia que el volumen a muestrear incrementa de tamaño según la distancia recorrida. Esto es producto de la expansión de la apertura del cono a través de su expansión. Las muestras de mayor tamaño se obtienen utilizando los niveles de mip map descritos en la sección anterior.
 
 Al utilizar vóxeles anisótropos se necesita saber que volúmenes direccionales van a ser utilizados para muestrear a través del recorrido del cono. Esto se determina según el signo de cada eje del vector direccional del cono. También es necesario calcular el peso de cada eje para obtener un resultado ponderado entre los tres volúmenes:
 \\
@@ -21,11 +21,11 @@ vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 
 Durante el recorrido del cono se utiliza la función de GLSL \emph{textureLod}. Esta función tiene como entrada una textura, una coordenada y un nivel mip. Durante la marcha del cono el nivel mip se obtiene del diámetro del cono dado una distancia desde el origen:
 \begin{equation}
-    V_{level} = \log_2(\frac{d}{V_{size}})
+    V_{level} = \log_2\left(\frac{d}{V_{size}}\right)
 \end{equation}
 Donde $d$ es el diámetro del círculo del cono según la distancia recorrida y $V_{size}$ es el tamaño de un vóxel en la cuadricula de vóxeles en el máximo nivel de detalle. El valor de $d$ se puede obtener de la siguiente ecuación:
 \begin{equation}
-    d = 2t\cdot\tan(\frac{\theta}{2})
+    d = 2t\cdot\tan\left(\frac{\theta}{2}\right)
 \end{equation}
 Donde $t$ es la distancia recorrida por el cono desde el punto de origen y $\theta$ es el ángulo de apertura del cono. En la siguiente figura podemos observar una representación visual de este recorrido:
 \begin{figure}[H]
@@ -100,7 +100,7 @@ En el método \emph{AnistropicSample} se puede observar el muestreo direccional,
 
 Durante el trazado se observa cómo se obtiene la posición del cono según la distancia recorrida y el uso de las operaciones ya mencionadas para obtener el diámetro y el nivel mip. La función \emph{WorldToVoxel} aparece para cambiar una posición en espacio de mundo a espacio de textura como fue mencionado para el algoritmo \ref{SpaceTransform}. La distancia recorrida es alterada por una variable \emph{samplingFactor} esto permite disminuir la distancia entre muestreos para lograr resultados más suaves con un costo en rendimiento.
 
-Para acumular los valores muestreados través del recorrido del cono se utiliza acumulación volumétrica \emph{front-to-back}. Para esto es necesario llevar pista de un valor oclusión $a$ y color $c$. La actualización de estos valores por cada paso se realiza de la siguiente manera: $c=c+(1-a)c_2$ y $a=a+(1-a)a_2$. En el algoritmo se puede observar que esto se realiza con la variable \emph{coneSample}.
+Para acumular los valores muestreados través del recorrido del cono se utiliza acumulación volumétrica \emph{front-to-back}. Para esto es necesario llevar pista de un valor oclusión $a$ y color $c$. La actualización de estos valores por cada paso con un nuevo valor $a_2$ y $c_2$ se realiza de la siguiente manera: $c=c+(1-a)c_2$ y $a=a+(1-a)a_2$. En el algoritmo se puede observar que esto se realiza con la variable \emph{coneSample}.
 
 \subsection{Reflexión Difusa} % (fold)
 \label{sub:reflexion_difuse}
@@ -160,10 +160,10 @@ vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 spe
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
 }
 \end{lstlisting}
-Las direcciones, pesos de integración y tangente del ángulo ya se encuentran pre-calculados. Para rotar a lo largo del vector normales se obtienen vectores direccionales perpendiculares a la normal utilizando un vector guía.
+Las direcciones, pesos de integración y tangente del ángulo ya se encuentran pre-calculados. Para rotar a lo largo del vector normal se obtienen vectores direccionales perpendiculares a la normal utilizando un vector guía.
 \subsection{Reflexión Especular} % (fold)
 \label{sub:reflexion_especular}
-La reflexión especular es un solo cono con la dirección del lóbulo especular y una apertura adecuada a la potencia especular de un material para la \ac{BRDF} Blinn-Phong. El código para el cono especular es el siguiente:
+Para la reflexión especular se utiliza un solo cono con la dirección $R$ del lóbulo especular (sección \ref{para:speculars}) y una apertura adecuada a la potencia especular $n$ de un material para la \ac{BRDF} Blinn-Phong (sección \ref{para:blinn_phong_mod}). El código para obtener el cono especular es el siguiente:
 \\
 \begin{lstlisting}[caption={Cono para reflexión especular.}, label=Trace4]
 vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 specular)
@@ -188,7 +188,7 @@ vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 spe
 Para modular la apertura del cono especular utilizamos la función tangente. En el componente alfa de la especular se encuentra la potencia especular sin escalar, esto quiere decir que va de cero a uno. También limitamos el cono especular a mínimo un grado de apertura. Los conos extremadamente finos puede afectar mucho el rendimiento del programa, además de esto la apertura no puede ser cero.
 \subsection{Oclusión Ambiental} % (fold)
 \label{sub:oclusion_ambient}
-En nuestra implementación los conos utilizados para calcular la reflexión difusa son utilizados para calcular la oclusión ambiental. Primero se realiza una pequeña adición a la función \emph{TraceCone} para incluir el cálculo de oclusión ambiental como es descrito en la sección \ref{sub:occl_ambt_prop}:
+En nuestra implementación los conos utilizados para calcular la reflexión difusa son también utilizados para calcular la oclusión ambiental. Primero se realiza una pequeña adición a la función \emph{TraceCone} para incluir el cálculo de oclusión ambiental como es descrito en la sección \ref{sub:occl_ambt_prop}:
 \\
 \begin{lstlisting}[caption={Oclusión ambiental para el algoritmo de trazado de conos.}, label=Trace5]
 vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture, bool traceOcclusion)
