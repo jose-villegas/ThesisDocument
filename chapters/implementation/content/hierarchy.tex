@@ -2,7 +2,7 @@
 \label{sec:estructura_jerarquica_impl}
 La representación de la escena en vóxeles puede ser filtrada hacia niveles menos detallados utilizando distintos niveles de mip map. Esto describe una estructura piramidal. Esta estructura es utilizada para acelerar el trazado de conos contra vóxeles, donde según la apertura del cono se interpola entre distintos niveles de detalle como se observa en la figura \ref{fig:vct_explain}.
 
-En nuestra implementación se utilizan seis nuevos volúmenes por cada eje direccional positivo y negativo para vóxeles anisótropos. Cada uno de estos volúmenes tiene una resolución de $\frac{V_{res}}{2}$. Los niveles de mipmapping no se encuentran en la textura base de radiancia sino en estos volúmenes, por tanto estos niveles son los que residen los distintos niveles de detalle de la escena voxelizada. Llamaremos a estos volúmenes como volúmenes direccionales.
+En nuestra implementación se utilizan seis nuevos volúmenes por cada eje direccional positivo y negativo para vóxeles anisótropos. Cada uno de estos volúmenes tiene una resolución de $V_{res}/{2}$. Los niveles de mipmapping no se encuentran en la textura base de radiancia sino en estos volúmenes, por tanto estos volúmenes son los que residen los distintos niveles de detalle de la escena voxelizada. Llamaremos a estos volúmenes como \emph{volúmenes direccionales}.
 
 Como utilizamos texturas tridimensionales en vez de un octree el proceso de filtrado es mucho más simple ya que la interpolación cuadrilineal esta soportada nativamente. Un problema surge para la interpolación entre la textura base y los niveles de mipmapping en los volúmenes direccionales. Ya que estas son texturas separadas no hay interpolación lineal entre la textura base y los volúmenes direccionales. Esto es simple de solventar utilizando la función \emph{mix()} de GLSL cuando el nivel de detalle se encuentre entre cero y uno, cero siendo el máximo detalle (textura base) y uno el nivel cero del mipmap en los volúmenes direccionales.
 
@@ -29,7 +29,7 @@ Una forma simplificada de observar este proceso es con texturas bidimensionales.
     \caption{Cuadricula de vóxeles de $5^2$ a menor detalle $3^2$.}
 \end{figure}
 
-Para filtrar el valor del vóxel $E$ en la dirección $X$ positiva en necesario considerar los nueve vóxeles cercanos en el nivel anterior de detalle. Estos vóxeles son divididos en grupos de cuatro.
+Para filtrar el valor del vóxel $E$ en la dirección $X$ positiva es necesario considerar los nueve vóxeles cercanos en el nivel anterior de detalle. Estos vóxeles son divididos en grupos de cuatro.
 
 \begin{figure}[H]
     \centering
@@ -38,7 +38,7 @@ Para filtrar el valor del vóxel $E$ en la dirección $X$ positiva en necesario 
 \end{figure}
 
 Por cada grupo se filtra en la dirección $X$ positiva. Por ejemplo en el primer grupo, en la parte superior izquierda. Primero se realiza mezclado alfa o \emph{alpha blending} en la dirección $X$ positiva y luego se calcula un promedio para obtener el valor de este grupo:
-
+\smallskip
 \begin{equation}
 \begin{split}
 	\begin{pmatrix}R\\G\\B\\A\end{pmatrix}_{q \to r} &= 

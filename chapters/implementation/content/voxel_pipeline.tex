@@ -101,7 +101,7 @@ En el algoritmo \ref{CalculateAxis} primero se obtiene la normal del triángulo.
 \end{figure}
 
 \subsubsection{Extensión del Triángulo y Polígono Delimitante}
-Una vez proyectados todos los vértices del triángulo según el eje direccional escogido (esto es multiplicar cada vértice por la matriz escogida) entonces se procede a expandir los vértices de este triángulo. Antes de esto primero es importante definir un \ac{AABB} para el triángulo. Esta area delimitante es utilizada en el fragment shader para descartar fragmentos excedentes del triángulo expandido. El punto mínimo y máximo se expanden según la longitud diagonal de un pixel, en nuestra implementación este valor es $\frac{1}{V_{res}}$ donde $V_{res}$ representa la resolución del volumen.
+Una vez proyectados todos los vértices del triángulo según el eje direccional escogido (esto es multiplicar cada vértice por la matriz escogida) entonces se procede a expandir los vértices de este triángulo. Antes de esto primero es importante definir una \ac{AABB} para el triángulo. Esta area delimitante es utilizada en el fragment shader para descartar fragmentos excedentes del triángulo expandido. El punto mínimo y máximo se expanden según la longitud diagonal de un pixel, en nuestra implementación este valor es $\frac{1}{V_{res}}$ donde $V_{res}$ representa la resolución del volumen.
 \\
 \begin{lstlisting}[caption={Creación de un \ac{AABB} para el triángulo proyectado.}, label=AxisAlignedBoundingBox]
 vec4 AxisAlignedBoundingBox(vec4 pos[3], vec2 pixelDiagonal)
@@ -118,7 +118,7 @@ vec4 AxisAlignedBoundingBox(vec4 pos[3], vec2 pixelDiagonal)
 }
 \end{lstlisting}
 
-Primero se calculan los planos perpendiculares al triángulo formados por cada par de vértices del triángulo. Estos planos son trasladados medio pixel hacia afuera con respecto triángulo proyectado.
+Primero se calculan los planos perpendiculares al triángulo formados por cada par de vértices del triángulo. Estos planos son trasladados medio pixel hacia afuera con respecto al triángulo proyectado.
 \\
 \begin{lstlisting}[caption={Planos por cada par de vértices del triángulo proyectado.}, label=TPlanes]
 vec2 halfPixel = vec2(1.0f / volumeDimension);
