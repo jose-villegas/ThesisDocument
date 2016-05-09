@@ -124,7 +124,7 @@ El algoritmo comprende varios pasos. Primero la información de la luz y escena 
 \subsubsection{Construcción del Octree de Vóxeles}
 El algoritmo está pensando para funcionar con escenas dinámicas. Sin embargo las escenas son divididas entre partes dinámicas y estáticas para acelerar el proceso de voxelización con objetos dinámicos.
 
-Primero la escena es renderizada utilizando proyección ortogonal. Cada triangulo es proyectado sobre uno de los ejes principales, este eje es seleccionado según la normal del triángulo, esto se hace para maximizar el área visible del triángulo con respecto al eje. Cada fragmento producto de esta proyección es almacenado en una lista de vóxeles-fragmentos junto a parámetros como posición en escena, normal y color. Para saber la cantidad de elementos que esta lista debe almacenar primero se debe realizar una pasada contando el número de fragmentos con un contador atómico.
+Primero la escena es renderizada utilizando proyección ortogonal. Cada triángulo es proyectado sobre uno de los ejes principales, este eje es seleccionado según la normal del triángulo, esto se hace para maximizar el área visible del triángulo con respecto al eje. Cada fragmento producto de esta proyección es almacenado en una lista de vóxeles-fragmentos junto a parámetros como posición en escena, normal y color. Para saber la cantidad de elementos que esta lista debe almacenar primero se debe realizar una pasada contando el número de fragmentos con un contador atómico.
 
 \begin{wrapfigure}{l}{0.4\linewidth}
 	\includegraphics[width=0.95\linewidth]{media/miplevels.png}

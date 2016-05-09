@@ -13,15 +13,15 @@ Una escena en la aplicación está definida por cámaras, luces, materiales, tex
 
 Como se observa en el diagrama cada \emph{Node} o nodo tiene un grupo \emph{meshes} o mallados asociado. Cada una de estas \emph{Mesh} o mallas tiene un material (clase \emph{Material}) asignado, este material puede o no tener uso de texturas. Los nodos en la escena puede definirse como estáticos o dinámicos, esta propiedad es importante para diferenciar entre voxelización estática y dinámica.
 
-Se puede observar también que tanto nodos como mallas tienen un miembro \emph{boundaries} o delimítate, este miembro define una \ac{AABB} utilizada para determinar si estos objetos se encuentra dentro del tronco cuadrado que define el volumen de proyección de la cámara. Esta técnica es llamada \emph{frustum culling}. 
+Se puede observar también que tanto nodos como mallas tienen un miembro \emph{boundaries} o delimítate, este miembro define una \ac{AABB} utilizada para determinar si estos objetos se encuentran dentro del tronco cuadrado que define el volumen de proyección de la cámara. Esta técnica es llamada \emph{frustum culling}. 
 
-Existen tres tipos de luces en nuestra implementación como ya fue mencionado anteriormente: luces direccionales, puntuales y focales. Una de las ventajas de realizar el sombreado a través de compute shaders es que podemos colocar muchas luces en escena sin necesidad de crear mapas luz-vista por cada uno de estos.
+Existen tres tipos de luces en nuestra implementación como ya fue mencionado anteriormente: direccionales, puntuales y focales. Una de las ventajas de realizar el sombreado a través de compute shaders es que podemos colocar muchas luces en escena sin necesidad de crear mapas luz-vista por cada uno de estos.
 
 \begin{figure}[H]
 	\centering
 	\captionsetup{justification=centering}
 	\includegraphics[width=\linewidth]{media/ClassDiagram.png}
-	\caption{Diagrama de principales clases con métodos abstractos relacionados con la actualización de cada frame.}
+	\caption{Diagrama de clases principales con métodos abstractos relacionados con la actualización de cada frame.}
 \end{figure}
 
 La aplicación utiliza abstracción en el \emph{loop} o ciclo de renderizado. Existen tres clases bases las cuales proveen un método abstracto a implementar por los hijos de estas. Las clases que implementan estos métodos son instanciadas en la clase \emph{AssetsManager}. Por cada instancia de estas clases cada uno de estos métodos es llamado con cada iteración del ciclo de renderizado. Este ciclo incluye la actualización de interfaces, actualización de lógica y actualización de renderizado.
