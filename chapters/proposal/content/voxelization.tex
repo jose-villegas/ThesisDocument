@@ -27,7 +27,7 @@ Para simplificar el trazado de conos se utiliza una discretización de la escena
 	\label{fig:voxelization_details}
 \end{figure}
 
-Este proceso de voxelización para las partes dinámicas de la escena debe ser realizado cada vez que sucede algún cambio sobre cualquier superficie que pertenece a un objeto dinámico en la escena. Por esta razón se requiere un algoritmo de voxelización de alto rendimiento para mantener tiempos interactivos.
+Para las partes dinámicas de la escena este proceso de voxelización debe ser realizado cada vez que sucede algún cambio sobre cualquier superficie que pertenece a un objeto dinámico. Por esta razón se requiere un algoritmo de voxelización de alto rendimiento para mantener tiempos interactivos.
 
 \subsection{Voxelización Conservativa} % (fold)
 \label{sub:voxelizacion_conservativa}
@@ -46,7 +46,7 @@ Para maximizar el área de rasterización la idea es proyectar cada triangulo ut
 	\caption{Descripción del pipeline de voxelización.}
 \end{figure}
  
-Por cada triangulo proyectado es necesario generar un polígono delimitante un poco más grande que el triángulo para garantizar la voxelización conservativa. Este polígono debe permitir que por cualquier triangulo proyectado tocando un píxel este va obligatoriamente a tocar el centro de este píxel, por tanto el pipeline de rasterización generara fragmentos para este triángulo. El polígono se genera expandiendo cada vértice del triángulo hacia afuera utilizando el procesador de geometria o \emph{geometry shader}. El polígono delimitante no sobreestima la cobertura del triángulo por tanto este no tiene forma de triángulo. Los fragmentos excedentes de este polígono son descartados en el fragment shader utilizando un cuboide delimitante.
+Por cada triangulo proyectado es necesario generar un polígono delimitante un poco más grande que el triángulo para garantizar la voxelización conservativa. Este polígono debe permitir que por cualquier triangulo proyectado tocando un píxel este va obligatoriamente a tocar el centro de este píxel, por tanto el pipeline de rasterización generara fragmentos para este triángulo. El polígono se genera expandiendo cada vértice del triángulo hacia afuera utilizando el procesador de geometria o \emph{geometry shader}. El polígono delimitante no sobreestima la cobertura del triángulo por tanto este no tiene forma de triángulo. Los fragmentos excedentes de este polígono son descartados en el fragment shader utilizando un  área delimitante.
 
 \begin{figure}[H]
 	\centering
