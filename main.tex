@@ -32,6 +32,7 @@
 \usepackage{parskip}
 \usepackage{fancyhdr}
 \usepackage{listings}
+\usepackage{inconsolata}
 
 \acsetup{list-long-format=\capitalisewords}
 
@@ -141,22 +142,7 @@
 \newcommand\rotv[1]{\rotatebox[origin=c]{90}{#1}}% no optional argument here, please!
 
 \renewcommand{\arraystretch}{1.2}
-
-\lstset{
-  language=C++,
-  captionpos=b,
-  frame=tb,
-  tabsize=4,
-  breaklines=true,
-  basicstyle=\scriptsize\ttfamily,
-  keywordstyle=\color{blue}\ttfamily,
-  stringstyle=\color{red}\ttfamily,
-  commentstyle=\color{green}\ttfamily,
-  morecomment=[l][\color{magenta}]{\#},
-  escapeinside={(*@}{@*)}
-}
-
-\renewcommand{\lstlistingname}{Código}
+\input{listing_language}
 
 \begin{document}
   \frontmatter

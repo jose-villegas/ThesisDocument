@@ -63,6 +63,7 @@ Una vez se obtiene cada valor de los cuatro grupos se puede ahora calcular el va
 \\
 \begin{lstlisting}[caption={Filtrado sobre los volúmenes direccionales para obtener vóxeles anisótropos}, label=AnisoFiltering]
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+// posiciones de vóxeles cercanos
 const ivec3 anisoOffsets[] = ivec3[8]
 (
 	ivec3(1, 1, 1),
@@ -74,6 +75,7 @@ const ivec3 anisoOffsets[] = ivec3[8]
 	ivec3(0, 0, 1),
 	ivec3(0, 0, 0)
 );
+// obtiene vóxeles cercanos
 void FetchTexels(ivec3 pos, int dir, inout vec4 val[8]) 
 {
 	for(int i = 0; i < 8; i++)
@@ -87,30 +89,35 @@ void main()
 		gl_GlobalInvocationID.y >= mipDimension.y ||
 		gl_GlobalInvocationID.z >= mipDimension.z) return;
 
+	// posición de escritura
 	ivec3 writePos = ivec3(gl_GlobalInvocationID);
+	// posición de lectura, mip de mayor detalle
 	ivec3 sourcePos = writePos * 2;
-	// fetch values
+	// Arreglo de valores cercanos a filtrar
 	vec4 values[8];
-	// x -
+	// obtiene valores del volumen -X
 	FetchTexels(sourcePos, 0, values);
+	// filtrado en dirección -X
 	imageStore(voxelMipmapDst[0], writePos, 
 	(
-		values[0] + values[4] * (1 - values[0].a) + 
+		values[0] + values[4] * (1 - values[0].a) + // Mezclado Alfa
 		values[1] + values[5] * (1 - values[1].a) +
 		values[2] + values[6] * (1 - values[2].a) +
-		values[3] + values[7] * (1 - values[3].a)) * 0.25f
+		values[3] + values[7] * (1 - values[3].a)) * 0.25f // Promedio
 	);
-	// x +
+	// obtiene valores del volumen +X
 	FetchTexels(sourcePos, 1, values);
+	// filtrado en dirección +X
     imageStore(voxelMipmapDst[1], writePos, 
 	(
-		values[4] + values[0] * (1 - values[4].a) +
+		values[4] + values[0] * (1 - values[4].a) + 
     	values[5] + values[1] * (1 - values[5].a) +
     	values[6] + values[2] * (1 - values[6].a) +
     	values[7] + values[3] * (1 - values[7].a)) * 0.25f
     );
-	// y -	
+	// obtiene valores del volumen -Y
 	FetchTexels(sourcePos, 2, values);
+	// filtrado en dirección -Y
     imageStore(voxelMipmapDst[2], writePos, 
 	(
 		values[0] + values[2] * (1 - values[0].a) +
@@ -118,8 +125,9 @@ void main()
     	values[5] + values[7] * (1 - values[5].a) +
     	values[4] + values[6] * (1 - values[4].a)) * 0.25f
     );
-	// y +
+	// obtiene valores del volumen +Y
 	FetchTexels(sourcePos, 3, values);
+	// filtrado en dirección +Y
     imageStore(voxelMipmapDst[3], writePos, 
 	(
 		values[2] + values[0] * (1 - values[2].a) +
@@ -127,8 +135,9 @@ void main()
     	values[7] + values[5] * (1 - values[7].a) +
     	values[6] + values[4] * (1 - values[6].a)) * 0.25f
     );
-	// z -
+	// obtiene valores del volumen -Z
 	FetchTexels(sourcePos, 4, values);
+	// filtrado en dirección -Z
     imageStore(voxelMipmapDst[4], writePos, 
 	(
 		values[0] + values[1] * (1 - values[0].a) +
@@ -136,8 +145,9 @@ void main()
     	values[4] + values[5] * (1 - values[4].a) +
     	values[6] + values[7] * (1 - values[6].a)) * 0.25f
     );
-	// z +
+	// obtiene valores del volumen +Z
 	FetchTexels(sourcePos, 5, values);
+	// filtrado en dirección +Z
     imageStore(voxelMipmapDst[5], writePos, 
 	(
 		values[1] + values[0] * (1 - values[1].a) +

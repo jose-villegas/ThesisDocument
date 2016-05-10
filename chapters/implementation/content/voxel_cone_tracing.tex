@@ -9,11 +9,13 @@ Al utilizar vóxeles anisótropos se necesita saber que volúmenes direccionales
 \begin{lstlisting}[caption={Lógica para determinar volúmenes direccionales a utilizar durante el trazado de conos y peso por eje.}, label=Trace0]
 vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 {
+    // índice de los tres volúmenes direccionales
     uvec3 visibleFace;
+    // selección de índices según el signo
     visibleFace.x = (direction.x < 0.0) ? 0 : 1;
     visibleFace.y = (direction.y < 0.0) ? 2 : 3;
     visibleFace.z = (direction.z < 0.0) ? 4 : 5;
-    // weight per axis for aniso sampling
+    // peso por eje de la dirección del cono
     vec3 weight = direction * direction;
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
 }
@@ -40,8 +42,9 @@ En nuestra implementación el punto de origen del cono es trasladado según el t
 vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 {
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
-    // move further to avoid self collision
+    // distancia inicial recorrida de un vóxel 
     float dst = voxelWorldSize;
+    // posición inicial
     vec3 startPosition = position + normal * dst;
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
 }
@@ -49,18 +52,22 @@ vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 Finalmente se comienza el trazado del cono a través de la escena. Este es expuesto en el Código \ref{Trace2}.
 \\
 \begin{lstlisting}[caption={Trazado de cono con vóxeles.}, label=Trace2]
+// volumen de radiancia o textura base
 layout(binding = 7) uniform sampler3D voxelTex;
+// volúmenes direccionales
 layout(binding = 8) uniform sampler3D voxelTexMipmap[6];
-
+// obtiene una muestra de la representación en vóxeles
 vec4 AnistropicSample(vec3 coord, vec3 weight, uvec3 face, float lod)
 {
-    // anisotropic volumes level
+    // nivel mip en los volúmenes direccionales
     float anisoLevel = max(lod - 1.0f, 0.0f);
-    // directional sample
+    // muestra direccional ponderada por el peso de cada eje
     vec4 anisoSample = weight.x * textureLod(voxelTexMipmap[face.x], coord, anisoLevel)
                      + weight.y * textureLod(voxelTexMipmap[face.y], coord, anisoLevel)
                      + weight.z * textureLod(voxelTexMipmap[face.z], coord, anisoLevel);
-    // linearly interpolate on base level
+
+    // interpolación lineal con la textura base 
+    // cuando el nivel de detalle es menor a 1
     if(lod < 1.0f)
     {
         vec4 baseColor = texture(voxelTex, coord);
@@ -72,23 +79,25 @@ vec4 AnistropicSample(vec3 coord, vec3 weight, uvec3 face, float lod)
 vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 {
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
-    // final results
+    // resultado de acumulación
     vec4 coneSample = vec4(0.0f);
+    // máxima distancia para el recorrido de un cono
     float maxDistance = maxTracingDistanceGlobal / voxelScale
 
     while(coneSample.a < 1.0f && dst <= maxDistance)
     {
         vec3 conePosition = startPosition + direction * dst;
-        // cone expansion and respective mip level based on diameter
+        // expansión del diámetro del cono
         float diameter = 2.0f * aperture * dst;
+        // nivel de detalle según el diámetro
         float mipLevel = log2(diameter / voxelWorldSize);
-        // convert position to texture coord
+        // conversión de posición en espacio de mundo a espacio de textura
         vec3 coord = WorldToVoxel(conePosition);
-        // get directional sample from anisotropic representation
+        // muestra anisotrópica
         vec4 anisoSample = AnistropicSample(coord, weight, visibleFace, mipLevel);
-        // front to back composition
+        // composición front-to-back
         coneSample += (1.0f - coneSample.a) * anisoSample;
-        // move further into volume
+        // aumento de la distancia recorrida
         dst += diameter * samplingFactor;
     }
 
