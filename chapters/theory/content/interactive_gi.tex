@@ -30,8 +30,7 @@ Las luces virtuales son generadas a partir de partículas lanzadas por las fuent
 \begin{equation}
     p' = \frac{\sum_{k=1}^{K} p_{d,k}|A_{k}|}{\sum_{k=1}^{K}|A_{k}|}
     \label{eq:reflected_vpls}
-\end{equation}
-Donde la escena es compuesta por $K$ elementos de superficie $A_{k}$ con una reflectividad promedio de $p_{d,k}$.
+\end{equation} donde la escena es compuesta por $K$ elementos de superficie $A_{k}$ con una reflectividad promedio de $p_{d,k}$.
 
 \subsection{Mapas de Sombras Reflexivo}
 Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} o \emph{reflective shadow maps}. La técnica de \ac{RSM} fue presentada por Dachsbacher y otros en 2005 \cite{Dachsbacher:2005}.  Esta técnica está inspirada en mapeado de sombras como ya fue explicado anteriormente en \ref{subsec:shadowmapping}, se utiliza proyección desde la fuente de luz para determinar el primer rebote de luz. Al renderizar la escena desde el punto de vista de la fuente de luz, se entiende que todos los fragmentos en el mapa de sombras son los únicos fragmentos involucrados en el primer rebote de luz. En \ac{RSM} cada uno de los píxeles en el mapa de sombras es considerado una fuente de luz. Por cada píxel $p$ además de la profundidad $d_{p}$, se necesita almacenar posición $x_{p}$, normal $n_{p}$, y el flujo de radiancia reflectada $\Theta_{p}$.

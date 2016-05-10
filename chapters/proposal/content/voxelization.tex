@@ -61,8 +61,8 @@ Por cada triangulo proyectado es necesario generar un polígono delimitante un p
 % section voxelizacion (end)
 
 \subsection{Composicion de Fragmentos y Voxeles}
-
-Una vez que los fragmentos han sido generados en el fragment shader, los valores deseados puede ser almacenados en una textura 3D utilizando operaciones de escritura que provee la extensión \emph{{GL\_ARB\_shader\_image\_load\_store}} en OpenGL \cite{ImageLoadStore}. Sin embargo múltiples fragmentos de diferentes triángulos puede caer sobre una misma posición en esta textura 3D. Bajo el ambiente paralelo del \emph{fragment shader} no es posible saber el orden en que los fragmentos son creados y procesados, esto se traduce en resultados arbitrarios cada vez que se revoxeliza la escena.
+\label{sub:frag_voxels}
+Una vez que los fragmentos han sido generados en el fragment shader, los valores deseados puede ser almacenados en una textura 3D utilizando operaciones de escritura que provee la extensión \emph{GL\_ARB\_shader\_image\_load\_store} en OpenGL \cite{ImageLoadStore}. Sin embargo múltiples fragmentos de diferentes triángulos puede caer sobre una misma posición en esta textura 3D. Bajo el ambiente paralelo del \emph{fragment shader} no es posible saber el orden en que los fragmentos son creados y procesados, esto se traduce en resultados arbitrarios cada vez que se revoxeliza la escena.
 
 Para solventar este problema se utilizaron operaciones atómicas proveídas por la misma extensión citada anteriormente. En nuestra implementación los valores necesarios a almacenar en vóxeles son normal, albedo y emisión. Una operación coherente y sencilla con respecto a estas propiedades en el espacio que envuelve un vóxel es un promedio.
 

@@ -22,12 +22,10 @@ vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 Durante el recorrido del cono se utiliza la función de GLSL \emph{textureLod}. Esta función tiene como entrada una textura, una coordenada y un nivel mip. Durante la marcha del cono el nivel mip se obtiene del diámetro del cono dado una distancia desde el origen:
 \begin{equation}
     V_{level} = \log_2\left(\frac{d}{V_{size}}\right)
-\end{equation}
-Donde $d$ es el diámetro del círculo del cono según la distancia recorrida y $V_{size}$ es el tamaño de un vóxel en la cuadrícula de vóxeles en el máximo nivel de detalle. El valor de $d$ se puede obtener de la siguiente ecuación:
+\end{equation} donde $d$ es el diámetro del círculo del cono según la distancia recorrida y $V_{size}$ es el tamaño de un vóxel en la cuadrícula de vóxeles en el máximo nivel de detalle. El valor de $d$ se puede obtener de la siguiente ecuación:
 \begin{equation}
     d = 2t\cdot\tan\left(\frac{\theta}{2}\right)
-\end{equation}
-Donde $t$ es la distancia recorrida por el cono desde el punto de origen y $\theta$ es el ángulo de apertura del cono. En la siguiente figura podemos observar una representación visual de este recorrido:
+\end{equation} donde $t$ es la distancia recorrida por el cono desde el punto de origen y $\theta$ es el ángulo de apertura del cono. En la siguiente figura podemos observar una representación visual de este recorrido:
 \begin{figure}[H]
     \centering
     \captionsetup{justification=centering}
@@ -35,7 +33,7 @@ Donde $t$ es la distancia recorrida por el cono desde el punto de origen y $\the
     \caption{Visualización del recorrido de un cono.}
 \end{figure}
 
-En nuestra implementación el punto de origen del cono es trasladado según el tamaño de un vóxel. Esto se hace para evitar que el cono colisione con el vóxel de origen:
+En nuestra implementación el punto de origen del cono es trasladado según el tamaño de un vóxel. Esto se hace para evitar que el cono colisione con el vóxel de origen.
 \\
 \begin{lstlisting}[caption={Traslado de origen del cono.}, label=Trace1]
 vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
