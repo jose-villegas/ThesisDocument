@@ -6,31 +6,7 @@ Nuestra implementación utiliza \emph{compute shaders} o el procesador de comput
 
 Para fuentes de luz con dirección no uniforme como luces puntuales o focales es además necesario saber la posición de este fragmento. Siendo cada vóxel una representación discreta de un espacio en escena almacenado en una textura 3D, esta posición se extrae fácilmente convirtiendo la posición tridimensional del vóxel en espacio textura a su equivalente en espacio de mundo.
 
-Al promediar las normales en el espacio de un vóxel pueden surgir varios problemas de precisión. Esto sucede especialmente cuando un vóxel envuelve superficies finas cercanas con normales disparejas. Para solventar este problema se implementaron dos modelos de iluminación de vóxeles. El modelo de Lambert clásico utilizando la normal promedio del vóxel directamente y otro modelo al cual llamaremos Lambert direccional ponderado donde se calcula la atenuación normal por cada cara del vóxel para luego promediar este resultado según el peso de cada eje en el vector normal promedio.
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[t]{0.33\textwidth}
-		\centering
-		\captionsetup{justification=centering}
-		\includegraphics[width=\linewidth]{media/lambert_right.png}
-		\caption*{Eje x.}
-	\end{subfigure}%
-	\begin{subfigure}[t]{0.33\textwidth}
-		\centering
-		\captionsetup{justification=centering}
-		\includegraphics[width=\linewidth]{media/lambert_up.png}
-		\caption*{Eje y.}
-	\end{subfigure}%
-	\begin{subfigure}[t]{0.33\textwidth}
-		\centering
-		\captionsetup{justification=centering}
-		\includegraphics[width=\linewidth]{media/lambert_forward.png}
-		\caption*{Eje z.}
-	\end{subfigure}%
-	\caption{Ilustración de sombreado por cada eje direccional para las caras del vóxel.}
-	\label{fig:lambert_dir}
-\end{figure}
+Al promediar las normales en el espacio de un vóxel pueden surgir varios problemas de precisión. Esto sucede especialmente cuando un vóxel envuelve superficies finas cercanas con normales disparejas. Para solventar este problema se implementaron dos modelos de iluminación de vóxeles. El modelo de Lambert clásico utilizando la normal promedio del vóxel directamente y otro modelo al cual llamaremos Lambert direccional ponderado donde se calcula la atenuación normal por cada cara del vóxel para luego promediar este resultado según el peso de cada eje en el vector normal promedio. En la Figura \ref{fig:lambert_dir_diff} se puede observar el sombreado resultante de ambos modelos.
 % section sombreado_de_voxeles (end)
 
 \begin{figure}[H]
@@ -48,14 +24,14 @@ Al promediar las normales en el espacio de un vóxel pueden surgir varios proble
 		\includegraphics[width=\linewidth]{media/dir_lambert.png}
 		\caption*{Lambert direccional ponderado.}
 	\end{subfigure}%
-	\caption{Sombreado difuso de vóxeles utilizando Lambert clásico y Lambert direccional ponderado. En la imagen izquierda se puede observar varios vóxeles totalmente negros, estos valores son incorrectos, causados por normales desviadas durante el proceso de voxelización. En la imagen derecha estos vóxeles ahora tienen coloración correcta. También se puede observar que objetos con normales promediadas correctamente como el piso mantienen su sombreado original en ambos modelos.}
+	\caption{Sombreado difuso de vóxeles utilizando Lambert clásico y Lambert direccional ponderado.}
 	\label{fig:lambert_dir_diff}
 \end{figure}
 
 \subsection{Trazado y Mapeo de Sombras sobre el Volumen} % (fold)
 \label{sub:trazado_de_sombras_sobre_el_volumen}
 
-Para obtener resultados coherentes durante el trazado de conos es también necesario ocluir los vóxeles con sombras generadas a partir de distintas fuentes de luz en escena. Utilizando mapas de luz-vista como en el trabajo de Crassin esto es sencillo ya que los vóxeles ocluidos simplemente no reciben fotones durante el proceso de captura de la iluminación directa (sección \ref{subsub:voxel_capture}).
+Para obtener resultados coherentes durante el trazado de conos es también necesario ocluir los vóxeles con sombras generadas a partir de distintas fuentes de luz en escena. En la Figura \ref{fig:voxel_shadow_error} se puede observar la iluminación excesiva de áreas ocluidas producto de esto. Utilizando mapas de luz-vista como en el trabajo de Crassin esto es sencillo ya que los vóxeles ocluidos simplemente no reciben fotones durante el proceso de captura de la iluminación directa (sección \ref{subsub:voxel_capture}).
 
 \begin{figure}[H]
 	\centering
@@ -103,7 +79,7 @@ Una técnica que incrementa la calidad visual de las sombras es la generación d
 		\includegraphics[width=\linewidth]{media/shadow_trace_corner.pdf}
 		\caption*{Rayo cercano al el borde de la superficie.}
 	\end{subfigure}%
-	\caption{Descripción grafica del proceso de acumulación de colisiones a través del recorrido de un rayo para prueba de oclusión.}
+	\caption{Descripción gráfica del proceso de acumulación de colisiones a través del recorrido de un rayo para prueba de oclusión.}
 	\label{fig:soft_voxel_shadow}
 \end{figure}
 

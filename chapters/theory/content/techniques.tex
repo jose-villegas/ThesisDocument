@@ -25,7 +25,7 @@ El mapeado de sombras es una solución sencilla y efectiva al problema de prueba
 \subsection{Sombreado Diferido}
 \label{sub:deferred_rendering_theory}
 En sombreado directo la representación poligonal de la escena es rasterizada y operaciones por píxel como iluminación y sombreado son realizadas por cada fragmento generado por el proceso de rasterización. Esto es poco efectivo cuando consideramos que gran parte de los fragmentos no forman parte de la imagen final.
-Con sombreado diferido se pueden realizar estas operaciones por píxel solo sobre los fragmentos visibles. Este concepto está basado en el trabajo de Deering en y otros en 1998 \cite{Deering:1988}. La escena es renderizada solo una vez y varios atributos de la escena son almacenados en buffers. Este buffer es llamado \ac{GBuffer} y fue introducido por Saito y otros en 1990 \cite{Saito:1990}. El contenido general de un G-Buffer es profundidad, albedo y normal, esto puede cambiar según las necesidades de la aplicación. El propósito de almacenar esta información es separar las operaciones que solo son necesarias sobre los fragmentos visibles de la rasterización de toda la escena, de manera que cálculos como iluminación ahora son realizados en otro paso solo sobre cada píxel almacenado en el \ac{GBuffer}.
+Con sombreado diferido se pueden realizar estas operaciones por píxel solo sobre los fragmentos visibles. Este concepto está basado en el trabajo de Deering et al. en 1998 \cite{Deering:1988}. La escena es renderizada solo una vez y varios atributos de la escena son almacenados en buffers. Este buffer es llamado \ac{GBuffer} y fue introducido por Saito et al. en 1990 \cite{Saito:1990}. El contenido general de un G-Buffer es profundidad, albedo y normal (Figura \ref{fig:gbuffer}), esto puede cambiar según las necesidades de la aplicación. El propósito de almacenar esta información es separar las operaciones que solo son necesarias sobre los fragmentos visibles de la rasterización de toda la escena, de manera que cálculos como iluminación ahora son realizados en otro paso solo sobre cada píxel almacenado en el \ac{GBuffer}.
 
 \begin{figure}[H]
 	\centering
@@ -57,7 +57,7 @@ Con sombreado diferido se pueden realizar estas operaciones por píxel solo sobr
 \label{sec:voxelization}
 Un \emph{voxel} o a veces llamado píxel volumétrico representa una muestra singular o elemento volumétrico sobre un grid regular en un espacio tridimensional. Este vóxel puede contener cualquier valor definido por la aplicación o incluso múltiples valores. 
 
-El proceso de generar superficies discretas en una representación volumétrica a través de vóxeles se le llama voxelización.
+El proceso de generar superficies discretas en una representación volumétrica a través de vóxeles se le llama voxelización. En la Figura \ref{fig:rigid_grid} se ilustra este proceso.
 
 \begin{figure}[H]
 	\centering
@@ -83,7 +83,7 @@ El proceso de generar superficies discretas en una representación volumétrica 
 	\label{fig:rigid_grid}
 \end{figure}
 
-Se puede distinguir el proceso de voxelización de superficies en dos clases: voxelización fina con separabilidad factor 6 y voxelización conservativa con todos los vóxeles que tocan la superficie activos o separabilidad factor 26. En el trabajo de Huang y otros en 1998 \cite{Huang:1998:AMV:288126.288181} se describe el proceso de voxelización y terminología con mayor detalle. También existen cuatro tipos de enfoques en voxelización:
+Se puede distinguir el proceso de voxelización de superficies en dos clases: voxelización fina con separabilidad factor 6 y voxelización conservativa con todos los vóxeles que tocan la superficie activos o separabilidad factor 26. En el trabajo de Huang et al. en 1998 \cite{Huang:1998:AMV:288126.288181} se describe el proceso de voxelización y terminología con mayor detalle. También existen cuatro tipos de enfoques en voxelización:
 
 \begin{itemize}
 	\label{list:voxelization_types}

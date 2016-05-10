@@ -9,7 +9,7 @@ Como utilizamos texturas tridimensionales en vez de un octree el proceso de filt
 \begin{figure}[H]
     \centering
     \includegraphics[width=.8\linewidth]{media/hierarchy.pdf}
-    \caption{Descripción grafica la estructura jerárquica de vóxeles utilizada para el trazado de conos.}
+    \caption{Descripción gráfica de la estructura jerárquica de vóxeles utilizada para el trazado de conos.}
 \end{figure}
 
 \begin{figure}[H]
@@ -17,9 +17,9 @@ Como utilizamos texturas tridimensionales en vez de un octree el proceso de filt
     \includegraphics[width=.8\linewidth]{media/representation.pdf}
     \caption{Representación de la escena en vóxeles. La textura base es producto de cálculos de iluminación sobre las texturas utilizadas durante el sombreado de vóxeles.}
 \end{figure}
-\subsection{Filtrado con Vóxeles Anisótropos} % (fold)
+\subsection{Vóxeles Anisótropicos} % (fold)
 \label{sub:voxeles_anisotropos}
-El proceso para generar vóxeles anisótropos es explicado de forma general en la sección \ref{subsub:aniso_voxels_orig}. Una representación con vóxeles anisótropos provee mayor calidad visual y precisión durante el trazado de conos. Cada cono trazado tiene una dirección, la idea es utilizar esta dirección para saber cuáles volúmenes direccionales van a utilizarse para interpolar. Para una dirección arbitraria esto representa tres volúmenes que serían las caras frontales según esta dirección del vóxel simplificado. La dirección del cono tiene un peso en cada eje direccional, por tanto los valores de cada uno de estos volúmenes direccionales deben ser ponderados al momento de muestrearse. Una representación isótropa no tiene concepto de direccionalidad del cono, por tanto para algunos casos esto puede generar una serie de problemas visuales ya mencionados. Las desventajas de esta implementación es que el trazado es más lento ya que se deben realizar tres muestras por cada paso del cono y mayor consumo de memoria.
+El proceso para generar vóxeles anisótropicos es explicado de forma general en la sección \ref{subsub:aniso_voxels_orig}. Una representación con vóxeles anisótropicos provee mayor calidad visual y precisión durante el trazado de conos. Cada cono trazado tiene una dirección, la idea es utilizar esta dirección para saber cuáles volúmenes direccionales van a utilizarse para interpolar. Para una dirección arbitraria esto representa tres volúmenes que serían las caras frontales según esta dirección del vóxel simplificado. La dirección del cono tiene un peso en cada eje direccional, por tanto los valores de cada uno de estos volúmenes direccionales deben ser ponderados al momento de muestrearse. Una representación isótropa no tiene concepto de direccionalidad del cono, por tanto para algunos casos esto puede generar una serie de problemas visuales ya mencionados. Las desventajas de esta implementación es que el trazado es más lento ya que se deben realizar tres muestras por cada paso del cono y mayor consumo de memoria.
 
 Una forma simplificada de observar este proceso es con texturas bidimensionales. Supongamos que tenemos una cuadrícula de $5^2$ que queremos reducir a un nivel de detalle más bajo de $3^2$.
 

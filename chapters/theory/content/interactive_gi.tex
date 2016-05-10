@@ -26,7 +26,7 @@ Una variedad de algoritmos para el cálculo de iluminación global se inspiran o
 
 
 En este algoritmo se aproxima la radiancia reflectada en escena utilizando un conjunto de luces virtuales. La radiancia que llega a un punto $x$ es aproximada por la radiancia que proviene de las luces virtuales. Pruebas de visibilidad para cada una de estas luces son realizadas utilizando técnicas de sombreado estándar y la radiancia proveniente de cada una de estas es almacenada en un buffer de acumulación.
-Las luces virtuales son generadas a partir de partículas lanzadas por las fuentes de luz principales utilizando la secuencia de Halton para el muestreo. En un principio, un numero $n$ de partículas son generadas, como no toda la radiancia es absorbida algunas de estas partículas son reflejadas. Luego del primer rebote, uno numero $p'n$ de partículas son reflejadas. Luego de $j-1$ reflexiones $p'^j$ son reflejadas. El numero $p'$ es descrito por la siguiente ecuación.
+Las luces virtuales son generadas a partir de partículas lanzadas por las fuentes de luz principales utilizando la secuencia de Halton para el muestreo. En un principio, un número $n$ de partículas son generadas, como no toda la radiancia es absorbida algunas de estas partículas son reflejadas. Luego del primer rebote, uno número $p'n$ de partículas son reflejadas. Luego de $j-1$ reflexiones $p'^j$ son reflejadas. El número $p'$ es descrito por la siguiente ecuación.
 \begin{equation}
     p' = \frac{\sum_{k=1}^{K} p_{d,k}|A_{k}|}{\sum_{k=1}^{K}|A_{k}|}
     \label{eq:reflected_vpls}
@@ -77,7 +77,7 @@ La iluminación indirecta de un punto se calcula sumando todas las intensidades 
 
 \subsection{Volúmenes de Propagación de Luz en Cascada}
 \label{sub:clpv}
-\Ac{CLPV} o \emph{Cascaded Light Propagation Volumes} presentando por Kaplanyan y otros en 2010 \cite{Kaplanyan:2010} es un algoritmo para el cálculo de iluminación indirecta difusa en tiempo real.
+\Ac{CLPV} o \emph{Cascaded Light Propagation Volumes} presentando por Kaplanyan et al. en 2010 \cite{Kaplanyan:2010} es un algoritmo para el cálculo de iluminación indirecta difusa en tiempo real.
 
 \begin{figure}[H]
 	\centering
@@ -110,16 +110,16 @@ La propagación de luz se realiza de forma iterativa. La intensidad de luz en ca
 
 \subsection{Iluminación Indirecta con Trazado de Conos y Vóxeles}
 \label{sub:voxel_cone_tracing_orig}
-Este algoritmo es presentado por Crassin y otros en 2011 \cite{CNSGE11b} para el cálculo de iluminación indirecta utilizando trazado de conos contra vóxeles o \emph{Indirect Illumination Using Voxel Cone Tracing}. En este técnica se utiliza una estructura de árbol disperso o \emph{sparse} para almacenar ya filtrados los valores necesarios para el cálculo de iluminación indirecta en vóxeles. Este árbol es una representación tridimensional de la escena por tanto cada nodo tiene ocho hijos que representan las ocho particiones de un cubo en partes más pequeñas de forma uniforme. Esta clase de estructuras son llamadas \emph{octrees}. La estructura dispersa requiere menor consumo de memoria ya que solo los vóxeles necesarios son almacenados.
+Este algoritmo es presentado por Crassin et al. en 2011 \cite{CNSGE11b} para el cálculo de iluminación indirecta utilizando trazado de conos contra vóxeles o \emph{Indirect Illumination Using Voxel Cone Tracing}. En esta técnica se utiliza una estructura de árbol disperso o \emph{sparse} para almacenar ya filtrados los valores necesarios para el cálculo de iluminación indirecta en vóxeles. Este árbol es una representación tridimensional de la escena por tanto cada nodo tiene ocho hijos que representan las ocho particiones de un cubo en partes más pequeñas de forma uniforme. Esta clase de estructuras son llamadas \emph{octrees}. La estructura dispersa requiere menor consumo de memoria ya que solo los vóxeles necesarios son almacenados.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{media/givoxels_sponzanew1.png}
-	\caption{Escena \emph{Sponza} renderizada utilizando con \acl{VCT} para la iluminación indirecta \cite{CNSGE11b}.}
+	\caption{Escena \emph{Sponza} renderizada utilizando trazado de conos con vóxeles para la iluminación indirecta \cite{CNSGE11b}.}
 	\label{fig:givoxels_sponzanew1}
 \end{figure}
 
-El algoritmo comprende varios pasos. Primero la información de la luz y escena son almacenados en las hojas de la estructura de árbol, este es el nivel más fino de la jerarquía. Luego estos valores son filtrados dentro del árbol disperso hacia todos los niveles de la jerarquía hasta llegar a la raíz. En un último paso para el cálculo de iluminación indirecta por cada fragmento, los valores dentro de esta jerarquía son recolectados sobre una semiesfera utilizando trazado de conos. En algoritmos como ray tracing esta recolección de valores es lenta y es realizada por muchos rayos. Es de notar que todos estos rayos trazados sobre la semiesfera son direccional y espacialmente coherentes. \ac{VCT} hace uso de este concepto para discretizar muchos rayos en simples conos.
+El algoritmo comprende varios pasos: primero la información de la luz y escena son almacenados en las hojas de la estructura de árbol, este es el nivel más fino de la jerarquía. Luego estos valores son filtrados dentro del árbol disperso hacia todos los niveles de la jerarquía hasta llegar a la raíz. En un último paso para el cálculo de iluminación indirecta por cada fragmento, los valores dentro de esta jerarquía son recolectados sobre una semiesfera utilizando trazado de conos. En algoritmos como ray tracing esta recolección de valores es lenta y es realizada por muchos rayos. Es de notar que todos estos rayos trazados sobre la semiesfera son direccional y espacialmente coherentes. \Ac{VCT} hace uso de este concepto para discretizar muchos rayos en simples conos.
 
 \subsubsection{Construcción del Octree de Vóxeles}
 El algoritmo está pensando para funcionar con escenas dinámicas. Sin embargo las escenas son divididas entre partes dinámicas y estáticas para acelerar el proceso de voxelización con objetos dinámicos.
@@ -132,7 +132,7 @@ Primero la escena es renderizada utilizando proyección ortogonal. Cada triángu
 	\label{fig:miplevels}
 \end{wrapfigure}
 
-Una vez llena la lista de vóxeles-fragmentos. Se genera un hilo de procesamiento por cada fragmento en la lista. Los fragmentos son introducidos en el árbol disperso que inicialmente solo tiene un nodo raíz. Cada vez que un nodo de este octree necesita ser dividido un nuevo nodo es creado y se almacena sobre memoria ya reservada en la \ac{GPU}. La posición del nodo en memoria es determinada por un contador atómico, el cual se incrementa con cada nuevo nodo. Al inicio del proceso de subdivisión de los nodos se genera una gran cantidad de colisiones entre hilos, por esto cada nodo tiene asociado un símbolo mutex.
+Una vez llena la lista de vóxeles-fragmentos, se genera un hilo de procesamiento por cada fragmento en la lista. Los fragmentos son introducidos en el árbol disperso que inicialmente solo tiene un nodo raíz. Cada vez que un nodo de este octree necesita ser dividido un nuevo nodo es creado y se almacena sobre memoria ya reservada en la \ac{GPU}. La posición del nodo en memoria es determinada por un contador atómico, el cual se incrementa con cada nuevo nodo. Al inicio del proceso de subdivisión de los nodos se genera una gran cantidad de colisiones entre hilos, por esto cada nodo tiene asociado un símbolo mutex.
 
 \subsubsection{Contenido de un Vóxel}
 \label{subsub:voxelcontent_orig}
@@ -153,47 +153,24 @@ Cada vóxel representa varios parámetros. Entre ellos color, opacidad, normal, 
 Inicialmente cada uno de estos parámetros es almacenado dentro de las hojas del árbol disperso. Luego de forma iterativa estos valores son filtrados desde los niveles más bajos a los niveles más altos de la jerarquía, este proceso es llamado \emph{mip-mapping}. Cada nodo de un bloque es filtrado a partir de las $3^3$ celdas del nivel anterior en jerarquía. Para calcular el valor filtrado sobre el actual nodo el algoritmo promedia los valores de los nodos en el nivel anterior. Al calcular el valor filtrado cada vóxel debe ser pesado con la inversa de su multiplicidad, resultando en un kernel gaussiano de $3^3$. 
 
 \subsubsection{Trazado de Conos y Vóxeles}
-Una vez que el árbol disperso esta filtrado y completo este es utilizado para el cálculo de iluminación indirecta. Por cada fragmento un conjunto de conos es generado. La dirección y apertura de cada cono es determinada por la \ac{BRDF} del material en ese fragmento. Por ejemplo la \ac{BRDF} Blinn-Phong vista en \ref{para:blinn_phong} puede ser descompuesta como un lóbulo ancho para la parte difusa y un lóbulo especular. Para el lóbulo difuso varios conos son generados orientados por la semiesfera sobre el punto con apertura y dirección maximizadas a tal manera que los conos cubran gran parte de la misma. Para el lóbulo especular se genera un solo cono con una apertura que varía según el termino $n$ de la \ac{BRDF} Blinn-Phong. El cono especular tiene como dirección la dirección de la luz incidente reflectada $R$ visto en \ref{para:speculars}.
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[t]{.33\linewidth}
-		\centering
-		\captionsetup{justification=centering}
-		\includegraphics[width=\linewidth]{media/lambert.png}
-		\caption*{\ac{BRDF} Lambert.}
-	\end{subfigure}\hfill
-	\begin{subfigure}[t]{.33\linewidth}
-		\centering
-		\captionsetup{justification=centering}
-		\includegraphics[width=\linewidth]{media/blinn_phong_spec.png}
-		\caption*{Especular de \ac{BRDF} Blinn-Phong.}
-	\end{subfigure}\hfill
-	\begin{subfigure}[t]{.33\linewidth}
-		\centering
-		\captionsetup{justification=centering}
-		\includegraphics[width=\linewidth]{media/blinn_phong.png}
-		\caption*{\ac{BRDF} especular Blinn-Phong mas Lambert.}
-	\end{subfigure}
-	\caption{Graficas en coordenadas polares de la BRDF Lambert, especular Blinn-Phong y composición de ambas.}
-	\label{fig:brdf_cones}
-\end{figure}
+Una vez que el árbol disperso está filtrado y completo se utiliza para el cálculo de iluminación indirecta. Por cada fragmento un conjunto de conos es generado. La dirección y apertura de cada cono es determinada por la \ac{BRDF} del material en ese fragmento. Por ejemplo la \ac{BRDF} Blinn-Phong vista en \ref{para:blinn_phong} puede ser descompuesta como un lóbulo ancho para la parte difusa y un lóbulo especular. Para el lóbulo difuso varios conos son generados orientados por la semiesfera sobre el punto con apertura y dirección maximizadas a tal manera que los conos cubran gran parte de la misma. Para el lóbulo especular se genera un solo cono con una apertura que varía según el termino $n$ de la \ac{BRDF} Blinn-Phong. El cono especular tiene como dirección la dirección de la luz incidente reflectada $R$ (seccion \ref{para:speculars}).
 
 El algoritmo utiliza trazado de conos aproximados para acumular la intensidad de la luz incidente sobre el fragmento. Los valores son recolectados de varias muestras a través del recorrido del cono utilizando composicion \emph{front-to-back}. Por cada muestra se examina el árbol disperso de vóxeles. El nivel del árbol a examinar es determinado por el diámetro del cono en esa posición.
 
 %Por cada paso del trazado se obtiene un valor de oclusión $\alpha_{2}$ y valor de radiancia $c_2$. Para acumular los valores en muestreados a través del recorrido del cono se utiliza acumulación volumétrica \emph{front-to-back}. Para esto es necesario llevar pista de un valor oclusión $a$ y color $c$. La actualización de estos valores por cada paso se realiza de la siguiente manera: $c=c+(1-a)c_2$ y $a=a+(1-a)a_2$
 
-\subsubsection{Filtrado Anisótropo de Vóxeles.}
+\subsubsection{Filtrado Anisotrópico de Vóxeles.}
 \label{subsub:aniso_voxels_orig}
 A pesar de que el filtrado gaussiano es suficiente para proveer resultados visuales coherentes, algunos problemas de calidad visual pueden ocurrir bajo ciertas condiciones. El primer problema se conoce como el problema de la pared rojo-verde. Al promediar valores dentro del octree con dos vóxeles opacos con diferentes colores provenientes de por ejemplo, dos paredes planas, el color resultante del vóxel describe ambas paredes como si estas fueran transparentes. Otro problema resulta también de promediar opacidad entre vóxeles totalmente transparentes y vóxeles totalmente opacos, resultando un valor filtrado semitransparente. Esto puede resultar en fugas de luz a través de la geometría en la escena.
-Para solventar este problema se realiza una representación anisótropa de los vóxeles durante el proceso de mip-mapping. En vez de tener un solo canal de valores filtrados sin dirección, ahora los valores serán filtrados de forma direccional, almacenando 6 canales por cada eje positivo y negativo. Un valor direccional es calculado realizando un paso de integración volumétrica en profundidad y promediando los cuatro valores direccionales para obtener el valor resultante según una dirección.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\linewidth]{media/image23177.png}
-	\caption{La caja izquierda describe el proceso de mipmapping de vóxeles sin (izquierda) y con (derecha) filtrado anisótropo. Los pasos para la integración direccional en la caja central. La caja derecha muestra la diferencia entre un vóxel anisótropo como resultado final versus un vóxel isotrópico filtrado por kernel gaussiano \cite{CNSGE11b}.}
+	\includegraphics[width=0.90\linewidth]{media/isotropic_cropped.pdf}
+	\caption{A la izquierda se describe el proceso de mipmapping de vóxeles sin y con filtrado anisótropico. Los pasos para la integración direccional se observan a la derecha.}
 	\label{fig:vct_anisofiltering}
 \end{figure}
+
+Para solventar este problema se realiza una representación anisotrópica de los vóxeles durante el proceso de mip-mapping. En vez de tener un solo canal de valores filtrados sin dirección, ahora los valores serán filtrados de forma direccional, almacenando seis canales por cada eje positivo y negativo. Un valor direccional es calculado realizando un paso de integración volumétrica en profundidad y promediando los cuatro valores direccionales para obtener el valor resultante según una dirección. La Figura \ref{fig:vct_anisofiltering} describe este proceso.
 
 \subsubsection{Captura de Iluminación Directa}
 \label{subsub:voxel_capture}
