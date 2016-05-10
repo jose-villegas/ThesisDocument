@@ -170,7 +170,7 @@ vec3 WorldToVoxel(vec3 position)
 }
 \end{lstlisting}
 
-Estas funciones son utilizadas en varias partes del algoritmo en general. \emph{VoxelToWorld} convierte una coordenada en espacio de textura a una posición en espacio de mundo, mientras que \emph{WorldToVoxel} hace lo contrario. La variable \emph{voxelSize} representa el tamaño de un vóxel dentro de la cuadricula de vóxeles, \emph{voxelScale} representa la escala de la cuadricula de vóxeles, \emph{worldMinPoint} es el mínimo punto de la \emph{AABB} que comprende el volumen de voxelización.
+Estas funciones son utilizadas en varias partes del algoritmo en general. \emph{VoxelToWorld} convierte una coordenada en espacio de textura a una posición en espacio de mundo, mientras que \emph{WorldToVoxel} hace lo contrario. La variable \emph{voxelSize} representa el tamaño de un vóxel dentro de la cuadrícula de vóxeles, \emph{voxelScale} representa la escala de la cuadrícula de vóxeles, \emph{worldMinPoint} es el mínimo punto de la \emph{AABB} que comprende el volumen de voxelización.
 
 \subsection{Vóxeles Emisivos}
 La forma en la que se almacenan materiales emisivos en la representación con vóxeles es muy sencilla. Al culminar el sombreado de un vóxel, al color resultante se le suma el valor de emisión obtenido del proceso de voxelización. El propósito de esto es aproximar de forma muy cruda el valor de $L_e(x\to\Theta)$, este describe la luz emitida por un punto $x$ sobre una superficie. Entonces continuando la ecuación \ref{eq:shading_voxels} ahora considerando emisión:

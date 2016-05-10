@@ -20,7 +20,7 @@ Una variedad de algoritmos para el cálculo de iluminación global se inspiran o
 		\includegraphics[width=\linewidth]{media/vpl2.png}
 		\caption*{Aproximación de iluminación acumulada sobre un punto.}
 	\end{subfigure}
-	\caption{Pasos del algoritmo \ac{VPL} para la aproximación de iluminación indirecta. Fuente: Dachsbacher y otros, \emph{Scalable Realistic Rendering with Many-Light Methods} \cite{Dachsbacher2014ManyLights}.}
+	\caption{Pasos del algoritmo \ac{VPL} para la aproximación de iluminación indirecta \cite{Dachsbacher2014ManyLights}.}
 	\label{fig:vpl_passes}
 \end{figure}
 
@@ -62,7 +62,7 @@ Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} 
 		\includegraphics[width=\linewidth]{media/rsmf.png}
 		\caption*{Flujo de radiancia.}
 	\end{subfigure}
-	\caption{Mapas utilizados por \ac{RSM}. Fuente: Dachsbacher y otros, \emph{Reflective Shadow Maps} \cite{Dachsbacher:2005}.}
+	\caption{Mapas utilizados por \ac{RSM} \cite{Dachsbacher:2005}.}
 	\label{fig:rsm_fbo}
 \end{figure}
 
@@ -82,21 +82,21 @@ La iluminación indirecta de un punto se calcula sumando todas las intensidades 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.85\linewidth]{media/lpvresult.png}
-	\caption{Iluminación global para la escena \emph{Sponza} utilizando volúmenes de propagación de luz. Composición final arriba y solo iluminación indirecta abajo. Fuente: Kaplanyan y otros, \emph{Cascaded Light Propagation Volumes for Real-time Indirect Illumination} \cite{Kaplanyan:2010}}
+	\caption{Iluminación global para la escena \emph{Sponza} utilizando volúmenes de propagación de luz \cite{Kaplanyan:2010}.}
 	\label{fig:lvp_results}
 \end{figure}
 
 \begin{wrapfigure}[11]{l}{0.3\linewidth}
 	\centering
 	\includegraphics[width=0.90\linewidth]{media/g4957.png}
-	\caption{Cuadriculas de \\ propagación anidadas, las cuadriculas se solapan.}
+	\caption{cuadrículas de \\ propagación anidadas, las cuadrículas se solapan.}
 	\label{fig:nested_lpv}
 \end{wrapfigure}
-Este método simula el transporte de luz utilizando técnicas similares en algoritmos para simulación de fluidos basados en cuadriculas tridimensionales \cite{Crane07}. La intensidad de luz es almacenada en una cuadricula y de forma iterativa cada celda transfiere la intensidad de la luz a sus vecinos. Esta cuadricula es llamada \ac{LPV}. La luz puede ser bloqueada por la geometría de la escena, la cual es obtenida de otra cuadricula llamada \ac{GV}. Para mejorar el rendimiento del algoritmo y reducir el consumo de memoria se utiliza un conjunto de cuadriculas anidadas. Para los objetos cercanos al observador la iluminación indirecta es calculada utilizando una cuadricula mucho más fina.
+Este método simula el transporte de luz utilizando técnicas similares en algoritmos para simulación de fluidos basados en cuadrículas tridimensionales \cite{Crane07}. La intensidad de luz es almacenada en una cuadrícula y de forma iterativa cada celda transfiere la intensidad de la luz a sus vecinos. Esta cuadrícula es llamada \ac{LPV}. La luz puede ser bloqueada por la geometría de la escena, la cual es obtenida de otra cuadrícula llamada \ac{GV}. Para mejorar el rendimiento del algoritmo y reducir el consumo de memoria se utiliza un conjunto de cuadrículas anidadas. Para los objetos cercanos al observador la iluminación indirecta es calculada utilizando una cuadrícula mucho más fina.
 
-Primero por cada fuente de luz, es necesario renderizar un \ac{RSM}. Cada texel del \ac{RSM} es considerado una \ac{VPL}. La intensidad del \ac{VPL} es acumulada y almacenada como un harmónico esférico dentro de las celdas de la cuadricula.
+Primero por cada fuente de luz, es necesario renderizar un \ac{RSM}. Cada texel del \ac{RSM} es considerado una \ac{VPL}. La intensidad del \ac{VPL} es acumulada y almacenada como un harmónico esférico dentro de las celdas de la cuadrícula.
 
-Para una correcta propagación de la luz el algoritmo necesita conocer la geometría de la escena. Por esto de la misma manera en la que se almacena la intensidad de la luz también se almacena una representación de la escena en una cuadricula. Esta representación es guardada sobre el \ac{GV}. Esta cuadricula es trasladada por la mitad del tamaño de una celda con respecto al \ac{LPV}, esto asegura que el centro de todas las celdas del \ac{GV} queden en las esquinas del \ac{LPV}. Para conocer segmentos de geometría se utiliza un \ac{GBuffer} y las fuentes de luz de los \ac{RSM}s.
+Para una correcta propagación de la luz el algoritmo necesita conocer la geometría de la escena. Por esto de la misma manera en la que se almacena la intensidad de la luz también se almacena una representación de la escena en una cuadrícula. Esta representación es guardada sobre el \ac{GV}. Esta cuadrícula es trasladada por la mitad del tamaño de una celda con respecto al \ac{LPV}, esto asegura que el centro de todas las celdas del \ac{GV} queden en las esquinas del \ac{LPV}. Para conocer segmentos de geometría se utiliza un \ac{GBuffer} y las fuentes de luz de los \ac{RSM}s.
 
 
 \begin{figure}[H]
@@ -115,7 +115,7 @@ Este algoritmo es presentado por Crassin y otros en 2011 \cite{CNSGE11b} para el
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{media/givoxels_sponzanew1.png}
-	\caption{Escena \emph{Sponza} renderizada utilizando con \acl{VCT} para la iluminación indirecta. Fuente: Cyril Crassin y otros, \emph{Interactive Indirect Illumination Using Voxel Cone Tracing} \cite{CNSGE11b}.}
+	\caption{Escena \emph{Sponza} renderizada utilizando con \acl{VCT} para la iluminación indirecta \cite{CNSGE11b}.}
 	\label{fig:givoxels_sponzanew1}
 \end{figure}
 
@@ -199,4 +199,4 @@ Para solventar este problema se realiza una representación anisótropa de los v
 \label{subsub:voxel_capture}
 Para el cálculo de iluminación indirecta es necesario describir como la radiancia incidente es almacenada en los nodos del árbol. Este proceso está inspirado en \ac{RSM}, donde la escena es renderizada desde el punto de vista de la fuente de luz y se utiliza rasterización estándar para almacenar las posiciones de los fragmentos en una textura. Cada píxel en esta textura representa un fotón que rebota en escena. Esta textura se le llama mapa de luz-vista o \emph{light-view map}. Luego de generar este mapa es necesario almacenar los fotones en el árbol octree. Los fotones son almacenados como una distribución direccional y energía proporcional al casquete esférico del ángulo solido del píxel visto desde la luz.
 
-El procesamiento de la textura de fotones sobre el árbol se realiza en el procesador de fragmentos o \emph{fragment shader}. Como usualmente la dimensión del \emph{light-view map} es mayor a la resolución de la cuadricula de vóxeles se puede asumir que los fotones serán almacenados directamente en las hojas del árbol octree. Además, los fotones siempre pueden ser almacenados en el nivel más fino de detalle en la representación con vóxeles porque estos describen información de la superficie geométrica. Es posible que muchos fotones terminen sobre un mismo vóxel, por esto es necesario utilizar adicción atómica para garantizar coherencia entre los hilos generados por cada fragmento.
+El procesamiento de la textura de fotones sobre el árbol se realiza en el procesador de fragmentos o \emph{fragment shader}. Como usualmente la dimensión del \emph{light-view map} es mayor a la resolución de la cuadrícula de vóxeles se puede asumir que los fotones serán almacenados directamente en las hojas del árbol octree. Además, los fotones siempre pueden ser almacenados en el nivel más fino de detalle en la representación con vóxeles porque estos describen información de la superficie geométrica. Es posible que muchos fotones terminen sobre un mismo vóxel, por esto es necesario utilizar adicción atómica para garantizar coherencia entre los hilos generados por cada fragmento.

@@ -5,8 +5,8 @@
 	\includegraphics[width=\linewidth]{media/brdf_vs.eps}
 	\caption
 	{
-    	\ac{BRDF} izquierda, punto de salida es igual al punto de entrada.\\ 
-    	\ac{BSSRDF} derecha, se observa como el punto de salida es distinto al de entrada.
+    	BRDF izquierda, punto de salida es igual al punto de entrada.\\ 
+    	BSSRDF derecha, se observa como el punto de salida es distinto al de entrada.
 	}
 	\label{fig:bssrdf}
 \end{wrapfigure}
@@ -35,7 +35,7 @@ Donde $\cos(N_{x}, \Psi)$ es el coseno del ángulo formado entre la normal en el
 La función BRDF tiene una variada cantidad de importantes propiedades:
 
 \begin{enumerate}
-	\item Dimensión: La función BRDF es una función 4-dimensional definida sobre cada punto de una superficie, dos dimensiones corresponden a la dirección entrante y dos a la dirección saliente.
+	\item Dimensión: La función BRDF es una función cuatridimensional definida sobre cada punto de una superficie, dos dimensiones corresponden a la dirección entrante y dos a la dirección saliente.
 	\item Reciprocidad: El resultado de la función BRDF es el mismo si se intercambian la dirección entrante y la dirección saliente:
     	\begin{equation}
             f_{r}(x, \Psi\to\Theta) = f_{r}(x, \Theta\to\Psi)
@@ -52,7 +52,7 @@ Dependiendo del comportamiento de la \ac{BRDF}, el material se verá como una su
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.85\linewidth]{media/brdfs_types.eps}
-	\caption{Ejemplos de superficies: totalmente difusa izquierda, totalmente especular centro, lustrosa (\emph{glossy}) derecha. Fuente: Phillip Dutre y otros, \emph{Advanced Global Illumination} \cite{advanced_gi2006}}
+	\caption{Ejemplos de superficies: totalmente difusa izquierda, totalmente especular centro, lustrosa (\emph{glossy}) derecha \cite{advanced_gi2006}.}
 	\label{fig:brdf_types}
 \end{figure}
 
@@ -69,7 +69,7 @@ La reflectancia $\rho_{d}$ representa la fracción de la energía incidente que 
 \paragraph{Superficies Especulares:}
 \label{para:speculars}
 Superficies especulares perfectas solo reflejan o refractan luz en una dirección específica.
-\subparagraph{Reflexión Especular:}
+\paragraph{Reflexión Especular:}
 La dirección de reflexión puede ser obtenida utilizando la ley de reflexión, esta indica que la dirección de la luz incidente y saliente tienen un ángulo equivalente con la normal de la superficie. Dado que la luz es incidente con respecto a la superficie con vector dirección $\Psi$, y la normal de la superficie es $N$, la luz incidente es reflectada en la dirección $R$:
 
 \begin{equation}

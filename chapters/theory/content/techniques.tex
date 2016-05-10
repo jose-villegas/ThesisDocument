@@ -16,7 +16,7 @@ La técnica consiste en proyectar la escena en una textura bidimensional desde l
 
 Una vez que se procede a renderizar la escena desde el punto de vista del observador, por cada fragmento con posición $p_{ws}$ en espacio de mundo, la posición en el mapa de sombra $p_{sh}$ es calculada utilizando la siguiente ecuación:
 \begin{equation}
-    p_{sh} = P_{l} * p_{ws}
+    p_{sh} = P_{l} \cdot p_{ws}
     \label{eq:p_to_shadowmap}
 \end{equation}
 Como se muestra en la figura \ref{fig:shadow_mapping} si la profundidad del fragmento desde la fuente de luz es mayor que el valor almacenado en el mapa de sombra entonces este punto esta sombreado. 

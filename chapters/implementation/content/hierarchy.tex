@@ -21,12 +21,12 @@ Como utilizamos texturas tridimensionales en vez de un octree el proceso de filt
 \label{sub:voxeles_anisotropos}
 El proceso para generar vóxeles anisótropos es explicado de forma general en la sección \ref{subsub:aniso_voxels_orig}. Una representación con vóxeles anisótropos provee mayor calidad visual y precisión durante el trazado de conos. Cada cono trazado tiene una dirección, la idea es utilizar esta dirección para saber cuáles volúmenes direccionales van a utilizarse para interpolar. Para una dirección arbitraria esto representa tres volúmenes que serían las caras frontales según esta dirección del vóxel simplificado. La dirección del cono tiene un peso en cada eje direccional, por tanto los valores de cada uno de estos volúmenes direccionales deben ser ponderados al momento de muestrearse. Una representación isótropa no tiene concepto de direccionalidad del cono, por tanto para algunos casos esto puede generar una serie de problemas visuales ya mencionados. Las desventajas de esta implementación es que el trazado es más lento ya que se deben realizar tres muestras por cada paso del cono y mayor consumo de memoria.
 
-Una forma simplificada de observar este proceso es con texturas bidimensionales. Supongamos que tenemos una cuadricula de $5^2$ que queremos reducir a un nivel de detalle más bajo de $3^2$.
+Una forma simplificada de observar este proceso es con texturas bidimensionales. Supongamos que tenemos una cuadrícula de $5^2$ que queremos reducir a un nivel de detalle más bajo de $3^2$.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\linewidth]{media/filtering_1.pdf}
-    \caption{Cuadricula de vóxeles de $5^2$ a menor detalle $3^2$.}
+    \caption{Cuadrícula de vóxeles de $5^2$ a menor detalle $3^2$.}
 \end{figure}
 
 Para filtrar el valor del vóxel $E$ en la dirección $X$ positiva es necesario considerar los nueve vóxeles cercanos en el nivel anterior de detalle. Estos vóxeles son divididos en grupos de cuatro.

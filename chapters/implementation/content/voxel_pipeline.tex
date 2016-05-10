@@ -44,7 +44,7 @@ void VoxelizerRenderer::UpdateProjectionMatrices(const BoundingBox &sceneBox)
 }
 \end{lstlisting}
 
-En el código se observa que primero se obtiene la longitud total en cada eje que define la \ac{AABB} que envuelve la escena. Luego en la misma función se actualizan dos variables: \emph{volumeGridSize} que indica el tamaño de la cuadricula tridimensional de vóxeles en espacio de mundo y \emph{voxelSize} que indica el tamaño de cada vóxel dentro de esta cuadricula. 
+En el código se observa que primero se obtiene la longitud total en cada eje que define la \ac{AABB} que envuelve la escena. Luego en la misma función se actualizan dos variables: \emph{volumeGridSize} que indica el tamaño de la cuadrícula tridimensional de vóxeles en espacio de mundo y \emph{voxelSize} que indica el tamaño de cada vóxel dentro de esta cuadrícula. 
 
 El tronco de proyección es un cubo uniforme por tanto se utiliza la mayor longitud según cada eje. Esto asegura que desde cualquier eje direccional la proyección abarca toda la escena. De esta longitud se extrae la matriz de proyección ortogonal. Luego se configura cada matriz de vista por cada eje direccional. Finalmente se almacena la multiplicación de ambas matrices.
 
@@ -96,7 +96,7 @@ En el algoritmo \ref{CalculateAxis} primero se obtiene la normal del triángulo.
 		\includegraphics[width=\linewidth]{media/Voxelization_blog_fig_6.png}
 		\caption*{Según la normal, proyección al eje Y es lo indicado.}
 	\end{subfigure}%
-	\caption{Descripción grafica del proceso de selección del eje de proyección. Fuente: Masaya Takeshige, \emph{The Basics of GPU Voxelization} \cite{gpuvoxelization}.}
+	\caption{Descripción grafica del proceso de selección del eje de proyección \cite{gpuvoxelization}.}
 	\label{fig:axis_selection}
 \end{figure}
 
