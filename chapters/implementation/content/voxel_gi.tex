@@ -1,10 +1,10 @@
 \section{Iluminación Global de Vóxeles} % (fold)
 \label{sec:iluminacion_global_de_voxeles_impl}
-En la sección anterior se expone el cálculo de iluminación indirecta de solo un rebote. Si observamos el algoritmo \ref{Trace7} los únicos datos necesarios para este cálculo con solo el componente difuso son: albedo, normal, posición e iluminación directa.
+En la sección anterior se expone el cálculo de iluminación indirecta de solo un rebote. Si observamos el Código \ref{Trace7} los únicos datos necesarios para este cálculo con solo el componente difuso son: albedo, normal, posición e iluminación directa.
 
-Todos estos datos se encuentran disponibles en nuestra representación en vóxeles. La iluminación directa en vóxeles la obtenemos luego del proceso de sombreado de vóxeles. Mientras que albedo y normal son volúmenes producto del proceso de voxelización. La posición puede ser fácilmente proyectada utilizando la función \emph{VoxelToWorld} del algoritmo \ref{SpaceTransform}.
+Todos estos datos se encuentran disponibles en nuestra representación en vóxeles. La iluminación directa en vóxeles la obtenemos luego del proceso de sombreado de vóxeles. Mientras que albedo y normal son volúmenes producto del proceso de voxelización. La posición puede ser fácilmente proyectada utilizando la función \emph{VoxelToWorld} vista en el Código \ref{SpaceTransform}.
 
-Nuestra implementación realiza iluminación global de solo el componente difuso sobre los vóxeles utilizando un compute shader. El algoritmo de trazado es exactamente el mismo al expuesto en la sección anterior. La única diferencia es que este proceso se realiza por vóxel en vez de por pixel. El siguiente algoritmo expone este proceso:
+Nuestra implementación realiza iluminación global de solo el componente difuso sobre los vóxeles utilizando un compute shader. El algoritmo de trazado es exactamente el mismo al expuesto en la sección anterior. La única diferencia es que este proceso se realiza por vóxel en vez de por pixel. El Código \ref{VoxelGI} expone este proceso:
 \\
 \begin{lstlisting}[caption={Iluminacion global sobre voxeles.}, label=VoxelGI]
 layout(binding = 0, rgba8) uniform image3D voxelComposite;
@@ -40,7 +40,7 @@ void main()
     imageStore(voxelComposite, writePos, radiance);
 }
 \end{lstlisting}
-El método \emph{CalculateIndirectLighting} es el mismo visto en la sección anterior, igualmente el trazado pero sin oclusión ambiental. La textura \emph{voxelComposite} es la textura resultante del sombreado de vóxeles. Una vez terminado el cálculo de iluminación global sobre los vóxeles debe volver a realizarse el proceso de filtrado anisótropo descrito en la sección \ref{sub:voxeles_anisotropos}. Almacenar la iluminación global producto del primer rebote sobre los vóxeles nos permite aproximar el segundo rebote durante el proceso de trazado de conos de la sección anterior.
+El método \emph{CalculateIndirectLighting} es el mismo visto en la sección anterior, igualmente el trazado de conos pero sin oclusión ambiental. La textura \emph{voxelComposite} es la textura resultante del sombreado de vóxeles (Figura \ref{fig:base_texture_imp}). Una vez terminado el cálculo de iluminación global sobre los vóxeles debe volver a realizarse el proceso de filtrado anisótropo descrito en la sección \ref{sub:voxeles_anisotropos}. Almacenar la iluminación global producto del primer rebote sobre los vóxeles nos permite aproximar el segundo rebote durante el proceso de trazado de conos de la sección anterior. En la Figura \ref{fig:vgi_scenes} se puede observar la escena voxelizada con iluminación global de vóxeles.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.49\textwidth}

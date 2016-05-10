@@ -8,7 +8,7 @@ Para la realización de pruebas de precisión y rendimiento se utilizaran siete 
 
 \subsubsection{Escenas Completas}
 
-Como escenas completas consideramos cuatro escenas comunes para pruebas de iluminación global. Estas escenas presentan varios niveles de complejidad geométrica y de propagación de luz. En la siguiente tabla listamos sus nombres y atributos.
+Como escenas completas consideramos cuatro escenas comunes para pruebas de iluminación global. Estas escenas presentan varios niveles de complejidad geométrica y de propagación de luz. En la Tabla \ref{tab:scenes_attributes} se listan sus nombres y atributos.
 
 \begin{table}[h]
 \centering
@@ -24,7 +24,7 @@ Cornell Box       & 72       & 36         & No       & Simple    & Simple       
 \label{tab:scenes_attributes}
 \end{table}
 
-\paragraph{Sponza:} Modelo del atrio del palacio Sponza en Dubrovnik, este modelo originalmente realizado por Marko Dabrovic y luego remodelado por Frank Meinl de Crytek con nuevos elementos como cortinas, vasos y plantas, además de mapas especulares, albedo y normales. Esta es una escena de dimensión considerable con propagación de luz compleja, especialmente en las áreas ocluidas por las cortinas y los pasillos superiores donde la luz difusa rebota luego de pasar a través de varias columnas.
+\paragraph{Sponza:} Modelo del atrio del palacio Sponza en Dubrovnik, este modelo originalmente realizado por Marko Dabrovic y luego remodelado por Frank Meinl de Crytek con nuevos elementos como cortinas, vasos y plantas, además de mapas especulares, albedo y normales. Esta es una escena de dimensión considerable con propagación de luz compleja, especialmente en las áreas ocluidas por las cortinas y los pasillos superiores donde la luz difusa rebota luego de pasar a través de varias columnas. En la Figura \ref{fig:crytek_sponza} se puede observar esta escena.
 
 \begin{figure}[H]
 	\centering
@@ -33,7 +33,7 @@ Cornell Box       & 72       & 36         & No       & Simple    & Simple       
 	\label{fig:crytek_sponza}
 \end{figure}
 
-\paragraph{Conference:} Un modelo 3D basado en una sala de conferencias real del \emph{Lawrence Berkeley National Laboratory}. Esa es una escena pequeña pero de gran complejidad geométrica con muchos objetos repetidos. El transporte de luz es particularmente complejo en partes ocluidas como debajo de sillas o la mesa central, la escena es un interior cerrado y la única luz directa exterior entra a través de unas pequeñas rendijas cerca de las cortinas.
+\paragraph{Conference:} Un modelo 3D basado en una sala de conferencias real del \emph{Lawrence Berkeley National Laboratory}. Esa es una escena pequeña pero de gran complejidad geométrica con muchos objetos repetidos. El transporte de luz es particularmente complejo en partes ocluidas como debajo de sillas o la mesa central, la escena es un interior cerrado y la única luz directa exterior entra a través de unas pequeñas rendijas cerca de las cortinas. En la Figura \ref{fig:conference} se puede observar esta escena.
 
 \begin{figure}[H]
 	\centering
@@ -42,7 +42,7 @@ Cornell Box       & 72       & 36         & No       & Simple    & Simple       
 	\label{fig:conference}
 \end{figure}
 
-\paragraph{Sibenik:} El interior de una catedral. La luz entra a ella a través de ventanas y se propaga por toda la escena. La escena tiene una sección con columnas ideal para probar sombras. En esta misma sección de columnas hay un piso de mármol que permite apreciar reflexión especular. Una alfombra roja cubre gran parte de la catedral esta permite la visualización de reflexión difusa.
+\paragraph{Sibenik:} El interior de una catedral. La luz entra a ella a través de ventanas y se propaga por toda la escena. La escena tiene una sección con columnas ideal para probar sombras. En esta misma sección de columnas hay un piso de mármol que permite apreciar reflexión especular. Una alfombra roja cubre gran parte de la catedral esta permite la visualización de reflexión difusa. En la Figura \ref{fig:sibenik} se puede observar esta escena.
 
 \begin{figure}[H]
 	\centering
@@ -51,7 +51,7 @@ Cornell Box       & 72       & 36         & No       & Simple    & Simple       
 	\label{fig:sibenik}
 \end{figure}
 
-\paragraph{Cornell Box:} Este es un modelo popular para la visualización de iluminación global. Creado por Donald Greenberg y estudiantes de \emph{Cornell University}. El Cornell Box está compuesto por una caja con dos paredes de colores, a la izquierda una roja y a la derecha una verde, estas permiten observar reflexión difusa y mezclado de colores. El resto de la caja es blanca. En la pared superior se observa un pequeño plano pensando para simular una fuente de luz de área. Dentro de esta caja se encuentran dos cajas más, una pequeña y otra más alta
+\paragraph{Cornell Box:} Este es un modelo popular para la visualización de iluminación global. Creado por Donald Greenberg y estudiantes de \emph{Cornell University}. El Cornell Box está compuesto por una caja con dos paredes de colores, a la izquierda una roja y a la derecha una verde, estas permiten observar reflexión difusa y mezclado de colores. El resto de la caja es blanca. En la pared superior se observa un pequeño plano pensando para simular una fuente de luz de área. Dentro de esta caja se encuentran dos cajas más, una pequeña y otra más alta. En la Figura \ref{fig:cornell} se puede observar esta escena.
 
 \begin{figure}[H]
 	\centering
@@ -62,14 +62,14 @@ Cornell Box       & 72       & 36         & No       & Simple    & Simple       
 
 \subsubsection{Escenas Sandbox}
 
-Las escenas sandbox son entornos simples y vacíos donde se realizaran pruebas de aspectos específicos de la aplicación. Estas escenas no presentan mayor complejidad geométrica o complejidad de iluminación. En la siguiente tabla listamos sus nombres y atributos.
+Las escenas sandbox son entornos simples y vacíos donde se realizaran pruebas de aspectos específicos de la aplicación. Estas escenas no presentan mayor complejidad geométrica o complejidad de iluminación. En la Tabla \ref{tab:sandbox} se listan sus nombres y atributos.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 Nombre            & Vértices & Triángulos & Texturas & Geometría & Iluminación \\ \hline
-Light Box         & 4.098    & 8.192      & No       & Simple    & Media        \\ \hline
+Light Box         & 4.098    & 8.192      & No       & Simple    & Simple        \\ \hline
 Plane Test        & 16       & 24         & No       & Simple    & Simple       \\ \hline
 Cornell Box Vacío & 24       & 12         & No       & Simple    & Simple       \\ \hline
 \end{tabular}
@@ -77,7 +77,7 @@ Cornell Box Vacío & 24       & 12         & No       & Simple    & Simple      
 \label{tab:sandbox}
 \end{table}
 
-Light Box es un interior donde los bordes son tan suaves que no hay oclusión ambiental, el interior es totalmente blanco y no hay cambios bruscos en geometría, esto maximiza la propagación de luz en esta escena. Plane Test es sencillamente un plano, en una esquina se encuentra un cuboide fino pero de gran altura para permitir la voxelización de objetos sobre el plano. Cornell Box Vacío es la escena completa Cornell Box sin las cajas internas.
+Light Box es un interior donde los bordes son tan suaves que no hay oclusión ambiental, el interior es totalmente blanco y no hay cambios bruscos en geometría, esto maximiza la propagación de luz en esta escena. Plane Test es sencillamente un plano, en una esquina se encuentra un cuboide fino pero de gran altura para permitir la voxelización de objetos sobre el plano. Cornell Box Vacío es la escena completa Cornell Box sin las cajas internas. En la Figura \ref{fig:sandboxscenes} se puede observar todas las escenas sandbox.
 
 \begin{figure}[H]
 	\centering
@@ -106,7 +106,7 @@ Light Box es un interior donde los bordes son tan suaves que no hay oclusión am
 \end{figure}
 
 \subsubsection{Objetos Precargados}
-La aplicación cuenta con una serie de objetos tridimensionales que pueden ser agregados a las escenas. Cada uno de estos objetos puede tener su propio material y matriz espacial. Estos objetos son considerados dinámicos por la aplicación. Los objetos están divididos en dos categorías: primitivas y modelos. Las primitivas son: Icosaedro, Cubo, Esfera, Cono, Toro, Plano y Cilindro. Los modelos son: Stanford Happy Buddha, Stanford Bunny, Stanford Dragon y Utah Teapot.
+La aplicación cuenta con una serie de objetos tridimensionales que pueden ser agregados a las escenas. Cada uno de estos objetos puede tener su propio material y matriz espacial. Estos objetos son considerados dinámicos por la aplicación. Los objetos están divididos en dos categorías: primitivas y modelos. Las primitivas son: Icosaedro, Cubo, Esfera, Cono, Toro, Plano y Cilindro. Los modelos son: Stanford Happy Buddha, Stanford Bunny, Stanford Dragon y Utah Teapot. En la Figura \ref{fig:models} se puede observar todos estos objetos.
 
 \begin{figure}[H]
 	\centering

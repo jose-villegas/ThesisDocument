@@ -39,7 +39,7 @@ Para estas pruebas se utilizaron todas las escenas completas. La configuración 
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Sponza}      & \multicolumn{1}{l|}{9.05}     & 4.55                                  & \multicolumn{1}{l|}{1.39}     & 6.87                         & \multicolumn{1}{l|}{11.16}     & 28.09                                 & \multicolumn{1}{l|}{10.79}     & \multicolumn{1}{l|}{7.64}            & \multicolumn{1}{l|}{70.49} \\ \hline
 \end{tabular}
 \captionsetup{justification=centering}
-\caption{Rendimiento en contraste con la tabla \ref{tab:performance_base} considerando distintas resoluciones para la representación en vóxeles, todos los pasos del algoritmo se ven afectados por este parámetro.}
+\caption{Rendimiento en contraste con la Tabla \ref{tab:performance_base} considerando distintas resoluciones para la representación en vóxeles, todos los pasos del algoritmo se ven afectados por este parámetro.}
 \label{tab:performance_depth}
 \end{table}
 \begin{table}[H]
@@ -77,7 +77,7 @@ Considerando como tiempos interactivos todo resultado por debajo de $33.3 ms$ o 
 \subsubsection{Densidad Geométrica y Velocidad de Voxelización.}
 La cantidad de triángulos dentro del espacio que representa un vóxel afecta la velocidad de voxelización. Esto se debe a que este proceso requiere sincronización entre distintos hilos por fragmento. A mayor cantidad de triángulos en este espacio mayor es la cantidad de fragmentos generados por el proceso de rasterización. Cada uno de estos hilos debe esperar a escribir en la misma posición del volumen para garantizar atomicidad.
 
-En la imagen \ref{fig:voxelization_times} se puede observar esta condición, especialmente en la escena Conference. Esta es una escena pequeña en escala, sin embargo de todas las escenas completas es la que posee mayor cantidad de triángulos como se puede observar en la tabla \ref{tab:scenes_attributes}. También es notable como disminuye el tiempo de voxelización para algunas escenas al aumentar la resolución del volumen y como aumenta al utilizar menores resoluciones, especialmente el salto entre $128^3$ a $64^3$.
+En la Figura \ref{fig:voxelization_times} se puede observar esta condición, especialmente en la escena Conference. Esta es una escena pequeña en escala, sin embargo de todas las escenas completas es la que posee mayor cantidad de triángulos como se puede observar en la Tabla \ref{tab:scenes_attributes}. También es notable como disminuye el tiempo de voxelización para algunas escenas al aumentar la resolución del volumen y como aumenta al utilizar menores resoluciones, especialmente el salto entre $128^3$ a $64^3$.
 
 \begin{figure}[H]
 	\centering
@@ -149,11 +149,11 @@ Este estudió considera las distintas opciones en la aplicación relevantes al t
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.95\linewidth]{media/voxelshading_shadow_cropped.pdf}
-	\caption{Gráfica para el tiempo agregado al sombreado de vóxeles con trazado de sombras. Tabla \ref{tab:voxelshading_shadowing}.}
+	\caption{Gráfica para la Tabla \ref{tab:voxelshading_shadowing} describe el tiempo agregado al sombreado de vóxeles a utilizar trazado de sombras.}
 	\label{fig:voxelshading_shadowing}
 \end{figure}
 
-En la imagen \ref{fig:voxelshading_shadowing} se puede observar un incremento del tiempo de cómputo invertido durante el sombreado de vóxeles al incluir sombras trazadas sobre el volumen. En la escena Cornell Box este incremento es mucho mayor al de las demás escenas. La razón es que esta escena es en gran parte vacía, por lo tanto la mayoría de los rayos trazados tienen que recorrer un largo camino antes de culminar. Sin embargo, la escena Sponza a pesar de tener los mismos problemas de vacuidad ya explicados en la sección \ref{subsubsec:emptyness} tiene un tiempo agregado similar a las demás escenas sin estos problemas. Esto se debe principalmente a que la fuente de luz puntual se encuentra en el interior de la escena. La posición de la fuente de luz a trazar en la escena afecta directamente el rendimiento, ya que esta determina en promedio que tan rápido la mayoría de los rayos terminan su recorrido.
+En la Figura \ref{fig:voxelshading_shadowing} se puede observar un incremento del tiempo de cómputo invertido durante el sombreado de vóxeles al incluir sombras trazadas sobre el volumen. En la escena Cornell Box este incremento es mucho mayor al de las demás escenas. La razón es que esta escena es en gran parte vacía, por lo tanto la mayoría de los rayos trazados tienen que recorrer un largo camino antes de culminar. Sin embargo, la escena Sponza a pesar de tener los mismos problemas de vacuidad ya explicados en la sección \ref{subsubsec:emptyness} tiene un tiempo agregado similar a las demás escenas sin estos problemas. Esto se debe principalmente a que la fuente de luz puntual se encuentra en el interior de la escena. La posición de la fuente de luz a trazar en la escena afecta directamente el rendimiento, ya que esta determina en promedio que tan rápido la mayoría de los rayos terminan su recorrido.
 
 \begin{table}[H]
 \centering
@@ -165,47 +165,53 @@ En la imagen \ref{fig:voxelshading_shadowing} se puede observar un incremento de
 \multicolumn{1}{|l|}{Conference}  & \multicolumn{1}{l|}{7.50}             & \multicolumn{1}{l|}{5.65}                   & \multicolumn{1}{l|}{5.65}               \\
 \multicolumn{1}{|l|}{Sponza}      & \multicolumn{1}{l|}{7.01}             & \multicolumn{1}{l|}{6.28}                   & \multicolumn{1}{l|}{8.30}               \\ \hline
 \end{tabular}
-\caption{Tiempo agregado al paso de trazado de conos con vóxeles al incluir sombras.}
+\caption{Tiempo agregado al paso de trazado de conos con vóxeles al incluir sombras bajo distintos métodos.}
 \label{tab:shadowcone5}
 \end{table}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.95\linewidth]{media/shadowtrace_time_cropped.pdf}
-	\caption{Gráfica para el tiempo agregado al trazado de conos con vóxeles utilizando conos para sombras suaves o mapeo del volumen de visibilidad. Tabla \ref{tab:shadowcone5}.}
+	\caption{Gráfica para la Tabla \ref{tab:shadowcone5} describe el tiempo agregado al trazado de conos con vóxeles al utilizar conos para sombras suaves o mapeo del volumen de visibilidad.}
 	\label{fig:voxeltrace_shadowing}
 \end{figure}
 
-El mapeo del volumen de visibilidad ofrece mayor rendimiento a cambio de menor calidad de sombras. El trazado de conos con vóxeles incluye el tiempo invertido en mapeo de sombras en la prueba base \ref{tab:performance_base}. En contraste el mapeo del volumen de visibilidad es mucho más rápido ya que este solo es una instrucción de lectura más una simple operación aritmética para convertir la posición en espacio de mundo a una coordenada en espacio de textura. En algunos casos el trazado de conos para sombras puede incluso ser más rápido que la técnica de mapeo de sombras. Esto se observa en la escena Conference, la razón es que esta es una escena pequeña en escala y densa en geometría, los conos trazados suelen terminar rápidamente.
+El mapeo del volumen de visibilidad ofrece mayor rendimiento a cambio de menor calidad de sombras. El trazado de conos con vóxeles incluye el tiempo invertido en mapeo de sombras en la prueba base \ref{tab:performance_base}. 
+
+En la Figura \ref{fig:voxeltrace_shadowing} se observa que el mapeo del volumen de visibilidad es mucho más rápido que el resto de los metodos expuestos. Esto se debe a que este es solo una instrucción de lectura más una simple operación aritmética para convertir la posición en espacio de mundo a una coordenada en espacio de textura como se observa en el Código \ref{SpaceTransform}. 
+
+En algunos casos el trazado de conos para sombras puede incluso ser más rápido que la técnica de mapeo de sombras. Esto se observa en la Tabla \ref{tab:shadowcone5} para la escena Conference. La razón es que esta es una escena pequeña en escala y densa en geometría, los conos trazados suelen terminar rápidamente.
 
 \subsection{Apertura del Cono Especular y Cono de Sombras}
 
-La apertura de los conos a trazar afecta directamente el rendimiento del trazado de conos con vóxeles. Mientras más fino es este cono más lenta es su expansión a través del espacio en escena ya que el incremento de la longitud de marchado es mucho más lenta. También mientras más fino es este cono mayor tiempo se invierte en los niveles más altos de detalle en la representación de vóxeles, en la tabla \ref{tab:performance_depth} se puede observar que a mayor resolución del volumen mayor es el tiempo de trazado.
+La apertura de los conos a trazar afecta directamente el rendimiento del trazado de conos con vóxeles. Mientras más fino es este cono más lenta es su expansión a través del espacio en escena ya que el incremento de la longitud de marchado es mucho más lenta. También mientras más fino es este cono mayor tiempo se invierte en los niveles más altos de detalle en la representación de vóxeles, en la Tabla \ref{tab:performance_depth} se puede observar que a mayor resolución del volumen mayor es el tiempo de trazado.
 
 El objetivo de estas pruebas es demostrar la diferencia en rendimiento según distintas configuraciones de apertura del cono especular y el cono utilizado para el trazado de sombras suaves.
 
-Para ambas pruebas se utilizó solo la escena completa Cornell Box. Para la prueba del cono de sombras se colocó dentro de la escena una luz puntual con trazado de sombras habilitado. Para la prueba del cono especular se colocó dentro la escena una esfera con un material especular y una luz puntual con trazado de sombras inhabilitado. Para ambas pruebas la resolución de la representación en vóxeles y la longitud de marcha del cono es de $256^3$ y $0.5$ respectivamente. El ángulo de apertura para ambas pruebas es 1, 5, 20, y 45 grados.
+Para ambas pruebas se utilizó solo la escena completa Cornell Box. Para la prueba del cono de sombras se colocó dentro de la escena una luz puntual con trazado de sombras habilitado. Para la prueba del cono especular se colocó dentro la escena una esfera con un material especular y una luz puntual con trazado de sombras inhabilitado. Para ambas pruebas la resolución de la representación en vóxeles y la longitud de marcha del cono es de $256^3$ y $0.5$ respectivamente. El ángulo de apertura para ambas pruebas es 1, 5, 20, y 45 grados. En la Figura \ref{fig:fine_cones} se puede observar los resultados.
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}{.7\textwidth}
+	\begin{subfigure}[b]{.5\linewidth}
 		\centering
 		\includegraphics[width=\linewidth]{media/shadowcone_aperture_cropped.pdf}
-		\caption{Tiempo de trazado de conos con vóxeles con distintas aperturas del cono para el trazado de sombras suaves.}
+		\caption*{Cono para el trazado de sombras.}
 		\label{fig:shadowcone_aperture}
-	\end{subfigure}
-	\par\bigskip
-	\begin{subfigure}{.7\textwidth}
+	\end{subfigure}%
+	%\par\bigskip
+	\begin{subfigure}[b]{.5\linewidth}
 		\centering
 		\includegraphics[width=\linewidth]{media/specularcone_aperture_cropped.pdf}
-		\caption{Tiempo de trazado de conos con vóxeles con distintas aperturas del cono especular.}
+		\caption{Cono para reflexión especular.}
 		\label{fig:specularcone_aperture}
-	\end{subfigure}
+	\end{subfigure}%
+	\caption{Tiempo sobre el trazado de conos con voxeles para distintos ángulos de apertura con conos para sombras y reflexión especular.}
+	\label{fig:fine_cones}
 \end{figure}
 
 \subsection{Comparaciones} % (fold)
 \label{sub:comparasiones}
-Para el estudio el rendimiento con respecto a otras aproximaciones para cálculo de iluminación indirecta se consideró una aplicación con trazado de conos con voxeles utilizando octrees dispersos para la representación con voxeles y otra aplicación utilizando \acl{CLPV} visto en la sección \ref{sub:clpv}. Para ambos programas se utilizó la escena Sponza con cámara y luces en posiciones y direcciones semejantes. La aplicación fue colocada bajo actualización forzosa. Solo se muestra el tiempo final de renderizado en milisegundos.
+Para el estudio el rendimiento con respecto a otras aproximaciones para cálculo de iluminación indirecta se consideró una aplicación con trazado de conos con voxeles utilizando octrees dispersos para la representación con voxeles y otra aplicación utilizando \ac{CLPV} visto en la sección \ref{sub:clpv}. Para ambos programas se utilizó la escena Sponza con cámara y luces en posiciones y direcciones semejantes. La aplicación fue colocada bajo actualización forzosa. Solo se muestra el tiempo final de renderizado en milisegundos. La Tabla \ref{tab:compare} demuestra los resultados de esta comparación.
 
 \begin{table}[h]
 \centering
