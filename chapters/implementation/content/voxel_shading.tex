@@ -14,12 +14,14 @@ Para la iluminación de los vóxeles se utilizan técnicas de iluminación está
 	\label{eq:shading_voxels}
 \end{equation}
 
-El Código \ref{Shading} expone este calculo con solo iluminacion directa para los vóxeles.
+El Código \ref{Shading} expone este cálculo con solo iluminación directa para los vóxeles.
 \\
 \begin{lstlisting}[caption={Sombreado estándar para un vóxel}, label=Shading]
 vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 {
+	// atenuación normal
 	float nDotL = max(dot(normal, light.direction), 0.0f);
+	// iluminación directa
 	return light.diffuse * albedo * nDotL;
 }
 \end{lstlisting}
@@ -38,18 +40,19 @@ Para solventar esto se ideo una alternativa de sombreado sobre la atenuación no
 \begin{lstlisting}[caption={Sombreado direccional y ponderado según la normal para un vóxel}, label=Shading2]
 vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 {
+	// peso en cada eje para la normal del vóxel
     vec3 weight = normal * normal;
-    // calculate directional normal attenuation
+    // atenuación normal por cada cara del vóxel
     float rDotL = dot(vec3(1.0f, 0.0f, 0.0f), light.direction);
     float uDotL = dot(vec3(0.0f, 1.0f, 0.0f), light.direction);
     float fDotL = dot(vec3(0.0f, 0.0f, 1.0f), light.direction);
-    // find dominant face
+    // se encuentra la cara dominante según la normal
     rDotL = normal.x > 0.0f ? max(rDotL, 0.0f) : max(-rDotL, 0.0f);
     uDotL = normal.y > 0.0f ? max(uDotL, 0.0f) : max(-uDotL, 0.0f);
     fDotL = normal.z > 0.0f ? max(fDotL, 0.0f) : max(-fDotL, 0.0);
-    // voxel shading average from all front sides
+    // se hace un ponderado del sombreado por el peso
     nDotL = rDotL * weight.x + uDotL * weight.y + fDotL * weight.z;
-
+    // iluminación directa
     return light.diffuse * albedo * nDotL;
 }
 \end{lstlisting}
@@ -105,12 +108,12 @@ Nuestra implementación también incluye una variación de esta técnica donde e
 \begin{lstlisting}[caption={Trazado de rayos sobre volumen albedo para sombras sobre vóxeles}, label=Shadow1]
 float TraceShadow(vec3 position, vec3 direction, float maxTracingDistance) 
 {
-    // navigation
+    // tamaño de un vóxel en espacio de textura
     float voxelTexSize = 1.0f / volumeDimension;
-    // move one voxel further to avoid self collision
+    // se empieza el recorrido un vóxel hacia adelante para evitar auto-colisión
     float dst = voxelTexSize * 2.0f;
     vec3 samplePos = direction * dst + position;
-    // control variables
+    // visibilidad del vóxel
     float visibility = 0.0f;
 
     while (visibility <= 1.0f && dst <= maxTracingDistance) 
@@ -119,12 +122,13 @@ float TraceShadow(vec3 position, vec3 direction, float maxTracingDistance)
             || samplePos.x > 1.0f || samplePos.y > 1.0f || samplePos.z > 1.0f) 
         { break; }
         
+        // peso de colisión si hay algún vóxel
         float traceSample = ceil(texture(voxelAlbedo, samplePos).a) * traceShadowHit;
-        // hard shadows mode
+        // sombras duras si el valor es 1
         if(traceSample > 1.0f - EPSILON) { return 0.0f; }
-        // accumulate
+        // acumulación de opacidad dividida por la distancia
         visibility += (1.0f - visibility) * traceSample / dst;
-        // move further into volume
+        // se marcha un vóxel hacia adelante
         dst += voxelTexSize;
         samplePos = direction * dst + position;
     }
@@ -157,12 +161,14 @@ El valor de \emph{traceShadowHit} es definido por el usuario. Este controla el p
 El valor de oclusión promedio por cada luz que traza sombras es almacenado en el componente alfa del volumen de normales, esta información puede ser utilizada para realizar mapeado de sombras con una textura tridimensional. Este componente de la textura será llamado volumen de visibilidad, en la Figura \ref{fig:vshadows_hit} se puede observar su contenido. La proyección de la posición en el volumen es mucho más sencilla que mapeo de sombras tradicional. Sin embargo la calidad es mucho más baja ya que el volumen es de baja resolución. Para proyectar la posición de un vóxel en espacio de mundo y viceversa se utilizan las dos funciones expuestas en el Código \ref{SpaceTransform}.
 \\
 \begin{lstlisting}[caption={Transformación de espacio entre coordenadas de textura y posiciones de mundo.}, label=SpaceTransform]
+// de espacio de textura a espacio de mundo
 vec3 VoxelToWorld(vec3 pos)
 {
 	vec3 result = pos;
 	result *= voxelSize;
 	return result + worldMinPoint;
 }
+// de espacio de mundo a espacio de textura
 vec3 WorldToVoxel(vec3 position)
 {
     vec3 voxelPos = position - worldMinPoint;

@@ -7,6 +7,7 @@ Todos estos datos se encuentran disponibles en nuestra representación en vóxel
 Nuestra implementación realiza iluminación global de solo el componente difuso sobre los vóxeles utilizando un compute shader. El algoritmo de trazado es exactamente el mismo al expuesto en la sección anterior. La única diferencia es que este proceso se realiza por vóxel en vez de por pixel. El Código \ref{VoxelGI} expone este proceso:
 \\
 \begin{lstlisting}[caption={Iluminacion global sobre voxeles.}, label=VoxelGI]
+// volúmenes de la representación en vóxeles
 layout(binding = 0, rgba8) uniform image3D voxelComposite;
 layout(binding = 1, rgba8) uniform sampler3D voxelAlbedo;
 layout(binding = 2, rgba8) uniform sampler3D voxelNormal;
@@ -24,45 +25,46 @@ void main()
     if(albedo.a < EPSILON) { return; }
 
     vec4 directLight = imageLoad(voxelComposite, writePos);
-    // normal from voxelization
+    // normal promedio del proceso de voxelización
     vec3 normal = texelFetch(voxelNormal, writePos, 0).xyz;
-    // normal is stored in 0-1 range, restore to -1 -> -1
+    // la normal esta almacenada en formato 0->1, se convierte a -1->1
     normal = normalize(DecodeNormal(normal));
-    // calculate indirect lighting - first bounce onto the voxel texture
+    // calcular el primer rebote de luz sobre el vóxel
     vec3 position = VoxelToWorld(writePos);
     vec4 indirectLighting = CalculateIndirectLighting(position, normal);
-    // first bounce gi component only
+    // multiplicación por el albedo producto de la voxelización
     indirectLighting *= albedo;
-    // first bounce + direct lighting
+    // composición luz directa + luz indirecta
     vec4 radiance = directLight + indirectLighting;
     radiance.a = directLight.a;
-
+    // almacenar en la textura base de radiancia
     imageStore(voxelComposite, writePos, radiance);
 }
 \end{lstlisting}
+
 El método \emph{CalculateIndirectLighting} es el mismo visto en la sección anterior, igualmente el trazado de conos pero sin oclusión ambiental. La textura \emph{voxelComposite} es la textura resultante del sombreado de vóxeles (Figura \ref{fig:base_texture_imp}). Una vez terminado el cálculo de iluminación global sobre los vóxeles debe volver a realizarse el proceso de filtrado anisótropo descrito en la sección \ref{sub:voxeles_anisotropos}. Almacenar la iluminación global producto del primer rebote sobre los vóxeles nos permite aproximar el segundo rebote durante el proceso de trazado de conos de la sección anterior. En la Figura \ref{fig:vgi_scenes} se puede observar la escena voxelizada con iluminación global de vóxeles.
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[t]{0.49\textwidth}
+	\begin{subfigure}[t]{0.35\textwidth}
 		\centering
 		\captionsetup{justification=centering}
 		\caption*{Solo iluminación directa.}
 		\includegraphics[width=\linewidth]{media/voxel_direct.png}
 	\end{subfigure}%
-	\hspace{0.01\textwidth}
-	\begin{subfigure}[t]{0.49\textwidth}
+	\hspace{0.05\textwidth}
+	\begin{subfigure}[t]{0.35\textwidth}
 		\centering
 		\captionsetup{justification=centering}
 		\caption*{Con iluminación indirecta.}
 		\includegraphics[width=\linewidth]{media/voxel_gi.png}
 	\end{subfigure}%
 	\par\smallskip
-	\begin{subfigure}[t]{0.49\textwidth}
+	\begin{subfigure}[t]{0.35\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{media/c_voxel_direct.png}
 	\end{subfigure}%
-	\hspace{0.01\textwidth}
-	\begin{subfigure}[t]{0.49\textwidth}
+	\hspace{0.05\textwidth}
+	\begin{subfigure}[t]{0.35\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{media/c_voxel_gi.png}
 	\end{subfigure}%

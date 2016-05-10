@@ -26,22 +26,23 @@ La \ac{AABB} puede estar definida de dos formas: por un punto que indica el cent
 \begin{lstlisting}[caption={Creación de matrices de proyección ortogonal por cada eje direccional}, label=UpdateProjectionMatrices]
 void VoxelizerRenderer::UpdateProjectionMatrices(const BoundingBox &sceneBox)
 {
+    // longitud del aabb en cada eje
     auto axisSize = sceneBox.Extent() * 2.0f;
+    // centro del aabb
     auto &center = sceneBox.Center();
+    // tamaño de la cuadrícula de vóxeles
     volumeGridSize = glm::max(axisSize.x, glm::max(axisSize.y, axisSize.z));
+    // tamaño de un vóxel en la cuadrícula
     voxelSize = volumeGridSize / volumeDimension;
     auto halfSize = volumeGridSize / 2.0f;
-    // projection matrices
+    // proyección ortogonal
     auto projection = glm::ortho(-halfSize, halfSize, -halfSize, halfSize, 0.0f, volumeGridSize);
-    // view matrices
+    // matrices de vista por cada eje
     viewProjectionMatrix[0] = lookAt(center + glm::vec3(halfSize, 0.0f, 0.0f), center, glm::vec3(0.0f, 1.0f, 0.0f));
     viewProjectionMatrix[1] = lookAt(center + glm::vec3(0.0f, halfSize, 0.0f), center, glm::vec3(0.0f, 0.0f, -1.0f));
     viewProjectionMatrix[2] = lookAt(center + glm::vec3(0.0f, 0.0f, halfSize), center, glm::vec3(0.0f, 1.0f, 0.0f));
-    // multiply projection with view
-    for (auto &matrix : viewProjectionMatrix)
-    {
-        matrix = projection * matrix;
-    }
+    // multiplicación de ambas matrices para obtener la matriz de proyección para los triángulos
+    for (auto &matrix : viewProjectionMatrix) { matrix = projection * matrix; }
 }
 \end{lstlisting}
 
@@ -57,26 +58,29 @@ Para maximizar el área de voxelización y generar la mayor cantidad de fragment
 \begin{lstlisting}[caption={Selección del eje dominante para la proyección ortogonal.}, label=CalculateAxis]
 int CalculateAxis()
 {
-	vec3 p1 = gl_in[1].gl_Position.xyz - gl_in[0].gl_Position.xyz;
-	vec3 p2 = gl_in[2].gl_Position.xyz - gl_in[0].gl_Position.xyz;
-	vec3 faceNormal = cross(p1, p2);
+    // normal del plano formado por vertices del triangulo
+    vec3 p1 = gl_in[1].gl_Position.xyz - gl_in[0].gl_Position.xyz;
+    vec3 p2 = gl_in[2].gl_Position.xyz - gl_in[0].gl_Position.xyz;
+    vec3 faceNormal = cross(p1, p2);
 
-	float nDX = abs(faceNormal.x);
-	float nDY = abs(faceNormal.y);
-	float nDZ = abs(faceNormal.z);
+    // valor por eje direccional
+    float nDX = abs(faceNormal.x);
+    float nDY = abs(faceNormal.y);
+    float nDZ = abs(faceNormal.z);
 
-	if( nDX > nDY && nDX > nDZ )
+    // índice para la matriz de proyección
+    if( nDX > nDY && nDX > nDZ )
     {
-		return 0;
-	}
-	else if( nDY > nDX && nDY > nDZ  )
-    {
-	    return 1;
+        return 0;
     }
-	else
+    else if( nDY > nDX && nDY > nDZ  )
     {
-	    return 2;
-	}
+        return 1;
+    }
+    else
+    {
+        return 2;
+    }
 }
 \end{lstlisting}
 
@@ -102,20 +106,19 @@ En el Código \ref{CalculateAxis} primero se obtiene la normal del triángulo. E
 \end{figure}
 
 \subsubsection{Extensión del Triángulo y Polígono Delimitante}
-Una vez proyectados todos los vértices del triángulo según el eje direccional escogido (esto es multiplicar cada vértice por la matriz escogida) entonces se procede a expandir los vértices de este triángulo. Antes de esto primero es importante definir una \ac{AABB} para el triángulo. Esta area delimitante es utilizada en el fragment shader para descartar fragmentos excedentes del triángulo expandido. El punto mínimo y máximo se expanden según la longitud diagonal de un pixel, en nuestra implementación este valor es $\frac{1}{V_{res}}$ donde $V_{res}$ representa la resolución del volumen. El Código \ref{AxisAlignedBoundingBox} expone como se genera este \ac{AABB}.
+Una vez proyectados todos los vértices del triángulo según el eje direccional escogido (esto es multiplicar cada vértice por la matriz escogida) entonces se procede a expandir los vértices de este triángulo. Antes de esto primero es importante definir una \ac{AABB} para el triángulo. Esta area delimitante es utilizada en el fragment shader para descartar fragmentos excedentes del triángulo expandido. El punto mínimo y máximo se expanden según la longitud diagonal de un pixel, en nuestra implementación este valor es $\frac{1}{V_{res}}$ donde $V_{res}$ representa la resolución del volumen. El Código \ref{AxisAlignedBoundingBox} expone como se genera este \ac{AABB}.  El arreglo \emph{pos} contiene los vértices del triángulo proyectado
 \\
 \begin{lstlisting}[caption={Creación de un \ac{AABB} para el triángulo proyectado.}, label=AxisAlignedBoundingBox]
 vec4 AxisAlignedBoundingBox(vec4 pos[3], vec2 pixelDiagonal)
 {
-	vec4 aabb;
-
-	aabb.xy = min(pos[2].xy, min(pos[1].xy, pos[0].xy));
-	aabb.zw = max(pos[2].xy, max(pos[1].xy, pos[0].xy));
-
-	// enlarge by half-pixel
-	aabb.xy -= pixelDiagonal;
-	aabb.zw += pixelDiagonal;
-	return aabb;
+    vec4 aabb;
+    // punto mínimo y máximo para definir el aabb
+    aabb.xy = min(pos[2].xy, min(pos[1].xy, pos[0].xy));
+    aabb.zw = max(pos[2].xy, max(pos[1].xy, pos[0].xy));
+    // se extiende el aabb por la longitud diagonal de un píxel
+    aabb.xy -= pixelDiagonal;
+    aabb.zw += pixelDiagonal;
+    return aabb;
 }
 \end{lstlisting}
 
@@ -123,8 +126,8 @@ Primero se calculan los planos perpendiculares al triángulo formados por cada p
 \\
 \begin{lstlisting}[caption={Planos por cada par de vértices del triángulo proyectado.}, label=TPlanes]
 vec2 halfPixel = vec2(1.0f / volumeDimension);
-// calculate the plane through each edge of the triangle
-// in normal form for dilatation of the triangle
+// cálculo de planos perpendiculas al triangulo
+// segun los vertices en formato normal-distancia
 vec3 planes[3];
 planes[0] = cross(pos[0].xyw - pos[2].xyw, pos[2].xyw);
 planes[1] = cross(pos[1].xyw - pos[0].xyw, pos[0].xyw);
@@ -137,7 +140,7 @@ planes[2].z -= dot(halfPixel, abs(planes[2].xy));
 Luego se calcula la intersección entre los planos perpendiculares al triángulo. El Código \ref{TPlanes2} muestra el cálculo de estas intersecciones.
 \\
 \begin{lstlisting}[caption={Intersección entre planos perpendiculares al triángulo proyectado.}, label=TPlanes2]
-// calculate intersection between translated planes
+// puntos de intersección entre los planos perpendiculares
 vec3 intersection[3];
 intersection[0] = cross(planes[0], planes[1]);
 intersection[1] = cross(planes[1], planes[2]);
@@ -151,14 +154,16 @@ Finalmente se obtienen los vértices del triángulo expandido. El Código \ref{T
 \\
 \begin{lstlisting}[caption={Vértices del triángulo expandido.}, label=TPlanes3]
 vec4 trianglePlane;
+// plano del triángulo proyectado
 trianglePlane.xyz = cross(pos[1].xyz - pos[0].xyz, pos[2].xyz - pos[0].xyz);
 trianglePlane.xyz = normalize(trianglePlane.xyz);
 trianglePlane.w = -dot(pos[0].xyz, trianglePlane.xyz);
-// calculate dilated triangle vertices
+// dilatación de los vértices del triangulo
 float z[3];
 z[0] = (-intersection[0].x * trianglePlane.x - intersection[0].y * trianglePlane.y - trianglePlane.w) / trianglePlane.z;
 z[1] = (-intersection[1].x * trianglePlane.x - intersection[1].y * trianglePlane.y - trianglePlane.w) / trianglePlane.z;
 z[2] = (-intersection[2].x * trianglePlane.x - intersection[2].y * trianglePlane.y - trianglePlane.w) / trianglePlane.z;
+// posición final de los tres vértices del triángulo expandido
 pos[0].xyz = vec3(intersection[0].xy, z[0]);
 pos[1].xyz = vec3(intersection[1].xy, z[1]);
 pos[2].xyz = vec3(intersection[2].xy, z[2]);
@@ -171,6 +176,7 @@ Este nuevo triángulo expandido es enviado al pipeline de rasterización donde c
 Este proceso se realiza en el fragment shader. En la sección anterior se mencionó la creación de una \ac{AABB} para el triángulo expandido. Lo primero a realizar durante la composición de fragmentos es descartar los fragmentos excedentes del triángulo. El Código \ref{TPlanes4} expone este proceso.
 \\
 \begin{lstlisting}[caption={Descarte de fragmentos excedentes en el fragment shader.}, label=TPlanes4]
+// posición del fragmento debe encontrarse dentro del aabb
 if( In.position.x < In.triangleAABB.x || In.position.y < In.triangleAABB.y || 
 	In.position.x > In.triangleAABB.z || In.position.y > In.triangleAABB.w )
 {
@@ -197,6 +203,7 @@ El promedio en cada vóxel debe ser calculado de forma incremental. Con el forma
 El Código \ref{imageAtomicRGBA8Avg} expone este procedimiento y la conversión entre formato RGBA8 y R32UI, sobre este último formato es posible realizar operaciones atómicas.
 \\
 \begin{lstlisting}[caption={Conversion entre RGBA8 y R32UI y promedio incremental.}, label=imageAtomicRGBA8Avg]
+// conversion de formato de entero en r32ui a vec4
 vec4 convRGBA8ToVec4(uint val)]
 {
     return vec4(float((val & 0x000000FF)), 
@@ -204,6 +211,7 @@ vec4 convRGBA8ToVec4(uint val)]
     float((val & 0x00FF0000) >> 16U), 
     float((val & 0xFF000000) >> 24U));
 }
+// conversion de formato vec4 a entero r32ui
 uint convVec4ToRGBA8(vec4 val)
 {
     return (uint(val.w) & 0x000000FF) << 24U | 
@@ -211,23 +219,28 @@ uint convVec4ToRGBA8(vec4 val)
     (uint(val.y) & 0x000000FF) << 8U | 
     (uint(val.x) & 0x000000FF);
 }
+// promedio con atomicidad
 void imageAtomicRGBA8Avg(layout(r32ui) volatile coherent uimage3D grid, ivec3 coords, vec4 value)
 {
-    value.rgb *= 255.0;                 // optimize following calculations
+    // conversión de 0->1 de 0->255
+    value.rgb *= 255.0;
+    // valor equivalente en entero sin signo
     uint newVal = convVec4ToRGBA8(value);
     uint prevStoredVal = 0;
     uint curStoredVal;
     uint numIterations = 0;
 
+    // mientras el valor almacenado sea diferente al actual y 
+    // no se sobrepase el numero máximo de iteraciones
     while((curStoredVal = imageAtomicCompSwap(grid, coords, prevStoredVal, newVal)) 
             != prevStoredVal
             && numIterations < 255)
     {
         prevStoredVal = curStoredVal;
         vec4 rval = convRGBA8ToVec4(curStoredVal);
-        rval.rgb = (rval.rgb * rval.a); // Denormalize
-        vec4 curValF = rval + value;    // Add
-        curValF.rgb /= curValF.a;       // Renormalize
+        rval.rgb = (rval.rgb * rval.a); // De-normalizar
+        vec4 curValF = rval + value;    // Agregar nuevo valor
+        curValF.rgb /= curValF.a;       // Re-normalizar
         newVal = convVec4ToRGBA8(curValF);
         ++numIterations;
     }
@@ -237,6 +250,7 @@ void imageAtomicRGBA8Avg(layout(r32ui) volatile coherent uimage3D grid, ivec3 co
 Esta función es llamada por cada fragmento para almacenar la normal, el albedo y la emisión del promedio de todos los fragmentos sobre el espacio que envuelve un vóxel, estos vóxeles se almacenan en texturas tridimensionales. El Código \ref{Voxelization2} ilustra el uso de la funcion \emph{imageAtomicRGBA8Avg} para almacenar cada atributo en volúmenes.
 \\
 \begin{lstlisting}[caption={Composición de fragmentos y vóxeles}, label=Voxelization2]
+// volúmenes utilizados para almacenar información de escena en vóxeles
 layout(binding = 0, r32ui) uniform volatile coherent uimage3D voxelAlbedo;
 layout(binding = 1, r32ui) uniform volatile coherent uimage3D voxelNormal;
 layout(binding = 2, r32ui) uniform volatile coherent uimage3D voxelEmission;
@@ -244,9 +258,10 @@ layout(binding = 2, r32ui) uniform volatile coherent uimage3D voxelEmission;
 void main()
 {
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
-	imageAtomicRGBA8Avg(voxelNormal, position, normal);
-	imageAtomicRGBA8Avg(voxelAlbedo, position, albedo);
-	imageAtomicRGBA8Avg(voxelEmission, position, emissive);
+    // llamadas al promedio atómico por fragmento
+    imageAtomicRGBA8Avg(voxelNormal, position, normal);
+    imageAtomicRGBA8Avg(voxelAlbedo, position, albedo);
+    imageAtomicRGBA8Avg(voxelEmission, position, emissive);
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
 }
 \end{lstlisting}
@@ -262,7 +277,7 @@ layout(binding = 3, r8) uniform image3D staticVoxelFlag;
 void main()
 {
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
-    // doing a static flagging pass for static geometry voxelization
+    // durante voxelización estática se escribe la bandera sobre el volumen
     if(flagStaticVoxels)
     {
         imageStore(staticVoxelFlag, position, vec4(1.0));
@@ -270,14 +285,16 @@ void main()
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
 }
 \end{lstlisting}
+
 En contraste durante la voxelización dinámica se lee este volumen para descartar la escritura sobre vóxeles estáticos. El Código \ref{Voxelization4} expone esta lectura y descarte del fragmento.
 \\
 \begin{lstlisting}[caption={Lectura de la bandera estática durante voxelización de geometría dinámica.}, label=Voxelization4]
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
+    // durante voxelización dinámica se lee la bandera sobre el volumen
     if(!flagStaticVoxels)
     {
         bool isStatic = imageLoad(staticVoxelFlag, position).r > 0.0f;
-        // writing is canceled
+        // si la posición del vóxel es estática se descarta el fragmento cancelando la escritura
         if(isStatic) { discard; }
     }
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
@@ -293,21 +310,21 @@ void main()
 {
     int volumeDimension = imageSize(voxelAlbedo).x;
 
-	if(gl_GlobalInvocationID.x >= volumeDimension ||
-		gl_GlobalInvocationID.y >= volumeDimension ||
-		gl_GlobalInvocationID.z >= volumeDimension) return;
+    if(gl_GlobalInvocationID.x >= volumeDimension ||
+        gl_GlobalInvocationID.y >= volumeDimension ||
+        gl_GlobalInvocationID.z >= volumeDimension) return;
 
     ivec3 writePos = ivec3(gl_GlobalInvocationID);
-    // empty voxel
+    // vóxel vacío
     if(imageLoad(voxelAlbedo, writePos).a < EPSILON) { return; }
-    // static flag is true
+    // vóxel es estático
     if(texelFetch(staticVoxelFlag, writePos, 0).r > EPSILON) { return; }
-    // is a non-static voxel and the voxel in that position isn't empty
-    // clear the volumnes with 0,0,0,0
+    // vóxel no es estático entonces se procede a limpiar el volumen con ceros
     imageStore(voxelAlbedo, writePos, vec4(0.0));
     imageStore(voxelNormal, writePos, vec4(0.0));
     imageStore(voxelEmissive, writePos, vec4(0.0));
 }
 \end{lstlisting}
+
 Primero se verifica si ya el vóxel está vacío, luego si este es estático y finalmente si este no lo es se le coloca el valor cero en todos los canales de color y el alfa, esto indica que allí no hay un vóxel.
 % section pipeline_de_voxelizacion (end)
