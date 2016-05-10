@@ -1,22 +1,22 @@
 \section{Representación de Superficies}
 \label{sec:surface_rep}
 
-\begin{wrapfigure}[11]{l}{0.4\linewidth}
-	\includegraphics[width=\linewidth]{media/brdf_vs.eps}
-	\caption
-	{
-    	BRDF izquierda, punto de salida es igual al punto de entrada.\\ 
-    	BSSRDF derecha, se observa como el punto de salida es distinto al de entrada.
-	}
-	\label{fig:bssrdf}
-\end{wrapfigure}
-
-Los materiales interaccionan con la luz de distintas maneras. Esto hace que la apariencia de ciertos materiales difiera según la condiciones de la luz en una escena. Algunos materiales parecen espejos mientras que otros son totalmente difusos. Son visualmente distinguible materiales como vidrio, madera o metales. Las propiedades de reflectancia de una superficie afectan la apariencia del objeto \cite{advanced_gi2006}, estos objetos se distinguen por la cantidad de luz reflectada en ciertas direcciones. 
+Los materiales interactúan con la luz de distintas maneras. Esto hace que la apariencia de ciertos materiales difiera según la condiciones de la luz en una escena. Algunos materiales parecen espejos mientras que otros son totalmente difusos. Son visualmente distinguible materiales como vidrio, madera o metales. Las propiedades de reflectancia de una superficie afectan la apariencia del objeto \cite{advanced_gi2006}, estos objetos se distinguen por la cantidad de luz reflectada en ciertas direcciones. 
 
 En el caso más general, un rayo de luz entra en algún punto $p$ sobre una superficie en una escena, este rayo de luz tiene una dirección incidente $\Psi$ y puede salir de esta superficie sobre otro punto $q$ con dirección saliente $\Theta$. La función que define esta relación entre la radiancia incidente y la radiancia reflectada se llama \ac{BSSRDF}.
 
 \subsection{Función de Distribución de Reflectancia Bidireccional}
-Al asumir que la luz incidente en algún punto $x$ sale del mismo punto $x$ (ignorando la transluminiscencia) las propiedades de reflectancia de una superficie son entonces descritas por una \ac{BRDF}.
+Al asumir que la luz incidente en algún punto $x$ sale del mismo punto $x$ (ignorando la transluminiscencia) las propiedades de reflectancia de una superficie son entonces descritas por una \ac{BRDF}. En la Figura \ref{fig:bssrdf} se puede observar la diferencia entre \ac{BRDF} y \ac{BSSRDF}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\linewidth]{media/brdf_vs.eps}
+	\caption
+	{
+    	Izquierda: BRDF, punto de salida es igual al punto de entrada. Derecha: BSSRDF, se observa como el punto de salida es distinto al de entrada.
+	}
+	\label{fig:bssrdf}
+\end{figure}
 
 La \ac{BRDF} en un punto $x$ se define entonces como la distribución de la radiancia reflectada diferencial en una dirección saliente $\Theta$ y la irradiancia incidente diferencial a través de un ángulo solido $dw_{\Psi}$. La función \ac{BRDF} puede ser escrita de la siguiente forma \cite{advanced_gi2006}:
 
@@ -26,9 +26,7 @@ La \ac{BRDF} en un punto $x$ se define entonces como la distribución de la radi
         &= \frac{dL(x\to\Theta)}{L(x\gets\Psi)\cos(N_{x}, \Psi)dw_{\Psi}}
 	\end{split}
 	\label{eq:brdf_def}
-\end{equation}
-
-Donde $\cos(N_{x}, \Psi)$ es el coseno del ángulo formado entre la normal en el punto $x$ y el vector dirección $\Psi$
+\end{equation} donde $\cos(N_{x}, \Psi)$ es el coseno del ángulo formado entre la normal en el punto $x$ y el vector dirección $\Psi$, también llamado atenuación normal.
 
 \subsubsection{Propiedades de la Función BRDF}
 
@@ -47,7 +45,7 @@ La función BRDF tiene una variada cantidad de importantes propiedades:
 \end{enumerate}
 
 \subsubsection{Ejemplos de BRDF}
-Dependiendo del comportamiento de la \ac{BRDF}, el material se verá como una superficie difusa, como un espejo o como una mezcla de ambos (lustroso o \emph{glossy}). Los tipos de BRDF relevantes para este trabajo serán listados aquí.
+Dependiendo del comportamiento de la \ac{BRDF}, el material se verá como una superficie difusa, como un espejo o como una mezcla de ambos (lustroso o \emph{glossy}). En la Figura \ref{fig:brdf_types} se ilustra estas propiedades. Los tipos de BRDF relevantes para este trabajo serán listados aquí.
 
 \begin{figure}[H]
 	\centering
@@ -91,9 +89,7 @@ Uno de los modelos más simples, este modelo es ideal para superficies difusas, 
 \begin{equation}
     f_{r}(x, \Psi\leftrightarrow\Theta) = k_{d} = \frac{\rho_{d}}{\pi}
     \label{eq:lambert}
-\end{equation}
-
-Donde $\rho_{d}$ es la reflexión difusa.
+\end{equation} donde $\rho_{d}$ es la reflexión difusa.
 
 \paragraph{Modelo de Phong:}
 La \ac{BRDF} del modelo de Phong es:
@@ -101,9 +97,7 @@ La \ac{BRDF} del modelo de Phong es:
 \begin{equation}
     f_{r}(x, \Psi\leftrightarrow\Theta) = k_{s}\frac{(R\cdot \Theta)^n}{N\cdot\Psi} + k_{d}
     \label{eq:phong}
-\end{equation}
-
-Donde el vector reflectado $R$ es calculado con la ecuación \ref{eq:reflectance_direction}.
+\end{equation} donde el vector reflectado $R$ es calculado con la ecuación \ref{eq:reflectance_direction}.
 
 \paragraph{Modelo de Blinn-Phong:}
 \label{para:blinn_phong}
@@ -114,7 +108,7 @@ El modelo Blinn-Phong utiliza el vector medio $H$ entre $\Psi$ y $\Theta$ de la 
     \label{eq:blinn_phong_pr}
 \end{equation}
 
-El valor $n$ varía según las propiedades del material. Un mayor valor provee un lóbulo especular más pequeño, simulando superficies lisas y pulidas.
+El valor $n$ varía según las propiedades del material. Un mayor valor provee un lóbulo especular más pequeño, simulando superficies lisas y pulidas. En la Figura \ref{fig:blinn_spec_comparison} se puede observar este efecto. En la Figura \ref{fig:brdfs_comparison} se puede observar el resultado de este modelo.
 
 \begin{figure}[H]
 	\centering
@@ -175,7 +169,7 @@ El modelo de Phong a pesar de ser simple este tiene ciertas limitaciones, no es 
 		\includegraphics[width=\linewidth]{media/diffuse_specular_bunny.png}
 		\caption*{Lambert \ac{BRDF} y \\Blinn-Phong \ac{BRDF} especular.}
 	\end{subfigure}
-	\caption{Ejemplo de \ac{BRDF}s. Se observa como estas afectan la apariencia final de la superficie.}
+	\caption{Composición de Blinn-Phong y Lambert. Se observa como estas afectan la apariencia final de la superficie.}
 	\label{fig:brdfs_comparison}
 \end{figure}
 
@@ -188,12 +182,13 @@ La \ac{NDF} introducida por Alain Fournier \cite{fournier1992d} describe la dens
 
 En la función gaussiana el termino $\sigma^2$ es llamado variancia y el termino $\mu$ es llamado media. Tanto el producto como la convolución de dos distribuciones gaussianas es también una distribución gaussiana \cite{tina-2003}.
 
-La función gaussiana puede ser utilizada como una representación direccional. En este caso la media es un vector promedio $D$ del lóbulo gaussiano. Como es descrito en el trabajo de Toksvig para el mipmapping de mapas de normales \cite{Toksvig05}, el valor de $\sigma$ puede ser calculado por la longitud del vector promedio $D$ utilizando la siguiente ecuación.
+La función gaussiana puede ser utilizada como una representación direccional. En este caso la media es un vector promedio $D$ del lóbulo gaussiano. Como es descrito en el trabajo de Toksvig para el mipmapping de mapas de normales \cite{Toksvig05}, el valor de $\sigma$ puede ser calculado por la longitud del vector promedio $D$ utilizando la siguiente ecuación:
 \begin{equation}
     \sigma^2 = \frac{1-|D|}{|D|}
     \label{eq:gaussia_eq}
 \end{equation}
-Esto permite obtener lóbulos gaussianos a partir de dos o más vectores para representar su dirección en común.
+
+Esto permite obtener lóbulos gaussianos a partir de dos o más vectores para representar su dirección en común. En la Figura \ref{fig:brdf_lobules} se puede observar el lóbulo para una distribución de dos direcciones.
 
 \begin{figure}[H]
 	\centering
@@ -202,7 +197,7 @@ Esto permite obtener lóbulos gaussianos a partir de dos o más vectores para re
 	\label{fig:lobes_example}
 \end{figure}
 
-Algunas \ac{BRDF} también pueden describirse como distribuciones gaussianas, las propiedades de producto y convolución se mantienen.
+Algunas \ac{BRDF} también pueden describirse como distribuciones gaussianas, las propiedades de producto y convolución se mantienen. Esto se puede observar en la Figura \ref{fig:brdf_lobules}.
 
 \begin{figure}[H]
 	\centering

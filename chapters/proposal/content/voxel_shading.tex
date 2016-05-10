@@ -107,7 +107,7 @@ Una técnica que incrementa la calidad visual de las sombras es la generación d
 	\label{fig:soft_voxel_shadow}
 \end{figure}
 
-En nuestra implementación logramos obtener bordes suaves para las sombras generadas durante el sombreado de vóxeles con un solo rayo. Esta técnica se basa en el hecho de que al trazar un rayo hacia una superficie voxelizada este rayo chocara más veces contra vóxeles cerca de los bordes de la superficie vistos desde la fuente de luz. Como se observa en la figure \ref{fig:soft_voxel_shadow} en vez de detener el rayo una vez que se ha encontrado una colisión ahora se le asigna un valor a cada colisión y se ve acumulando este factor a través del recorrido del rayo dividido por la distancia recorrida.
+En nuestra implementación logramos obtener bordes suaves para las sombras generadas durante el sombreado de vóxeles con un solo rayo. Esta técnica se basa en el hecho de que al trazar un rayo hacia una superficie voxelizada este rayo chocara más veces contra vóxeles cerca de los bordes de la superficie vistos desde la fuente de luz. Como se observa en la Figura \ref{fig:soft_voxel_shadow} en vez de detener el rayo una vez que se ha encontrado una colisión ahora se le asigna un valor a cada colisión y se ve acumulando este factor a través del recorrido del rayo dividido por la distancia recorrida.
 
 
 % subsection trazado_de_sombras_sobre_el_volumen (end)

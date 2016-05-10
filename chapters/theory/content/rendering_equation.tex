@@ -1,7 +1,7 @@
 \section{Ecuación de Renderizado}
-La ecuación de renderizado fue introducida por Kajiya  en 1986 \cite{kajiya86}. Esta ecuacion describe en cada punto $x$ de una superficie y en cada dirección $\Theta$, la radiancia saliente $L(x\to\Theta)$ en ese punto y esa dirección.
+La ecuación de renderizado fue introducida por Kajiya  en 1986 \cite{kajiya86}. Esta ecuación describe en cada punto $x$ de una superficie y en cada dirección $\Theta$, la radiancia saliente $L(x\to\Theta)$ en ese punto y esa dirección.
 
-El objetivo de un algoritmo para el cálculo de iluminación global es aproximar el resultado de esta ecuación. En esta ecuación asumimos que no existen medios participantes como objetos translúcidos como ya fue explicado en la sección \ref{sec:surface_rep}. También asumimos que la luz se propaga de forma inmediata por tanto la distribución de la luz, ya en un estado estacionario, se obtiene inmediatamente. 
+El objetivo de un algoritmo para el cálculo de iluminación global es aproximar el resultado de esta ecuación. En esta ecuación se asume que no existen medios participantes como objetos translúcidos como ya fue explicado en la sección \ref{sec:surface_rep}. También se asume que la luz se propaga de forma inmediata por tanto la distribución de la luz, ya en un estado estacionario, se obtiene inmediatamente. 
 
 \subsection{Formulación Hemisférica}
 La formulación hemisférica de la ecuación de renderizado es una de las más utilizadas \cite{advanced_gi2006}. Esta formulación se obtiene utilizando la propiedad de conservación de energía en el punto $x$. Asumiendo que $L_{e}(x\to\Theta)$ representa la radiancia emitida por la superficie en el punto $x$ con dirección saliente $\Theta$ y $L_{r}(x\to\Theta)$ representa la radiancia reflectada por la superficie en el punto $x$ en dirección $\Theta$.
@@ -27,9 +27,14 @@ Colocando estas ecuaciones juntas obtenemos la ecuación de renderizado:
 
 \subsection{Procedimientos}
 \label{sub:render_eq_procedures}
-En esta sección se explica dos populares procedimientos clásicos para obtener una aproximación a la ecuación de renderizado, esto es una aproximación de la propagación de la luz en una escena. Estas soluciones no están pensadas para tiempos interactivos y su enfoque principal es precisión.
+En esta sección se explica dos populares procedimientos clásicos para obtener una aproximación a la ecuación de renderizado, esto es una aproximación de la propagación de la luz en una escena. Estas soluciones no están pensadas para tiempos interactivos y su enfoque principal es la precisión.
 
 Métodos como elementos finitos y Monte Carlo son los grupos de algoritmos más utilizados para aproximar la ecuación de renderizado. El método de elementos finitos utiliza alguna forma de discretización para reducir la ecuación de renderizado a una ecuación de matrices. Los métodos Monte Carlo muestrean los caminos que siguen los rayos de luz en una escena, generando un estimado estadístico de la apariencia real de la escena. \emph{Radiosity} es una popular aproximación que utiliza el método de elementos finitos. Trazado de rayos y caminos (\emph{ray tracing y path tracing}) son aproximaciones comunes que utilizan el método Monte Carlo \cite{gi_renderingeq}. 
+
+\subsubsection{Radiosidad}
+\label{subsec:radiosity}
+
+Radiosidad es una aproximación con elementos finitos para el cómputo del transporte de luz global. Esta técnica fue introducida por Goral y otros en 1984 \cite{goral84}. La idea general es discretizar las superficies de la escena en elementos finitos de éstas, estos elementos son usualmente llamados \emph{patches} (parches o trozos) los cuales son utilizados para calcular el transporte de luz entre ellos como se observa en la Figura \ref{fig:radiosity2}. Esto conlleva a ciertas implicaciones; de cada \emph{patch} se necesita guardar el valor de radiosidad para las superficies difusas, o la distribución direccional de la luz saliente y entrante para superficies no difusas.
 
 \begin{figure}[H]
 	\centering
@@ -89,15 +94,9 @@ Métodos como elementos finitos y Monte Carlo son los grupos de algoritmos más 
 	\label{fig:radiosity2}
 \end{figure}
 
-
-\subsubsection{Radiosidad}
-\label{subsec:radiosity}
-
-Radiosidad es una aproximación con elementos finitos para el cómputo del transporte de luz global. Esta técnica fue introducida por Goral y otros en 1984 \cite{goral84}. La idea general es discretizar las superficies de la escena en elementos finitos de éstas, estos elementos son usualmente llamados \emph{patches} (parches o trozos) los cuales son utilizados para calcular el transporte de luz entre ellos como se observa en la figura \ref{fig:radiosity2}. Esto conlleva a ciertas implicaciones; de cada \emph{patch} se necesita guardar el valor de radiosidad para las superficies difusas, o la distribución direccional de la luz saliente y entrante para superficies no difusas.
-
 \subsubsection{Trazado de Rayos e Integración Monte Carlo}
 \label{subsec:monte_carlo_raytracing}
-La ecuación de renderizado puede ser aproximada utilizando el algoritmo de trazado de rayos o \emph{ray tracing}, esta es una técnica basada en integración Monte Carlo. Para aproximar la propagación de la luz sobre un punto se crea un número considerable de muestras en variadas direcciones, luego por cada muestra se evalúa la ecuación de renderizado y el promedio de todos los resultados converge hacia la solución analítica de la ecuación de renderizado sobre ese punto. Para evaluar una muestra la luz incidente desde una dirección tiene que ser calculada, para esto un rayo de luz es enviado en una dirección y la luz emitida desde el primer punto de colisión es calculada evaluando la ecuación de renderizado en este punto.
+La ecuación de renderizado puede ser aproximada utilizando el algoritmo de trazado de rayos o \emph{ray tracing}, esta es una técnica basada en integración Monte Carlo. Para aproximar la propagación de la luz sobre un punto se crea un número considerable de muestras en variadas direcciones, luego por cada muestra se evalúa la ecuación de renderizado y el promedio de todos los resultados converge hacia la solución analítica de la ecuación de renderizado sobre ese punto. Para evaluar una muestra la luz incidente desde una dirección tiene que ser calculada, para esto un rayo de luz es enviado en una dirección y la luz emitida desde el primer punto de colisión es calculada evaluando la ecuación de renderizado en este punto. En la Figura \ref{fig:ray_tracing_nsamples} se puede observar el resultado de esta técnica.
 
 Ray tracing está dividido en dos categorías: forward y backward. Forward ray tracing consiste en lanzar las trazas/rayos de luz desde las fuentes de luz y usar aquellos que llegan a la cámara. Backward ray tracing por el contrario lanza las trazas/rayos de luz desde la cámara y traza el camino de estos a través de la escena \cite{Arvo86backwardray}.
 

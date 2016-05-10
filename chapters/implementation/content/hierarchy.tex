@@ -1,6 +1,6 @@
 \section{Estructura Jerárquica} % (fold)
 \label{sec:estructura_jerarquica_impl}
-La representación de la escena en vóxeles puede ser filtrada hacia niveles menos detallados utilizando distintos niveles de mip map. Esto describe una estructura piramidal. Esta estructura es utilizada para acelerar el trazado de conos contra vóxeles, donde según la apertura del cono se interpola entre distintos niveles de detalle como se observa en la figura \ref{fig:vct_explain}.
+La representación de la escena en vóxeles puede ser filtrada hacia niveles menos detallados utilizando distintos niveles de mip map. Esto describe una estructura piramidal. Esta estructura es utilizada para acelerar el trazado de conos contra vóxeles, donde según la apertura del cono se interpola entre distintos niveles de detalle como se observa en la Figura \ref{fig:vct_explain}.
 
 En nuestra implementación se utilizan seis nuevos volúmenes por cada eje direccional positivo y negativo para vóxeles anisótropos. Cada uno de estos volúmenes tiene una resolución de $V_{res}/{2}$. Los niveles de mipmapping no se encuentran en la textura base de radiancia sino en estos volúmenes, por tanto estos volúmenes son los que residen los distintos niveles de detalle de la escena voxelizada. Llamaremos a estos volúmenes como \emph{volúmenes direccionales}.
 

@@ -178,7 +178,7 @@ Este proceso se realiza en el fragment shader. En la sección anterior se mencio
 		discard;
 	}
 \end{lstlisting}
-Básicamente si la posición del fragmento esta fuera de la \ac{AABB} del triángulo este fragmento no es procesado. Esto resulta finalmente en un polígono delimitante ya descrito en la figura \ref{fig:expanded_bbpolygon}.
+Básicamente si la posición del fragmento esta fuera de la \ac{AABB} del triángulo este fragmento no es procesado. Esto resulta finalmente en un polígono delimitante ya descrito en la Figura \ref{fig:expanded_bbpolygon}.
 
 Una vez ya finalizada la rasterización conservativa de cada triángulo, ahora se procede a almacenar información de la escena en texturas tridimensionales. En nuestra aplicación se almacena en vóxeles el albedo, normal, y emisión de la geometría en escena. Un vóxel puede envolver a varios fragmentos y cada uno de estos fragmentos puede tener distintos valores para los atributos mencionados. Una forma simple de almacenar todos estos valores es utilizando un promedio de todos los valores por fragmento que envuelve el vóxel. 
 
