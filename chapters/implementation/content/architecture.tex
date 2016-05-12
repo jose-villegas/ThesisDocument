@@ -2,7 +2,7 @@
 \label{sec:arquitectura_de_la_aplicacion}
 Detrás de la generación de frames se encuentra un sencillo motor gráfico compuesto por una multitud de clases extensibles. En esta sección se examina un poco la arquitectura de este. Sin embargo se hará énfasis detallado en las partes más relevantes al algoritmo de iluminación global.
 
-Una escena en la aplicación está definida por cámaras, luces, materiales, texturas, mallados y un nodo raíz de jerarquía de escena. En la Figura \ref{fig:scene_class_diagram} se muestra un diagrama para las clases que componen una escena.
+Una escena en la aplicación está definida por cámaras, luces, materiales, texturas, mallas y un nodo raíz de jerarquía de escena. En la Figura \ref{fig:scene_class_diagram} se muestra un diagrama para las clases que componen una escena.
 
 \begin{figure}[H]
 	\centering
@@ -12,9 +12,9 @@ Una escena en la aplicación está definida por cámaras, luces, materiales, tex
 	\label{fig:scene_class_diagram}
 \end{figure}
 
-Como se observa en el diagrama cada \emph{Node} o nodo tiene un grupo \emph{meshes} o mallados asociado. Cada una de estas \emph{Mesh} o mallas tiene un material (clase \emph{Material}) asignado, este material puede o no tener uso de texturas. Los nodos en la escena puede definirse como estáticos o dinámicos, esta propiedad es importante para diferenciar entre voxelización estática y dinámica.
+Como se observa en el diagrama cada \emph{Node} o nodo tiene un grupo \emph{meshes} o mallas asociado. Cada una de estas \emph{Mesh} o mallas tiene un material (clase \emph{Material}) asignado, este material puede o no tener uso de texturas. Los nodos en la escena puede definirse como estáticos o dinámicos, esta propiedad es importante para diferenciar entre voxelización estática y dinámica.
 
-Se puede observar también que tanto nodos como mallas tienen un miembro \emph{boundaries} o delimítate, este miembro define una \ac{AABB} utilizada para determinar si estos objetos se encuentran dentro del tronco cuadrado que define el volumen de proyección de la cámara. Esta técnica es llamada \emph{frustum culling}. 
+Se puede observar también que tanto nodos como mallas tienen un miembro \emph{boundaries} o límites, este miembro define una \ac{AABB} utilizada para determinar si estos objetos se encuentran dentro del tronco cuadrado que define el volumen de proyección de la cámara. Esta técnica es llamada \emph{frustum culling}. 
 
 Existen tres tipos de luces en nuestra implementación como ya fue mencionado anteriormente: direccionales, puntuales y focales. Una de las ventajas de realizar el sombreado a través de compute shaders es que podemos colocar muchas luces en escena sin necesidad de crear mapas luz-vista por cada uno de estos.
 

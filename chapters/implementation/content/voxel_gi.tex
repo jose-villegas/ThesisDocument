@@ -4,7 +4,7 @@ En la sección anterior se expone el cálculo de iluminación indirecta de solo 
 
 Todos estos datos se encuentran disponibles en nuestra representación en vóxeles. La iluminación directa en vóxeles la obtenemos luego del proceso de sombreado de vóxeles. Mientras que albedo y normal son volúmenes producto del proceso de voxelización. La posición puede ser fácilmente proyectada utilizando la función \emph{VoxelToWorld} vista en el Código \ref{SpaceTransform}.
 
-Nuestra implementación realiza iluminación global de solo el componente difuso sobre los vóxeles utilizando un compute shader. El algoritmo de trazado es exactamente el mismo al expuesto en la sección anterior. La única diferencia es que este proceso se realiza por vóxel en vez de por pixel. El Código \ref{VoxelGI} expone este proceso:
+Nuestra implementación realiza iluminación global de solo el componente difuso sobre los vóxeles utilizando un compute shader. El algoritmo de trazado es exactamente el mismo al expuesto en la sección anterior. La única diferencia es que este proceso se realiza por vóxel en vez de por píxel. El Código \ref{VoxelGI} expone este proceso:
 \\
 \begin{lstlisting}[caption={Iluminacion global sobre voxeles.}, label=VoxelGI]
 // volúmenes de la representación en vóxeles
@@ -27,7 +27,7 @@ void main()
     vec4 directLight = imageLoad(voxelComposite, writePos);
     // normal promedio del proceso de voxelización
     vec3 normal = texelFetch(voxelNormal, writePos, 0).xyz;
-    // la normal esta almacenada en formato 0->1, se convierte a -1->1
+    // vector normal esta almacenado en formato 0->1, se convierte a -1->1
     normal = normalize(DecodeNormal(normal));
     // calcular el primer rebote de luz sobre el vóxel
     vec3 position = VoxelToWorld(writePos);

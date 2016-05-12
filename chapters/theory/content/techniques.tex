@@ -18,14 +18,14 @@ Una vez que se procede a renderizar la escena desde el punto de vista del observ
 	\caption{La profundidad almacenada en el mapa de sombra (amarillo) es comparada con la profundidad del punto en la superficie desde la luz (rojo).}
 	\label{fig:shadow_mapping}
 \end{figure}
-Como se muestra en la Figura \ref{fig:shadow_mapping} si la profundidad del fragmento desde la fuente de luz es mayor que el valor almacenado en el mapa de sombra entonces este punto esta sombreado. 
+Como se muestra en la Figura \ref{fig:shadow_mapping}, si la profundidad del fragmento desde la fuente de luz es mayor que el valor almacenado en el mapa de sombra entonces este punto esta sombreado. 
 
 El mapeado de sombras es una solución sencilla y efectiva al problema de pruebas de visibilidad pero esta técnica tiene dos mayores desventajas. El mapa de sombras está limitado a la resolución de la textura y además este representa una discretización de la profundidad de la escena desde la fuente de luz y esto introduce una variedad de anomalías visuales. A partir de este concepto existe una variedad de algoritmos para el cálculo de sombras que intentan solventar estos problemas.
 
 \subsection{Sombreado Diferido}
 \label{sub:deferred_rendering_theory}
 En sombreado directo la representación poligonal de la escena es rasterizada y operaciones por píxel como iluminación y sombreado son realizadas por cada fragmento generado por el proceso de rasterización. Esto es poco efectivo cuando consideramos que gran parte de los fragmentos no forman parte de la imagen final.
-Con sombreado diferido se pueden realizar estas operaciones por píxel solo sobre los fragmentos visibles. Este concepto está basado en el trabajo de Deering et al. en 1998 \cite{Deering:1988}. La escena es renderizada solo una vez y varios atributos de la escena son almacenados en buffers. Este buffer es llamado \ac{GBuffer} y fue introducido por Saito et al. en 1990 \cite{Saito:1990}. El contenido general de un G-Buffer es profundidad, albedo y normal (Figura \ref{fig:gbuffer}), esto puede cambiar según las necesidades de la aplicación. El propósito de almacenar esta información es separar las operaciones que solo son necesarias sobre los fragmentos visibles de la rasterización de toda la escena, de manera que cálculos como iluminación ahora son realizados en otro paso solo sobre cada píxel almacenado en el \ac{GBuffer}.
+Con sombreado diferido se pueden realizar estas operaciones por píxel solo sobre los fragmentos visibles. Este concepto está basado en el trabajo de Deering et al. en 1998 \cite{Deering:1988}. La escena es renderizada solo una vez y varios atributos de la escena son almacenados en buffers. Este buffer es llamado \ac{GBuffer} y fue introducido por Saito et al. en 1990 \cite{Saito:1990}. El contenido general de un G-Buffer es profundidad, albedo y normal (ver Figura \ref{fig:gbuffer}), esto puede cambiar según las necesidades de la aplicación. El propósito de almacenar esta información es separar las operaciones que solo son necesarias sobre los fragmentos visibles de la rasterización de toda la escena, de manera que cálculos como iluminación ahora son realizados en otro paso solo sobre cada píxel almacenado en el \ac{GBuffer}.
 
 \begin{figure}[H]
 	\centering

@@ -25,15 +25,15 @@ Una variedad de algoritmos para el cálculo de iluminación global se inspiran o
 \end{figure}
 
 
-En este algoritmo se aproxima la radiancia reflectada en escena utilizando un conjunto de luces virtuales. La radiancia que llega a un punto $x$ es aproximada por la radiancia que proviene de las luces virtuales. Pruebas de visibilidad para cada una de estas luces son realizadas utilizando técnicas de sombreado estándar y la radiancia proveniente de cada una de estas es almacenada en un buffer de acumulación.
-Las luces virtuales son generadas a partir de partículas lanzadas por las fuentes de luz principales utilizando la secuencia de Halton para el muestreo. En un principio, un número $n$ de partículas son generadas, como no toda la radiancia es absorbida algunas de estas partículas son reflejadas. Luego del primer rebote, uno número $p'n$ de partículas son reflejadas. Luego de $j-1$ reflexiones $p'^j$ son reflejadas. El número $p'$ es descrito por la siguiente ecuación.
+En este algoritmo se aproxima la radiancia reflectada en escena utilizando un conjunto de luces virtuales. La radiancia que llega a un punto $x$ es aproximada por la radiancia que proviene de las luces virtuales. Pruebas de visibilidad para cada una de estas luces son realizadas utilizando técnicas de sombreado estándar y la radiancia proveniente de cada una de estas es almacenada en un buffer de acumulación. En la Figura \ref{fig:vpl_passes} se ilustra este algoritmo.
+Las luces virtuales son generadas a partir de partículas lanzadas por las fuentes de luz principales utilizando la secuencia de Halton para el muestreo. En un principio, un número $n$ de partículas son generadas, como no toda la radiancia es absorbida algunas de estas partículas son reflejadas. Luego del primer rebote, uno número $p'n$ de partículas son reflejadas. Luego de $j-1$ reflexiones $p'^j$ son reflejadas. El número $p'$ es descrito por la siguiente ecuación:
 \begin{equation}
     p' = \frac{\sum_{k=1}^{K} p_{d,k}|A_{k}|}{\sum_{k=1}^{K}|A_{k}|}
     \label{eq:reflected_vpls}
 \end{equation} donde la escena es compuesta por $K$ elementos de superficie $A_{k}$ con una reflectividad promedio de $p_{d,k}$.
 
 \subsection{Mapas de Sombras Reflexivo}
-Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} o \emph{reflective shadow maps}. La técnica de \ac{RSM} fue presentada por Dachsbacher y otros en 2005 \cite{Dachsbacher:2005}.  Esta técnica está inspirada en mapeado de sombras como ya fue explicado anteriormente en \ref{subsec:shadowmapping}, se utiliza proyección desde la fuente de luz para determinar el primer rebote de luz. Al renderizar la escena desde el punto de vista de la fuente de luz, se entiende que todos los fragmentos en el mapa de sombras son los únicos fragmentos involucrados en el primer rebote de luz. En \ac{RSM} cada uno de los píxeles en el mapa de sombras es considerado una fuente de luz. Por cada píxel $p$ además de la profundidad $d_{p}$, se necesita almacenar posición $x_{p}$, normal $n_{p}$, y el flujo de radiancia reflectada $\Theta_{p}$.
+Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} o \emph{reflective shadow maps}. La técnica de \ac{RSM} fue presentada por Dachsbacher y otros en 2005 \cite{Dachsbacher:2005}.  Esta técnica está inspirada en mapeado de sombras como ya fue explicado anteriormente en \ref{subsec:shadowmapping}, se utiliza proyección desde la fuente de luz para determinar el primer rebote de luz. Al renderizar la escena desde el punto de vista de la fuente de luz, se entiende que todos los fragmentos en el mapa de sombras son los únicos fragmentos involucrados en el primer rebote de luz. En \ac{RSM} cada uno de los píxeles en el mapa de sombras es considerado una fuente de luz. Por cada píxel $p$ además de la profundidad $d_{p}$, se necesita almacenar posición $x_{p}$, normal $n_{p}$, y el flujo de radiancia reflectada $\Theta_{p}$. En la Figura \ref{fig:rsm_fbo} se puede observar el contenido de un \ac{RSM}.
 
 \begin{figure}[H]
 	\centering
@@ -76,7 +76,7 @@ La iluminación indirecta de un punto se calcula sumando todas las intensidades 
 
 \subsection{Volúmenes de Propagación de Luz en Cascada}
 \label{sub:clpv}
-\Ac{CLPV} o \emph{Cascaded Light Propagation Volumes} presentando por Kaplanyan et al. en 2010 \cite{Kaplanyan:2010} es un algoritmo para el cálculo de iluminación indirecta difusa en tiempo real.
+\Ac{CLPV} o \emph{Cascaded Light Propagation Volumes} presentando por Kaplanyan et al. en 2010 \cite{Kaplanyan:2010} es un algoritmo para el cálculo de iluminación indirecta difusa en tiempo real. En la Figura \ref{fig:lvp_results} se observan los resultados de esta técnica.
 
 \begin{figure}[H]
 	\centering
@@ -88,10 +88,10 @@ La iluminación indirecta de un punto se calcula sumando todas las intensidades 
 \begin{wrapfigure}[11]{l}{0.3\linewidth}
 	\centering
 	\includegraphics[width=0.90\linewidth]{media/g4957.png}
-	\caption{cuadrículas de \\ propagación anidadas, las cuadrículas se solapan.}
+	\caption{Cuadrículas de \\ propagación anidadas, las cuadrículas se solapan.}
 	\label{fig:nested_lpv}
 \end{wrapfigure}
-Este método simula el transporte de luz utilizando técnicas similares en algoritmos para simulación de fluidos basados en cuadrículas tridimensionales \cite{Crane07}. La intensidad de luz es almacenada en una cuadrícula y de forma iterativa cada celda transfiere la intensidad de la luz a sus vecinos. Esta cuadrícula es llamada \ac{LPV}. La luz puede ser bloqueada por la geometría de la escena, la cual es obtenida de otra cuadrícula llamada \ac{GV}. Para mejorar el rendimiento del algoritmo y reducir el consumo de memoria se utiliza un conjunto de cuadrículas anidadas. Para los objetos cercanos al observador la iluminación indirecta es calculada utilizando una cuadrícula mucho más fina.
+\noindent Este método simula el transporte de luz utilizando técnicas similares en algoritmos para simulación de fluidos basados en cuadrículas tridimensionales \cite{Crane07}. La intensidad de luz es almacenada en una cuadrícula y de forma iterativa cada celda transfiere la intensidad de la luz a sus vecinos. Esta cuadrícula es llamada \ac{LPV}. La luz puede ser bloqueada por la geometría de la escena, la cual es obtenida de otra cuadrícula llamada \ac{GV}. Para mejorar el rendimiento del algoritmo y reducir el consumo de memoria se utiliza un conjunto de cuadrículas anidadas (ver Figura \ref{fig:nested_lpv}). Para los objetos cercanos al observador la iluminación indirecta es calculada utilizando una cuadrícula mucho más fina.
 
 Primero por cada fuente de luz, es necesario renderizar un \ac{RSM}. Cada texel del \ac{RSM} es considerado una \ac{VPL}. La intensidad del \ac{VPL} es acumulada y almacenada como un harmónico esférico dentro de las celdas de la cuadrícula.
 
@@ -105,11 +105,11 @@ Para una correcta propagación de la luz el algoritmo necesita conocer la geomet
 	\label{fig:lpv_explain}
 \end{figure}
 
-La propagación de luz se realiza de forma iterativa. La intensidad de luz en cada iteración es propagada a 6 vecinos por celda según eje direccional principal. Primero por cada celda adyacente el flujo de radiancia incidente por cada una de las celdas es calculado. Luego el flujo incidente de cada celda es transformado en emitancia radiante. Esto se logra creando \ac{VPL}s, cada una de estas luces virtuales son colocadas sobre una de las caras de la celda y emiten un flujo radiancia similar el flujo de radiancia de la celda. Estas \ac{VPL} son acumuladas dentro del \ac{LPV} de nuevo y almacenadas como esféricos harmónicos utilizando el mismo proceso de inyección del primer paso. 
+La propagación de luz se realiza de forma iterativa. La intensidad de luz en cada iteración es propagada a 6 vecinos por celda según eje direccional principal. Primero por cada celda adyacente el flujo de radiancia incidente por cada una de las celdas es calculado. Luego el flujo incidente de cada celda es transformado en emitancia radiante. Esto se logra creando \ac{VPL}s, cada una de estas luces virtuales son colocadas sobre una de las caras de la celda y emiten un flujo radiancia similar el flujo de radiancia de la celda. Estas \ac{VPL} son acumuladas dentro del \ac{LPV} de nuevo y almacenadas como esféricos harmónicos utilizando el mismo proceso de inyección del primer paso. En la Figura \ref{fig:lpv_explain} se describe este algoritmo. 
 
 \subsection{Iluminación Indirecta con Trazado de Conos y Vóxeles}
 \label{sub:voxel_cone_tracing_orig}
-Este algoritmo es presentado por Crassin et al. en 2011 \cite{CNSGE11b} para el cálculo de iluminación indirecta utilizando trazado de conos contra vóxeles o \emph{Indirect Illumination Using Voxel Cone Tracing}. En esta técnica se utiliza una estructura de árbol disperso o \emph{sparse} para almacenar ya filtrados los valores necesarios para el cálculo de iluminación indirecta en vóxeles. Este árbol es una representación tridimensional de la escena por tanto cada nodo tiene ocho hijos que representan las ocho particiones de un cubo en partes más pequeñas de forma uniforme. Esta clase de estructuras son llamadas \emph{octrees}. La estructura dispersa requiere menor consumo de memoria ya que solo los vóxeles necesarios son almacenados.
+Este algoritmo es presentado por Crassin et al. en 2011 \cite{CNSGE11b} para el cálculo de iluminación indirecta utilizando trazado de conos contra vóxeles o \emph{Indirect Illumination Using Voxel Cone Tracing}. En la Figura \ref{fig:givoxels_sponzanew1} se observan los resultados de este algoritmo. En esta técnica se utiliza una estructura de árbol disperso o \emph{sparse} para almacenar ya filtrados los valores necesarios para el cálculo de iluminación indirecta en vóxeles. Este árbol es una representación tridimensional de la escena por tanto cada nodo tiene ocho hijos que representan las ocho particiones de un cubo en partes más pequeñas de forma uniforme. Esta clase de estructuras son llamadas \emph{octrees}. La estructura dispersa requiere menor consumo de memoria ya que solo los vóxeles necesarios son almacenados.
 
 \begin{figure}[H]
 	\centering
@@ -131,15 +131,14 @@ Primero la escena es renderizada utilizando proyección ortogonal. Cada triángu
 	\caption{Descripción gráfica del proceso de subdivisión del octree.}
 	\label{fig:miplevels}
 \end{wrapfigure}
-
-Una vez llena la lista de vóxeles-fragmentos, se genera un hilo de procesamiento por cada fragmento en la lista. Los fragmentos son introducidos en el árbol disperso que inicialmente solo tiene un nodo raíz. Cada vez que un nodo de este octree necesita ser dividido un nuevo nodo es creado y se almacena sobre memoria ya reservada en la \ac{GPU}. La posición del nodo en memoria es determinada por un contador atómico, el cual se incrementa con cada nuevo nodo. Al inicio del proceso de subdivisión de los nodos se genera una gran cantidad de colisiones entre hilos, por esto cada nodo tiene asociado un símbolo mutex.
+\noindent Una vez llena la lista de vóxeles-fragmentos, se genera un hilo de procesamiento por cada fragmento en la lista. Los fragmentos son introducidos en el árbol disperso que inicialmente solo tiene un nodo raíz (ver Figura \ref{fig:miplevels}). Cada vez que un nodo de este octree necesita ser dividido un nuevo nodo es creado y se almacena sobre memoria ya reservada en la \ac{GPU}. La posición del nodo en memoria es determinada por un contador atómico, el cual se incrementa con cada nuevo nodo. Al inicio del proceso de subdivisión de los nodos se genera una gran cantidad de colisiones entre hilos, por esto cada nodo tiene asociado un símbolo mutex.
 
 \subsubsection{Contenido de un Vóxel}
 \label{subsub:voxelcontent_orig}
 
-El algoritmo está diseñado para hacer uso de filtrado trilineal por hardware. Sin embargo dos vóxeles vecinos no necesariamente están posicionados de forma subsecuente en memoria. Por esto cada nodo contiene un bloque o \emph{brick}. Este bloque representa el entramado $3^3$ de la celda, donde estas celdas se encuentran en las esquinas de los hijos del nodo.
+El algoritmo está diseñado para hacer uso de filtrado trilineal por hardware. Sin embargo dos vóxeles vecinos no necesariamente están posicionados de forma subsecuente en memoria. Por esto cada nodo contiene un bloque o \emph{brick}. Este bloque representa el entramado $3^3$ de la celda, donde estas celdas se encuentran en las esquinas de los hijos del nodo (ver Figura \ref{fig:bricks_vct}).
 
-Cada vóxel representa varios parámetros. Entre ellos color, opacidad, normal, intensidad, etc.
+Cada vóxel representa varios parámetros, entre ellos color, opacidad, normal, intensidad, etc.
 
 \begin{figure}[H]
 	\centering
@@ -153,7 +152,7 @@ Cada vóxel representa varios parámetros. Entre ellos color, opacidad, normal, 
 Inicialmente cada uno de estos parámetros es almacenado dentro de las hojas del árbol disperso. Luego de forma iterativa estos valores son filtrados desde los niveles más bajos a los niveles más altos de la jerarquía, este proceso es llamado \emph{mip-mapping}. Cada nodo de un bloque es filtrado a partir de las $3^3$ celdas del nivel anterior en jerarquía. Para calcular el valor filtrado sobre el actual nodo el algoritmo promedia los valores de los nodos en el nivel anterior. Al calcular el valor filtrado cada vóxel debe ser pesado con la inversa de su multiplicidad, resultando en un kernel gaussiano de $3^3$. 
 
 \subsubsection{Trazado de Conos y Vóxeles}
-Una vez que el árbol disperso está filtrado y completo se utiliza para el cálculo de iluminación indirecta. Por cada fragmento un conjunto de conos es generado. La dirección y apertura de cada cono es determinada por la \ac{BRDF} del material en ese fragmento. Por ejemplo la \ac{BRDF} Blinn-Phong vista en \ref{para:blinn_phong} puede ser descompuesta como un lóbulo ancho para la parte difusa y un lóbulo especular. Para el lóbulo difuso varios conos son generados orientados por la semiesfera sobre el punto con apertura y dirección maximizadas a tal manera que los conos cubran gran parte de la misma. Para el lóbulo especular se genera un solo cono con una apertura que varía según el término $n$ de la \ac{BRDF} Blinn-Phong. El cono especular tiene como dirección la dirección de la luz incidente reflectada $R$ (seccion \ref{para:speculars}).
+Una vez que el árbol disperso está filtrado y completo se utiliza para el cálculo de iluminación indirecta. Por cada fragmento un conjunto de conos es generado. La dirección y apertura de cada cono es determinada por la \ac{BRDF} del material en ese fragmento. Por ejemplo la \ac{BRDF} Blinn-Phong vista en la sección \ref{para:blinn_phong} puede ser descompuesta como un lóbulo ancho para la parte difusa y un lóbulo especular. Para el lóbulo difuso varios conos son generados orientados por la semiesfera sobre el punto con apertura y dirección maximizadas a tal manera que los conos cubran gran parte de la misma. Para el lóbulo especular se genera un solo cono con una apertura que varía según el término $n$ de la \ac{BRDF} Blinn-Phong. El cono especular tiene como dirección la dirección de la luz incidente reflectada $R$ (sección \ref{para:speculars}).
 
 El algoritmo utiliza trazado de conos aproximados para acumular la intensidad de la luz incidente sobre el fragmento. Los valores son recolectados de varias muestras a través del recorrido del cono utilizando composicion \emph{front-to-back}. Por cada muestra se examina el árbol disperso de vóxeles. El nivel del árbol a examinar es determinado por el diámetro del cono en esa posición.
 
@@ -170,7 +169,7 @@ A pesar de que el filtrado gaussiano es suficiente para proveer resultados visua
 	\label{fig:vct_anisofiltering}
 \end{figure}
 
-Para solventar este problema se realiza una representación anisotrópica de los vóxeles durante el proceso de mip-mapping. En vez de tener un solo canal de valores filtrados sin dirección, ahora los valores serán filtrados de forma direccional, almacenando seis canales por cada eje positivo y negativo. Un valor direccional es calculado realizando un paso de integración volumétrica en profundidad y promediando los cuatro valores direccionales para obtener el valor resultante según una dirección. La Figura \ref{fig:vct_anisofiltering} describe este proceso.
+Para solventar este problema se realiza una representación anisotrópica de los vóxeles durante el proceso de mip-mapping. En vez de tener un solo canal de valores filtrados sin dirección, ahora los valores serán filtrados de forma direccional, almacenando seis canales por cada eje positivo y negativo. Un valor direccional es calculado realizando un paso de integración volumétrica en profundidad y promediando los cuatro valores direccionales para obtener el valor resultante según una dirección (ver Fgura \ref{fig:vct_anisofiltering}).
 
 \subsubsection{Captura de Iluminación Directa}
 \label{subsub:voxel_capture}

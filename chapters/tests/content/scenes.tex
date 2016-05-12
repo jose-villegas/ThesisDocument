@@ -4,7 +4,7 @@ En esta sección se describe las distintas escenas y configuraciones a realizar 
 
 \subsection{Escenas de Prueba y Objetos}
 
-Para la realización de pruebas de precisión y rendimiento se utilizaran siete escenas las cuales clasificaremos en dos categorías, escenas completas y ambientes de pruebas que llamaremos escenas \emph{sandbox}. Todas las escenas comprenden varios niveles de complejidad con respecto a geometría e iluminación. La aplicación también incluye una serie de modelos precargados los cuales serán agregados a las escenas, estos objetos son considerados dinámicos.
+Para la realización de pruebas de precisión y rendimiento se utilizan siete escenas las cuales se clasifican en dos categorías: escenas completas y ambientes de pruebas que llamaremos escenas \emph{sandbox}. Todas las escenas comprenden varios niveles de complejidad con respecto a geometría e iluminación. La aplicación también incluye una serie de modelos precargados los cuales serán agregados a las escenas, estos objetos son considerados dinámicos.
 
 \subsubsection{Escenas Completas}
 
@@ -15,7 +15,7 @@ Como escenas completas consideramos cuatro escenas comunes para pruebas de ilumi
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 Nombre            & Vértices & Triángulos & Texturas & Geometría & Iluminación \\ \hline
-Sponza     & 153.635  & 278.163    & Si       & Compleja  & Compleja     \\ \hline
+Sponza     & 153.635  & 278.163    & Sí       & Compleja  & Compleja     \\ \hline
 Conference   & 194.399  & 331.179    & No       & Compleja  & Compleja     \\ \hline
 Sibenik & 40.479   & 75.283     & Si       & Media     & Media        \\ \hline
 Cornell Box       & 72       & 36         & No       & Simple    & Simple       \\ \hline
@@ -24,7 +24,7 @@ Cornell Box       & 72       & 36         & No       & Simple    & Simple       
 \label{tab:scenes_attributes}
 \end{table}
 
-\paragraph{Sponza:} Modelo del atrio del palacio Sponza en Dubrovnik, este modelo originalmente realizado por Marko Dabrovic y luego remodelado por Frank Meinl de Crytek con nuevos elementos como cortinas, vasos y plantas, además de mapas especulares, albedo y normales. Esta es una escena de dimensión considerable con propagación de luz compleja, especialmente en las áreas ocluidas por las cortinas y los pasillos superiores donde la luz difusa rebota luego de pasar a través de varias columnas. En la Figura \ref{fig:crytek_sponza} se puede observar esta escena.
+\paragraph{Sponza:} Modelo del atrio del palacio Sponza en Dubrovnik, este modelo originalmente realizado por Marko Dabrovic y luego remodelado por Frank Meinl de Crytek con nuevos elementos como cortinas, vasos y plantas, además de mapas especulares, albedo y normales \cite{sponza_model}. Esta es una escena de dimensión considerable con propagación de luz compleja, especialmente en las áreas ocluidas por las cortinas y los pasillos superiores donde la luz difusa rebota luego de pasar a través de varias columnas. En la Figura \ref{fig:crytek_sponza} se puede observar esta escena.
 
 \begin{figure}[H]
 	\centering
@@ -33,7 +33,7 @@ Cornell Box       & 72       & 36         & No       & Simple    & Simple       
 	\label{fig:crytek_sponza}
 \end{figure}
 
-\paragraph{Conference:} Un modelo 3D basado en una sala de conferencias real del \emph{Lawrence Berkeley National Laboratory}. Esa es una escena pequeña pero de gran complejidad geométrica con muchos objetos repetidos. El transporte de luz es particularmente complejo en partes ocluidas como debajo de sillas o la mesa central, la escena es un interior cerrado y la única luz directa exterior entra a través de unas pequeñas rendijas cerca de las cortinas. En la Figura \ref{fig:conference} se puede observar esta escena.
+\paragraph{Conference:} Un modelo 3D basado en una sala de conferencias del \emph{Lawrence Berkeley National Laboratory} \cite{conference_model}. Esa es una escena interior pequeña pero de gran complejidad geométrica con muchos objetos similares. El transporte de luz es particularmente complejo en ciertas partes como debajo de sillas o la mesa central. En la Figura \ref{fig:conference} se puede observar esta escena.
 
 \begin{figure}[H]
 	\centering
@@ -42,7 +42,7 @@ Cornell Box       & 72       & 36         & No       & Simple    & Simple       
 	\label{fig:conference}
 \end{figure}
 
-\paragraph{Sibenik:} El interior de una catedral. La luz entra a ella a través de ventanas y se propaga por toda la escena. La escena tiene una sección con columnas ideal para probar sombras. En esta misma sección de columnas hay un piso de mármol que permite apreciar reflexión especular. Una alfombra roja cubre gran parte de la catedral esta permite la visualización de reflexión difusa. En la Figura \ref{fig:sibenik} se puede observar esta escena.
+\paragraph{Sibenik:} El interior de una catedral \cite{sibenik_model}. La luz entra a ella a través de ventanas y se propaga por toda la escena. La escena tiene una sección con columnas ideal para probar sombras. En esta misma sección de columnas hay un piso de mármol que permite apreciar reflexión especular. Una alfombra roja cubre gran parte de la catedral esta permite la visualización de reflexión difusa. En la Figura \ref{fig:sibenik} se puede observar esta escena.
 
 \begin{figure}[H]
 	\centering
@@ -51,7 +51,7 @@ Cornell Box       & 72       & 36         & No       & Simple    & Simple       
 	\label{fig:sibenik}
 \end{figure}
 
-\paragraph{Cornell Box:} Este es un modelo popular para la visualización de iluminación global. Creado por Donald Greenberg y estudiantes de \emph{Cornell University}. El Cornell Box está compuesto por una caja con dos paredes de colores, a la izquierda una roja y a la derecha una verde, estas permiten observar reflexión difusa y mezclado de colores. El resto de la caja es blanca. En la pared superior se observa un pequeño plano pensando para simular una fuente de luz de área. Dentro de esta caja se encuentran dos cajas más, una pequeña y otra más alta. En la Figura \ref{fig:cornell} se puede observar esta escena.
+\paragraph{Cornell Box:} Este es un modelo para la visualización de iluminación global. Creado por Donald Greenberg y estudiantes de \emph{Cornell University} \cite{cornell_model}. El Cornell Box está compuesto por una caja con dos paredes de colores, a la izquierda una roja y a la derecha una verde, el resto de la caja es blanca. Dentro de esta caja se encuentran dos cajas más, una pequeña y otra más alta. En la Figura \ref{fig:cornell} se puede observar esta escena.
 
 \begin{figure}[H]
 	\centering

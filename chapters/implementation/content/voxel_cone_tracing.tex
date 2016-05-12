@@ -1,8 +1,8 @@
 \section{Trazado de Conos con Vóxeles} % (fold)
 \label{sec:trazado_de_conos}
-El trazado de conos es utilizado para distintos aspectos visuales de la aplicación. En nuestra implementación este proceso se realiza durante el cálculo de iluminación utilizando sombreado diferido (sección \ref{sub:deferred_rendering_theory}). Utilizar sombreado diferido es muy conveniente ya que durante el cálculo de iluminación solo es necesario trazar conos sobre cada pixel en vez de cada fragmento incluyendo los no visibles.
+El trazado de conos es utilizado para distintos aspectos visuales de la aplicación. En nuestra implementación este proceso se realiza durante el cálculo de iluminación utilizando sombreado diferido (sección \ref{sub:deferred_rendering_theory}). Utilizar sombreado diferido es muy conveniente ya que durante el cálculo de iluminación solo es necesario trazar conos sobre cada píxel en vez de cada fragmento incluyendo los no visibles.
 
-Como se menciona en la sección \ref{sec:trazado_de_conos_con_voxeles}. El trazado de conos es similar a ray-marching con la única diferencia que el volumen a muestrear incrementa de tamaño según la distancia recorrida. Esto es producto de la expansión de la apertura del cono a través de su expansión. Las muestras de mayor tamaño se obtienen utilizando los niveles de mip map descritos en la sección anterior.
+Como se menciona en la sección \ref{sec:trazado_de_conos_con_voxeles}. El trazado de conos es similar a ray-marching con la única diferencia que el volumen a muestrear incrementa de tamaño según la distancia recorrida. Esto es producto de la expansión de la apertura del cono a través de su expansión. Las muestras de mayor tamaño se obtienen utilizando los niveles de mipmap descritos en la sección anterior.
 
 Al utilizar vóxeles anisótropos se necesita saber que volúmenes direccionales van a ser utilizados para muestrear a través del recorrido del cono. Esto se determina según el signo de cada eje del vector direccional del cono. También es necesario calcular el peso de cada eje para obtener un resultado ponderado entre los tres volúmenes. El Código \ref{Trace0} describe este proceso.
 \\
@@ -163,7 +163,7 @@ vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 spe
 
         for(int i = 0; i < 6; i++)
         {
-            // rotación de la dirección según cada dirección del cono difuso con la normal
+            // rotación de la dirección según cada dirección del cono difuso con vector normal
             coneDirection = normal;
             coneDirection += diffuseConeDirections[i].x * right + diffuseConeDirections[i].z * up;
             coneDirection = normalize(coneDirection);
@@ -177,7 +177,7 @@ vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 spe
 }
 \end{lstlisting}
 
-Las direcciones, pesos de integración y tangente del ángulo ya se encuentran pre-calculados. Para rotar a lo largo del vector normal se obtienen vectores direccionales perpendiculares a la normal utilizando un vector guía.
+Las direcciones, pesos de integración y tangente del ángulo ya se encuentran pre-calculados. Para rotar a lo largo del vector normal se obtienen vectores direccionales perpendiculares al vector normal utilizando un vector guía.
 \subsection{Reflexión Especular} % (fold)
 \label{sub:reflexion_especular}
 Para la reflexión especular se utiliza un solo cono con la dirección $R$ del lóbulo especular (sección \ref{para:speculars}) y una apertura adecuada a la potencia especular $n$ de un material para la \ac{BRDF} Blinn-Phong (sección \ref{para:blinn_phong_mod}). El Código \ref{Trace4} expone la generación del cono especular:
@@ -207,10 +207,10 @@ vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 spe
 }
 \end{lstlisting}
 
-Para modular la apertura del cono especular utilizamos la función tangente. En el componente alfa de la especular se encuentra la potencia especular sin escalar, esto quiere decir que va de cero a uno. También limitamos el cono especular a mínimo un grado de apertura. Los conos extremadamente finos puede afectar mucho el rendimiento del programa, además de esto la apertura no puede ser cero.
+Para controlar la apertura del cono especular utilizamos la función tangente. En el componente alfa de la especular se encuentra la potencia especular sin escalar, esto quiere decir que va de cero a uno. También se limita el cono especular a mínimo un grado de apertura. Los conos extremadamente finos puede afectar mucho el rendimiento del programa, además de esto la apertura no puede ser cero.
 \subsection{Oclusión Ambiental} % (fold)
 \label{sub:oclusion_ambient}
-En nuestra implementación los conos utilizados para calcular la reflexión difusa son también utilizados para calcular la oclusión ambiental. Primero se realiza una pequeña adición a la función \emph{TraceCone} en el Código \ref{Trace2} para incluir el cálculo de oclusión ambiental como es descrito en la sección \ref{sub:occl_ambt_prop}. El Código \ref{Trace5} expone esta adición.
+En nuestra implementación los conos utilizados para calcular la reflexión difusa son también utilizados para calcular la oclusión ambiental. Primero se realiza una pequeña adición a la función \emph{TraceCone} en el Código \ref{Trace2} para incluir el cálculo de oclusión ambiental como es descrito en la sección \ref{sub:occl_ambt_prop}:
 \\
 \begin{lstlisting}[caption={Oclusión ambiental para el algoritmo de trazado de conos.}, label=Trace5]
 vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture, bool traceOcclusion)
@@ -236,7 +236,7 @@ vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture, bool 
 }
 \end{lstlisting}
 
-El trazado del cono ambiental es muy similar a la acumulación completa la diferencia esta en que solo se acumula la opacidad y la multiplicación de cada muestra por la función $f(r)$ descrita en la sección \ref{sub:occl_ambt_prop}. Acá nuestro $\lambda$ es la variable \emph{falloff} pre-multiplicada por $0.5$ para obtener el radio del cono. La oclusión ambiental es almacenada en el alfa del vector retornado por $TraceCone$ esta será utilizada luego para la composición final de la imagen.
+El trazado del cono ambiental es muy similar a la acumulación completa la diferencia esta en que solo se acumula la opacidad y la multiplicación de cada muestra por la función $f(r)$ descrita en la sección \ref{sub:occl_ambt_prop}. Acá $\lambda$ es la variable \emph{falloff} pre-multiplicada por $0.5$ para obtener el radio del cono. La oclusión ambiental es almacenada en el alfa del vector retornado por $TraceCone$ esta será utilizada luego para la composición final de la imagen.
 
 \subsection{Sombras Suaves con Trazado de Conos} % (fold)
 \label{sub:sombras_con_trazado_de_conos}
@@ -263,7 +263,7 @@ float TraceShadowCone(vec3 position, vec3 direction, float aperture, float maxTr
 }
 \end{lstlisting}
 
-En nuestra implementación multiplicamos la opacidad por un valor \emph{k} definido por el usuario. Este valor indica que tan suave es la sombra.
+Cada muestra de opacidad es multiplicada por un valor \emph{k} definido por el usuario que indica que tan suave es la sombra.
 
 Este cono es trazado por cada fuente de luz que habilita trazado de sombras. La posición del cono es la posición del fragmento a iluminar y la dirección es la dirección de la luz. La función también recibe la distancia de trazado, esto es útil para luces puntuales y focales las cuales comprenden un volumen de influencia en escena.
 % subsection sombras_con_trazado_de_conos (end)
@@ -300,7 +300,7 @@ void main()
     directLighting = CalculateDirectLighting(position, normal, albedo, specular);
     // composicion final 
     compositeLighting = (directLighting + indirectLighting.rgb) * indirectLighting.a;
-    // se agrega emisión del pixel
+    // se agrega emisión del píxel
     compositeLighting += emissive;
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
     // color mostrado en pantalla
@@ -308,5 +308,5 @@ void main()
 }
 \end{lstlisting}
 
-Después de obtener el valor final se puede aplicar corrección gamma, mapeo de tonos o \emph{tonemapping} o cualquier otro pos-proceso sobre la imagen. En nuestra implementación se hace solo corrección gamma y Reinhard tonemapping \cite{Reinhard:2002:PTR:566570.566575} sobre la variable \emph{compositeLighting} sin pos-procesamiento.
+Después de obtener el valor final se puede aplicar corrección gamma, mapeo de tonos o \emph{tonemapping} o cualquier otro pos-proceso sobre la imagen. En nuestra implementación se hace solo corrección gamma y Reinhard tonemapping \cite{Reinhard:2002:PTR:566570.566575} sobre la variable \emph{compositeLighting} sin post-procesamiento.
 % subsection composicion_final (end)

@@ -26,7 +26,7 @@ La \ac{BRDF} en un punto $x$ se define entonces como la distribución de la radi
         &= \frac{dL(x\to\Theta)}{L(x\gets\Psi)\cos(N_{x}, \Psi)dw_{\Psi}}
 	\end{split}
 	\label{eq:brdf_def}
-\end{equation} donde $\cos(N_{x}, \Psi)$ es el coseno del ángulo formado entre la normal en el punto $x$ y el vector dirección $\Psi$, también llamado atenuación normal.
+\end{equation} donde $\cos(N_{x}, \Psi)$ es el coseno del ángulo formado entre el vector normal en el punto $x$ y el vector dirección $\Psi$, también llamado atenuación normal.
 
 \subsubsection{Propiedades de la Función BRDF}
 
@@ -68,7 +68,7 @@ La reflectancia $\rho_{d}$ representa la fracción de la energía incidente que 
 \label{para:speculars}
 Superficies especulares perfectas solo reflejan o refractan luz en una dirección específica.
 \paragraph{Reflexión Especular:}
-La dirección de reflexión puede ser obtenida utilizando la ley de reflexión, esta indica que la dirección de la luz incidente y saliente tienen un ángulo equivalente con la normal de la superficie. Dado que la luz es incidente con respecto a la superficie con vector dirección $\Psi$, y la normal de la superficie es $N$, la luz incidente es reflectada en la dirección $R$:
+La dirección de reflexión puede ser obtenida utilizando la ley de reflexión, esta indica que la dirección de la luz incidente y saliente tienen un ángulo equivalente con el vector normal de la superficie. Dado que la luz es incidente con respecto a la superficie con vector dirección $\Psi$, y el vector normal de la superficie es $N$, la luz incidente es reflectada en la dirección $R$:
 
 \begin{equation}
     R = 2(N\cdot\Psi)N - \Psi
@@ -80,8 +80,8 @@ Un reflector especular perfecto tiene solo una dirección de salida donde la \ac
 \paragraph{Superficies Lustrosas:}
 La mayoría de las superficies no son ni idealmente difusas ni idealmente especulares, sino que demuestran una combinación de ambas características de reflectancia. Estas superficies son llamadas superficies lustrosas o superficies \emph{glossy}. La \ac{BRDF} que describe esta clase de materiales es usualmente difícil de modelar de forma analítica \cite{advanced_gi2006}.
 
-\subsubsection{Modelos de sombreado.}
-Materiales reales puede tener \ac{BRDF}s particularmente complejas. En computación gráfica existen varios modelos que intentan capturar la complejidad de las \ac{BRDF}s. En la siguiente sección se expande sobre ciertos modelos relevantes a este trabajo. Nótese que $\Psi$ es la dirección de la luz (dirección incidente), $\Theta$ es la dirección del observador (dirección saliente) y $N$ la normal de la superficie.
+\subsubsection{Modelos de Sombreado.}
+Materiales reales puede tener \ac{BRDF}s particularmente complejas. En computación gráfica existen varios modelos que intentan capturar la complejidad de las \ac{BRDF}s. En la siguiente sección se expande sobre ciertos modelos relevantes a este trabajo. Nótese que $\Psi$ es la dirección de la luz (dirección incidente), $\Theta$ es la dirección del observador (dirección saliente) y $N$ el vector normal de la superficie.
 
 \paragraph{Modelo de Lambert:}
 Uno de los modelos más simples, este modelo es ideal para superficies difusas, en este modelo la \ac{BRDF} es una constante como ya fue descrito anteriormente en la ecuación \ref{eq:diffuse_reflection}.
@@ -108,7 +108,7 @@ El modelo Blinn-Phong utiliza el vector medio $H$ entre $\Psi$ y $\Theta$ de la 
     \label{eq:blinn_phong_pr}
 \end{equation}
 
-El valor $n$ varía según las propiedades del material. Un mayor valor provee un lóbulo especular más pequeño, simulando superficies lisas y pulidas. En la Figura \ref{fig:blinn_spec_comparison} se puede observar este efecto. En la Figura \ref{fig:brdfs_comparison} se puede observar el resultado de este modelo.
+El valor $n$ varía según las propiedades del material. Un mayor valor provee un lóbulo especular más pequeño, simulando superficies lisas y pulidas. En la Figura \ref{fig:blinn_spec_comparison} se puede observar este efecto, y en la Figura \ref{fig:brdfs_comparison} se puede observar el resultado de este modelo.
 
 \begin{figure}[H]
 	\centering
@@ -142,7 +142,7 @@ El valor $n$ varía según las propiedades del material. Un mayor valor provee u
 
 \paragraph{Modelo de Blinn-Phong Modificado:}
 \label{para:blinn_phong_mod}
-El modelo de Phong a pesar de ser simple este tiene ciertas limitaciones, no es ni conservador de energía ni reciproco y tiene problemas para simular materiales reales. El modelo modificado toma en cuenta algunos de estos problemas:
+El modelo de Phong a pesar de ser simple este tiene ciertas limitaciones, no es ni conservador de energía ni recíproco y tiene problemas para simular materiales reales. El modelo modificado toma en cuenta algunos de estos problemas:
 
 \begin{equation}
     f_{r}(x, \Psi\leftrightarrow\Theta) = k_{s}(N\cdot H)^n + k_{d}
@@ -188,7 +188,7 @@ La función gaussiana puede ser utilizada como una representación direccional. 
     \label{eq:gaussia_eq}
 \end{equation}
 
-Esto permite obtener lóbulos gaussianos a partir de dos o más vectores para representar su dirección en común. En la Figura \ref{fig:brdf_lobules} se puede observar el lóbulo para una distribución de dos direcciones.
+Esto permite obtener lóbulos gaussianos a partir de dos o más vectores para representar su dirección en común. En la Figura \ref{fig:lobes_example} se puede observar el lóbulo para una distribución de dos direcciones.
 
 \begin{figure}[H]
 	\centering

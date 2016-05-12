@@ -2,7 +2,7 @@
 \label{sec:voxelizacion}
 El trazado de conos contra geometría poligonal compleja es costoso. Encontrar los puntos de intersección entre un cono y un polígono es mucho más complejo que intersecciones rayo-polígono, además de esto un solo cono podría intersectar muchos polígonos.
 
-Para simplificar el trazado de conos se utiliza una discretización de la escena en forma de vóxeles. Esta representación puede ser filtrada a niveles más bajos de detalle (Figura \ref{fig:voxelization_details}). Esto nos permite aproximar el efecto de extensión sobre la apertura del cono utilizando cada vez un nivel de detalle más bajo a través del recorrido del mismo.
+Para simplificar el trazado de conos se utiliza una discretización de la escena en forma de vóxeles. Esta representación puede ser filtrada a niveles más bajos de detalle (ver Figura \ref{fig:voxelization_details}). Esto nos permite aproximar el efecto de extensión sobre la apertura del cono utilizando cada vez un nivel de detalle más bajo a través del recorrido del mismo.
 
 \begin{figure}[H]
 	\centering
@@ -31,13 +31,11 @@ Para las partes dinámicas de la escena este proceso de voxelización debe ser r
 
 \subsection{Voxelización Conservativa} % (fold)
 \label{sub:voxelizacion_conservativa}
-Nuestra implementación realiza voxelización conservativa de geometría de alto rendimiento totalmente por \ac{GPU} explotando características del pipeline de renderizado con OpenGL. Para esto se implementó el algoritmo de voxelización utilizando rasterizacion en hardware explicado en el libro OpenGL Insights por Cyril Crassin y Simon Green en \empty{Octree-Based Sparse
+Nuestra implementación realiza voxelización conservativa de geometría de alto rendimiento utilizando la \ac{GPU} y explotando características del pipeline de renderizado con OpenGL. Para esto se implementó el algoritmo de voxelización utilizando rasterización en hardware explicado en el libro OpenGL Insights por Cyril Crassin y Simon Green en \empty{Octree-Based Sparse
 Voxelization Using the GPU
-Hardware Rasterizer} \cite{CozziRiccio12}. En la Figura \ref{fig:vox_pipeline} se describe este proceso. 
+Hardware Rasterizer} \cite{CozziRiccio12}. En la Figura \ref{fig:vox_pipeline} se describe este proceso. Este algoritmo está basado en el trabajo de Zhang et al. en 2007 \cite{zhang2007conservative} para la voxelización conservativa utilizando la \ac{GPU} y el trabajo de Hasselgren et al. en 2005 \cite{hasselgren2005conservative} sobre rasterización conservativa.
 
-Este algoritmo está basado en el trabajo de Zhang et al. en 2007 \cite{zhang2007conservative} para la voxelización conservativa utilizando la \ac{GPU} y el trabajo de Hasselgren et al. en 2005 \cite{hasselgren2005conservative} sobre rasterización conservativa.
-
-Para maximizar el área de rasterización la idea es proyectar cada triangulo utilizando proyección ortogonal por cada eje direccional. El eje dominante es escogido según la normal del plano definido por los vértices del triángulo.
+Para maximizar el área de rasterización la idea es proyectar cada triángulo utilizando proyección ortogonal por cada eje direccional. El eje dominante es escogido según el vector normal del plano definido por los vértices del triángulo.
 
 \begin{figure}[H]
 	\centering
@@ -47,7 +45,7 @@ Para maximizar el área de rasterización la idea es proyectar cada triangulo ut
 	\label{fig:vox_pipeline}
 \end{figure}
  
-Por cada triangulo proyectado es necesario generar un polígono delimitante un poco más grande que el triángulo para garantizar la voxelización conservativa. Este polígono debe permitir que por cualquier triangulo proyectado tocando un píxel este va obligatoriamente a tocar el centro de este píxel, por tanto el pipeline de rasterización generara fragmentos para este triángulo. El polígono se genera expandiendo cada vértice del triángulo hacia afuera utilizando el procesador de geometria o \emph{geometry shader}. El polígono delimitante no sobreestima la cobertura del triángulo por tanto este no tiene forma de triángulo. Los fragmentos excedentes de este polígono son descartados en el fragment shader utilizando un  área delimitante. En la Figura \ref{fig:expanded_bbpolygon} se puede describe este polígono.
+Por cada triángulo proyectado es necesario generar un polígono delimitante un poco más grande que el triángulo para garantizar la voxelización conservativa. Este polígono debe permitir que por cualquier triángulo proyectado tocando un píxel este va obligatoriamente a tocar el centro de este píxel, por tanto el pipeline de rasterización generara fragmentos para este triángulo. El polígono se genera expandiendo cada vértice del triángulo hacia afuera utilizando el procesador de geometría o \emph{geometry shader}. El polígono delimitante no sobreestima la cobertura del triángulo por tanto este no tiene forma de triángulo. Los fragmentos excedentes de este polígono son descartados en el fragment shader utilizando un  área delimitante. En la Figura \ref{fig:expanded_bbpolygon} se puede describe este polígono.
 
 \begin{figure}[H]
 	\centering
@@ -60,11 +58,11 @@ Por cada triangulo proyectado es necesario generar un polígono delimitante un p
 % subsection voxelizacion_conservativa (end)
 % section voxelizacion (end)
 
-\subsection{Composicion de Fragmentos y Voxeles}
+\subsection{Composición de Fragmentos y Vóxeles}
 \label{sub:frag_voxels}
 Una vez que los fragmentos han sido generados en el fragment shader, los valores deseados puede ser almacenados en una textura 3D utilizando operaciones de escritura que provee la extensión \emph{GL\_ARB\_shader\_image\_load\_store} en OpenGL \cite{ImageLoadStore}. Sin embargo múltiples fragmentos de diferentes triángulos puede caer sobre una misma posición en esta textura 3D. Bajo el ambiente paralelo del \emph{fragment shader} no es posible saber el orden en que los fragmentos son creados y procesados, esto se traduce en resultados arbitrarios cada vez que se revoxeliza la escena.
 
-Para solventar este problema se utilizaron operaciones atómicas proveídas por la misma extensión citada anteriormente. En nuestra implementación los valores necesarios a almacenar en vóxeles son normal, albedo y emisión. Una operación coherente y sencilla con respecto a estas propiedades en el espacio que envuelve un vóxel es un promedio.
+Para solventar este problema se utilizaron operaciones atómicas provistas por la misma extensión citada anteriormente. En nuestra implementación los valores necesarios a almacenar en vóxeles son normal, albedo y emisión. Una operación coherente y sencilla con respecto a estas propiedades en el espacio que envuelve un vóxel es un promedio.
 
 \subsection{Voxelización Dinámica} % (fold)
 \label{sub:voxelizacion_dinamica}

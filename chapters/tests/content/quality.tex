@@ -742,9 +742,9 @@ En la Figura \ref{fig:fine_emissive} se puede observar en la escena completa Sib
 	\label{fig:leaking}
 \end{figure}
 
-En la Figura \ref{fig:leaking} se puede observar un defecto visual común del algoritmo. Este se puede producirse por defectos de voxelización cuando se falta o excede la cantidad de vóxeles. Esto sucede usualmente por errores en el mallado. Sin embargo también puede ser causado por el mismo algoritmo de voxelización por problemas de precisión en el proceso de rasterización al generar vóxeles en los bordes de la geometría poligonal. Para este caso una forma de reducir este problema es utilizando \ac{MSAA} \cite{gpuvoxelization}. Los vóxeles faltantes o sobrantes pueden causar que se iluminen vóxeles que no deberían iluminarse durante el proceso de sombreado y/o de iluminación global de vóxeles.
+En la Figura \ref{fig:leaking} se puede observar un defecto visual común del algoritmo. Este se puede producirse por defectos de voxelización cuando se falta o excede la cantidad de vóxeles. Esto sucede usualmente por errores en la geometría de la malla. Sin embargo también puede ser causado por el mismo algoritmo de voxelización por problemas de precisión en el proceso de rasterización al generar vóxeles en los bordes de la geometría poligonal. Para este caso una forma de reducir este problema es utilizando \ac{MSAA} \cite{gpuvoxelization}. Los vóxeles faltantes o sobrantes pueden causar que se iluminen vóxeles que no deberían iluminarse durante el proceso de sombreado y/o de iluminación global de vóxeles.
 
-Otra condición en la que esto puede suceder es durante el trazado de conos con vóxeles cuando el trazado salta algunas de las muestras durante el recorrido ya sea dentro del nivel más alto de detalle o por falta de precisión en la interpolación de los niveles de mip map. La utilización de vóxeles anisotrópicos reduce en gran manera esta posibilidad.
+Otra condición en la que esto puede suceder es durante el trazado de conos con vóxeles cuando el trazado salta algunas de las muestras durante el recorrido ya sea dentro del nivel más alto de detalle o por falta de precisión en la interpolación de los niveles de mipmap. La utilización de vóxeles anisotrópicos reduce en gran manera esta posibilidad.
 
 \begin{figure}[H]
 	\centering

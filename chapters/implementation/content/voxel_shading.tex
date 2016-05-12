@@ -1,10 +1,10 @@
 \section{Sombreado de Vóxeles} % (fold)
 \label{sec:sombreado_de_voxeles_impl}
-Para calcular la iluminación indirecta es necesario sombrear los vóxeles. Cada vóxel representa una simplificación de la radiancia saliente sobre un espacio en la escena. Llamaremos a la textura tridimensional resultante del sombreado de voxeles, \emph{textura base}. Esta información es utilizada por el algoritmo de trazado de conos para calcular la radiancia incidente sobre un fragmento.
+Para calcular la iluminación indirecta es necesario sombrear los vóxeles. Cada vóxel representa una simplificación de la radiancia saliente sobre un espacio en la escena. Llamaremos a la textura tridimensional resultante del sombreado de vóxeles, \emph{textura base}. Esta información es utilizada por el algoritmo de trazado de conos para calcular la radiancia incidente sobre un fragmento.
 
 En nuestra implementación la iluminación de los vóxeles comprende solo el componente difuso. En el proceso de voxelización se puede observar que ningún volumen está relacionado al componente especular de un material. Esto debido a dos razones: primero memoria ya que para incluir la especular durante el sombreado de vóxeles tendría que crearse otro volumen y segundo que usualmente el componente especular es un detalle fino de alta frecuencia, la voxelización siendo una simplificación de la escena podría perder detalle en especulares con lóbulos finos e incluso ocasionar errores de sombreado.
 
-Para la iluminación de los vóxeles se utilizan técnicas de iluminación estándar en computación gráfica. La \ac{BRDF} de Lambert ya se encuentra almacenada en nuestro volumen albedo. Es necesario entonces multiplicar este valor por la atenuación normal. Para la ecuacion de renderizado ignorando la emitancia esto resulta en la siguiente ecuacion:
+Para la iluminación de los vóxeles se utilizan técnicas de iluminación estándar en computación gráfica. La \ac{BRDF} de Lambert ya se encuentra almacenada en nuestro volumen albedo. Es necesario entonces multiplicar este valor por la atenuación normal. Para la ecuación de renderizado ignorando la emitancia esto resulta en la siguiente ecuación:
 
 \begin{equation}
 	\begin{split}
@@ -33,20 +33,20 @@ vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 	\caption{Normales disparejas en un vóxel.}
 	\label{fig:error_normals}
 \end{wrapfigure}
-Calcular el sombreado de vóxeles de esta forma es suficiente para generar resultados de buena calidad sobre el trazado de conos. Sin embargo uno de los problemas que surgen al simplificar las normales en vóxeles es que algunos vóxeles tienen normales incorrectas o desviadas. Esto sucede especialmente cuando un vóxel contiene geometría con normales muy disparejas. La Figura \ref{fig:error_normals} ilustra este fenómeno.
+\noindent Calcular el sombreado de vóxeles de esta forma es suficiente para generar resultados de buena calidad durante el trazado de conos. Sin embargo uno de los problemas que surgen al simplificar las normales en vóxeles es que algunos vóxeles tienen normales incorrectas o desviadas. Esto sucede especialmente cuando un vóxel contiene geometría con normales muy disparejas (ver Figura \ref{fig:error_normals}).
 
-Para solventar esto se ideo una alternativa de sombreado sobre la atenuación normal. La idea es calcular la atenuación normal por cada cara del vóxel según la dirección de la luz $\Psi$ y luego ponderar cada atenuación normal por cara con el peso de cada eje en el vector normal. En la Figura \ref{fig:compositve_vshading} sepuede observar la composición para el sombreado final y la diferencia con Lambert tradicional. Además del método Lambert tradicional a este método lo llamamos Lambert direccional ponderado. El siguiente código expone su implementación:
+\noindent Para solventar esto se ideo una alternativa de sombreado sobre la atenuación normal. La idea es calcular la atenuación normal por cada cara del vóxel según la dirección de la luz $\Psi$ y luego ponderar cada atenuación normal por cara con el peso de cada eje en el vector normal. En la Figura \ref{fig:compositve_vshading} se puede observar la composición para el sombreado final y la diferencia con Lambert tradicional. Además del método Lambert tradicional a este método se denomino Lambert direccional ponderado. El Código \ref{Shading2} expone su implementación:
 \\
-\begin{lstlisting}[caption={Sombreado direccional y ponderado según la normal para un vóxel}, label=Shading2]
+\begin{lstlisting}[caption={Sombreado direccional y ponderado según el vector normal para un vóxel}, label=Shading2]
 vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 {
-	// peso en cada eje para la normal del vóxel
+	// peso en cada eje para el vector normal del vóxel
     vec3 weight = normal * normal;
     // atenuación normal por cada cara del vóxel
     float rDotL = dot(vec3(1.0f, 0.0f, 0.0f), light.direction);
     float uDotL = dot(vec3(0.0f, 1.0f, 0.0f), light.direction);
     float fDotL = dot(vec3(0.0f, 0.0f, 1.0f), light.direction);
-    // se encuentra la cara dominante según la normal
+    // se encuentra la cara dominante según el vector normal
     rDotL = normal.x > 0.0f ? max(rDotL, 0.0f) : max(-rDotL, 0.0f);
     uDotL = normal.y > 0.0f ? max(uDotL, 0.0f) : max(-uDotL, 0.0f);
     fDotL = normal.z > 0.0f ? max(fDotL, 0.0f) : max(-fDotL, 0.0);
@@ -95,9 +95,7 @@ vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 
 \subsection{Mapeo y Trazado de Sombras}
 
-Para obtener resultados coherentes también es necesario ocluir vóxeles. 
-
-En nuestra implementación es posible utilizar mapeado de sombras solo para una luz direccional. Esta técnica es explicada en la sección \ref{subsec:shadowmapping}. La posición a proyectar $p_{v}$ es trasladada según la normal del vóxel $n_{v}$ por una distancia equivalente al tamaño medio de un vóxel en espacio de mundo $V_{wsSize}$ esto es equivalente a la siguiente ecuación: $p_{v} = p_{v} + n_{v}\cdot V_{wsSize} \cdot 0.5$. Esto se hace para evitar problemas ya explicados en la sección \ref{sub:trazado_de_sombras_sobre_el_volumen}.
+Para obtener resultados coherentes también es necesario ocluir vóxeles. En nuestra implementación es posible utilizar mapeado de sombras solo para una luz direccional. Esta técnica es explicada en la sección \ref{subsec:shadowmapping}. La posición a proyectar $p_{v}$ es trasladada según el vector normal del vóxel $n_{v}$ por una distancia equivalente al tamaño medio de un vóxel en espacio de mundo $V_{wsSize}$ esto es equivalente a la siguiente ecuación: $p_{v} = p_{v} + n_{v}\cdot V_{wsSize} \cdot 0.5$. Esto se hace para evitar problemas ya explicados en la sección \ref{sub:trazado_de_sombras_sobre_el_volumen}.
 
 Una de las ventajas de este trabajo es la capacidad de incluir muchas luces con iluminación global en escena. Por tanto es necesario alguna forma de incluir sombras para otros tipos de luces y más de una fuente de luz. Nuestra implementación realiza trazado de rayos sobre el volumen para incorporar sombras para cualquier tipo de luz dentro del área de proyección del volumen de vóxeles.
 
@@ -179,7 +177,7 @@ vec3 WorldToVoxel(vec3 position)
 Estas funciones son utilizadas en varias partes del algoritmo en su totalidad. \emph{VoxelToWorld} convierte una coordenada en espacio de textura a una posición en espacio de mundo, mientras que \emph{WorldToVoxel} hace lo contrario. La variable \emph{voxelSize} representa el tamaño de un vóxel dentro de la cuadrícula de vóxeles, \emph{voxelScale} representa la escala de la cuadrícula de vóxeles, \emph{worldMinPoint} es el mínimo punto de la \emph{AABB} que comprende el volumen de voxelización.
 
 \subsection{Vóxeles Emisivos}
-La forma en la que se almacenan materiales emisivos en la representación con vóxeles es muy sencilla. Al culminar el sombreado de un vóxel, al color resultante se le suma el valor de emisión obtenido del proceso de voxelización. El propósito de esto es aproximar de forma muy cruda el valor de $L_e(x\to\Theta)$, este describe la luz emitida por un punto $x$ sobre una superficie. Entonces continuando la ecuación \ref{eq:shading_voxels} ahora considerando emisión:
+La forma como se almacenan materiales emisivos en la representación con vóxeles es muy sencilla. Al culminar el sombreado de un vóxel, al color resultante se le suma el valor de emisión obtenido del proceso de voxelización. El propósito de esto es aproximar de forma muy cruda el valor de $L_e(x\to\Theta)$, este describe la luz emitida por un punto $x$ sobre una superficie. Entonces continuando la ecuación \ref{eq:shading_voxels} ahora considerando emisión:
 
 \begin{equation}
 		L(x\to\Theta) = L_e(x\to\Theta) + \int_{\Omega_{x}}{\frac{\rho}{\pi}L(x\gets\Psi)\cos(N_{x}, \Psi)dw_{\Psi}}
