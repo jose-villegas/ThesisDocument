@@ -25,7 +25,7 @@ Para fuentes de luz con dirección no uniforme como luces puntuales o focales es
 	\label{fig:lambert_dir_diff}
 \end{figure}
 
-Al promediar las normales en el espacio de un vóxel pueden surgir varios problemas de precisión. Esto sucede especialmente cuando un vóxel envuelve superficies finas cercanas con normales disparejas. Para solventar este problema se implementaron dos modelos de iluminación de vóxeles. El modelo de Lambert clásico utilizando el vector normal promedio del vóxel directamente y otro modelo al cual llamaremos Lambert direccional ponderado donde se calcula la atenuación normal por cada cara del vóxel para luego promediar este resultado según el peso de cada eje en el vector normal promedio. En la Figura \ref{fig:lambert_dir_diff} se puede observar el sombreado resultante de ambos modelos.
+Al promediar las normales en el espacio de un vóxel pueden surgir varios problemas de precisión. Esto sucede especialmente cuando un vóxel envuelve superficies finas cercanas con normales disparejas. Para solventar este problema se implementaron dos modelos de iluminación de vóxeles. El modelo de Lambert clásico utilizando el vector normal promedio del vóxel directamente y otro modelo al cual sera llamado Lambert direccional ponderado donde se calcula la atenuación normal por cada cara del vóxel para luego promediar este resultado según el peso de cada eje en el vector normal promedio. En la Figura \ref{fig:lambert_dir_diff} se puede observar el sombreado resultante de ambos modelos.
 % section sombreado_de_voxeles (end)
 
 \subsection{Trazado y Mapeo de Sombras sobre el Volumen} % (fold)
@@ -83,7 +83,7 @@ Una técnica que incrementa la calidad visual de las sombras es la generación d
 	\label{fig:soft_voxel_shadow}
 \end{figure}
 
-En nuestra implementación logramos obtener bordes suaves para las sombras generadas durante el sombreado de vóxeles con un solo rayo. Esta técnica se basa en el hecho de que al trazar un rayo hacia una superficie voxelizada este rayo colisionara más veces contra vóxeles cerca de los bordes de la superficie vistos desde la fuente de luz. Como se observa en la Figura \ref{fig:soft_voxel_shadow} en vez de detener el rayo una vez que se ha encontrado una colisión ahora se le asigna un valor a cada colisión y se ve acumulando este factor a través del recorrido del rayo dividido por la distancia recorrida.
+En nuestra implementación se logra obtener bordes suaves para las sombras generadas durante el sombreado de vóxeles con un solo rayo. Esta técnica se basa en el hecho de que al trazar un rayo hacia una superficie voxelizada este rayo colisionara más veces contra vóxeles cerca de los bordes de la superficie vistos desde la fuente de luz. Como se observa en la Figura \ref{fig:soft_voxel_shadow} en vez de detener el rayo una vez que se ha encontrado una colisión ahora se le asigna un valor a cada colisión y se ve acumulando este factor a través del recorrido del rayo dividido por la distancia recorrida.
 
 
 % subsection trazado_de_sombras_sobre_el_volumen (end)

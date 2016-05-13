@@ -13,7 +13,7 @@ El proceso de trazado de conos con vóxeles funciona de manera similar a marcha 
 \noindent Nuestra implementación realiza trazado de conos con vóxeles de la misma manera que este fue explicado en la sección \ref{sub:voxel_cone_tracing_orig}, la mayor diferencia reside en el uso de texturas 3D. Una de las principales ventajas de utilizar texturas 3D es que estas aceleran forma considerable el muestreo de la estructura jerárquica de vóxeles. Mientras que con un octree cada vez que se desea trazar un cono el árbol tiene que ser recorrido de forma recursiva. Con texturas 3D esto se reduce a una simple instrucción proveída por OpenGL llamada $textureLod()$. Esta función recibe una textura, una coordenada de muestreo y un nivel de mipmap. La función también realiza interpolación lineal entre los distintos niveles de mipmapping si la textura a muestrear así lo habilita.
 % section trazado_de_conos_con_voxeles (end)
 \subsection{Reflexión Difusa}
-La reflexión difusa de un fragmento puede ser aproximada utilizando integración Monte Carlo trazando un número de conos sobre la semiesfera orientada por el vector normal del fragmento y acumulando la radiancia a través del recorrido del cono. En el trabajo original de Crassin se utilizan tres conos para la reflexión difusa. En nuestra implementación utilizamos seis conos difusos distribuidos de forma uniforme sobre la semiesfera. En la Figura \ref{fig:brdf_cones2} se puede observar la distribución de los conos difusos.
+La reflexión difusa de un fragmento puede ser aproximada utilizando integración Monte Carlo trazando un número de conos sobre la semiesfera orientada por el vector normal del fragmento y acumulando la radiancia a través del recorrido del cono. En nuestra implementación se utilizaron seis conos difusos distribuidos de forma uniforme sobre la semiesfera (ver Figura \ref{fig:brdf_cones2}) orientada por el vector normal del fragmento.
 \subsection{Oclusion Ambiental}
 \label{sub:occl_ambt_prop}
 La oclusión ambiental sobre un fragmento puede ser aproximada trazando conos sobre la semiesfera orientada por el vector normal de este. Para la oclusión ambiental solo es relevante acumular información de oclusión. El cono ambiental es ponderado por una función $f(r)$ donde su valor decae según la distancia recorrida. En nuestra aplicación se utiliza la función:
@@ -22,7 +22,6 @@ La oclusión ambiental sobre un fragmento puede ser aproximada trazando conos so
 \end{equation} donde $r$ representa el radio del cono y $\lambda$ una variable personalizada que describe la intensidad de declive según la distancia para el término de oclusión ambiental, básicamente la extensión del radio de oclusión.
 \subsection{Reflexión Especular}
 Nuestra implementación utiliza de modelo la \ac{BRDF} Blinn-Phong. Para obtener la reflexión especular es necesario solo un cono en equivalencia al lóbulo especular de la \ac{BRDF} como se observa en la Figura \ref{fig:brdf_cones2}. La apertura del cono especular depende del factor $n$ en Blinn-Phong, mientras más alto este valor más fino es el cono especular.
-función
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{.32\linewidth}
@@ -51,7 +50,7 @@ función
 
 \subsection{Sombras Suaves} % (fold)
 \label{sub:sombras_suaves_con_trazado_de_conos}
-El trazado de conos contra vóxeles también puede ser utilizado para realizar pruebas de oclusión sobre una superficie. Para esto en nuestra implementación trazamos un cono desde la posición del fragmento en dirección opuesta a la dirección de la luz incidente. Para este cono se acumula la opacidad de los vóxeles. La apertura del cono permite modular el umbral de la sombra resultante. A mayor apertura más suave y esparcida es la sombra. En la Figura \ref{fig:shadow_cone_prop} se describe el trazado de este cono.
+El trazado de conos contra vóxeles también puede ser utilizado para realizar pruebas de oclusión sobre una superficie. Para esto en nuestra implementación se traza un cono desde la posición del fragmento en dirección opuesta a la dirección de la luz incidente. Para este cono se acumula la opacidad de los vóxeles. La apertura del cono permite modular el umbral de la sombra resultante. A mayor apertura más suave y esparcida es la sombra. En la Figura \ref{fig:shadow_cone_prop} se describe el trazado de este cono.
 
 \begin{figure}[H]
 	\centering

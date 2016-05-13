@@ -1,6 +1,6 @@
 \section{Estudio de Rendimiento}
 
-Para el estudio de rendimiento se utilizó la cantidad de tiempo entre rutinas relevantes a cada prueba en milisegundos. Para obtener tiempos precisos en la \ac{GPU} se utilizó el software GPU PerfStudio y análisis de frame. Este software permite observar entre muchas otras cosas el tiempo total de cada invocación de la función de dibujo o \emph{draw call} al API gráfico OpenGL
+Para el estudio de rendimiento se utilizó la cantidad de tiempo entre rutinas relevantes a cada prueba en milisegundos. Para obtener tiempos precisos en la \ac{GPU} se utilizó el software GPU PerfStudio y análisis de frame. Este software permite observar entre muchas otras cosas el tiempo total de cada invocación a la función de dibujo o \emph{draw call} al API gráfico OpenGL
 
 \subsection{Prueba Base}
 La prueba base de rendimiento comprende todos los pasos del algoritmo sin trazado de sombras o modificaciones sobre la escena estática. Para esta prueba se colocó la aplicación en actualización forzosa de tal manera que todos los pasos del algoritmo se realicen por frame. También se varían tres aspectos de la aplicación: resolución de pantalla, dimensión de la representación en vóxeles y factor de longitud de marcha del cono.
@@ -17,7 +17,7 @@ Para estas pruebas se utilizaron todas las escenas completas. La configuración 
 \multicolumn{1}{|l|}{Sponza}      & \multicolumn{1}{l|}{11.29}    & 0.60                                  & \multicolumn{1}{l|}{2.03}     & 1.13                         & \multicolumn{1}{l|}{1.37}      & 5.44                                  & \multicolumn{1}{l|}{1.38}      & \multicolumn{1}{l|}{7.01}            & \multicolumn{1}{l|}{18.97} \\ \hline
 \end{tabular}
 \captionsetup{justification=centering}
-\caption{Rendimiento de todas las partes del algoritmo en distintas escenas utilizando volúmenes de resolución $256^3$, factor de longitud de marcha de $0.5$ y resolución de pantalla de $1280x720p$. Todos los tiempos en milisegundos.}
+\caption{Rendimiento (en milisegundos) de todas las partes del algoritmo en distintas escenas utilizando volúmenes de resolución $256^3$ vóxeles, factor de longitud de marcha de $0.5$ y resolución de pantalla de $1280x720p$.}
 \label{tab:performance_base}
 \end{table}
 
@@ -25,21 +25,21 @@ Para estas pruebas se utilizaron todas las escenas completas. La configuración 
 \centering
 \begin{tabular}{lllllllllll}
 \rot{Resolución de Volumenes}                 & \rot{Escena}                   & \rot{Voxelización Estática} & \rot{Limpieza de Vóxeles Dinámicos} & \rot{Voxelización Dinámica} & \rot{Sombreado de Vóxeles} & \rot{Mipmapping Direccional} & \rot{Iluminación Global de Vóxeles} & \rot{Mipmapping Direccional} & \rot{Trazado de Conos con Vóxeles} & \rot{Tiempo Dinámico}    \\ \hline
-\multicolumn{1}{|l|}{\multirow{4}{*}{\rotv{$64^3$}}}  & \multicolumn{1}{l|}{Sibenik}     & \multicolumn{1}{l|}{3.00}     & 0.01                                  & \multicolumn{1}{l|}{9.17}     & 0.04                         & \multicolumn{1}{l|}{0.11}      & 0.12                                  & \multicolumn{1}{l|}{0.10}      & \multicolumn{1}{l|}{5.17}            & \multicolumn{1}{l|}{14.74} \\
+\multicolumn{1}{|l|}{\multirow{4}{*}{\rotv{$64^3$ vóxeles}}}  & \multicolumn{1}{l|}{Sibenik}     & \multicolumn{1}{l|}{3.00}     & 0.01                                  & \multicolumn{1}{l|}{9.17}     & 0.04                         & \multicolumn{1}{l|}{0.11}      & 0.12                                  & \multicolumn{1}{l|}{0.10}      & \multicolumn{1}{l|}{5.17}            & \multicolumn{1}{l|}{14.74} \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Cornell Box} & \multicolumn{1}{l|}{0.07}     & 0.02                                  & \multicolumn{1}{l|}{2.13}     & 0.06                         & \multicolumn{1}{l|}{0.11}      & 0.29                                  & \multicolumn{1}{l|}{0.11}      & \multicolumn{1}{l|}{4.79}            & \multicolumn{1}{l|}{7.51}  \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Conference}  & \multicolumn{1}{l|}{39.68}    & 0.01                                  & \multicolumn{1}{l|}{5.98}     & 0.03                         & \multicolumn{1}{l|}{0.11}      & 0.10                                  & \multicolumn{1}{l|}{0.11}      & \multicolumn{1}{l|}{5.38}            & \multicolumn{1}{l|}{11.72} \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Sponza}      & \multicolumn{1}{l|}{22.87}    & 0.01                                  & \multicolumn{1}{l|}{13.93}    & 0.05                         & \multicolumn{1}{l|}{0.17}      & 0.13                                  & \multicolumn{1}{l|}{0.17}      & \multicolumn{1}{l|}{5.49}            & \multicolumn{1}{l|}{19.97} \\ \hline
-\multicolumn{1}{|l|}{\multirow{4}{*}{\rotv{$128^3$}}} & \multicolumn{1}{l|}{Sibenik}     & \multicolumn{1}{l|}{2.17}     & 0.08                                  & \multicolumn{1}{l|}{3.93}     & 0.17                         & \multicolumn{1}{l|}{0.26}      & 0.62                                  & \multicolumn{1}{l|}{0.26}      & \multicolumn{1}{l|}{2.17}            & \multicolumn{1}{l|}{3.93}  \\
+\multicolumn{1}{|l|}{\multirow{4}{*}{\rotv{$128^3$ vóxeles}}} & \multicolumn{1}{l|}{Sibenik}     & \multicolumn{1}{l|}{2.17}     & 0.08                                  & \multicolumn{1}{l|}{3.93}     & 0.17                         & \multicolumn{1}{l|}{0.26}      & 0.62                                  & \multicolumn{1}{l|}{0.26}      & \multicolumn{1}{l|}{2.17}            & \multicolumn{1}{l|}{3.93}  \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Cornell Box} & \multicolumn{1}{l|}{0.16}     & 0.10                                  & \multicolumn{1}{l|}{1.38}     & 0.28                         & \multicolumn{1}{l|}{0.26}      & 1.62                                  & \multicolumn{1}{l|}{0.26}      & \multicolumn{1}{l|}{5.75}            & \multicolumn{1}{l|}{1.38}  \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Conference}  & \multicolumn{1}{l|}{39.19}    & 0.07                                  & \multicolumn{1}{l|}{2.47}     & 0.15                         & \multicolumn{1}{l|}{0.26}      & 0.54                                  & \multicolumn{1}{l|}{0.26}      & \multicolumn{1}{l|}{6.42}           & \multicolumn{1}{l|}{2.47}  \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Sponza}      & \multicolumn{1}{l|}{15.15}    & 0.08                                  & \multicolumn{1}{l|}{4.00}     & 0.20                         & \multicolumn{1}{l|}{0.26}      & 0.82                                  & \multicolumn{1}{l|}{0.26}      & \multicolumn{1}{l|}{5.47}           & \multicolumn{1}{l|}{4.00}  \\ \hline
-\multicolumn{1}{|l|}{\multirow{4}{*}{\rotv{$512^3$}}} & \multicolumn{1}{l|}{Sibenik}     & \multicolumn{1}{l|}{2.36}     & 4.51                                  & \multicolumn{1}{l|}{1.35}     & 6.06                         & \multicolumn{1}{l|}{10.92}     & 23.23                                 & \multicolumn{1}{l|}{10.91}     & \multicolumn{1}{l|}{8.57}            & \multicolumn{1}{l|}{65.55} \\
+\multicolumn{1}{|l|}{\multirow{4}{*}{\rotv{$512^3$ vóxeles}}} & \multicolumn{1}{l|}{Sibenik}     & \multicolumn{1}{l|}{2.36}     & 4.51                                  & \multicolumn{1}{l|}{1.35}     & 6.06                         & \multicolumn{1}{l|}{10.92}     & 23.23                                 & \multicolumn{1}{l|}{10.91}     & \multicolumn{1}{l|}{8.57}            & \multicolumn{1}{l|}{65.55} \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Cornell Box} & \multicolumn{1}{l|}{6.18}     & 6.08                                  & \multicolumn{1}{l|}{1.80}     & 7.54                         & \multicolumn{1}{l|}{10.70}     & 41.14                                 & \multicolumn{1}{l|}{10.87}     & \multicolumn{1}{l|}{7.87}            & \multicolumn{1}{l|}{86.00} \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Conference}  & \multicolumn{1}{l|}{47.44}    & 4.46                                  & \multicolumn{1}{l|}{1.28}     & 5.63                         & \multicolumn{1}{l|}{11.57}     & 18.70                                 & \multicolumn{1}{l|}{11.35}     & \multicolumn{1}{l|}{8.56}            & \multicolumn{1}{l|}{61.56} \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Sponza}      & \multicolumn{1}{l|}{9.05}     & 4.55                                  & \multicolumn{1}{l|}{1.39}     & 6.87                         & \multicolumn{1}{l|}{11.16}     & 28.09                                 & \multicolumn{1}{l|}{10.79}     & \multicolumn{1}{l|}{7.64}            & \multicolumn{1}{l|}{70.49} \\ \hline
 \end{tabular}
 \captionsetup{justification=centering}
-\caption{Rendimiento en contraste con la Tabla \ref{tab:performance_base} considerando distintas resoluciones para la representación en vóxeles, todos los pasos del algoritmo se ven afectados por este parámetro.}
+\caption{Rendimiento (en milisegundos) en contraste con la Tabla \ref{tab:performance_base} considerando distintas resoluciones para la representación en vóxeles, todos los pasos del algoritmo se ven afectados por este parámetro.}
 \label{tab:performance_depth}
 \end{table}
 \begin{table}[H]
@@ -54,7 +54,7 @@ Conference  & 16.27                        & 7.50                         \\
 Sponza      & 16.69                        & 7.01                         \\ \hline
 \end{tabular}
 \captionsetup{justification=centering}
-\caption{Rendimiento con una mayor resolución de pantalla. Esto solo afecta el trazado de conos con vóxeles.}
+\caption{Rendimiento (en milisegundos) con una mayor resolución de pantalla. Esto solo afecta el trazado de conos con vóxeles.}
 \label{tab:performance_display}
 \end{table}
 \begin{table}[H]
@@ -68,41 +68,41 @@ Cornell Box        & 26.80       & 11.57       & 7.23      & 2.68      \\
 Conference         & 29.73       & 12.93       & 7.50      & 2.85      \\
 Sponza             & 29.81       & 12.92       & 7.01      & 2.81      \\ \hline\end{tabular}
 \captionsetup{justification=centering}
-\caption{Rendimiento con distintas configuraciones de la longitud de marcha del cono. Esto solo afecta el trazado de conos con vóxeles.}
+\caption{Rendimiento (en milisegundos) con distintas configuraciones de la longitud de marcha del cono. Esto solo afecta el trazado de conos con vóxeles.}
 \label{tab:performance_step}
 \end{table}
 
-Considerando como tiempos interactivos todo resultado por debajo de $33.3\ ms$ (aproximadamente 30 cuadros por segundo). Nuestra implementación logra colocarse por debajo de este tiempo en todos los casos excepto los casos que comprenden resoluciones de volúmenes mayores a $256^3$.
+Considerando como tiempos interactivos todo resultado por debajo de $33.3\ ms$ (aproximadamente 30 cuadros por segundo). Nuestra implementación logra colocarse por debajo de este tiempo en todos los casos excepto los casos que comprenden resoluciones de volúmenes mayores a $256^3$ vóxeles.
 
 \subsubsection{Densidad Geométrica y Velocidad de Voxelización}
 La cantidad de triángulos dentro del espacio que representa un vóxel afecta la velocidad de voxelización. Esto se debe a que este proceso requiere sincronización entre distintos hilos por fragmento. A mayor cantidad de triángulos en este espacio mayor es la cantidad de fragmentos generados por el proceso de rasterización. Cada uno de estos hilos debe esperar a escribir en la misma posición del volumen para garantizar atomicidad.
 
-En la Figura \ref{fig:voxelization_times} se puede observar esta condición, especialmente en la escena Conference. Esta es una escena pequeña en escala, sin embargo de todas las escenas completas es la que posee mayor cantidad de triángulos como se puede observar en la Tabla \ref{tab:scenes_attributes}. También es notable como disminuye el tiempo de voxelización para algunas escenas al aumentar la resolución del volumen y como aumenta al utilizar menores resoluciones, especialmente el salto entre $128^3$ a $64^3$.
+En la Figura \ref{fig:voxelization_times} se puede observar esta condición, especialmente en la escena Conference. Esta es una escena pequeña en escala, sin embargo de todas las escenas completas es la que posee mayor cantidad de triángulos como se puede observar en la Tabla \ref{tab:scenes_attributes}. También es notable como disminuye el tiempo de voxelización para algunas escenas al aumentar la resolución del volumen y como aumenta al utilizar menores resoluciones.
 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{media/voxelzation_64_cropped.pdf}
-		\caption*{Resolución de volúmenes: $64^3$}
+		\caption*{Resolución de volúmenes: $64^3$ vóxeles}
 	\end{subfigure}
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{media/voxelzation_128_cropped.pdf}	
-		\caption*{Resolución de volúmenes: $128^3$}
+		\caption*{Resolución de volúmenes: $128^3$ vóxeles}
 	\end{subfigure}
 	\par\bigskip
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{media/voxelzation_256_cropped.pdf}
-		\caption*{Resolución de volúmenes: $256^3$}
+		\caption*{Resolución de volúmenes: $256^3$ vóxeles}
 	\end{subfigure}
 	\begin{subfigure}{.49\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{media/voxelzation_512_cropped.pdf}	
-		\caption*{Resolución de volúmenes: $512^3$}
+		\caption*{Resolución de volúmenes: $512^3$ vóxeles}
 	\end{subfigure}
-	\caption{Tiempos de voxelización dinámica y estática de escenas completas con distintas resoluciones para la representación en vóxeles. Tabla \ref{tab:performance_depth}.}
+	\caption{Grafica para los tiempos de voxelización dinámica de la Tabla \ref{tab:performance_depth}.}
 	\label{fig:voxelization_times}
 \end{figure}
 
@@ -111,14 +111,14 @@ En la Figura \ref{fig:voxelization_times} se puede observar esta condición, esp
 
 En escenas donde existen muchos espacios vacíos el trazado de rayos suele tardar un poco más que en escenas densas de objetos. Esto se debe a que mientras la representación en vóxeles sea vacía en la posición que describe la apertura, dirección y punto de origen del cono, este cono debe seguir expandiéndose. A consecuencia mientras más espacios vacíos la representación en vóxeles tenga, más distancia tiene que recorrer cada cono aumentando la cantidad de operaciones de lectura sobre la representación en vóxeles.
 
-Este problema se puede observar en la Figura \ref{fig:gi_voxel_time} para las escenas Sponza y Cornell Box. La escena Cornell Box es en gran parte vacua con solo dos cuboides internos. La escena Sponza es densa en su interior por tanto la falta de objetos no es el principal problema. El problema de la Sponza reside en que la escena es larga y alta pero no ancha. Durante la voxelización cada triángulo se proyecta de forma ortogonal sobre cada eje para maximizar la voxelización, este frustum de proyección es cuadrado. Para las dimensiones de esta escena siempre quedara una cantidad considerable de vóxeles vacíos fuera de la geometría principal de la escena. 
+Este problema se puede observar en la Figura \ref{fig:gi_voxel_time} para las escenas Sponza y Cornell Box. La escena Cornell Box es en gran parte vacua con solo dos cuboides internos. La escena Sponza es densa en su interior por tanto la falta de objetos no es el principal problema. El problema de la Sponza reside en que la escena es larga y alta pero no ancha. Durante la voxelización cada triángulo se proyecta de forma ortogonal sobre cada eje para maximizar la voxelización, este tronco de proyección es uniforme. Para las dimensiones de esta escena siempre quedara una cantidad considerable de vóxeles vacíos fuera de la geometría principal de la escena. 
 
 % Una forma de evitar estos problemas en escenas como Sponza es comprobar que la posición de trazado actual está fuera de los límites de la escena, sin embargo esto puede ocasionar problemas visuales dependiendo de la apertura del cono en ese punto, para limitar correctamente el punto de trazado con respecto a los límites de la escena es necesario calcular la intersección del cono contra el volumen delimitante.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\linewidth]{media/voxel_gi_time_cropped.pdf}
-	\caption{Tiempos de cálculo de iluminación global sobre la representación en vóxeles para todas las escenas completas.}
+	\includegraphics[width=0.8\linewidth]{media/voxel_gi_time_cropped.pdf}
+	\caption{Tiempos de cálculo de iluminación global sobre la representación en vóxeles y tiempos de sombreado (solo iluminación directa) para todas las escenas completas.}
 	\label{fig:gi_voxel_time}
 \end{figure}
 
@@ -128,21 +128,21 @@ La aplicación provee sombras suaves para luces direccionales, puntuales y focal
 
 Para estas pruebas se utilizaron todas las escenas completas. La configuración del escenario consto de solo una luz puntual con trazado de sombras habilitado. La cámara en escena fue colocada de tal forma que todos los píxeles visibles formen parte del trazado de conos. 
 
-Con respecto a la configuración de la aplicación, se activó el modo de actualización forzosa para simular luces en constante movimiento y se desactivo la iluminación global de vóxeles. La resolución de la representación en vóxeles utilizada fue de $256^3$ y el factor de longitud de marcha del cono fue $0.5$.
+Con respecto a la configuración de la aplicación, se activó el modo de actualización forzosa para simular luces en constante movimiento y se desactivó la iluminación global de vóxeles. La resolución de la representación en vóxeles utilizada fue de $256^3$ vóxeles y el factor de longitud de marcha del cono fue $0.5$.
 
-Este estudió considera las distintas opciones en la aplicación relevantes al trazado de sombras. Estas opciones comprenden: trazado de sombras durante el sombreado de vóxeles, trazado de sombras con trazado de conos y vóxeles o muestreo del volumen de visibilidad.
+Este estudio considera las distintas opciones en la aplicación relevantes al trazado de sombras. Estas opciones comprenden: trazado de sombras durante el sombreado de vóxeles, trazado de sombras con trazado de conos y vóxeles o muestreo del volumen de visibilidad.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{lll}
                                   &                                           &                                                                \\ \hline
-\multicolumn{1}{|l|}{Escena}      & \multicolumn{1}{l|}{Sombreado de Voxeles} & \multicolumn{1}{l|}{Sombreado y Trazado de Sombras} \\ \hline
+\multicolumn{1}{|l|}{Escena}      & \multicolumn{1}{l|}{Sombreado de Vóxeles} & \multicolumn{1}{l|}{Sombreado y Trazado de Sombras} \\ \hline
 \multicolumn{1}{|l|}{Sibenik}     & \multicolumn{1}{l|}{0.95}                 & \multicolumn{1}{l|}{4.57}                                      \\
 \multicolumn{1}{|l|}{Cornell Box} & \multicolumn{1}{l|}{1.33}                 & \multicolumn{1}{l|}{20.32}                                     \\
 \multicolumn{1}{|l|}{Conference}  & \multicolumn{1}{l|}{0.86}                 & \multicolumn{1}{l|}{4.77}                                      \\
 \multicolumn{1}{|l|}{Sponza}      & \multicolumn{1}{l|}{1.13}                 & \multicolumn{1}{l|}{3.31}                                      \\ \hline
 \end{tabular}
-\caption{Tiempos de sombreado de vóxeles con y sin trazado de sombras sobre el volumen.}
+\caption{Tiempos (en milisegundos) de sombreado de vóxeles con y sin trazado de sombras sobre el volumen.}
 \label{tab:voxelshading_shadowing}
 \end{table}
 
@@ -165,7 +165,7 @@ En la Figura \ref{fig:voxelshading_shadowing} se puede observar un incremento de
 \multicolumn{1}{|l|}{Conference}  & \multicolumn{1}{l|}{7.50}             & \multicolumn{1}{l|}{5.65}                   & \multicolumn{1}{l|}{5.65}               \\
 \multicolumn{1}{|l|}{Sponza}      & \multicolumn{1}{l|}{7.01}             & \multicolumn{1}{l|}{6.28}                   & \multicolumn{1}{l|}{8.30}               \\ \hline
 \end{tabular}
-\caption{Tiempo agregado al paso de trazado de conos con vóxeles al incluir sombras bajo distintos métodos.}
+\caption{Tiempo (en milisegundos) agregado al paso de trazado de conos con vóxeles al incluir sombras bajo distintos métodos.}
 \label{tab:shadowcone5}
 \end{table}
 
@@ -188,7 +188,7 @@ La apertura de los conos a trazar afecta directamente el rendimiento del trazado
 
 El objetivo de estas pruebas es demostrar la diferencia en rendimiento según distintas configuraciones de apertura del cono especular y el cono utilizado para el trazado de sombras suaves.
 
-Para ambas pruebas se utilizó solo la escena completa Cornell Box. Para la prueba del cono de sombras se colocó dentro de la escena una luz puntual con trazado de sombras habilitado. Para la prueba del cono especular se colocó dentro la escena una esfera con un material especular y una luz puntual con trazado de sombras inhabilitado. Para ambas pruebas la resolución de la representación en vóxeles y la longitud de marcha del cono es de $256^3$ y $0.5$ respectivamente. El ángulo de apertura para ambas pruebas es 1, 5, 20, y 45 grados. En la Figura \ref{fig:fine_cones} se puede observar los resultados.
+Para ambas pruebas se utilizó solo la escena completa Cornell Box. Para la prueba del cono de sombras se colocó dentro de la escena una luz puntual con trazado de sombras habilitado. Para la prueba del cono especular se colocó dentro la escena una esfera con un material especular y una luz puntual con trazado de sombras inhabilitado. Para ambas pruebas la resolución de la representación en vóxeles y la longitud de marcha del cono es de $256^3$ vóxeles y $0.5$ respectivamente. El ángulo de apertura para ambas pruebas es 1, 5, 20, y 45 grados. En la Figura \ref{fig:fine_cones} se puede observar los resultados.
 
 \begin{figure}[H]
 	\centering
@@ -211,7 +211,7 @@ Para ambas pruebas se utilizó solo la escena completa Cornell Box. Para la prue
 
 \subsection{Comparaciones} % (fold)
 \label{sub:comparasiones}
-Para el estudio el rendimiento con respecto a otras aproximaciones para cálculo de iluminación indirecta se consideró una aplicación con trazado de conos con voxeles utilizando octrees dispersos para la representación con voxeles y otra aplicación utilizando \ac{CLPV} visto en la sección \ref{sub:clpv}. Para ambos programas se utilizó la escena Sponza con cámara y luces en posiciones y direcciones semejantes. La aplicación fue colocada bajo actualización forzosa. Solo se muestra el tiempo final de renderizado en milisegundos. La Tabla \ref{tab:compare} demuestra los resultados de esta comparación.
+Para el estudio el rendimiento con respecto a otras aproximaciones para cálculo de iluminación indirecta se consideró una aplicación con trazado de conos con vóxeles utilizando octrees dispersos para la representación con vóxeles y otra aplicación utilizando \ac{CLPV} visto en la sección \ref{sub:clpv}. Para ambos programas se utilizó la escena Sponza con cámara y luces en posiciones y direcciones semejantes. La aplicación fue colocada bajo actualización forzosa. Solo se muestra el tiempo final de renderizado en milisegundos. La Tabla \ref{tab:compare} demuestra los resultados de esta comparación.
 
 \begin{table}[h]
 \centering
@@ -220,7 +220,7 @@ Para el estudio el rendimiento con respecto a otras aproximaciones para cálculo
 \multicolumn{1}{|l|}{Escena} & \multicolumn{1}{l|}{Nuestra Implementación} & \multicolumn{1}{l|}{Con Octrees} & \multicolumn{1}{l|}{CLPV}  \\ \hline
 \multicolumn{1}{|l|}{Sponza} & \multicolumn{1}{l|}{20.83}                  & \multicolumn{1}{l|}{89.13}      & \multicolumn{1}{l|}{18.19} \\ \hline
 \end{tabular}
-\caption{Comparación de rendimiento con otras aplicaciones.}
+\caption{Comparación de rendimiento (en milisegundos) con otras aplicaciones.}
 \label{tab:compare}
 \end{table}
 

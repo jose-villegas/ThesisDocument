@@ -11,7 +11,7 @@ Por conservación de energía, el total de la radiancia saliente en un punto y d
     L(x\to\Theta) = L_{e}(x\to\Theta) + L_{r}(x\to\Theta)
     \label{eq:reflectance}
 \end{equation}
-Por la definición de \ac{BRDF} en la ecuación \ref{eq:brdf_def} tenemos que:
+Por la definición de \ac{BRDF} en la ecuación \ref{eq:brdf_def} se tiene que:
 \begin{equation}
 	\begin{split}
         f_{r}(x, \Psi\to\Theta) &= \frac{dL(x\to\Theta)}{dE(x\gets\Psi)}\\
@@ -19,7 +19,7 @@ Por la definición de \ac{BRDF} en la ecuación \ref{eq:brdf_def} tenemos que:
 	\end{split}
 	\label{eq:rendering_eq_LR}
 \end{equation}
-Colocando estas ecuaciones juntas obtenemos la ecuación de renderizado:
+Colocando estas ecuaciones juntas se obtiene la ecuación de renderizado:
 \begin{equation}
     L(x\to\Theta) = L_{e}(x\to\Theta) + \int_{\Omega_{x}}{f_{r}(x, \Psi\to\Theta)L(x\gets\Psi)\cos(N_{x}, \Psi)dw_{\Psi}}
     \label{eq:rendering_eq}
@@ -62,7 +62,7 @@ Radiosidad es una aproximación con elementos finitos para el cómputo del trans
 		\caption*{Vista desde patch $\alpha$,\\ después de pasada 1.}
 		\includegraphics[width=.95\linewidth]{media/radiosity2_eye.png}
 	\end{subfigure}
-	\label{fig:radiosity1}
+%	\label{fig:radiosity1}
 \end{figure}%
 \begin{figure}[H]
 	\centering

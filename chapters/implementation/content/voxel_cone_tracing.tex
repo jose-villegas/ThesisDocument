@@ -4,9 +4,12 @@ El trazado de conos es utilizado para distintos aspectos visuales de la aplicaci
 
 Como se menciona en la sección \ref{sec:trazado_de_conos_con_voxeles}. El trazado de conos es similar a ray-marching con la única diferencia que el volumen a muestrear incrementa de tamaño según la distancia recorrida. Esto es producto de la expansión de la apertura del cono a través de su expansión. Las muestras de mayor tamaño se obtienen utilizando los niveles de mipmap descritos en la sección anterior.
 
-Al utilizar vóxeles anisótropos se necesita saber que volúmenes direccionales van a ser utilizados para muestrear a través del recorrido del cono. Esto se determina según el signo de cada eje del vector direccional del cono. También es necesario calcular el peso de cada eje para obtener un resultado ponderado entre los tres volúmenes. El Código \ref{Trace0} describe este proceso.
+Al utilizar vóxeles anisótropos se necesita saber que volúmenes direccionales van a ser utilizados para muestrear a través del recorrido del cono. Esto se determina según el signo de cada eje del vector direccional del cono como se observa en el Código \ref{Trace0}. Es además necesario calcular el peso de cada eje de este vector para obtener un resultado ponderado entre los tres volúmenes direccionales, este peso esta expresado por la variable \emph{weight} en el Código \ref{Trace0}.
 \\
 \begin{lstlisting}[caption={Lógica para determinar volúmenes direccionales a utilizar durante el trazado de conos y peso por eje.}, label=Trace0]
+// volúmenes direccionales
+layout(binding = 8) uniform sampler3D voxelTexMipmap[6];
+// trazado de cono contra vóxeles
 vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 {
     // índice de los tres volúmenes direccionales
@@ -36,7 +39,7 @@ Durante el recorrido del cono se utiliza la función de GLSL \emph{textureLod}. 
     \label{fig:cone_trace_impl_fi}
 \end{figure}
 
-En nuestra implementación el punto de origen del cono es trasladado según el tamaño de un vóxel. El Código \ref{Trace1} expone esta operación. Esto se hace para evitar que el cono colisione con el vóxel de origen.
+En nuestra implementación el punto de origen del cono es trasladado según el tamaño de un vóxel como se observa en el Código \ref{Trace1}. Esto se hace para evitar que el cono colisione con el vóxel de origen.
 \\
 \begin{lstlisting}[caption={Traslado de origen del cono.}, label=Trace1]
 vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
@@ -50,7 +53,7 @@ vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 }
 \end{lstlisting}
 
-Finalmente se comienza el trazado del cono a través de la escena. Este es expuesto en el Código \ref{Trace2}.
+Finalmente en el Código \ref{Trace2} se expone el resto del codigo para el trazado del cono a través de la escena.
 \\
 \begin{lstlisting}[caption={Trazado de cono con vóxeles.}, label=Trace2]
 // volumen de radiancia o textura base
@@ -106,7 +109,7 @@ vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture)
 }
 \end{lstlisting}
 
-En el método \emph{AnistropicSample} se puede observar el muestreo direccional, ponderado por el peso de cada eje en la dirección del cono y el uso de la función \emph{mix()} para interpolar entre los volúmenes direccionales y la textura base. 
+En el método \emph{AnistropicSample} se puede observar el muestreo direccional utilizando los tres volúmenes direccionales cada muestra es ponderada por el peso de cada eje en la dirección del cono. También se puede observar el uso de la función \emph{mix()} para interpolar entre los volúmenes direccionales y la textura base cuando el nivel de detalle es menor a 1 como se mencionó en la sección \ref{sec:estructura_jerarquica_impl}.
 
 Durante el trazado se observa cómo se obtiene la posición del cono según la distancia recorrida y el uso de las operaciones ya mencionadas para obtener el diámetro y el nivel mip. La función \emph{WorldToVoxel} aparece para cambiar una posición en espacio de mundo a espacio de textura como fue mencionado para el Código \ref{SpaceTransform}. La distancia recorrida es alterada por una variable \emph{samplingFactor} esto permite disminuir la distancia entre muestreos para lograr resultados más suaves con un costo en rendimiento.
 
@@ -180,7 +183,7 @@ vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 spe
 Las direcciones, pesos de integración y tangente del ángulo ya se encuentran pre-calculados. Para rotar a lo largo del vector normal se obtienen vectores direccionales perpendiculares al vector normal utilizando un vector guía.
 \subsection{Reflexión Especular} % (fold)
 \label{sub:reflexion_especular}
-Para la reflexión especular se utiliza un solo cono con la dirección $R$ del lóbulo especular (sección \ref{para:speculars}) y una apertura adecuada a la potencia especular $n$ de un material para la \ac{BRDF} Blinn-Phong (sección \ref{para:blinn_phong_mod}). El Código \ref{Trace4} expone la generación del cono especular:
+Para la reflexión especular se utiliza un solo cono con la dirección $R$ del lóbulo especular (sección \ref{para:speculars}) y una apertura adecuada a la potencia especular $n$ de un material para la \ac{BRDF} Blinn-Phong (sección \ref{para:blinn_phong_mod}) como se observa en el Código \ref{Trace4}.
 \\
 \begin{lstlisting}[caption={Cono para reflexión especular.}, label=Trace4]
 vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 specular)
@@ -207,10 +210,10 @@ vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 spe
 }
 \end{lstlisting}
 
-Para controlar la apertura del cono especular utilizamos la función tangente. En el componente alfa de la especular se encuentra la potencia especular sin escalar, esto quiere decir que va de cero a uno. También se limita el cono especular a mínimo un grado de apertura. Los conos extremadamente finos puede afectar mucho el rendimiento del programa, además de esto la apertura no puede ser cero.
+Para controlar la apertura del cono especular se utiliza la función tangente. En el componente alfa de la variable \emph{specular} se encuentra la potencia especular sin escalar, esto quiere decir que esta tiene un rango de cero a uno. También se limita el cono especular a mínimo un grado de apertura. Los conos extremadamente finos puede afectar mucho el rendimiento del programa y la apertura no puede ser cero.
 \subsection{Oclusión Ambiental} % (fold)
 \label{sub:oclusion_ambient}
-En nuestra implementación los conos utilizados para calcular la reflexión difusa son también utilizados para calcular la oclusión ambiental. Primero se realiza una pequeña adición a la función \emph{TraceCone} en el Código \ref{Trace2} para incluir el cálculo de oclusión ambiental como es descrito en la sección \ref{sub:occl_ambt_prop}:
+En nuestra implementación los conos utilizados para calcular la reflexión difusa son también utilizados para calcular la oclusión ambiental. En el Código \ref{Trace5} se puede observar una pequeña adición realizada a la función \emph{TraceCone} del Código \ref{Trace2} para incluir el cálculo de oclusión ambiental como es descrito en la sección \ref{sub:occl_ambt_prop}:
 \\
 \begin{lstlisting}[caption={Oclusión ambiental para el algoritmo de trazado de conos.}, label=Trace5]
 vec4 TraceCone(vec3 position, vec3 normal, vec3 direction, float aperture, bool traceOcclusion)
@@ -286,7 +289,7 @@ vec4 CalculateIndirectLighting(vec3 position, vec3 normal, vec3 albedo, vec4 spe
 
 La variable \emph{bounceStrength} tiene un valor personalizado por el usuario, este factor indica la intensidad de la iluminación indirecta. La oclusión ambiental es almacenada en el componente alfa del vector retornado por la función. La variable \emph{aoAlpha} es también indicada por el usuario, esta determina la minima intensidad para la oclusión ambiental resultante.
 
-Una vez finalizado el cálculo de la iluminación directa a esta se le suma la iluminación indirecta y se multiplican ambas por la oclusión ambiental, luego se suma la emisión. Estas operaciones se pueden observar en el Código \ref{Trace7}.
+En el Código \ref{Trace7} una vez finalizado el cálculo de la iluminación directa a esta se le suma la iluminación indirecta, se multiplican ambas por la oclusión ambiental y luego se suma la emisión para obtener como resultado final el valor del fragmento.
 \\
 \begin{lstlisting}[caption={Composición final de imagen.}, label=Trace7]
 layout(location = 0) out vec4 fragColor;
@@ -308,5 +311,5 @@ void main()
 }
 \end{lstlisting}
 
-Después de obtener el valor final se puede aplicar corrección gamma, mapeo de tonos o \emph{tonemapping} o cualquier otro pos-proceso sobre la imagen. En nuestra implementación se hace solo corrección gamma y Reinhard tonemapping \cite{Reinhard:2002:PTR:566570.566575} sobre la variable \emph{compositeLighting} sin post-procesamiento.
+Después de obtener el valor del fragmento se puede aplicar corrección gamma, mapeo de tonos o \emph{tonemapping} o cualquier otro post-proceso sobre la imagen. En nuestra implementación se hace solo corrección gamma y Reinhard tonemapping \cite{Reinhard:2002:PTR:566570.566575} sobre la variable \emph{compositeLighting} sin post-procesamiento.
 % subsection composicion_final (end)

@@ -1,29 +1,30 @@
 \section{Estructura Jerárquica} % (fold)
 \label{sec:estructura_jerarquica_impl}
-La representación de la escena en vóxeles puede ser filtrada hacia niveles menos detallados utilizando distintos niveles de mip map. Esto describe una estructura piramidal la cual es utilizada para acelerar el trazado de conos contra vóxeles, donde según la apertura del cono se interpola entre distintos niveles de detalle como se observa en la Figura \ref{fig:vct_explain}.
+La representación de la escena en vóxeles puede ser filtrada hacia niveles de menor detalle utilizando distintos niveles de mipmap. Esto describe una estructura piramidal la cual es utilizada para acelerar el trazado de conos contra vóxeles, donde según la apertura del cono se interpola entre distintos niveles de detalle como se observa en la Figura \ref{fig:vct_explain}.
 
-En nuestra implementación se utilizan seis nuevos volúmenes por cada eje direccional positivo y negativo para vóxeles anisótropos. Cada uno de estos volúmenes tiene una resolución de $V_{res}/{2}$. Los niveles de mipmapping no se encuentran en la textura base de radiancia sino en estos volúmenes, por tanto estos volúmenes son los que residen los distintos niveles de detalle de la escena voxelizada. Llamaremos a estos volúmenes como \emph{volúmenes direccionales}. En la Figura \ref{fig:base_texture_imp} se ilustra esta separación.
+En nuestra implementación se utilizan seis nuevos volúmenes por cada eje direccional positivo y negativo para obtener vóxeles anisótropos. Cada uno de estos volúmenes tiene una resolución de $V_{res}/{2}$. Los niveles de mipmapping no se encuentran en la textura base de radiancia sino en estos volúmenes, por tanto estos volúmenes son los que residen los distintos niveles de detalle de la escena voxelizada (ver Figura \ref{fig:hierarchy_impl}). A estos volúmenes se les llamara \emph{volúmenes direccionales}.
 
-Como utilizamos texturas tridimensionales en vez de un octree el proceso de filtrado es mucho más simple ya que la interpolación cuadrilineal es soportada nativamente. Un problema surge para la interpolación entre la textura base y los niveles de mipmapping en los volúmenes direccionales. Ya que estas son texturas separadas no hay interpolación lineal entre la textura base y los volúmenes direccionales. Esto es simple de solventar utilizando la función \emph{mix()} de GLSL cuando el nivel de detalle se encuentre entre cero y uno, cero siendo el máximo detalle (textura base) y uno el nivel cero del mipmap en los volúmenes direccionales. La Figura \ref{fig:hierarchy_impl} describe esta estructra.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.8\linewidth]{media/hierarchy.pdf}
-    \caption{Descripción gráfica de la estructura jerárquica de vóxeles utilizada para el trazado de conos.}
-    \label{fig:hierarchy_impl}
-\end{figure}
+Como se utilizan texturas tridimensionales en vez de un octree el proceso de filtrado es mucho más simple ya que la interpolación cuadrilineal es soportada nativamente. Un problema surge para la interpolación entre la textura base y los niveles de mipmapping en los volúmenes direccionales. Ya que estas son texturas separadas no hay interpolación lineal entre la textura base y los volúmenes direccionales. Esto es simple de solventar utilizando la función \emph{mix()} de GLSL cuando el nivel de detalle se encuentre entre cero y uno, cero siendo el máximo detalle (textura base) y uno el nivel cero del mipmap en los volúmenes direccionales.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.8\linewidth]{media/representation.pdf}
-    \caption{Representación de la escena en vóxeles. La textura base es producto de cálculos de iluminación sobre las texturas utilizadas durante el sombreado de vóxeles.}
-    \label{fig:base_texture_imp}
+    \par\bigskip
+    \includegraphics[width=.8\linewidth]{media/hierarchy.pdf}
+    \caption{Descripción gráfica de la estructura jerárquica de vóxeles utilizada para el trazado de conos. Arriba se observa el origen de la textura base y abajo la relación de la textura con los volúmenes direccionales.}
+    \label{fig:hierarchy_impl}
 \end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \caption{Representación de la escena en vóxeles. La textura base es producto de cálculos de iluminación sobre las texturas utilizadas durante el sombreado de vóxeles.}
+%     \label{fig:base_texture_imp}
+% \end{figure}
 \subsection{Vóxeles Anisótropicos} % (fold)
 \label{sub:voxeles_anisotropos}
-El proceso para generar vóxeles anisótropicos es explicado de forma general en la sección \ref{subsub:aniso_voxels_orig}. Una representación con vóxeles anisótropicos provee mayor calidad visual y precisión durante el trazado de conos. Cada cono trazado tiene una dirección, la idea es utilizar esta dirección para saber cuáles volúmenes direccionales van a utilizarse para interpolar. Para una dirección arbitraria se representa como tres volúmenes que serían las caras frontales según esta dirección del vóxel simplificado. La dirección del cono tiene un peso en cada eje direccional, por tanto los valores de cada uno de estos volúmenes direccionales deben ser ponderados al momento de muestrearse. Una representación isótropa no tiene concepto de direccionalidad del cono, por tanto para algunos casos esto puede generar una serie de problemas visuales ya mencionados. Las desventajas de esta implementación es que el trazado es más lento ya que se deben realizar tres muestras por cada paso del cono y mayor consumo de memoria.
+El proceso para generar vóxeles anisótropicos es explicado de forma general en la sección \ref{subsub:aniso_voxels_orig}. Una representación con vóxeles anisótropicos provee mayor calidad visual y precisión durante el trazado de conos. Cada cono trazado tiene una dirección, la idea es utilizar esta dirección para saber cuáles volúmenes direccionales van a utilizarse para interpolar. Para una dirección arbitraria se representa como tres volúmenes que serían las caras frontales según esta dirección del vóxel simplificado. La dirección del cono tiene un peso en cada eje direccional, por tanto los valores de cada uno de estos volúmenes direccionales deben ser ponderados al momento de muestrearse. Una representación isotrópica no tiene concepto de direccionalidad del cono, por tanto para algunos casos esto puede generar una serie de problemas visuales ya mencionados. Las desventajas de esta implementación es que el trazado es más lento ya que se deben realizar tres muestras por cada paso del cono y mayor consumo de memoria.
 
-Una forma simplificada de observar este proceso es con texturas bidimensionales. Suponiendo que tenemos una cuadrícula de $5^2$ se queire reducir a un nivel de detalle más bajo de $3^2$ como se observa en la Figura \ref{fig:filter_objs}.
+Una forma simplificada de observar este proceso es con texturas bidimensionales. Suponiendo que se tiene una cuadrícula de $5^2$ la cual se quiere reducir a un nivel de detalle más bajo de $3^2$ como se observa en la Figura \ref{fig:filter_objs}.
 
 \begin{figure}[H]
     \centering
@@ -59,7 +60,7 @@ Por cada grupo se filtra en la dirección $X$ positiva. Por ejemplo en el primer
 \end{split}
 \end{equation}
 
-Una vez se obtiene cada valor de los cuatro grupos se puede ahora calcular el valor del vóxel filtrado repitiendo este proceso con los cuatro valores resultantes. En nuestra implementación esto se realiza con un compute shader. El Código \ref{AnisoFiltering} expone este proceso sobre texturas tridimensionales.
+Una vez se obtiene cada valor de los cuatro grupos se puede ahora calcular el valor del vóxel filtrado repitiendo este proceso con los cuatro valores resultantes. En nuestra implementación esto se realiza con un \emph{compute shader}, el Código \ref{AnisoFiltering} expone este proceso sobre texturas tridimensionales.
 \\
 \begin{lstlisting}[caption={Filtrado sobre los volúmenes direccionales para obtener vóxeles anisótropos}, label=AnisoFiltering]
 (*@\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}@*)
@@ -158,7 +159,7 @@ void main()
 }
 \end{lstlisting}
 
-Este proceso se repite por cada nivel del mipmap en las texturas direccionales. Estas son enlazas según el nivel que va a ser filtrado con la instrucción \emph{glBindImageTexture}. La variable \emph{mipLevel} le indica a la instrucción \emph{texelFetch} cual es el nivel anterior de detalle como fuente de filtrado. Cuando se filtra desde la textura base al nivel 0 de los volúmenes direccionales el proceso es similar. La diferencia reside en dos detalles: primero solo se hace una llamada a \emph{FetchTexels} porque solo hay una textura fuente y segundo que el \emph{mipLevel} es cero ya que la textura base no tiene mipmapping y esta representa el máximo nivel de detalle de la estructura jerárquica.
+Este proceso se repite por cada nivel del mipmap en las texturas direccionales. Estas son enlazas según el nivel que va a ser filtrado con la instrucción \emph{glBindImageTexture}. La variable \emph{mipLevel} le indica a la instrucción \emph{texelFetch} cual es el nivel anterior de detalle como fuente de filtrado. Cuando se filtra desde la textura base al nivel 0 de los volúmenes direccionales el proceso es similar. La diferencia reside en dos detalles: primero solo se hace una llamada a \emph{FetchTexels} porque solo hay una textura fuente y segundo que el \emph{mipLevel} es cero ya que la textura base no tiene niveles de mipmap y esta representa el máximo nivel de detalle de la estructura jerárquica.
 
 
 % subsection voxeles_anisotropos (end)

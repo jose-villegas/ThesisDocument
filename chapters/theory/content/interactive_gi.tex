@@ -65,7 +65,7 @@ Otra técnica utilizada en varios algoritmos de iluminación global es \ac{RSM} 
 	\label{fig:rsm_fbo}
 \end{figure}
 
-Si asumimos que todas las superficies son reflectores difusos, la intensidad de la radiancia emitida en una dirección $\omega$ desde un píxel del \ac{RSM} es descrita por la siguiente ecuación.
+Si se asume que todas las superficies son reflectores difusos, la intensidad de la radiancia emitida en una dirección $\omega$ desde un píxel del \ac{RSM} es descrita por la siguiente ecuación:
 
 \begin{equation}
     I_{p}(\omega) = \Theta_{p}max(0, n_{p} \cdot {w})
@@ -149,7 +149,7 @@ Cada vóxel representa varios parámetros, entre ellos color, opacidad, normal, 
 
 \subsubsection{Filtrado Mip-mapping}
 \label{subsub:mipmaping_orig}
-Inicialmente cada uno de estos parámetros es almacenado dentro de las hojas del árbol disperso. Luego de forma iterativa estos valores son filtrados desde los niveles más bajos a los niveles más altos de la jerarquía, este proceso es llamado \emph{mip-mapping}. Cada nodo de un bloque es filtrado a partir de las $3^3$ celdas del nivel anterior en jerarquía. Para calcular el valor filtrado sobre el actual nodo el algoritmo promedia los valores de los nodos en el nivel anterior. Al calcular el valor filtrado cada vóxel debe ser pesado con la inversa de su multiplicidad, resultando en un kernel gaussiano de $3^3$. 
+Inicialmente cada uno de estos parámetros es almacenado dentro de las hojas del árbol disperso. Luego de forma iterativa estos valores son filtrados desde los niveles más bajos a los niveles más altos de la jerarquía, este proceso es llamado \emph{mip-mapping}. Cada nodo de un bloque es filtrado a partir de las $3^3$ celdas del nivel anterior en jerarquía. Para calcular el valor filtrado sobre el actual nodo el algoritmo promedia los valores de los nodos en el nivel anterior. Al calcular el valor filtrado cada vóxel debe ser pesado con la inversa de su multiplicidad, resultando en un kernel gaussiano de tamaño $3^3$. 
 
 \subsubsection{Trazado de Conos y Vóxeles}
 Una vez que el árbol disperso está filtrado y completo se utiliza para el cálculo de iluminación indirecta. Por cada fragmento un conjunto de conos es generado. La dirección y apertura de cada cono es determinada por la \ac{BRDF} del material en ese fragmento. Por ejemplo la \ac{BRDF} Blinn-Phong vista en la sección \ref{para:blinn_phong} puede ser descompuesta como un lóbulo ancho para la parte difusa y un lóbulo especular. Para el lóbulo difuso varios conos son generados orientados por la semiesfera sobre el punto con apertura y dirección maximizadas a tal manera que los conos cubran gran parte de la misma. Para el lóbulo especular se genera un solo cono con una apertura que varía según el término $n$ de la \ac{BRDF} Blinn-Phong. El cono especular tiene como dirección la dirección de la luz incidente reflectada $R$ (sección \ref{para:speculars}).
