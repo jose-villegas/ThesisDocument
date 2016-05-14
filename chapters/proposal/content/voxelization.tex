@@ -31,9 +31,9 @@ Para las partes dinámicas de la escena este proceso de voxelización debe ser r
 
 \subsection{Voxelización Conservativa} % (fold)
 \label{sub:voxelizacion_conservativa}
-Nuestra implementación realiza voxelización conservativa de geometría de alto rendimiento utilizando la \ac{GPU} y explotando características del pipeline de renderizado con OpenGL. Para esto se implementó el algoritmo de voxelización utilizando rasterización en hardware explicado en el libro OpenGL Insights por Cyril Crassin y Simon Green en \empty{Octree-Based Sparse
+Nuestra implementación realiza voxelización conservativa de geometría de alto rendimiento utilizando la \ac{GPU} y explotando características del pipeline de renderizado con OpenGL. Para esto se implementó el algoritmo de voxelización utilizando rasterización en hardware explicado en el libro \emph{OpenGL Insights} por Cyril Crassin y Simon Green en \emph{Octree-Based Sparse
 Voxelization Using the GPU
-Hardware Rasterizer} \cite{CozziRiccio12}. En la Figura \ref{fig:vox_pipeline} se describe este proceso. Este algoritmo está basado en el trabajo de Zhang et al. en 2007 \cite{zhang2007conservative} para la voxelización conservativa utilizando la \ac{GPU} y el trabajo de Hasselgren et al. en 2005 \cite{hasselgren2005conservative} sobre rasterización conservativa.
+Hardware Rasterizer} \cite{CozziRiccio12}. Este algoritmo está basado en el trabajo de Zhang et al. en 2007 \cite{zhang2007conservative} para la voxelización conservativa utilizando la \ac{GPU} y el trabajo de Hasselgren et al. en 2005 \cite{hasselgren2005conservative} sobre rasterización conservativa. En la Figura \ref{fig:vox_pipeline} se puede observar la arquitectura descrita en \emph{Octree-Based Sparse Voxelization Using the GPU Hardware Rasterizer} para el proceso de voxelización. 
 
 Para maximizar el área de rasterización la idea es proyectar cada triángulo utilizando proyección ortogonal por cada eje direccional. El eje dominante es escogido según el vector normal del plano definido por los vértices del triángulo.
 
@@ -41,11 +41,11 @@ Para maximizar el área de rasterización la idea es proyectar cada triángulo u
 	\centering
 	\captionsetup{justification=centering}
 	\includegraphics[width=\linewidth]{media/voxelization_pipeline.eps}
-	\caption{Descripción del pipeline de voxelización.}
+	\caption{Descripción del pipeline de voxelización \cite{CozziRiccio12}.}
 	\label{fig:vox_pipeline}
 \end{figure}
  
-Por cada triángulo proyectado es necesario generar un polígono delimitante un poco más grande que el triángulo para garantizar la voxelización conservativa. Este polígono debe permitir que por cualquier triángulo proyectado tocando un píxel este va obligatoriamente a tocar el centro de este píxel, por tanto el pipeline de rasterización generara fragmentos para este triángulo. El polígono se genera expandiendo cada vértice del triángulo hacia afuera utilizando el procesador de geometría o \emph{geometry shader}. El polígono delimitante no sobreestima la cobertura del triángulo por tanto este no tiene forma de triángulo (ver Figura \ref{fig:expanded_bbpolygon}). Los fragmentos excedentes de este polígono son descartados en el \emph{fragment shader} utilizando un  área delimitante.
+Por cada triángulo proyectado es necesario generar un polígono delimitante un poco más grande que el triángulo para garantizar la voxelización conservativa. Este polígono debe permitir que por cualquier triángulo proyectado tocando un píxel este va obligatoriamente a tocar el centro de este píxel, por tanto el pipeline de rasterización generara fragmentos para este triángulo. El polígono se genera expandiendo cada vértice del triángulo hacia afuera utilizando el procesador de geometría o \emph{geometry shader}. El polígono delimitante no sobreestima la cobertura del triángulo por tanto este no tiene forma de triángulo (ver Figura \ref{fig:expanded_bbpolygon}). Los fragmentos excedentes de este polígono son descartados en el \emph{fragment shader} utilizando una región delimitante.
 
 \begin{figure}[H]
 	\centering
@@ -68,7 +68,7 @@ Para solventar este problema se utilizaron operaciones atómicas provistas por l
 \label{sub:voxelizacion_dinamica}
 Para escenas complejas y densas en geometría poligonal el proceso de voxelización puede tomar considerable tiempo de ejecución afectando el rendimiento general del algoritmo si la escena necesita ser revoxelizada constantemente. Es por esto conveniente separar la voxelización de superficies estáticas y dinámicas en escena. La idea es voxelizar la parte estática de la escena una sola vez mientras que la parte dinámica es revoxelizada solo cuando sea necesario o constantemente por frame.
 
-En nuestra implementación no se utiliza un octree disperso para almacenar los vóxeles sino texturas 3D. La separación entre valores estáticos y dinámicos bajo el esquema de un octree consiste en dividir el árbol en una parte dinámica y una parte estática. Considerando la cualidad dispersa de esta estructura esto no es de gran peso en memoria. 
+En nuestra implementación no se utiliza un \emph{octree} disperso para almacenar los vóxeles sino texturas 3D. La separación entre valores estáticos y dinámicos bajo el esquema de un \emph{octree} consiste en dividir el árbol en una parte dinámica y una parte estática. Considerando la cualidad dispersa de esta estructura esto no es de gran peso en memoria. 
 
 Utilizando texturas 3D esto sería equivalente en nuestra implementación a generar en vez de tres texturas para almacenar albedo, normal y emisión se generarían seis. Tres de estas para la parte estática y tres para la parte dinámica. Esto es extremadamente ineficiente en memoria. Para evitar la creación de estas texturas se utiliza un volumen extra que permite indicar que vóxel forma parte de la parte estática y cuál no. Durante el proceso de voxelización dinámica solo los fragmentos que se encuentran dentro del espacio de un vóxel dinámico pueden escribir sobre la textura 3D.
 % subsection voxelizacion_dinamica (end)

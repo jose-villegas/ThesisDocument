@@ -5,7 +5,6 @@ Para calcular la iluminación indirecta es necesario sombrear los vóxeles. Cada
 En nuestra implementación la iluminación de los vóxeles comprende solo el componente difuso. En el proceso de voxelización se puede observar que ningún volumen está relacionado al componente especular de un material. Esto debido a dos razones: primero memoria ya que para incluir la especular durante el sombreado de vóxeles tendría que crearse otro volumen y segundo que usualmente el componente especular es un detalle fino de alta frecuencia, la voxelización siendo una simplificación de la escena podría perder detalle en especulares con lóbulos finos e incluso ocasionar errores de sombreado.
 
 Para la iluminación de los vóxeles se utilizan técnicas de iluminación estándar en computación gráfica. La \ac{BRDF} de Lambert ya se encuentra almacenada en nuestro volumen albedo. Es necesario entonces multiplicar este valor por la atenuación normal. Para la ecuación de renderizado ignorando la emitancia esto resulta en la siguiente ecuación:
-
 \begin{equation}
 	\begin{split}
 		L(x\to\Theta) &= \int_{\Omega_{x}}{f_{r}(x, \Psi\to\Theta)L(x\gets\Psi)\cos(N_{x}, \Psi)dw_{\Psi}}\\
@@ -25,7 +24,7 @@ vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 	return light.diffuse * albedo * nDotL;
 }
 \end{lstlisting}
-
+\newpage
 \begin{wrapfigure}{l}{0.3\linewidth}
 	\centering
 	\captionsetup{justification=centering}
@@ -35,12 +34,12 @@ vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 \end{wrapfigure}
 \noindent Calcular el sombreado de vóxeles de esta forma es suficiente para generar resultados de buena calidad durante el trazado de conos. Sin embargo uno de los problemas que surgen al simplificar las normales en vóxeles es que algunos vóxeles tienen normales incorrectas o desviadas. Esto sucede especialmente cuando un vóxel contiene geometría con normales muy disparejas (ver Figura \ref{fig:error_normals}).
 
-\noindent Para solventar esto se calcula la atenuación normal por cada cara del vóxel según la dirección de la luz $\Psi$ y luego se pondera cada atenuación normal por cara con el peso de cada eje en el vector normal, este procedimiento se puede observar en el Código \ref{Shading2}. En la Figura \ref{fig:compositve_vshading} se puede observar la composición para el sombreado final y la diferencia con Lambert tradicional. Además del método Lambert tradicional a este método se le denomino Lambert direccional ponderado.
+\noindent Para disminuir este problema se calcula la atenuación normal por cada cara del vóxel según la dirección de la luz $\Psi$ y luego se pondera cada atenuación normal por cara frontal segun el vector normal con el peso de cada eje en el vector normal promedio del vóxel, este procedimiento se puede observar en el Código \ref{Shading2}. En la Figura \ref{fig:compositve_vshading} se puede observar la composición para el sombreado final y la diferencia con Lambert tradicional. Además del método Lambert tradicional a este método se le denomino Lambert direccional ponderado.
 \\
 \begin{lstlisting}[caption={Sombreado direccional y ponderado según el vector normal para un vóxel}, label=Shading2]
 vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 {
-	// peso en cada eje para el vector normal del vóxel
+    // peso en cada eje para el vector normal del vóxel
     vec3 weight = normal * normal;
     // atenuación normal por cada cara del vóxel
     float rDotL = dot(vec3(1.0f, 0.0f, 0.0f), light.direction);
@@ -89,7 +88,7 @@ vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 		\includegraphics[width=\linewidth]{media/nDotLT.png}
 		\caption*{Tradicional.}
 	\end{subfigure}%
-	\caption{Composición gráfica del algoritmo \ref{Shading2} para un ángulo incidente $\Theta$ y $\Psi$ de $\angle 45$ grados en BRDF Explorer \cite{brdf_explorer}.}
+	\caption{Composición gráfica para el Código \ref{Shading2} con un ángulo incidente $\Theta$ y $\Psi$ de $\angle 45$ grados en BRDF Explorer \cite{brdf_explorer}.}
 	\label{fig:compositve_vshading}
 \end{figure}
 
@@ -99,7 +98,7 @@ Para obtener resultados coherentes también es necesario ocluir vóxeles. En nue
 
 Una de las ventajas de este trabajo es la capacidad de incluir muchas luces con iluminación global en escena. Por tanto es necesario alguna forma de incluir sombras para otros tipos de luces y más de una fuente de luz. Nuestra implementación realiza trazado de rayos sobre el volumen para incorporar sombras para cualquier tipo de luz dentro del área de proyección del volumen de vóxeles.
 
-El algoritmo para detectar oclusión sobre un vóxel es simple ray tracing de un solo rayo como prueba de oclusión. Por cada fuente de luz con trazado habilitado se inicia un rayo desde la posición del vóxel a iluminar con la dirección de la luz, si este rayo colisiona con algún otro vóxel, entonces este vóxel esta ocluido.
+El algoritmo para detectar oclusión sobre un vóxel es simple \emph{ray tracing} de un solo rayo como prueba de oclusión. Por cada fuente de luz con trazado habilitado se inicia un rayo desde la posición del vóxel a iluminar con la dirección de la luz, si este rayo colisiona con algún otro vóxel, entonces este vóxel esta ocluido.
 
 Nuestra implementación también incluye una variación de esta técnica donde en vez de detener el rayo al colisionar, se acumulan valores a través del recorrido del rayo, estos valores decrecen según la distancia recorrida. Esto se hace para explotar el hecho de que un rayo trazado desde la posición a iluminar con la dirección de luz tendrá más colisiones al pasar por los bordes de algún objeto voxelizado visto desde esta fuente de luz (Figura \ref{fig:soft_voxel_shadow}). El propósito de esto es generar valores más claros en los bordes de la sombra para aproximar sombras suaves. El Código \ref{Shadow1} expone el trazado de rayos sobre el volumen para pruebas de oclusión utilizando ambas técnicas:
 \\
@@ -126,7 +125,7 @@ float TraceShadow(vec3 position, vec3 direction, float maxTracingDistance)
         if(traceSample > 1.0f - EPSILON) { return 0.0f; }
         // acumulación de opacidad dividida por la distancia
         visibility += (1.0f - visibility) * traceSample / dst;
-        // se marcha un vóxel hacia adelante
+        // se avanza un vóxel hacia adelante
         dst += voxelTexSize;
         samplePos = direction * dst + position;
     }

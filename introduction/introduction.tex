@@ -7,7 +7,7 @@ En el pipeline de renderizado estándar se utilizan triángulos los cuales son r
 
 Técnicas recientes han surgido donde se utiliza una representación de la escena en vóxeles para simplificar la geometría en escena y hacer posible el cálculo de iluminación global en tiempo real. Un vóxel representa un elemento volumétrico en una cuadrícula tridimensional uniforme, es también referido como píxel volumétrico o tridimensional.
 
-Una escena representada en vóxeles permite evitar los problemas de complejidad geométrica y su relación con el rendimiento de varias soluciones al problema de iluminación. Esta representación además puede ser filtrada a menores niveles de detalle bajo un esquema de mipmapping. 
+Una escena representada en vóxeles permite evitar los problemas de complejidad geométrica y su relación con el rendimiento de varias soluciones al problema de iluminación. Esta representación además puede ser filtrada a menores niveles de detalle bajo un esquema de \emph{mipmapping}. 
 
 Estas propiedades son especialmente útiles para el algoritmo de trazado de conos. La complejidad del cálculo de colisión entre geometría poligonal y conos se reduce al aproximar esta al muestreo de un volumen donde según la apertura del cono se utiliza algún nivel de detalle en la estructura de vóxeles.
 

@@ -98,7 +98,7 @@ Radiosidad es una aproximación con elementos finitos para el cómputo del trans
 \label{subsec:monte_carlo_raytracing}
 La ecuación de renderizado puede ser aproximada utilizando el algoritmo de trazado de rayos o \emph{ray tracing}, esta es una técnica basada en integración Monte Carlo. Para aproximar la propagación de la luz sobre un punto se crea un número considerable de muestras en variadas direcciones, luego por cada muestra se evalúa la ecuación de renderizado y el promedio de todos los resultados converge hacia la solución analítica de la ecuación de renderizado sobre ese punto. Para evaluar una muestra la luz incidente desde una dirección tiene que ser calculada, para esto un rayo de luz es enviado en una dirección y la luz emitida desde el primer punto de colisión es calculada evaluando la ecuación de renderizado en este punto. En la Figura \ref{fig:ray_tracing_nsamples} se puede observar el resultado de esta técnica.
 
-Ray tracing está dividido en dos categorías: forward y backward. Forward ray tracing consiste en lanzar las trazas/rayos de luz desde las fuentes de luz y usar aquellos que llegan a la cámara. Backward ray tracing por el contrario lanza las trazas/rayos de luz desde la cámara y traza el camino de estos a través de la escena \cite{Arvo86backwardray}.
+\emph{Ray tracing} está dividido en dos categorías: forward y backward. Forward \emph{ray tracing} consiste en lanzar las trazas/rayos de luz desde las fuentes de luz y usar aquellos que llegan a la cámara. Backward \emph{ray tracing} por el contrario lanza las trazas/rayos de luz desde la cámara y traza el camino de estos a través de la escena \cite{Arvo86backwardray}.
 
 \begin{figure}[H]
 	\centering
@@ -120,6 +120,6 @@ Ray tracing está dividido en dos categorías: forward y backward. Forward ray t
 		\captionsetup{width=0.98\textwidth, justification=centering}
 		\caption*{1000 muestras rayos/píxel,\\ 100 para luces de área.}
 	\end{subfigure}
-	\caption{Ray tracing sobre una escena, se puede observar mayor calidad y reducción de ruido al aumentar la cantidad de muestras \cite{locdoraytracing}.}
+	\caption{\emph{Ray tracing} sobre una escena, se puede observar mayor calidad y reducción de ruido al aumentar la cantidad de muestras \cite{locdoraytracing}.}
 	\label{fig:ray_tracing_nsamples}
 \end{figure}

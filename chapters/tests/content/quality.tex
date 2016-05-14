@@ -457,7 +457,7 @@ El factor de longitud de marcha del cono afecta tanto el rendimiento como la cal
 		\includegraphics[width=\linewidth]{{media/finals/cornell_gi_s2.5_diff}.png}
 		\caption*{}
 	\end{subfigure}%
-	\caption{Diferencia visual con respecto a la imagen \ref{fig:cornell_final} utilizando distintos factores de longitud.}
+	\caption{Diferencia con respecto al resultado en la Figura \ref{fig:cornell_final} utilizando distintos factores de longitud.}
 	\label{fig:cornell_gi_sdiff}
 \end{figure}
 
@@ -493,7 +493,7 @@ El factor de longitud de marcha del cono afecta tanto el rendimiento como la cal
 		\includegraphics[width=\linewidth]{{media/finals/sibenik_gi_s2.5_diff}.png}
 		%\caption*{}
 	\end{subfigure}%
-	\caption{Diferencia visual con respecto a la imagen \ref{fig:sibenik_final} utilizando distintos factores de longitud.}
+	\caption{Diferencia con respecto al resultado en la Figura \ref{fig:sibenik_final} utilizando distintos factores de longitud.}
 	\label{fig:sibenik_gi_sdiff}
 \end{figure}
 
@@ -529,7 +529,7 @@ El factor de longitud de marcha del cono afecta tanto el rendimiento como la cal
 		\includegraphics[width=\linewidth]{{media/finals/conf_gi_s2.5_diff}.png}
 		%\caption*{}
 	\end{subfigure}%
-	\caption{Diferencia visual con respecto a la imagen \ref{fig:conf_final} utilizando distintos factores de longitud.}
+	\caption{Diferencia con respecto al resultado en la Figura \ref{fig:conf_final} utilizando distintos factores de longitud.}
 	\label{fig:conf_gi_sdiff}
 \end{figure}
 
@@ -565,7 +565,7 @@ El factor de longitud de marcha del cono afecta tanto el rendimiento como la cal
 		\includegraphics[width=\linewidth]{{media/finals/sponza_gi_s2.5_diff}.png}
 		%\caption*{}
 	\end{subfigure}%
-	\caption{Diferencia visual con respecto a la imagen \ref{fig:sponza_final} utilizando distintos factores de longitud.}
+	\caption{Diferencia con respecto al resultado en la Figura \ref{fig:sponza_final} utilizando distintos factores de longitud.}
 	\label{fig:sponza_gi_sdiff}
 \end{figure}
 
@@ -575,72 +575,74 @@ El factor de longitud afecta especialmente la calidad de las reflexiones especul
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.85\linewidth]{media/finals/test_s010.png}
-	\caption{Demostración de reflexión especular con factor de longitud de marcha $0.1$ y volúmenes con resolución de $512^3$}
+	\includegraphics[width=\linewidth]{media/finals/test_s010.png}
+	\caption{Demostración de reflexión especular con factor de longitud de marcha $0.1$ y volúmenes con resolución de $512^3$ vóxeles.}
 	\label{fig:spec_reflec010}
-	\begin{subfigure}[b]{.49\linewidth}
-		\centering
-		\captionsetup{justification=centering}
-		\caption*{$0.25$}
-		%\caption*{Directa, Indirecta y Oclusión Ambiental}
-		\includegraphics[width=\linewidth]{media/finals/test_s025.png}
-	\end{subfigure}%
-	\hspace{0.01\textwidth}
-	\begin{subfigure}[b]{.49\linewidth}
-		\centering
-		\captionsetup{justification=centering}
-		\caption*{}
-		%\caption*{Diferencia Perceptual\\}
-		\includegraphics[width=\linewidth]{media/finals/test_s025_diff.png}
-	\end{subfigure}%
-	\par\smallskip
-	\begin{subfigure}[b]{.49\linewidth}
-		\centering
-		\captionsetup{justification=centering}
-		\caption*{$0.5$}
-		\includegraphics[width=\linewidth]{media/finals/test_s050.png}
-	\end{subfigure}%
-	\hspace{0.01\textwidth}
-	\begin{subfigure}[b]{.49\linewidth}
-		\centering
-		\captionsetup{justification=centering}
-		\caption*{}
-		%\caption*{Diferencia Perceptual}
-		\includegraphics[width=\linewidth]{media/finals/test_s050_diff.png}
-	\end{subfigure}%	
 \end{figure}
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{.49\linewidth}
 		\centering
 		\captionsetup{justification=centering}
-		\caption*{$1.0$}
-		\includegraphics[width=\linewidth]{media/finals/test_s100.png}
+		\includegraphics[width=\linewidth]{media/finals/test_s050.png}
+		\caption*{Factor de longitud de marcha: $0.5$}
 	\end{subfigure}%
 	\hspace{0.01\textwidth}
 	\begin{subfigure}[b]{.49\linewidth}
 		\centering
 		\captionsetup{justification=centering}
-		\caption*{}
+		\includegraphics[width=\linewidth]{media/finals/test_s050_diff.png}
+		\caption*{Diferencia con la Figura \ref{fig:spec_reflec010}}
+	\end{subfigure}%
+\par\smallskip
+	\begin{subfigure}[b]{.49\linewidth}
+		\centering
+		\captionsetup{justification=centering}
+		\includegraphics[width=\linewidth]{media/finals/test_s100.png}
+		\caption*{$1.0$}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[b]{.49\linewidth}
+		\centering
+		\captionsetup{justification=centering}
 		%\caption*{Diferencia Perceptual}
 		\includegraphics[width=\linewidth]{media/finals/test_s100_diff.png}
+		\caption*{}
 	\end{subfigure}%
 	\par\smallskip
 	\begin{subfigure}[b]{.49\linewidth}
 		\centering
 		\captionsetup{justification=centering}
-		\caption*{$2.5$}
 		\includegraphics[width=\linewidth]{media/finals/test_s250.png}
+		\caption*{$2.5$}
 	\end{subfigure}%
 	\hspace{0.01\textwidth}
 	\begin{subfigure}[b]{.49\linewidth}
 		\centering
 		\captionsetup{justification=centering}
-		\caption*{}
 		%\caption*{Diferencia Perceptual}
 		\includegraphics[width=\linewidth]{media/finals/test_s250_diff.png}
+		\caption*{}
 	\end{subfigure}%
-	\caption{Diferencia con respecto a la Figura \ref{fig:spec_reflec010} considerando distintos factores de longitud. Se puede observar como este factor afecta de gran manera la calidad de las reflexiones sobre distintas superficies especulares de esta escena.}
+	\par\smallskip
+	\begin{subfigure}[b]{.32\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{media/step_error1.png}
+		\caption*{Bandas de Color}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[b]{.32\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{media/step_error2.png}
+		\caption*{Salto de Vóxeles.}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[b]{.32\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{media/step_error3.png}
+		\caption*{Rayado o \emph{Striping}}
+	\end{subfigure}%
+	\caption{Diferencia con respecto a la Figura \ref{fig:spec_reflec010} considerando distintos factores de longitud. En la última imagen se puede observar en detalle algunos problemas visuales que surgen al incrementar longitud de marcha del cono.}
 	\label{fig:spec_reflex_comp1}
 \end{figure}
 
@@ -663,11 +665,7 @@ Una de las características del trazado de conos es que mientras mayor es la ape
 		\caption*{5 grados}
 		\includegraphics[width=\linewidth]{media/finals/shadow_5.png}
 	\end{subfigure}%
-	%\caption{Sombras suaves generadas bajo distintas aperturas del cono de sombreado.}
-	%\label{fig:spec_reflex_comp1}
-\end{figure}
-\begin{figure}[H]
-	\centering
+	\par\smallskip
 	\begin{subfigure}[b]{.49\linewidth}
 		\centering
 		\captionsetup{justification=centering}
@@ -685,8 +683,33 @@ Una de las características del trazado de conos es que mientras mayor es la ape
 	\label{fig:soft_aperture}
 \end{figure}
 
-%\subsubsection{Mapeo del Volumen de Visibilidad}
+\subsubsection{Mapeo del Volumen de Visibilidad}
+Durante el proceso de sombreado se almacena la visibilidad de cada vóxel en el volumen de visibilidad. Estos valores pueden ser utilizados para mapeo de sombras proyectando la posición del fragmento en espacio de textura para obtener un valor de oclusión aproximado. Debido a la baja resolución de la representación del volumen esta técnica provee sombras de baja calidad pero a un rendimiento más alto como se observa en la Figura \ref{fig:fine_cones}. En esta sección se mostraran las tres técnicas de sombreado implementadas: mapeo de sombras, sombras con trazado de conos, mapeo del volumen de visibilidad. Para el mapeo de sombras se utilizó un mapa con resolución de $512x512$ píxeles, la resolución de la representación en vóxeles fue de $512^3$ vóxeles y el factor de longitud de marcha fue $0.5$. Se utilizó la escena sandbox Plane Test con distintas primitivas de diferente complejidad geométrica y una fuente de luz direccional.
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{.49\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{media/shadow_mapping.png}
+		\caption*{Mapeo de Sombras}
+	\end{subfigure}%
+	\hspace{0.01\textwidth}
+	\begin{subfigure}[b]{.49\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{media/trace_shadow.png}
+		\caption*{Trazado de Conos.}
+	\end{subfigure}%
+	\par\smallskip
+	\begin{subfigure}[b]{.8\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{media/visibility_volume.png}
+		\caption*{Volumen de Visibilidad.}
+	\end{subfigure}%
+	\caption{Distintas técnicas para la generación de sombras sobre objetos de distinta complejidad geométrica.}
+	\label{fig:shadowing_techniques}
+\end{figure}
+
+Para la generación de sombras tanto el trazado de conos como el mapeo del volumen de visibilidad puede ocasionar errores sobre geometría suave como la esfera o el toro mientras que el mapeo de sombras no parece presentar estos problemas. En la Figura \ref{fig:shadowing_techniques} el mapeo del volumen de visibilidad produce considerables artefactos visuales para toda geometría no definida por ángulos rectos, como el icosaedro, el toro y la esfera haciendo su uso muy limitado, sin embargo para objetos como el cubo y el plano produce resultados similares a las otras técnicas implementadas.
 
 \subsection{Materiales Emisivos}
 
@@ -720,7 +743,7 @@ En la Figura \ref{fig:areashadows} se puede observar en la escena sandbox LightB
 	\caption{Detalles finos en materiales con emisión.}
 	\label{fig:fine_emissive}
 \end{figure}
-En la Figura \ref{fig:fine_emissive} se puede observar en la escena completa Sibenik los detalles de emision para materiales con texturizado, el color de pared izquierda y derecha son distintos.
+En la Figura \ref{fig:fine_emissive} se puede observar en la escena completa Sibenik los detalles de emision para materiales con texturizado, el color resultante en la pared izquierda y derecha son distintos.
 \subsection{Defectos o Artefactos Visuales} % (fold)
 \label{sub:defectos_o_artefactos_visuales}
 
@@ -767,7 +790,7 @@ Otra condición en la que esto puede suceder es durante el trazado de conos con 
 La aparición de bandas de colores sucede por problemas de muestreo durante el trazado de conos. La distancia entre muestras hace produce estas bandas súbitas producto de la interpolación trilineal entre un mismo nivel de detalle o interpolación cuadrilineal entre varios. Una forma de reducir esto es utilizando un cono de menor apertura sacrificando reflectividad en el caso de conos especulares o reduciendo la longitud de marcha del cono a cambio de menor rendimiento.
 
 \subsection{Comparación} % (fold)
-Para realizar una comparación de calidad se utilizó el algoritmo \ac{CLPV} el cual tiene resultados en rendimiento similares a nuestra implementación. Esta aproximación solo comprende iluminación indirecta difusa. En la figura \ref{fig:comp_quality} se puede observar que los bloques debajo de las columnas reflejan las áreas iluminadas del pasillo superior en la escena completa Sponza por reflexión especular. La reflexión difusa de las telas sobre las columnas es un poco más extensa en \ac{CLPV} llegando hasta los arcos entre ellas.
+Para realizar una comparación de calidad se utilizó el algoritmo \ac{CLPV} el cual tiene resultados en rendimiento similares a nuestra implementación. Esta aproximación solo comprende iluminación indirecta difusa. En la figura \ref{fig:comp_quality} se puede observar que los bloques debajo de las columnas reflejan las áreas iluminadas del pasillo superior en la escena completa Sponza por reflexión especular. La reflexión difusa de las telas sobre las columnas es un poco más extensa en \ac{CLPV} llegando causando mezclado de colores hasta en los arcos entre las columnas.
 \label{sub:comparacion}
 \begin{figure}[H]
 	\centering

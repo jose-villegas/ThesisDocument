@@ -2,7 +2,7 @@
 
 \label{sec:trazado_de_conos_con_voxeles}
 
-El proceso de trazado de conos con vóxeles funciona de manera similar a marcha de rayos o \emph{ray-marching}, la diferencia es que el volumen a muestrear por cada paso que da el rayo incrementa según la distancia al punto de origen de este (ver Figura \ref{fig:vct_explain}). La forma del cono es esencialmente una discretización de un grupo de rayos trazados desde un punto en una superficie. Para obtener las muestras de volúmenes cada vez más grande se utilizan los niveles de mipmap en la estructura de vóxeles.
+El proceso de trazado de conos con vóxeles funciona de manera similar a marcha de rayos o \emph{ray-marching}, la diferencia es que el volumen a muestrear por cada paso que da el rayo incrementa según la distancia al punto de origen de este cono (ver Figura \ref{fig:vct_explain}). La forma del cono es esencialmente una discretización de un grupo de rayos trazados desde un punto en una superficie. Para obtener las muestras de volúmenes cada vez más grande se utilizan los niveles de \emph{mipmap} en la estructura de vóxeles.
 
 \begin{wrapfigure}{l}{0.4\linewidth}
 	\includegraphics[width=0.95\linewidth]{media/vct_explain.png}
@@ -10,7 +10,7 @@ El proceso de trazado de conos con vóxeles funciona de manera similar a marcha 
 	\label{fig:vct_explain}
 \end{wrapfigure}
 
-\noindent Nuestra implementación realiza trazado de conos con vóxeles de la misma manera que este fue explicado en la sección \ref{sub:voxel_cone_tracing_orig}, la mayor diferencia reside en el uso de texturas 3D. Una de las principales ventajas de utilizar texturas 3D es que estas aceleran forma considerable el muestreo de la estructura jerárquica de vóxeles. Mientras que con un octree cada vez que se desea trazar un cono el árbol tiene que ser recorrido de forma recursiva. Con texturas 3D esto se reduce a una simple instrucción proveída por OpenGL llamada $textureLod()$. Esta función recibe una textura, una coordenada de muestreo y un nivel de mipmap. La función también realiza interpolación lineal entre los distintos niveles de mipmapping si la textura a muestrear así lo habilita.
+\noindent Nuestra implementación realiza trazado de conos con vóxeles de la misma manera que este fue explicado en la sección \ref{sub:voxel_cone_tracing_orig}, la mayor diferencia reside en el uso de texturas 3D. Una de las principales ventajas de utilizar texturas 3D es que estas aceleran forma considerable el muestreo de la estructura jerárquica de vóxeles. Mientras que con un \emph{octree} cada vez que se desea trazar un cono el árbol tiene que ser recorrido de forma recursiva. Con texturas 3D esto se reduce a una simple instrucción proveída por OpenGL llamada \emph{textureLod}. Esta función recibe una textura, una coordenada de muestreo y un nivel de \emph{mipmap}. La función también realiza interpolación lineal entre los distintos niveles de \emph{mipmapping} si la textura a muestrear así lo habilita.
 % section trazado_de_conos_con_voxeles (end)
 \subsection{Reflexión Difusa}
 La reflexión difusa de un fragmento puede ser aproximada utilizando integración Monte Carlo trazando un número de conos sobre la semiesfera orientada por el vector normal del fragmento y acumulando la radiancia a través del recorrido del cono. En nuestra implementación se utilizaron seis conos difusos distribuidos de forma uniforme sobre la semiesfera (ver Figura \ref{fig:brdf_cones2}) orientada por el vector normal del fragmento.
@@ -21,7 +21,7 @@ La oclusión ambiental sobre un fragmento puede ser aproximada trazando conos so
 	f(r) = \frac{1}{1+\lambda r}
 \end{equation} donde $r$ representa el radio del cono y $\lambda$ una variable personalizada que describe la intensidad de declive según la distancia para el término de oclusión ambiental, básicamente la extensión del radio de oclusión.
 \subsection{Reflexión Especular}
-Nuestra implementación utiliza de modelo la \ac{BRDF} Blinn-Phong. Para obtener la reflexión especular es necesario solo un cono en equivalencia al lóbulo especular de la \ac{BRDF} como se observa en la Figura \ref{fig:brdf_cones2}. La apertura del cono especular depende del factor $n$ en Blinn-Phong, mientras más alto este valor más fino es el cono especular.
+Nuestra implementación utiliza como modelo de iluminación la \ac{BRDF} Blinn-Phong. Para obtener la reflexión especular es necesario solo un cono en equivalencia al lóbulo especular de la \ac{BRDF} como se observa en la Figura \ref{fig:brdf_cones2}. La apertura del cono especular depende del factor $n$ en Blinn-Phong, mientras más alto este valor más fino es el cono especular.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{.32\linewidth}

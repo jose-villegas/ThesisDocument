@@ -25,6 +25,7 @@ La \ac{BRDF} en un punto $x$ se define entonces como la distribución de la radi
         f_{r}(x, \Psi\to\Theta) &= \frac{dL(x\to\Theta)}{dE(x\gets\Psi)}\\
         &= \frac{dL(x\to\Theta)}{L(x\gets\Psi)\cos(N_{x}, \Psi)dw_{\Psi}}
 	\end{split}
+	\label{eq:brdf_def}
 \end{equation} donde $\cos(N_{x}, \Psi)$ es el coseno del ángulo formado entre el vector normal en el punto $x$ y el vector dirección $\Psi$, también llamado atenuación normal.
 
 \subsubsection{Propiedades de la Función BRDF}
@@ -181,13 +182,13 @@ La \ac{NDF} introducida por Alain Fournier \cite{fournier1992d} describe la dens
 
 En la función gaussiana el término $\sigma^2$ es llamado variancia y el término $\mu$ es llamado media. Tanto el producto como la convolución de dos distribuciones gaussianas es también una distribución gaussiana \cite{tina-2003}.
 
-La función gaussiana puede ser utilizada como una representación direccional. En este caso la media es un vector promedio $D$ del lóbulo gaussiano. Como es descrito en el trabajo de Toksvig para el mipmapping de mapas de normales \cite{Toksvig05}, el valor de $\sigma$ puede ser calculado por la longitud del vector promedio $D$ utilizando la siguiente ecuación:
+La función gaussiana puede ser utilizada como una representación direccional. En este caso la media es un vector promedio $D$ del lóbulo gaussiano. Como es descrito en el trabajo de Toksvig para el \emph{mipmapping} de mapas de normales \cite{Toksvig05}, el valor de $\sigma$ puede ser calculado con la longitud del vector promedio $D$ utilizando la siguiente ecuación:
 \begin{equation}
     \sigma^2 = \frac{1-|D|}{|D|}
     \label{eq:gaussia_eq}
 \end{equation}
 
-Esto permite obtener lóbulos gaussianos a partir de dos o más vectores para representar su dirección en común. En la Figura \ref{fig:lobes_example} se puede observar el lóbulo para una distribución de dos direcciones.
+Esto permite obtener lóbulos gaussianos a partir de dos o más vectores para representar su dirección en común como se observa en la Figura \ref{fig:lobes_example}.
 
 \begin{figure}[H]
 	\centering
@@ -218,6 +219,6 @@ Algunas \ac{BRDF} también pueden describirse como distribuciones gaussianas, la
 		\includegraphics[width=\linewidth]{media/blinnphong_lobule.png}
 		\caption*{\ac{BRDF} Blinn-Phong}
 	\end{subfigure}\hfill
-	\caption{Lóbulos especulares para BRDF Phong y Blinn-Phong para un $\Theta$ y $\Psi$ de $\angle 45$, se puede observar cómo estas describen la distribución de la dirección de reflectancia. Como se explica en \ref{para:blinn_phong} el valor de $n$ afecta la forma del lóbulo mientras mayor es este número más fino y largo es el lóbulo especular. Imágenes renderizadas en Disney's BRDF Explorer \cite{brdf_explorer}.}
+	\caption{Lóbulos especulares para BRDF Phong y Blinn-Phong para un $\Theta$ y $\Psi$ de $\angle 45$ grados, se puede observar cómo estas describen la distribución de la dirección de reflectancia. Como se explica en \ref{para:blinn_phong} el valor de $n$ afecta la forma del lóbulo mientras mayor es este número más fino y largo es el lóbulo especular. Imágenes renderizadas en Disney's BRDF Explorer \cite{brdf_explorer}.}
 	\label{fig:brdf_lobules}
 \end{figure}

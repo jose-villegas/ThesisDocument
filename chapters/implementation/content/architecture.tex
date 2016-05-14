@@ -28,7 +28,7 @@ Existen tres tipos de luces en nuestra implementación como ya fue mencionado an
 
 La aplicación utiliza abstracción en el \emph{loop} o ciclo de renderizado. Existen tres clases bases las cuales proveen un método abstracto a implementar por los hijos de estas. Las clases que implementan estos métodos son instanciadas en la clase \emph{AssetsManager}. Por cada instancia de estas clases cada uno de estos métodos es llamado con cada iteración del ciclo de renderizado. Este ciclo incluye la actualización de interfaces, actualización de lógica y actualización de renderizado.
 
-En la Figura \ref{fig:frame_classes} se observa la clase base \emph{Renderer}. En nuestra implementación la voxelización, actualización del mapa de sombras y el cálculo de iluminación global son implementados en clases que heredan de Renderer. La clase \emph{Interface} es la base de todas las interfaces en la aplicación. Mientras que la clase \emph{Behavior} solo es utilizada para lógica de cámara libre flotante en escena.
+En la Figura \ref{fig:frame_classes} se observa la clase base \emph{Renderer}, en nuestra implementación la voxelización, actualización del mapa de sombras y el cálculo de iluminación global son implementados en clases que heredan de Renderer. La clase \emph{Interface} es la base de todas las interfaces en la aplicación. Mientras que la clase \emph{Behavior} solo es utilizada para lógica de cámara libre flotante en escena.
 
 \begin{figure}[H]
 	\centering

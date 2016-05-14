@@ -24,7 +24,7 @@ Para estas pruebas se utilizaron todas las escenas completas. La configuración 
 \begin{table}[H]
 \centering
 \begin{tabular}{lllllllllll}
-\rot{Resolución de Volumenes}                 & \rot{Escena}                   & \rot{Voxelización Estática} & \rot{Limpieza de Vóxeles Dinámicos} & \rot{Voxelización Dinámica} & \rot{Sombreado de Vóxeles} & \rot{Mipmapping Direccional} & \rot{Iluminación Global de Vóxeles} & \rot{Mipmapping Direccional} & \rot{Trazado de Conos con Vóxeles} & \rot{Tiempo Dinámico}    \\ \hline
+\rot{Resolución de Volumenes}                 & \rot{Escena}                   & \rot{Voxelización Estática} & \rot{Limpieza de Vóxeles Dinámicos} & \rot{Voxelización Dinámica} & \rot{Sombreado de Vóxeles} & \rot{Filtrado Anisotrópico} & \rot{Iluminación Global de Vóxeles} & \rot{Filtrado Anisotrópico} & \rot{Trazado de Conos con Vóxeles} & \rot{Tiempo Dinámico}    \\ \hline
 \multicolumn{1}{|l|}{\multirow{4}{*}{\rotv{$64^3$ vóxeles}}}  & \multicolumn{1}{l|}{Sibenik}     & \multicolumn{1}{l|}{3.00}     & 0.01                                  & \multicolumn{1}{l|}{9.17}     & 0.04                         & \multicolumn{1}{l|}{0.11}      & 0.12                                  & \multicolumn{1}{l|}{0.10}      & \multicolumn{1}{l|}{5.17}            & \multicolumn{1}{l|}{14.74} \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Cornell Box} & \multicolumn{1}{l|}{0.07}     & 0.02                                  & \multicolumn{1}{l|}{2.13}     & 0.06                         & \multicolumn{1}{l|}{0.11}      & 0.29                                  & \multicolumn{1}{l|}{0.11}      & \multicolumn{1}{l|}{4.79}            & \multicolumn{1}{l|}{7.51}  \\
 \multicolumn{1}{|l|}{}                     & \multicolumn{1}{l|}{Conference}  & \multicolumn{1}{l|}{39.68}    & 0.01                                  & \multicolumn{1}{l|}{5.98}     & 0.03                         & \multicolumn{1}{l|}{0.11}      & 0.10                                  & \multicolumn{1}{l|}{0.11}      & \multicolumn{1}{l|}{5.38}            & \multicolumn{1}{l|}{11.72} \\
@@ -111,7 +111,7 @@ En la Figura \ref{fig:voxelization_times} se puede observar esta condición, esp
 
 En escenas donde existen muchos espacios vacíos el trazado de rayos suele tardar un poco más que en escenas densas de objetos. Esto se debe a que mientras la representación en vóxeles sea vacía en la posición que describe la apertura, dirección y punto de origen del cono, este cono debe seguir expandiéndose. A consecuencia mientras más espacios vacíos la representación en vóxeles tenga, más distancia tiene que recorrer cada cono aumentando la cantidad de operaciones de lectura sobre la representación en vóxeles.
 
-Este problema se puede observar en la Figura \ref{fig:gi_voxel_time} para las escenas Sponza y Cornell Box. La escena Cornell Box es en gran parte vacua con solo dos cuboides internos. La escena Sponza es densa en su interior por tanto la falta de objetos no es el principal problema. El problema de la Sponza reside en que la escena es larga y alta pero no ancha. Durante la voxelización cada triángulo se proyecta de forma ortogonal sobre cada eje para maximizar la voxelización, este tronco de proyección es uniforme. Para las dimensiones de esta escena siempre quedara una cantidad considerable de vóxeles vacíos fuera de la geometría principal de la escena. 
+Este problema se puede observar en la Figura \ref{fig:gi_voxel_time} para las escenas Sponza y Cornell Box. La escena Cornell Box es en gran parte vacua con solo dos cuboides internos. La escena Sponza es densa en su interior por tanto la falta de objetos no es el principal problema. El problema de la Sponza reside en que la escena es larga y alta pero no ancha. Durante la voxelización cada triángulo se proyecta de forma ortogonal sobre cada eje para maximizar la voxelización, este tronco cuadrado de proyección es un cubo uniforme. Para las dimensiones de esta escena siempre quedara una cantidad considerable de vóxeles vacíos fuera de la geometría principal de la escena. 
 
 % Una forma de evitar estos problemas en escenas como Sponza es comprobar que la posición de trazado actual está fuera de los límites de la escena, sin embargo esto puede ocasionar problemas visuales dependiendo de la apertura del cono en ese punto, para limitar correctamente el punto de trazado con respecto a los límites de la escena es necesario calcular la intersección del cono contra el volumen delimitante.
 
@@ -211,13 +211,13 @@ Para ambas pruebas se utilizó solo la escena completa Cornell Box. Para la prue
 
 \subsection{Comparaciones} % (fold)
 \label{sub:comparasiones}
-Para el estudio el rendimiento con respecto a otras aproximaciones para cálculo de iluminación indirecta se consideró una aplicación con trazado de conos con vóxeles utilizando octrees dispersos para la representación con vóxeles y otra aplicación utilizando \ac{CLPV} visto en la sección \ref{sub:clpv}. Para ambos programas se utilizó la escena Sponza con cámara y luces en posiciones y direcciones semejantes. La aplicación fue colocada bajo actualización forzosa. Solo se muestra el tiempo final de renderizado en milisegundos. La Tabla \ref{tab:compare} demuestra los resultados de esta comparación.
+Para el estudio el rendimiento con respecto a otras aproximaciones para cálculo de iluminación indirecta se consideró una aplicación con trazado de conos con vóxeles utilizando un octree disperso para la representación con vóxeles y otra aplicación utilizando \ac{CLPV} visto en la sección \ref{sub:clpv}. Para ambos programas se utilizó la escena Sponza con cámara y luces en posiciones y direcciones semejantes. La aplicación fue colocada bajo actualización forzosa. Solo se muestra el tiempo final de renderizado en milisegundos. La Tabla \ref{tab:compare} demuestra los resultados de esta comparación.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{llll}
                              &                                             &                                  &                            \\ \hline
-\multicolumn{1}{|l|}{Escena} & \multicolumn{1}{l|}{Nuestra Implementación} & \multicolumn{1}{l|}{Con Octrees} & \multicolumn{1}{l|}{CLPV}  \\ \hline
+\multicolumn{1}{|l|}{Escena} & \multicolumn{1}{l|}{Nuestra Implementación} & \multicolumn{1}{l|}{Representación con un Octree Disperso} & \multicolumn{1}{l|}{CLPV}  \\ \hline
 \multicolumn{1}{|l|}{Sponza} & \multicolumn{1}{l|}{20.83}                  & \multicolumn{1}{l|}{89.13}      & \multicolumn{1}{l|}{18.19} \\ \hline
 \end{tabular}
 \caption{Comparación de rendimiento (en milisegundos) con otras aplicaciones.}

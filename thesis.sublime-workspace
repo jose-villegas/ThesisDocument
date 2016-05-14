@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"intersecc",
+				"intersección"
+			],
+			[
+				"diame",
+				"diametro"
+			],
+			[
 				"mip",
 				"mipLevel"
 			],
@@ -500,60 +508,10 @@
 	"buffers":
 	[
 		{
-			"file": "chapters/implementation/content/voxel_cone_tracing.tex",
-			"settings":
-			{
-				"buffer_size": 16689,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "chapters/tests/content/memory.tex",
-			"settings":
-			{
-				"buffer_size": 1099,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "chapters/tests/content/quality.tex",
-			"settings":
-			{
-				"buffer_size": 28071,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Downloads/lpv-release/application/config.xml",
-			"settings":
-			{
-				"buffer_size": 147,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "Searching 213 files for \"Trace7\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_cone_tracing.tex:\n  273  Una vez finalizado el cálculo de la iluminación directa a esta se le suma la iluminación indirecta y se multiplican ambas por la oclusión ambiental, luego se suma la emisión:\n  274  \\\\\n  275: \\begin{lstlisting}[caption={Composición final de imagen.}, label=Trace7]\n  276  layout(location = 0) out vec4 fragColor;\n  277  (*@\\centerline{\\raisebox{-1pt}[0pt][0pt]{$\\vdots$}}@*)\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2  \\label{sec:iluminacion_global_de_voxeles}\n    3: En la sección anterior se expone el cálculo de iluminación indirecta de solo un rebote. Si observamos el algoritmo \\ref{Trace7} los únicos datos necesarios para este cálculo con solo el componente difuso son: albedo, normal, posición e iluminación directa.\n    4  \n    5  Todos estos datos se encuentran disponibles en nuestra representación en vóxeles. La iluminación directa en vóxeles la obtenemos luego del proceso de sombreado de vóxeles. Mientras que albedo y normal son volúmenes producto del proceso de voxelización. La posición puede ser fácilmente proyectada utilizando la función \\emph{VoxelToWorld} del algoritmo \\ref{SpaceTransform}.\n    .\n    7  Nuestra implementación realiza iluminación global de solo el componente difuso sobre los vóxeles utilizando un compute shader. El algoritmo de trazado es exactamente el mismo al expuesto en la sección anterior. La única diferencia es que este proceso se realiza por vóxel en vez de por pixel. El siguiente algoritmo expone este proceso:\n    8  \\\\\n    9: \\begin{lstlisting}[caption={Iluminacion global sobre voxeles.}, label=Trace7]\n   10  layout(binding = 0, rgba8) uniform image3D voxelComposite;\n   11  layout(binding = 1, rgba8) uniform sampler3D voxelAlbedo;\n\n3 matches across 2 files\n\n\nSearching 213 files for \"iluminacion_global_de_voxeles\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2: \\label{sec:iluminacion_global_de_voxeles}\n    3  En la sección anterior se expone el cálculo de iluminación indirecta de solo un rebote. Si observamos el algoritmo \\ref{Trace7} los únicos datos necesarios para este cálculo con solo el componente difuso son: albedo, normal, posición e iluminación directa.\n    4  \n    .\n   70  	\\label{fig:vgi_scenes}\n   71  \\end{figure}\n   72: % section iluminacion_global_de_voxeles (end)\n   73  \n\nD:\\Documents\\Projects\\Thesis\\chapters\\proposal\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2: \\label{sec:iluminacion_global_de_voxeles}\n    3  Almacenando solo la radiancia producto de la iluminación directa nos permite obtener iluminación indirecta de un solo rebote durante el proceso de trazado de conos con vóxeles. Esto provee buenos resultados visuales ya que el primer rebote es usualmente el que más contribuye en el transporte de luz de una escena.\n    4  \n    .\n    6  \n    7  Luego del proceso de sombreado de vóxeles es completado y se filtran estos valores para generar vóxeles anisótropos, se agrega otro pasó para calcular el primer rebote de iluminación global sobre el volumen de radiancia. Similar al trazado de conos por fragmento explicado en \\ref{sub:voxel_cone_tracing_orig} ahora por cada vóxel se trazan conos acumulando la radiancia incidente sobre el vóxel. Este método solo comprende reflexión difusa ya que en nuestra implementación no se almacena información especular durante el proceso de voxelización. Al finalizar de calcular la iluminación global sobre cada vóxel se vuelve a realizar el filtrado anisótropo. El volumen resultante ahora es utilizado durante la composición final de la imagen por el trazado de conos con vóxeles, donde ahora estos conos acumulan radiancia producto de tanto iluminación directa como indirecta difusa.\n    8: % section iluminacion_global_de_voxeles (end)\n    9  \n\n4 matches across 2 files\n\n\nSearching 213 files for \"iluminacion_global_de_voxeles\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2: \\label{sec:iluminacion_global_de_voxeles_impl}\n    3  En la sección anterior se expone el cálculo de iluminación indirecta de solo un rebote. Si observamos el algoritmo \\ref{Trace7} los únicos datos necesarios para este cálculo con solo el componente difuso son: albedo, normal, posición e iluminación directa.\n    4  \n    .\n   70  	\\label{fig:vgi_scenes}\n   71  \\end{figure}\n   72: % section iluminacion_global_de_voxeles (end)\n   73  \n\nD:\\Documents\\Projects\\Thesis\\chapters\\proposal\\content\\voxel_gi.tex:\n    1  \\section{Iluminación Global de Vóxeles} % (fold)\n    2: \\label{sec:iluminacion_global_de_voxeles}\n    3  Almacenando solo la radiancia producto de la iluminación directa nos permite obtener iluminación indirecta de un solo rebote durante el proceso de trazado de conos con vóxeles. Esto provee buenos resultados visuales ya que el primer rebote es usualmente el que más contribuye en el transporte de luz de una escena.\n    4  \n    .\n    6  \n    7  Luego del proceso de sombreado de vóxeles es completado y se filtran estos valores para generar vóxeles anisótropos, se agrega otro pasó para calcular el primer rebote de iluminación global sobre el volumen de radiancia. Similar al trazado de conos por fragmento explicado en \\ref{sub:voxel_cone_tracing_orig} ahora por cada vóxel se trazan conos acumulando la radiancia incidente sobre el vóxel. Este método solo comprende reflexión difusa ya que en nuestra implementación no se almacena información especular durante el proceso de voxelización. Al finalizar de calcular la iluminación global sobre cada vóxel se vuelve a realizar el filtrado anisótropo. El volumen resultante ahora es utilizado durante la composición final de la imagen por el trazado de conos con vóxeles, donde ahora estos conos acumulan radiancia producto de tanto iluminación directa como indirecta difusa.\n    8: % section iluminacion_global_de_voxeles (end)\n    9  \n\n4 matches across 2 files\n\n\nSearching 212 files for \"triangulo\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\proposal\\content\\voxelization.tex:\n   38  Este algoritmo está basado en el trabajo de Zhang y otros en 2007 \\cite{zhang2007conservative} para la voxelización conservativa utilizando la \\ac{GPU} y el trabajo de Hasselgren y otros en 2005 \\cite{hasselgren2005conservative} sobre rasterización conservativa.\n   39  \n   40: Para maximizar el área de rasterización la idea es proyectar cada triangulo utilizando proyección ortogonal por cada eje direccional. El eje dominante es escogido según la normal del plano definido por los vértices del triángulo.\n   41  \n   42  \\begin{figure}[H]\n   ..\n   47  \\end{figure}\n   48   \n   49: Por cada triangulo proyectado es necesario generar un polígono delimitante un poco más grande que el triángulo para garantizar la voxelización conservativa. Este polígono debe permitir que por cualquier triangulo proyectado tocando un píxel este va obligatoriamente a tocar el centro de este píxel, por tanto el pipeline de rasterización generara fragmentos para este triángulo. El polígono se genera expandiendo cada vértice del triángulo hacia afuera utilizando el procesador de geometria o \\emph{geometry shader}. El polígono delimitante no sobreestima la cobertura del triángulo por tanto este no tiene forma de triángulo. Los fragmentos excedentes de este polígono son descartados en el fragment shader utilizando un  área delimitante.\n   50  \n   51  \\begin{figure}[H]\n\nD:\\Documents\\Projects\\Thesis\\chapters\\theory\\content\\interactive_gi.tex:\n  125  El algoritmo está pensando para funcionar con escenas dinámicas. Sin embargo las escenas son divididas entre partes dinámicas y estáticas para acelerar el proceso de voxelización con objetos dinámicos.\n  126  \n  127: Primero la escena es renderizada utilizando proyección ortogonal. Cada triangulo es proyectado sobre uno de los ejes principales, este eje es seleccionado según la normal del triángulo, esto se hace para maximizar el área visible del triángulo con respecto al eje. Cada fragmento producto de esta proyección es almacenado en una lista de vóxeles-fragmentos junto a parámetros como posición en escena, normal y color. Para saber la cantidad de elementos que esta lista debe almacenar primero se debe realizar una pasada contando el número de fragmentos con un contador atómico.\n  128  \n  129  \\begin{wrapfigure}{l}{0.4\\linewidth}\n\n4 matches across 2 files\n\n\nSearching 212 files for \"triangulo\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\proposal\\content\\voxelization.tex:\n   38  Este algoritmo está basado en el trabajo de Zhang y otros en 2007 \\cite{zhang2007conservative} para la voxelización conservativa utilizando la \\ac{GPU} y el trabajo de Hasselgren y otros en 2005 \\cite{hasselgren2005conservative} sobre rasterización conservativa.\n   39  \n   40: Para maximizar el área de rasterización la idea es proyectar cada triangulo utilizando proyección ortogonal por cada eje direccional. El eje dominante es escogido según la normal del plano definido por los vértices del triángulo.\n   41  \n   42  \\begin{figure}[H]\n   ..\n   47  \\end{figure}\n   48   \n   49: Por cada triangulo proyectado es necesario generar un polígono delimitante un poco más grande que el triángulo para garantizar la voxelización conservativa. Este polígono debe permitir que por cualquier triangulo proyectado tocando un píxel este va obligatoriamente a tocar el centro de este píxel, por tanto el pipeline de rasterización generara fragmentos para este triángulo. El polígono se genera expandiendo cada vértice del triángulo hacia afuera utilizando el procesador de geometria o \\emph{geometry shader}. El polígono delimitante no sobreestima la cobertura del triángulo por tanto este no tiene forma de triángulo. Los fragmentos excedentes de este polígono son descartados en el fragment shader utilizando un  área delimitante.\n   50  \n   51  \\begin{figure}[H]\n\nD:\\Documents\\Projects\\Thesis\\chapters\\theory\\content\\interactive_gi.tex:\n  125  El algoritmo está pensando para funcionar con escenas dinámicas. Sin embargo las escenas son divididas entre partes dinámicas y estáticas para acelerar el proceso de voxelización con objetos dinámicos.\n  126  \n  127: Primero la escena es renderizada utilizando proyección ortogonal. Cada triangulo es proyectado sobre uno de los ejes principales, este eje es seleccionado según la normal del triángulo, esto se hace para maximizar el área visible del triángulo con respecto al eje. Cada fragmento producto de esta proyección es almacenado en una lista de vóxeles-fragmentos junto a parámetros como posición en escena, normal y color. Para saber la cantidad de elementos que esta lista debe almacenar primero se debe realizar una pasada contando el número de fragmentos con un contador atómico.\n  128  \n  129  \\begin{wrapfigure}{l}{0.4\\linewidth}\n\n4 matches across 2 files\n\n\nSearching 212 files for \"voxeltrace_shadowing\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\implementation\\content\\voxel_shading.tex:\n  101  El algoritmo para detectar oclusión sobre un vóxel es simple ray tracing de un solo rayo como prueba de oclusión. Por cada fuente de luz con trazado habilitado se inicia un rayo desde la posición del vóxel a iluminar con la dirección de la luz, si este rayo colisiona con algún otro vóxel, entonces este vóxel esta ocluido.\n  102  \n  103: Nuestra implementación también incluye una variación de esta técnica donde en vez de detener el rayo al colisionar, se acumulan valores a través del recorrido del rayo, estos valores decrecen según la distancia recorrida. Esto se hace para explotar el hecho de que un rayo trazado desde la posición a iluminar con la dirección de luz tendrá más colisiones al pasar por los bordes de algún objeto voxelizado visto desde esta fuente de luz (figura \\ref{fig:voxeltrace_shadowing}). El propósito de esto es generar valores más claros en los bordes de la sombra para aproximar sombras suaves. El código utilizado para trazar rayos sobre el volumen para pruebas de oclusión es el siguiente:\n  104  \\\\\n  105  \\begin{lstlisting}[caption={Trazado de rayos sobre volumen albedo para sombras sobre vóxeles}, label=Shadow1]\n\nD:\\Documents\\Projects\\Thesis\\chapters\\tests\\content\\performance.tex:\n  174  	\\includegraphics[width=0.95\\linewidth]{media/shadowtrace_time_cropped.pdf}\n  175  	\\caption{Grafica para el tiempo agregado al trazado de conos con vóxeles utilizando conos para sombras suaves o mapeo del volumen de visibilidad. Tabla \\ref{tab:shadowcone5}.}\n  176: 	\\label{fig:voxeltrace_shadowing}\n  177  \\end{figure}\n  178  \n\n2 matches across 2 files\n",
-			"settings":
-			{
-				"buffer_size": 12765,
-				"line_ending": "Windows",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "chapters/implementation/content/architecture.tex",
-			"settings":
-			{
-				"buffer_size": 3832,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "chapters/implementation/content/voxel_pipeline.tex",
 			"settings":
 			{
-				"buffer_size": 19788,
+				"buffer_size": 21944,
 				"line_ending": "Windows"
 			}
 		},
@@ -561,95 +519,7 @@
 			"file": "chapters/implementation/content/voxel_shading.tex",
 			"settings":
 			{
-				"buffer_size": 11317,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "chapters/proposal/content/voxel_shading.tex",
-			"settings":
-			{
-				"buffer_size": 8763,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "chapters/proposal/content/voxel_structure.tex",
-			"settings":
-			{
-				"buffer_size": 2258,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "chapters/conclusion/conclusion.tex",
-			"settings":
-			{
-				"buffer_size": 6220,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "introduction/introduction.tex",
-			"settings":
-			{
-				"buffer_size": 4312,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "main.tex",
-			"settings":
-			{
-				"buffer_size": 4032,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/implementation/implementation.tex",
-			"settings":
-			{
-				"buffer_size": 424,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/theory/content/interactive_gi.tex",
-			"settings":
-			{
-				"buffer_size": 19855,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/proposal/proposal.tex",
-			"settings":
-			{
-				"buffer_size": 2106,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/proposal/content/voxelization.tex",
-			"settings":
-			{
-				"buffer_size": 6516,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "chapters/proposal/content/cone_tracing.tex",
-			"settings":
-			{
-				"buffer_size": 5027,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "chapters/implementation/content/voxel_gi.tex",
-			"settings":
-			{
-				"buffer_size": 4008,
+				"buffer_size": 12330,
 				"line_ending": "Windows"
 			}
 		},
@@ -657,72 +527,24 @@
 			"file": "chapters/implementation/content/hierarchy.tex",
 			"settings":
 			{
-				"buffer_size": 8516,
+				"buffer_size": 9569,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "chapters/implementation/content/technology.tex",
+			"file": "chapters/implementation/content/voxel_cone_tracing.tex",
 			"settings":
 			{
-				"buffer_size": 4182,
+				"buffer_size": 18462,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "abbreviations.tex",
+			"file": "chapters/implementation/content/voxel_gi.tex",
 			"settings":
 			{
-				"buffer_size": 1153,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "references.bib",
-			"settings":
-			{
-				"buffer_size": 15128,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/tests/tests.tex",
-			"settings":
-			{
-				"buffer_size": 250,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/tests/content/enviroment.tex",
-			"settings":
-			{
-				"buffer_size": 1704,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/tests/content/scenes.tex",
-			"settings":
-			{
-				"buffer_size": 8818,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/tests/content/performance.tex",
-			"settings":
-			{
-				"buffer_size": 24122,
+				"buffer_size": 4323,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "chapters/theory/content/rendering_equation.tex",
-			"settings":
-			{
-				"buffer_size": 8380,
-				"line_ending": "Unix"
 			}
 		},
 		{
@@ -815,35 +637,51 @@
 	],
 	"file_history":
 	[
-		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_gi.tex",
-		"/D/Documents/Projects/Thesis/chapters/proposal/content/emissive_voxels.tex",
-		"/D/Documents/Projects/Thesis/chapters/theory/content/techniques.tex",
-		"/D/Documents/Projects/Thesis/chapters/theory/content/surfaces.tex",
-		"/D/Documents/Projects/Thesis/chapters/theory/content/global_illumination.tex",
-		"/D/Documents/Projects/Thesis/chapters/tests/content/performance.tex",
-		"/D/Documents/Projects/Thesis/main.pdf",
-		"/D/Documents/Projects/Thesis/chapters/proposal/content/cone_tracing.tex",
-		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_structure.tex",
-		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxelization.tex",
-		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
-		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_shading.tex",
-		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_cone_tracing",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/architecture.tex",
 		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_pipeline.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxelization.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/technology.tex",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/techniques.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_shading.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_structure.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/cone_tracing.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_gi.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/hierarchy.tex",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/interactive_gi.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/proposal.tex",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/surfaces.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_gi.tex",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/radiometry.tex",
+		"/D/Documents/Projects/Thesis/main.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/performance.tex",
+		"/D/Documents/Projects/Thesis/chapters/conclusion/conclusion.tex",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/rendering_equation.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_shading.tex",
+		"/D/Documents/Projects/Thesis/introduction/introduction.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/quality.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/emissive_voxels.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/scenes.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_cone_tracing.tex",
+		"/D/Documents/Projects/Thesis/references.bib",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/memory.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/enviroment.tex",
+		"/D/Documents/Projects/Thesis/listing_language.tex",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/direct_indirect.tex",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/global_illumination.tex",
+		"/D/Documents/Projects/Thesis/abbreviations.tex",
+		"/D/Documents/Projects/Thesis/cover/abstract.tex",
+		"/D/Downloads/lpv-release/application/config.xml",
+		"/D/Documents/Projects/Thesis/chapters/implementation/implementation.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/tests.tex",
+		"/D/Documents/Projects/Thesis/cover/cover.tex",
+		"/D/Documents/Projects/Thesis/main.pdf",
+		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_cone_tracing",
 		"/D/Documents/Projects/Thesis/thesis.sublime-project",
 		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXToolsMinted.sublime-settings",
 		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools-Minted.sublime-settings",
 		"/C/Users/Jose/AppData/Roaming/Sublime Text 3/Packages/User/untitled.sublime-build",
-		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_shading.tex",
-		"/D/Documents/Projects/Thesis/chapters/theory/content/interactive_gi.tex",
-		"/D/Documents/Projects/Thesis/chapters/proposal/proposal.tex",
-		"/D/Documents/Projects/Thesis/chapters/tests/content/quality.tex",
-		"/D/Documents/Projects/Thesis/chapters/implementation/content/technology.tex",
-		"/D/Documents/Projects/Thesis/chapters/implementation/implementation.tex",
-		"/D/Documents/Projects/Thesis/main.tex",
-		"/D/Documents/Projects/Thesis/chapters/tests/content/memory.tex",
 		"/D/Dropbox/voxelshading.vs",
-		"/D/Documents/Projects/Thesis/chapters/theory/content/rendering_equation.tex",
-		"/D/Documents/Projects/Thesis/chapters/tests/content/scenes.tex",
 		"/F/Tesis/seminar/references.bib",
 		"/D/Documents/Projects/Thesis/media/shadowtrace_time_cropped.pdf",
 		"/D/Downloads/tesis-lic/intro.tex",
@@ -912,6 +750,124 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			".19",
+			"}%",
+			".2",
+			"pipeline",
+			"tronco",
+			"amos",
+			"imos",
+			"emos",
+			"sparse",
+			"octree",
+			"mipmapping",
+			"mip-mapping",
+			"ray tracing",
+			"Ray tracing",
+			"ray tracing",
+			"Ray tracing",
+			"ray tracing",
+			"mipmap",
+			"Mipmap",
+			"mipmap",
+			"mipmapping",
+			"mipmap",
+			"mipmapping",
+			"ray tracing",
+			"ray-tracing",
+			"solida",
+			"mallado",
+			"Diferencia visual con respecto a la imagen ",
+			"^3",
+			"mipmap",
+			"compute shaders",
+			"compute shader",
+			"ompute shader",
+			"compute shader",
+			"shader",
+			"fragment shader",
+			"geometry shader",
+			"fragment shader",
+			"emos",
+			"xel",
+			"isótropica",
+			"mip map",
+			"examino",
+			"umos",
+			"omos",
+			"imos",
+			"emos",
+			"amos",
+			"pos-",
+			"|c|",
+			"c",
+			"3$",
+			"utilizando",
+			"voxeles",
+			"Vóxeles",
+			"iluminacion",
+			"}.",
+			"Diferencia visual con respecto a la imagen",
+			"voxeles",
+			"^3",
+			" al habilitar iluminación global de vóxeles",
+			"tabla",
+			"720",
+			"wrapfigure",
+			"funcion",
+			"formula",
+			"seccion",
+			"pixel",
+			"la normal",
+			"tante",
+			"malla",
+			"mallado",
+			"librería",
+			"librerías",
+			"Herramientas",
+			"mip map",
+			"raiz",
+			"computo",
+			"triangulo",
+			"lvp_results",
+			"rsm_fbo",
+			"crassin",
+			"picos",
+			"}.\n",
+			"termino",
+			"calculo",
+			"iluminacion",
+			"\\end{lstlisting}",
+			"Obtiene",
+			"Filtrado",
+			"Posición",
+			"P",
+			"multisample",
+			"shadowcone_aperture",
+			"end{equation}",
+			"y otros",
+			"iso",
+			"aniso",
+			"iso",
+			"grafica",
+			"Grafica",
+			"numero",
+			"tecnica",
+			"la figure",
+			"figura",
+			"figure",
+			"y otros",
+			" ,",
+			"interaccionan",
+			"dimensional",
+			"3-",
+			"Capitulo",
+			"cuadricula",
+			"cuadrícula",
+			"cuadricula",
+			"grafico",
+			"Fuente:",
+			"Fuente",
 			"voxeltrace_shadowing",
 			"triangulo",
 			"iluminacion_global_de_voxeles",
@@ -921,125 +877,7 @@
 			"Methods",
 			"methods",
 			"Trace7",
-			"injectionPass",
-			"El trazado de conos puede ser utilizado para obtener sombras suaves. El traza de este cono es exactamente igual al metodo \\emph{TraceCone} sin embargo lo unico que es necesario acumula es la opacidad en el canal alfa de \n",
-			" \n",
-			"Voxelization3",
-			"0.25",
-			".33",
-			".25",
-			".0",
-			"[11]{l}{0.3\\linewidth}",
-			"figure",
-			"mov",
-			"tradi",
-			"delimitante",
-			"}\n",
-			".\n",
-			"pesar",
-			"include",
-			"\\hfill",
-			"wrapfigure",
-			"figure",
-			"Monte Carlo",
-			"pixel",
-			"tropi",
-			"aniso",
-			"anis",
-			"Anisotrópicos",
-			"shader",
-			"  199: El procesamiento de la textura de fotones sobre el árbol se realiza en procesador de fragmentos o  por cada fragmento generado. Como usualmente la dimensión del \\emph{light-view map} es mayor a la resolución de la cuadricula de vóxeles se puede asumir que los fotones serán almacenados directamente en las hojas del árbol octree. Además, los fotones siempre pueden ser almacenados en el nivel más fino de detalle en la representación con vóxeles porque estos describen información de la superficie geométrica. Es posible que muchos fotones terminen sobre un mismo vóxel, por esto es necesario utilizar adicción atómica para garantizar coherencia entre los hilos generados por cada fragmento.\n",
-			"shader",
-			"geometry",
-			"}.\n",
-			"por el",
-			"$}",
-			"} ",
-			"GPU",
-			"gpu",
-			"GPU",
-			"Emisivos",
-			"spec_reflex",
-			"angulo",
-			"bigskip",
-			"s100",
-			"s050",
-			"sibenik_",
-			"distintas resoluciones para la representacion en voxeles",
-			"cornell_",
-			"_128",
-			"_256",
-			"gi_256",
-			"sibenik_",
-			"cornell_",
-			"\\caption*{}",
-			"\\caption*{$",
-			"$)",
-			"($",
-			"_128",
-			"_256",
-			"conf_",
-			"\\par\\bigskip",
-			".32",
-			"sibenik_",
-			"cornell_",
-			"[t]",
-			"sponza_",
-			"sibenik_",
-			"\\caption*",
-			"sibenik_",
-			"conf_",
-			"cornell_",
-			"linewidth",
-			"cornell",
-			"cornell_",
-			"\\end{subfigure}%",
-			"\\end{subfigure}",
-			"diff",
-			"perc",
-			"perce",
-			"pixel",
-			"xeles",
-			"pix",
-			"fragmentos visibles",
-			"33",
-			"2.17",
-			"Room",
-			"subsubsec:emptyness",
-			"subsubsection",
-			"\\rot{",
-			"\\} ",
-			"\\{",
-			"\\}",
-			"\\{",
-			"\\}",
-			"\\{",
-			"\\}",
-			"\\{",
-			"c",
-			"c|",
-			"\\}",
-			"\\{",
-			"\\}",
-			"\\{",
-			"\\}",
-			"}",
-			"\\{",
-			"\\hline",
-			"tabular",
-			"\\}",
-			"\\{",
-			"\\}",
-			"t\\{",
-			"\\}",
-			"\\}   ",
-			"\\{",
-			"\\}",
-			"CornellBox",
-			"cornell",
-			"Cornell",
-			"cornell",
-			"Cornell"
+			"injectionPass"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1047,6 +885,10 @@
 		"regex": false,
 		"replace_history":
 		[
+			"malla",
+			"cómputo",
+			"triángulo",
+			"cuadrícula",
 			"píxel"
 		],
 		"reverse": false,
@@ -1058,24 +900,24 @@
 	"groups":
 	[
 		{
-			"selected": 26,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "chapters/implementation/content/voxel_cone_tracing.tex",
+					"file": "chapters/implementation/content/voxel_pipeline.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16689,
+						"buffer_size": 21944,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16355,
-								16355
+								20666,
+								20667
 							]
 						],
 						"settings":
@@ -1085,7 +927,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5220.0,
+						"translation.y": 6345.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -1093,260 +935,75 @@
 				},
 				{
 					"buffer": 1,
-					"file": "chapters/tests/content/memory.tex",
+					"file": "chapters/implementation/content/voxel_shading.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1099,
+						"buffer_size": 12330,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								485,
-								485
+								8829,
+								8829
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2174.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "chapters/tests/content/quality.tex",
+					"file": "chapters/implementation/content/hierarchy.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 28071,
+						"buffer_size": 9569,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								27332,
-								27332
+								9490,
+								9490
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 11849.0,
+						"translation.y": 2655.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 25,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/D/Downloads/lpv-release/application/config.xml",
+					"file": "chapters/implementation/content/voxel_cone_tracing.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 147,
+						"buffer_size": 18462,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								58,
-								58
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/XML/XML.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 26,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12765,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										383,
-										389
-									],
-									[
-										809,
-										815
-									],
-									[
-										1773,
-										1779
-									],
-									[
-										2146,
-										2175
-									],
-									[
-										2523,
-										2552
-									],
-									[
-										2711,
-										2740
-									],
-									[
-										3990,
-										4019
-									],
-									[
-										4268,
-										4297
-									],
-									[
-										4650,
-										4679
-									],
-									[
-										4838,
-										4867
-									],
-									[
-										6117,
-										6146
-									],
-									[
-										6650,
-										6659
-									],
-									[
-										6898,
-										6907
-									],
-									[
-										7092,
-										7101
-									],
-									[
-										8032,
-										8041
-									],
-									[
-										9079,
-										9088
-									],
-									[
-										9327,
-										9336
-									],
-									[
-										9521,
-										9530
-									],
-									[
-										10461,
-										10470
-									],
-									[
-										11976,
-										11996
-									],
-									[
-										12689,
-										12709
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								12373,
-								12373
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 6,
-							"result_base_dir": "",
-							"result_file_regex": "^([^ 	].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 3315.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "chapters/implementation/content/architecture.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3832,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3832,
-								3832
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 169.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "chapters/implementation/content/voxel_pipeline.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19788,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								19114,
-								19114
+								15995,
+								15995
 							]
 						],
 						"settings":
@@ -1356,618 +1013,44 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5895.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "chapters/implementation/content/voxel_shading.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11317,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10584,
-								10584
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 3149.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "chapters/proposal/content/voxel_shading.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8763,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8069,
-								8086
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1871.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "chapters/proposal/content/voxel_structure.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2258,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2218,
-								2218
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 18,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "chapters/conclusion/conclusion.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6220,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6220,
-								6220
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 375.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 23,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "introduction/introduction.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4312,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3547,
-								3547
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 507.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 21,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "main.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4032,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3509,
-								3509
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2024.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 24,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "chapters/implementation/implementation.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 424,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								424,
-								424
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 17,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "chapters/theory/content/interactive_gi.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19855,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								11531,
-								11531
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2891.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "chapters/proposal/proposal.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2106,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1196,
-								1196
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 20,
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "chapters/proposal/content/voxelization.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6516,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								644,
-								644
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 16,
-					"type": "text"
-				},
-				{
-					"buffer": 17,
-					"file": "chapters/proposal/content/cone_tracing.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5027,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3028,
-								3028
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 675.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 18,
-					"file": "chapters/implementation/content/voxel_gi.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4008,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3677,
-								3677
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 720.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 19,
-					"file": "chapters/implementation/content/hierarchy.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8516,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8516,
-								8516
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2475.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 20,
-					"file": "chapters/implementation/content/technology.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4182,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3763,
-								3763
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 45.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 21,
-					"file": "abbreviations.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1153,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								984,
-								984
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 339.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 19,
-					"type": "text"
-				},
-				{
-					"buffer": 22,
-					"file": "references.bib",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15128,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								15128
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/Bibtex.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1379.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 27,
-					"type": "text"
-				},
-				{
-					"buffer": 23,
-					"file": "chapters/tests/tests.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 250,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								250,
-								250
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 24,
-					"file": "chapters/tests/content/enviroment.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1704,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								346,
-								346
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4815.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 25,
-					"file": "chapters/tests/content/scenes.tex",
+					"buffer": 4,
+					"file": "chapters/implementation/content/voxel_gi.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8818,
+						"buffer_size": 4323,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1874,
-								1874
+								835,
+								835
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2340.0,
+						"translation.y": 405.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 26,
-					"file": "chapters/tests/content/performance.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 24122,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								19914,
-								19914
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 4796.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 27,
-					"file": "chapters/theory/content/rendering_equation.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8380,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5505,
-								5505
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1545.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 28,
+					"buffer": 5,
 					"file": "cover/cover.tex",
-					"semi_transient": false,
+					"semi_transient": true,
 					"settings":
 					{
 						"buffer_size": 878,
@@ -1977,19 +1060,19 @@
 						"selection":
 						[
 							[
-								150,
-								42
+								878,
+								878
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 28,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -2046,7 +1129,7 @@
 	"project": "thesis.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":

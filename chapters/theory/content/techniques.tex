@@ -20,7 +20,7 @@ Una vez que se procede a renderizar la escena desde el punto de vista del observ
 \end{figure}
 Como se muestra en la Figura \ref{fig:shadow_mapping}, si la profundidad del fragmento desde la fuente de luz es mayor que el valor almacenado en el mapa de sombra entonces este punto esta sombreado. 
 
-El mapeado de sombras es una solución sencilla y efectiva al problema de pruebas de visibilidad pero esta técnica tiene dos mayores desventajas. El mapa de sombras está limitado a la resolución de la textura y además este representa una discretización de la profundidad de la escena desde la fuente de luz y esto introduce una variedad de anomalías visuales. A partir de este concepto existe una variedad de algoritmos para el cálculo de sombras que intentan solventar estos problemas.
+El mapeado de sombras es una solución sencilla y efectiva al problema de pruebas de visibilidad pero esta técnica tiene dos mayores desventajas. El mapa de sombras está limitado a la resolución de la textura y además este representa una discretización de la profundidad de la escena desde la fuente de luz lo cual introduce una variedad de anomalías visuales. A partir de este concepto existe una variedad de algoritmos para el cálculo de sombras que intentan solventar estos problemas u obtener resultados de mejor calidad visual.
 
 \subsection{Sombreado Diferido}
 \label{sub:deferred_rendering_theory}
@@ -57,7 +57,7 @@ Con sombreado diferido se pueden realizar estas operaciones por píxel solo sobr
 \label{sec:voxelization}
 Un \emph{voxel} o a veces llamado píxel volumétrico representa una muestra singular o elemento volumétrico sobre un grid regular en un espacio tridimensional. Este vóxel puede contener cualquier valor definido por la aplicación o incluso múltiples valores. 
 
-El proceso de generar superficies discretas en una representación volumétrica a través de vóxeles se le llama voxelización. En la Figura \ref{fig:rigid_grid} se ilustra este proceso.
+El proceso de generar superficies discretas en una representación volumétrica a través de vóxeles se le llama voxelización (ver Figura \ref{fig:rigid_grid}).
 
 \begin{figure}[H]
 	\centering
