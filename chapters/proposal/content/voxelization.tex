@@ -35,7 +35,7 @@ Nuestra implementación realiza voxelización conservativa de geometría de alto
 Voxelization Using the GPU
 Hardware Rasterizer} \cite{CozziRiccio12}. Este algoritmo está basado en el trabajo de Zhang et al. en 2007 \cite{zhang2007conservative} para la voxelización conservativa utilizando la \ac{GPU} y el trabajo de Hasselgren et al. en 2005 \cite{hasselgren2005conservative} sobre rasterización conservativa. En la Figura \ref{fig:vox_pipeline} se puede observar la arquitectura descrita en \emph{Octree-Based Sparse Voxelization Using the GPU Hardware Rasterizer} para el proceso de voxelización. 
 
-Para maximizar el área de rasterización la idea es proyectar cada triángulo utilizando proyección ortogonal por cada eje direccional. El eje dominante es escogido según el vector normal del plano definido por los vértices del triángulo.
+Para maximizar el área de rasterización, la idea es proyectar cada triángulo utilizando proyección ortogonal por cada eje direccional. El eje dominante es escogido según el vector normal del plano definido por los vértices del triángulo.
 
 \begin{figure}[H]
 	\centering
@@ -45,7 +45,7 @@ Para maximizar el área de rasterización la idea es proyectar cada triángulo u
 	\label{fig:vox_pipeline}
 \end{figure}
  
-Por cada triángulo proyectado es necesario generar un polígono delimitante un poco más grande que el triángulo para garantizar la voxelización conservativa. Este polígono debe permitir que por cualquier triángulo proyectado tocando un píxel este va obligatoriamente a tocar el centro de este píxel, por tanto el pipeline de rasterización generara fragmentos para este triángulo. El polígono se genera expandiendo cada vértice del triángulo hacia afuera utilizando el procesador de geometría o \emph{geometry shader}. El polígono delimitante no sobreestima la cobertura del triángulo por tanto este no tiene forma de triángulo (ver Figura \ref{fig:expanded_bbpolygon}). Los fragmentos excedentes de este polígono son descartados en el \emph{fragment shader} utilizando una región delimitante.
+Por cada triángulo proyectado es necesario generar un polígono delimitante un poco más grande que el triángulo para garantizar la voxelización conservativa. Este polígono debe permitir que por cualquier triángulo proyectado, tocando un píxel, este obligatoriamente va a tocar el centro de este píxel, por tanto el pipeline de rasterización generará fragmentos para este triángulo. El polígono se genera expandiendo cada vértice del triángulo hacia afuera utilizando el procesador de geometría o \emph{geometry shader}. El polígono delimitante no sobreestima la cobertura del triángulo por tanto este no tiene forma de triángulo (ver Figura \ref{fig:expanded_bbpolygon}). Los fragmentos excedentes de este polígono son descartados en el \emph{fragment shader} utilizando una región delimitante.
 
 \begin{figure}[H]
 	\centering
@@ -60,15 +60,15 @@ Por cada triángulo proyectado es necesario generar un polígono delimitante un 
 
 \subsection{Composición de Fragmentos y Vóxeles}
 \label{sub:frag_voxels}
-Una vez que los fragmentos han sido generados en el \emph{fragment shader}, los valores deseados puede ser almacenados en una textura 3D utilizando operaciones de escritura que provee la extensión \emph{GL\_ARB\_shader\_image\_load\_store} en OpenGL \cite{ImageLoadStore}. Sin embargo múltiples fragmentos de diferentes triángulos puede caer sobre una misma posición en esta textura 3D. Bajo el ambiente paralelo del \emph{fragment shader} no es posible saber el orden en que los fragmentos son creados y procesados, esto se traduce en resultados arbitrarios cada vez que se revoxeliza la escena.
+Una vez que los fragmentos han sido generados en el \emph{fragment shader}, los valores deseados pueden ser almacenados en una textura 3D utilizando operaciones de escritura que provee la extensión \emph{GL\_ARB\_shader\_image\_load\_store} en OpenGL \cite{ImageLoadStore}. Sin embargo múltiples fragmentos de diferentes triángulos pueden caer sobre una misma posición en esta textura 3D. Bajo el ambiente paralelo del \emph{fragment shader} no es posible saber el orden en que los fragmentos son creados y procesados, esto se traduce en resultados arbitrarios cada vez que se re-voxeliza la escena.
 
 Para solventar este problema se utilizaron operaciones atómicas provistas por la misma extensión citada anteriormente. En nuestra implementación los valores necesarios a almacenar en vóxeles son normal, albedo y emisión. Una operación coherente y sencilla con respecto a estas propiedades en el espacio que envuelve un vóxel es un promedio.
 
 \subsection{Voxelización Dinámica} % (fold)
 \label{sub:voxelizacion_dinamica}
-Para escenas complejas y densas en geometría poligonal el proceso de voxelización puede tomar considerable tiempo de ejecución afectando el rendimiento general del algoritmo si la escena necesita ser revoxelizada constantemente. Es por esto conveniente separar la voxelización de superficies estáticas y dinámicas en escena. La idea es voxelizar la parte estática de la escena una sola vez mientras que la parte dinámica es revoxelizada solo cuando sea necesario o constantemente por frame.
+Para escenas complejas y densas en geometría poligonal el proceso de voxelización puede tomar considerable tiempo de ejecución. Esto afecta el rendimiento general del algoritmo si la escena necesita ser re-voxelizada constantemente. Es por esto conveniente separar la voxelización de superficies estáticas y dinámicas en escena. La idea es voxelizar la parte estática de la escena una sola vez mientras que la parte dinámica es revoxelizada solo cuando sea necesario o constantemente por frame.
 
 En nuestra implementación no se utiliza un \emph{octree} disperso para almacenar los vóxeles sino texturas 3D. La separación entre valores estáticos y dinámicos bajo el esquema de un \emph{octree} consiste en dividir el árbol en una parte dinámica y una parte estática. Considerando la cualidad dispersa de esta estructura esto no es de gran peso en memoria. 
 
-Utilizando texturas 3D esto sería equivalente en nuestra implementación a generar en vez de tres texturas para almacenar albedo, normal y emisión se generarían seis. Tres de estas para la parte estática y tres para la parte dinámica. Esto es extremadamente ineficiente en memoria. Para evitar la creación de estas texturas se utiliza un volumen extra que permite indicar que vóxel forma parte de la parte estática y cuál no. Durante el proceso de voxelización dinámica solo los fragmentos que se encuentran dentro del espacio de un vóxel dinámico pueden escribir sobre la textura 3D.
+Utilizando texturas 3D esto sería equivalente a generar seis texturas en vez de tres para almacenar albedo, normal y emisión. Tres de estas para la parte estática y tres para la parte dinámica, lo que es extremadamente ineficiente en memoria. Para evitar la creación de estas texturas se utiliza un volumen extra que permite indicar qué vóxel forma parte de la parte estática y cuál no. Durante el proceso de voxelización dinámica solo los fragmentos que se encuentran dentro del espacio de un vóxel dinámico pueden escribir sobre la textura 3D.
 % subsection voxelizacion_dinamica (end)

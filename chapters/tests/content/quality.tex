@@ -684,7 +684,7 @@ Una de las características del trazado de conos es que mientras mayor es la ape
 \end{figure}
 
 \subsubsection{Mapeo del Volumen de Visibilidad}
-Durante el proceso de sombreado se almacena la visibilidad de cada vóxel en el volumen de visibilidad. Estos valores pueden ser utilizados para mapeo de sombras proyectando la posición del fragmento en espacio de textura para obtener un valor de oclusión aproximado. Debido a la baja resolución de la representación del volumen esta técnica provee sombras de baja calidad pero a un rendimiento más alto como se observa en la Figura \ref{fig:fine_cones}. En esta sección se mostraran las tres técnicas de sombreado implementadas: mapeo de sombras, sombras con trazado de conos, mapeo del volumen de visibilidad. Para el mapeo de sombras se utilizó un mapa con resolución de $512x512$ píxeles, la resolución de la representación en vóxeles fue de $512^3$ vóxeles y el factor de longitud de marcha fue $0.5$. Se utilizó la escena sandbox Plane Test con distintas primitivas de diferente complejidad geométrica y una fuente de luz direccional.
+Durante el proceso de sombreado se almacena la visibilidad de cada vóxel en el volumen de visibilidad. Estos valores pueden ser utilizados para mapeo de sombras proyectando la posición del fragmento en espacio de textura para obtener un valor de oclusión aproximado. Debido a la baja resolución de la representación del volumen, esta técnica provee sombras de baja calidad, pero a un rendimiento más alto como se observa en la Figura \ref{fig:fine_cones}. En esta sección se mostrarán las tres técnicas de sombreado implementadas: mapeo de sombras, sombras con trazado de conos, mapeo del volumen de visibilidad. Para el mapeo de sombras se utilizó un mapa con resolución de $512x512$ píxeles, la resolución de la representación en vóxeles fue de $512^3$ vóxeles y el factor de longitud de marcha fue $0.5$. Se utilizó la escena sandbox Plane Test con distintas primitivas de diferente complejidad geométrica y una fuente de luz direccional.
 
 \begin{figure}[H]
 	\centering
@@ -709,7 +709,7 @@ Durante el proceso de sombreado se almacena la visibilidad de cada vóxel en el 
 	\label{fig:shadowing_techniques}
 \end{figure}
 
-Para la generación de sombras tanto el trazado de conos como el mapeo del volumen de visibilidad puede ocasionar errores sobre geometría suave como la esfera o el toro mientras que el mapeo de sombras no parece presentar estos problemas. En la Figura \ref{fig:shadowing_techniques} el mapeo del volumen de visibilidad produce considerables artefactos visuales para toda geometría no definida por ángulos rectos, como el icosaedro, el toro y la esfera haciendo su uso muy limitado, sin embargo para objetos como el cubo y el plano produce resultados similares a las otras técnicas implementadas.
+Para la generación de sombras tanto el trazado de conos como el mapeo del volumen de visibilidad, puede ocasionar errores sobre geometría suave como la esfera o el toro. Mientras el mapeo de sombras no parece presentar estos problemas. En la Figura \ref{fig:shadowing_techniques} el mapeo del volumen de visibilidad produce considerables artefactos visuales para toda geometría no definida por ángulos rectos, como el icosaedro, el toro y la esfera, haciendo su uso muy limitado. Sin embargo para objetos como el cubo y el plano la técnica produce resultados similares a las otras técnicas implementadas.
 
 \subsection{Materiales Emisivos}
 
