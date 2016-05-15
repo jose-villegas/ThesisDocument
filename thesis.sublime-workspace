@@ -758,6 +758,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"shaders",
 			".19",
 			"}%",
 			".2",
@@ -884,8 +885,7 @@
 			"media/leaking_detail.png",
 			"Methods",
 			"methods",
-			"Trace7",
-			"injectionPass"
+			"Trace7"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1098,8 +1098,8 @@
 						"selection":
 						[
 							[
-								5446,
-								5446
+								7885,
+								7885
 							]
 						],
 						"settings":
@@ -1108,7 +1108,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1305.0,
+						"translation.y": 1620.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
