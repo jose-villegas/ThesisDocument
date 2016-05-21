@@ -1,6 +1,6 @@
 \section{Sombreado de Vóxeles} % (fold)
 \label{sec:sombreado_de_voxeles}
-Para el cálculo de iluminación indirecta es necesario sombrear cada vóxel. El proceso de sombreado de vóxeles nos permite almacenar la radiancia incidente sobre la escena discretizada en vóxeles. Utilizar mapas de luz-vista por cada fuente de luz como ya fue explicado en la sección \ref{subsub:voxel_capture}, puede ser ineficiente tanto en consumo de memoria como en rendimiento. Si se considera una escena con muchas luces, cada una de estas luces debe tener un mapa asociado y se debe repetir el proceso de captura por cada una de ellas. Otra desventaja de este método es la dependencia del rendimiento con la resolución del mapa de luz-vista. Al aumentar la resolución de esta textura también se aumenta el número de colisiones por cada fragmento que desea escribir sobre un mismo vóxel.
+Para el cálculo de iluminación indirecta es necesario sombrear cada vóxel. El proceso de sombreado de vóxeles permite almacenar la radiancia incidente sobre la escena discretizada en vóxeles. Utilizar mapas de luz-vista por cada fuente de luz como fue explicado en la sección \ref{subsub:voxel_capture}, puede resultar ineficiente tanto en consumo de memoria como en rendimiento. Si se considera una escena con muchas luces, cada una de estas luces debe tener un mapa asociado y se debe repetir el proceso de captura por cada una de ellas. Otra desventaja de este método es la dependencia del rendimiento con la resolución del mapa de luz-vista. Al aumentar la resolución de esta textura también se aumenta el número de colisiones por cada fragmento que desea escribir sobre un mismo vóxel.
 
 Nuestra implementación utiliza \emph{compute shaders} o el procesador de cómputo en la \ac{GPU} para el sombreado difuso de cada vóxel. Para calcular el término difuso sobre un fragmento utilizando la \ac{BRDF} de Lambert (ecuación \ref{eq:lambert}) se necesita saber el valor de $\rho_{d}$ el cual ya es almacenado en el volumen albedo. Esta constante luego debe ser multiplicada por el $\cos(N_{x}, \Psi)$ o atenuación normal. Por esto también se crea un volumen de normales. El vector $\Psi$ se obtiene a partir la dirección de cada fuente de luz en escena.
 
@@ -48,11 +48,11 @@ Para obtener resultados coherentes durante el trazado de conos, es también nece
 		\includegraphics[width=\linewidth]{media/voxel_noshadowing.png}
 		\caption*{Sin oclusión de vóxeles.}
 	\end{subfigure}%
-	\caption{Iluminación global al utilizar una representación con vóxeles sin y con oclusión por sombras.}
+	\caption{Iluminación global al utilizar una representación con vóxeles con y sin oclusión por sombras.}
 	\label{fig:voxel_shadow_error}
 \end{figure}
 
-En nuestra implementación existen distintas opciones para trazar sobras sobre los vóxeles. Este proceso se realiza durante el sombreado de vóxeles explicado anteriormente. 
+Asi, existen distintas opciones para trazar sombras sobre los vóxeles. Este proceso se realiza durante el sombreado de vóxeles explicado anteriormente. 
 
 Para luces directas se utiliza mapeo de sombras visto en la sección \ref{subsec:shadowmapping}. En esta técnica es necesario obtener la posición en espacio de mundo del vóxel. Para esto la posición tridimensional del vóxel en espacio de textura se transforma a espacio de mundo. De la transformación se obtiene la posición central del vóxel. Utilizar el centro del vóxel para mapeo de sombras, puede ocasionar problemas cuando este punto esta ocluido por otras superficies dentro del mismo vóxel o fragmentos cercanos (ver Figura \ref{fig:voxel_shadow_translate}). Esto sucede ya que el mapa de sombras es una representación mucho más detallada de la escena vista desde una fuente de luz. Para solventar este problema se traslada la posición del vóxel según el vector normal por el tamaño medio de un vóxel.
 
@@ -75,15 +75,15 @@ Para luces directas se utiliza mapeo de sombras visto en la sección \ref{subsec
 	\label{fig:voxel_shadow_translate}
 \end{figure}
 
-Estando el mapeo de sombras disponible en nuestra implementación para solo una luz directa, se implementó trazado de sombras para cualquier fuente de luz puntual, focal o direccional. Los volúmenes resultantes del proceso de voxelización pueden ser utilizados para trazar rayos sobre la escena discretizada. Siendo estos volúmenes una representación mucho más simple de la escena original, utilizar técnicas de comunes en trazado de rayos (sección \ref{subsec:monte_carlo_raytracing}) es viable.
+Estando el mapeo de sombras disponible en nuestra implementación para solo una luz directa, se implementó trazado de sombras para cualquier fuente de luz puntual, focal o direccional. Los volúmenes resultantes del proceso de voxelización pueden ser utilizados para trazar rayos sobre la escena discretizada. Siendo estos volúmenes una representación mucho más simple de la escena original, utilizar técnicas comunes en trazado de rayos (sección \ref{subsec:monte_carlo_raytracing}) es viable.
 
 Para realizar pruebas de oclusión sobre un vóxel por una fuente de luz, se lanza un rayo desde la posición del vóxel en la dirección opuesta de la luz incidente. Si este rayo colisiona con otro vóxel entonces el de origen está ocluido.
 
 \subsubsection{Trazado de Sombras Suaves sobre el Volumen}
 
-Una técnica que incrementa la calidad visual de las sombras es la generación de un bordeado suave para las sombras. En trazado de rayos esto se logra lanzando varios rayos en distintas direcciones a diferencia de uno solo para generar varias muestras de oclusión.
+Una técnica que incrementa la calidad visual de las sombras es la generación de un bordeado suave para las sombras. En el trazado de rayos esto se logra lanzando varios rayos en distintas direcciones a diferencia de uno solo para generar varias muestras de oclusión.
 
-En nuestra implementación se logra obtener bordes suaves para las sombras generadas durante el sombreado de vóxeles con un solo rayo. Esta técnica se fundamenta en el hecho de que al trazar un rayo hacia una superficie voxelizada, este rayo colisionara más veces contra vóxeles cerca de los bordes de la superficie vistos desde la fuente de luz. Como se observa en la Figura \ref{fig:soft_voxel_shadow}, en vez de detener el rayo una vez que se ha encontrado una colisión, ahora se le asigna un valor a cada colisión y se va acumulando este factor a través del recorrido del rayo dividido por la distancia recorrida.
+En nuestra implementación se logra obtener bordes suaves para las sombras generadas durante el sombreado de vóxeles con un solo rayo. Esta técnica se fundamenta en el hecho de que al trazar un rayo hacia una superficie voxelizada, este rayo colisionará más veces contra vóxeles cerca de los bordes de la superficie vistos desde la fuente de luz. Como se observa en la Figura \ref{fig:soft_voxel_shadow}, en lugar de detener el rayo una vez que se ha encontrado una colisión, se asigna un valor a cada colisión y se acumula este factor a través del recorrido del rayo dividido por la distancia recorrida.
 
 \begin{figure}[H]
 	\centering

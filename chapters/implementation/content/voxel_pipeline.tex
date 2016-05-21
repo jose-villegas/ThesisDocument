@@ -300,7 +300,7 @@ En contraste durante la voxelización dinámica se lee este volumen para descart
 \end{lstlisting}
 
 \subsection{Re-voxelización y Limpieza de Volúmenes}
-Cada vez que se re-voxeliza la escena, los volúmenes utilizados durante el proceso de voxelización deben ser limpiados antes de usarse. Para la voxelización estática esto es sencillo, OpenGL provee una función llamada \emph{glClearImage} desde la versión 4.4 la cual permite llenar una textura con un valor indicado. Debido a que se utiliza el mismo volumen para la voxelización dinámica, no se puede utilizar esta función durante la voxelización dinámica, ya que se eliminarían todos los vóxeles estáticos. Para solventar esto, antes de llamar al proceso de voxelización con la geometría dinámica, se limpian del volumen todos los vóxeles que no son estáticos utilizando un \emph{compute shader}:
+Cada vez que se re-voxeliza la escena, los volúmenes utilizados durante el proceso de voxelización deben ser limpiados antes de usarse. Para la voxelización estática esto es sencillo, OpenGL provee una función llamada \emph{glClearImage} desde la versión 4.4 la cual permite llenar una textura con un valor indicado. Debido a que se utiliza el mismo volumen para la voxelización dinámica, no se puede utilizar esta función durante la voxelización dinámica, ya que se eliminarían todos los vóxeles estáticos. Para solventar esto, antes de llamar al proceso de voxelización con la geometría dinámica, se limpian del volumen todos los vóxeles que no son estáticos utilizando un \emph{compute shader}.
 \\
 \begin{lstlisting}[caption={Limpieza de vóxeles no estáticos.}, label=ClearVoxels]
 void main()

@@ -2,7 +2,7 @@
 \label{sec:voxelizacion}
 El trazado de conos contra geometría poligonal compleja es costoso. Encontrar los puntos de intersección entre un cono y un polígono es mucho más complejo que intersecciones rayo-polígono, además de esto un solo cono podría intersectar muchos polígonos.
 
-Para simplificar el trazado de conos se utiliza una discretización de la escena en forma de vóxeles. Esta representación puede ser filtrada a niveles más bajos de detalle (ver Figura \ref{fig:voxelization_details}). Esto nos permite aproximar el efecto de extensión sobre la apertura del cono utilizando cada vez un nivel de detalle más bajo a través del recorrido del mismo.
+Para simplificar el trazado de conos se utiliza una discretización de la escena en forma de vóxeles. Esta representación puede ser filtrada a niveles más bajos de detalle (ver Figura \ref{fig:voxelization_details}). Esto permite aproximar el efecto de extensión sobre la apertura del cono utilizando cada vez un nivel de detalle más bajo a través del recorrido del mismo.
 
 \begin{figure}[H]
 	\centering
@@ -66,9 +66,9 @@ Para solventar este problema se utilizaron operaciones atómicas provistas por l
 
 \subsection{Voxelización Dinámica} % (fold)
 \label{sub:voxelizacion_dinamica}
-Para escenas complejas y densas en geometría poligonal el proceso de voxelización puede tomar considerable tiempo de ejecución. Esto afecta el rendimiento general del algoritmo si la escena necesita ser re-voxelizada constantemente. Es por esto conveniente separar la voxelización de superficies estáticas y dinámicas en escena. La idea es voxelizar la parte estática de la escena una sola vez mientras que la parte dinámica es revoxelizada solo cuando sea necesario o constantemente por frame.
+Para escenas complejas y densas en geometría poligonal el proceso de voxelización puede tomar un tiempo de ejecución considerable. Esto afecta el rendimiento general del algoritmo si la escena necesita ser re-voxelizada constantemente. Es por esto conveniente separar la voxelización de superficies estáticas y dinámicas en escena. La idea es voxelizar la parte estática de la escena una sola vez mientras que la parte dinámica es revoxelizada solo cuando sea necesario o constantemente por frame.
 
-En nuestra implementación no se utiliza un \emph{octree} disperso para almacenar los vóxeles sino texturas 3D. La separación entre valores estáticos y dinámicos bajo el esquema de un \emph{octree} consiste en dividir el árbol en una parte dinámica y una parte estática. Considerando la cualidad dispersa de esta estructura esto no es de gran peso en memoria. 
+En nuestra implementación se utilizan texturas 3D para almacenar los vóxeles en vez de un \emph{octree} disperso como en la propuesta original de Crassin. La separación entre valores estáticos y dinámicos bajo el esquema de un \emph{octree} consiste en dividir el árbol en una parte dinámica y una parte estática. Considerando la cualidad dispersa de esta estructura esto no es de gran peso en memoria. 
 
-Utilizando texturas 3D esto sería equivalente a generar seis texturas en vez de tres para almacenar albedo, normal y emisión. Tres de estas para la parte estática y tres para la parte dinámica, lo que es extremadamente ineficiente en memoria. Para evitar la creación de estas texturas se utiliza un volumen extra que permite indicar qué vóxel forma parte de la parte estática y cuál no. Durante el proceso de voxelización dinámica solo los fragmentos que se encuentran dentro del espacio de un vóxel dinámico pueden escribir sobre la textura 3D.
+Al emplear texturas 3D esto es equivalente a generar seis texturas en vez de tres para almacenar los valores de albedo, normal y emisión. Tres de estas para la parte estática y tres para la parte dinámica, lo que es extremadamente ineficiente en memoria. Para evitar la creación de estas texturas se utiliza un volumen extra que permite indicar qué vóxel forma parte de la parte estática y cuál no. Durante el proceso de voxelización dinámica solo los fragmentos que se encuentran dentro del espacio de un vóxel dinámico pueden escribir sobre la textura 3D.
 % subsection voxelizacion_dinamica (end)

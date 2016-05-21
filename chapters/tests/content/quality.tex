@@ -4,7 +4,9 @@ En esta sección se estudiaron configuraciones que afectan la calidad de imagen 
 
 \subsection{Composición Final de Imagen}
 \label{subsec:final}
-Todas las imágenes en esta sección fueron renderizadas con una resolución de pantalla de $1920x1080p$, con una resolución para la representación de vóxeles de $512^3$ vóxeles y con un factor de longitud de marcha del cono de $0.5$. La representación de vóxeles solo contiene iluminación directa.
+Todas las imágenes en esta sección fueron renderizadas con una resolución de pantalla de $1920x1080p$, con una resolución para la representación de vóxeles de $512^3$ vóxeles y con un factor de longitud de marcha del cono de $0.5$. La representación de vóxeles solo contiene iluminación directa. 
+
+En todas las imágenes para el resultado final por escena se puede apreciar la aparición de distintos fenómenos de iluminación global como mezclado de colores, reflexión difusa, reflexión especular para superficies reflectivas y oclusión ambiental.
 
 \begin{figure}[H]
 	\centering
@@ -137,7 +139,9 @@ Todas las imágenes en esta sección fueron renderizadas con una resolución de 
 
 \subsubsection{Iluminación Global de Vóxeles.}
 
-En esta sección se demuestra la diferencia de imagen final al agregar iluminación global a la representación con vóxeles. La inclusión de iluminación global sobre los vóxeles nos permite aproximar el segundo rebote de luz. La diferencia entre imágenes fue procesada utilizando PerceptualDiff, los píxeles azules describen donde se encuentran las áreas con mayor diferencia al ojo humano.
+En esta sección se demuestra la diferencia de la imagen final al agregar iluminación global a la representación con vóxeles. La inclusión de iluminación global sobre los vóxeles nos permite aproximar el segundo rebote de luz. La diferencia entre imágenes fue procesada utilizando PerceptualDiff. Los píxeles azules describen donde se encuentran las áreas con mayor diferencia al ojo humano.
+
+Para todas las escenas se puede observar una diferencia considerable con respecto a los resultados de la sección anterior al incluir iluminación global de vóxeles. Los detalles de reflexión especular aumentan al estar la representación en vóxeles mas iluminada, y la reflexión difusa se propaga hacia zonas anteriormente ocluidas.
 
 \begin{figure}[H]
 	\centering
@@ -214,7 +218,9 @@ En esta sección se demuestra la diferencia de imagen final al agregar iluminaci
 
 \subsubsection{Resolución de la Representación en Vóxeles}
 
-En esta sección se demuestra la diferencia de imagen final con distintas resoluciones para la representación en vóxeles. Todas las imágenes serán comparadas con los resultados de la sección \ref{subsec:final} donde se utiliza una resolución para los volúmenes de $512^3$ vóxeles sin iluminación global de vóxeles. En las imágenes se puede apreciar como la diferencia aumenta a medida que se disminuye la resolución.
+En esta sección se demuestra la diferencia de la imagen final con distintas resoluciones para la representación en vóxeles. Todas las imágenes serán comparadas con los resultados de la sección \ref{subsec:final} donde se utiliza una resolución para los volúmenes de $512^3$ vóxeles sin iluminación global de vóxeles. En las imágenes se puede apreciar como la diferencia aumenta a medida que se disminuye la resolución.
+
+Todas las imágenes en esta sección presentan perdida de precisión durante el cálculo de iluminación indirecta con respecto a los resultados de la sección \ref{subsec:final}. Para escenas de gran escala como Sponza este problema de precisión es mayor. En la escena Sponza, se observa la aparición de colores erróneos durante el cálculo de iluminación indirecta sobre las columnas superiores en la escena, al utilizar una resolución de $64^3$ vóxeles.
 
 \begin{figure}[H]
 	\centering
@@ -422,8 +428,9 @@ En esta sección se demuestra la diferencia de imagen final con distintas resolu
 
 \subsubsection{Factor de Longitud de Marcha del Cono}
 
-El factor de longitud de marcha del cono afecta tanto el rendimiento como la calidad visual final. Valores mayores a $1.0$ no son recomendados ya que saltarían vóxeles constantemente durante el trazado. En esta sección se compara contra el factor $0.5$ en la sección \ref{subsec:final} con valores de $1.0$ y $2.5$.
+El factor de longitud de marcha del cono afecta tanto el rendimiento como la calidad visual final. Valores mayores a $1$ no son recomendados ya que saltarían vóxeles constantemente durante el trazado. En esta sección se compara contra el factor $0.5$ en la sección \ref{subsec:final} con valores de $1$ y $2.5$.
 
+Los defectos de aumentar el factor de longitud son notables al utilizar valores mayores a $1$. Ello asegura que habrá salto de muestras durante el recorrido del cono. Esto es notable en la escena Cornell Box con factor de longitud de $2.5$, especialmente en las sombras suaves que son generadas con trazado de conos. Para la mayoría de las escenas aumentar el factor de $0.5$ (sección \ref{subsec:final}) a $1$ no afecta de gran manera la diferencia perceptual, sin embargo esta diferencia puede aumentar dependiendo de dónde se encuentre el observador.
 
 \begin{figure}[H]
 	\centering
@@ -432,7 +439,7 @@ El factor de longitud de marcha del cono afecta tanto el rendimiento como la cal
 		\captionsetup{justification=centering}
 		\caption*{Directa, Indirecta y Oclusión Ambiental}
 		\includegraphics[width=\linewidth]{{media/finals/cornell_gi_s1.0}.png}
-		\caption*{Factor de longitud de marcha: $1.0$}
+		\caption*{Factor de longitud de marcha: $1$}
 	\end{subfigure}%
 	\hspace{0.01\textwidth}
 	\begin{subfigure}[b]{.49\linewidth}
@@ -648,7 +655,7 @@ El factor de longitud afecta especialmente la calidad de las reflexiones especul
 
 \subsection{Apertura del Cono para Trazado de Sombras Suaves}
 
-Una de las características del trazado de conos es que mientras mayor es la apertura del cono más rápido es el trazado (ver Figura \ref{fig:fine_cones}). Esto presenta una ventaja para el trazado de sombras suaves ya que a medida que se abre el cono de sombreado más suaves son las sombras resultantes como se observa en la Figura \ref{fig:soft_aperture}.
+Una de las características del trazado de conos es que mientras mayor es la apertura del cono más rápido es el trazado (ver Figura \ref{fig:fine_cones}). Esto presenta una ventaja para el trazado de sombras suaves ya que a medida que se abre el cono de sombreado más suaves y esparcidas son las sombras resultantes como se observa en la Figura \ref{fig:soft_aperture}.
 
 \begin{figure}[H]
 	\centering
@@ -709,7 +716,7 @@ Durante el proceso de sombreado se almacena la visibilidad de cada vóxel en el 
 	\label{fig:shadowing_techniques}
 \end{figure}
 
-Para la generación de sombras tanto el trazado de conos como el mapeo del volumen de visibilidad, puede ocasionar errores sobre geometría suave como la esfera o el toro. Mientras el mapeo de sombras no parece presentar estos problemas. En la Figura \ref{fig:shadowing_techniques} el mapeo del volumen de visibilidad produce considerables artefactos visuales para toda geometría no definida por ángulos rectos, como el icosaedro, el toro y la esfera, haciendo su uso muy limitado. Sin embargo para objetos como el cubo y el plano la técnica produce resultados similares a las otras técnicas implementadas.
+Para la generación de sombras tanto el trazado de conos como el mapeo del volumen de visibilidad, puede ocasionar errores sobre geometría suave como la esfera o el toro. Mientras el mapeo de sombras no parece presentar estos problemas. En la Figura \ref{fig:shadowing_techniques} el mapeo del volumen de visibilidad produce considerables artefactos visuales para toda geometría no definida por ángulos rectos, como el icosaedro, el toro y la esfera, haciendo su uso muy limitado. Sin embargo para objetos como el cubo y el plano, la técnica produce resultados similares a las otras técnicas implementadas.
 
 \subsection{Materiales Emisivos}
 
@@ -721,7 +728,7 @@ Nuestra implementación permite la aproximación de materiales emisivos con la a
 	\caption{Modelo Utah Teapot emisivo junto a otros objetos precargados.}
 	\label{fig:areapot}
 \end{figure}
-En la Figura \ref{fig:areapot} se observa la escena sandbox Cornell Box Vacio sin fuentes de luz tradicionales, el modelo de Utah Teapot tiene un material emisivo blanco que ilumina el resto de los objetos cercanos. La oclusión ambiental esta desactivada para esta imagen. Las sombras debajo de los objetos son generadas de forma natural por el trazado de conos contra vóxeles.
+En la Figura \ref{fig:areapot} se observa la escena sandbox Cornell Box Vació sin fuentes de luz tradicionales, el modelo de Utah Teapot tiene un material emisivo blanco que ilumina el resto de los objetos cercanos. La oclusión ambiental esta desactivada para esta imagen. Las sombras debajo de los objetos son generadas de forma natural por el trazado de conos contra vóxeles.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.9\linewidth]{media/finals/area_sponza.png}
@@ -765,7 +772,7 @@ En la Figura \ref{fig:fine_emissive} se puede observar en la escena completa Sib
 	\label{fig:leaking}
 \end{figure}
 
-En la Figura \ref{fig:leaking} se puede observar un defecto visual común del algoritmo. Este se puede producirse por defectos de voxelización cuando se falta o excede la cantidad de vóxeles. Esto sucede usualmente por errores en la geometría de la malla. Sin embargo también puede ser causado por el mismo algoritmo de voxelización por problemas de precisión en el proceso de rasterización al generar vóxeles en los bordes de la geometría poligonal. Para este caso una forma de reducir este problema es utilizando \ac{MSAA} \cite{gpuvoxelization}. Los vóxeles faltantes o sobrantes pueden causar que se iluminen vóxeles que no deberían iluminarse durante el proceso de sombreado y/o de iluminación global de vóxeles.
+En la Figura \ref{fig:leaking} se puede observar un defecto visual común del algoritmo. Este puede producirse por defectos de voxelización cuando se falta o excede la cantidad de vóxeles. Esto sucede usualmente por errores en la geometría de la malla. Sin embargo también puede ser causado por el mismo algoritmo de voxelización por problemas de precisión en el proceso de rasterización al generar vóxeles en los bordes de la geometría poligonal. Para este caso una forma de reducir este problema es utilizando \ac{MSAA} \cite{gpuvoxelization}. Los vóxeles faltantes o sobrantes pueden causar que se iluminen vóxeles que no deberían iluminarse durante el proceso de sombreado y/o de iluminación global de vóxeles.
 
 Otra condición en la que esto puede suceder es durante el trazado de conos con vóxeles cuando el trazado salta algunas de las muestras durante el recorrido ya sea dentro del nivel más alto de detalle o por falta de precisión en la interpolación de los niveles de mipmap. La utilización de vóxeles anisotrópicos reduce en gran manera esta posibilidad.
 
@@ -787,10 +794,11 @@ Otra condición en la que esto puede suceder es durante el trazado de conos con 
 	\label{fig:banding}
 \end{figure}
 
-La aparición de bandas de colores sucede por problemas de muestreo durante el trazado de conos. La distancia entre muestras hace produce estas bandas súbitas producto de la interpolación trilineal entre un mismo nivel de detalle o interpolación cuadrilineal entre varios. Una forma de reducir esto es utilizando un cono de menor apertura sacrificando reflectividad en el caso de conos especulares o reduciendo la longitud de marcha del cono a cambio de menor rendimiento.
+La aparición de bandas de colores sucede por problemas de muestreo durante el trazado de conos. La distancia entre muestras produce estas bandas súbitas producto de la interpolación trilineal entre un mismo nivel de detalle o interpolación cuadrilineal entre varios. Una forma de reducir esto es utilizando un cono de menor apertura sacrificando reflectividad en el caso de conos especulares o reduciendo la longitud de marcha del cono a cambio de menor rendimiento.
 
 \subsection{Comparación} % (fold)
-Para realizar una comparación de calidad se utilizó el algoritmo \ac{CLPV} el cual tiene resultados en rendimiento similares a nuestra implementación. Esta aproximación solo comprende iluminación indirecta difusa. En la figura \ref{fig:comp_quality} se puede observar que los bloques debajo de las columnas reflejan las áreas iluminadas del pasillo superior en la escena completa Sponza por reflexión especular. La reflexión difusa de las telas sobre las columnas es un poco más extensa en \ac{CLPV} llegando causando mezclado de colores hasta en los arcos entre las columnas.
+Para realizar una comparación de calidad se utilizó el algoritmo \ac{CLPV} el cual tiene resultados en rendimiento similares a nuestra implementación. Se utilizó la implementación realizada por NVIDIA en su DirectX 11 SDK \cite{nvidia_samples}. Esta aproximación solo comprende iluminación indirecta difusa. En la figura \ref{fig:comp_quality} se puede observar que los bloques debajo de las columnas reflejan las áreas iluminadas del pasillo superior en la escena completa Sponza por reflexión especular. La reflexión difusa sobre las columnas es un poco más extensa en \ac{CLPV} causando mezclado de colores hasta los arcos entre las columnas y el techo del pasillo. En nuestra implementación la reflexión difusa y especular permite una mayor iluminación del pasillo. Se puede observar también la reflexión especular de la luz directa en el pasillo sobre la pared debajo de las columnas, esto no está presente en \ac{CLPV}.
+
 \label{sub:comparacion}
 \begin{figure}[H]
 	\centering
