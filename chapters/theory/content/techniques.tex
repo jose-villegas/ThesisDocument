@@ -1,6 +1,26 @@
-\section{Técnicas Comunes en Renderizado de Imágenes}
+\section{Pipeline de Renderizado Programable}
+La función del pipeline de renderizado es generar imágenes bidimensionales para ser desplegadas en pantalla dada una cámara virtual, objetos tridimensionales, fuentes de luz, ecuaciones sombreado, texturas y otros \cite{Akenine-Moller:2002:RR:553838}. Este pipeline está divido en varias etapas como se observa en la Figura \ref{fig:pipeline_rendering}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{media/pipeline_rendering.pdf}
+	\caption{Etapas del pipeline de renderizado.}
+	\label{fig:pipeline_rendering}
+\end{figure}
+\subsection{Procesador de Vértices}
+El procesador de vértices o \emph{vertex shader} realiza operaciones sobre los vértices que definen a la geometría a renderizar. Un vértice puede estar definido por sus coordenadas en el espacio tridimensional u otra información como color, vector normal, características para la iluminación, coordenadas de texturas, entre otros.
+\subsection{Procesador de Geometría}
+El procesador de geometría o \emph{geometry shader} es una capacidad reciente en la \ac{GPU}. Esta etapa del pipeline permite la manipulación de las mallas que representan la geometría en escena por primitiva. De esta forma los vértices de entrada al pipeline pueden ser enviados al \emph{geometry shader} como vértices individuales, líneas (dos vértices) o triángulos (tres vértices). El \emph{geometry shader} permite la modificación de los parámetros que definen estas primitivas y la generación de nuevas primitivas que serán enviadas al proceso de rasterización.
+\subsection{Rasterización}
+Las primitivas que alcanzan esta etapa del pipeline son procesadas por la unidad de rasterización en la \ac{GPU}. En esta etapa todos los polígonos son escaneados y convertidos en valores dentro de una cuadrícula regular bidimensional. Durante esta conversión, el triángulo es configurado para generar todos los fragmentos que cubren el área de proyección de este triángulo. Luego por cada uno de estos fragmentos se calculan sus propiedades como color, posición y coordenadas de textura u otros utilizando interpolación lineal entre estas propiedades almacenadas en los tres vértices del triángulo procesado. Los fragmentos generados son luego enviados al procesador de fragmentos.
+\subsection{Procesador de Fragmentos}
+Todos los fragmentos generados durante el proceso de rasterización son procesados en el procesador de fragmentos o \emph{fragment shader}. Durante este proceso se realizan operaciones como mapeo de texturas, cálculo de iluminación por fragmento y otras técnicas de sombreado. Estos fragmentos luego de ser procesados son escritos en un \emph{framebuffer} y enviados al hardware para ser procesados según operaciones de visibilidad y mezclado para finalmente ser mostrados en pantalla.
+\subsection{Cómputo de Propósito General en la GPU}
+La \ac{GPU} está diseñada específicamente para el renderizado de gráficos en computadora. Esta puede procesar de forma independiente muchos vértices y fragmentos en paralelo. En este sentido la \ac{GPU} es un procesador de flujo de datos que puede operar en paralelo ejecutando un núcleo o \emph{kernel} sobre los registros en este flujo. Con las nuevas capacidades de cómputo en las GPU se ha incrementado la flexibilidad de estos procesadores, agregando nuevas operaciones y permitiendo su uso para programación de propósito general. Ello facilita el uso de la GPU como un procesador de cómputo paralelo masivo utilizando los muchos núcleos o \emph{cores} de cómputo existentes en las GPU modernas. Esta técnica es llamada \ac{GPGPU}.
+
+\section{Técnicas en Renderizado de Imágenes}
 
 En esta sección se explican técnicas comunes utilizadas en síntesis o renderizado de imágenes que son relevantes para este trabajo.
+
 \subsection{Mapeado de Sombras}
 \label{subsec:shadowmapping}
 Con la luz representada en forma de rayos las superficies sombreadas reciben menos rayos de luz, ya que estas están ocluidas por otras superficies que se encuentra entre ellas y los emisores de luz. En el pipeline de renderizado estándar, donde las superficies en escenas son representadas en geometría poligonal, trazar rayos por cada fragmento para comprobar la visibilidad del mismo no es una operación trivial.
@@ -56,7 +76,7 @@ Con sombreado diferido se pueden realizar estas operaciones por píxel solo sobr
 
 \subsection{Voxelización}
 \label{sec:voxelization}
-Un \emph{vóxel} o a veces llamado píxel volumétrico representa una muestra singular o elemento volumétrico sobre un grid regular en un espacio tridimensional. Este vóxel puede contener cualquier valor definido por la aplicación o incluso múltiples valores. 
+Un vóxel o a veces llamado píxel volumétrico representa una muestra singular o elemento volumétrico sobre un grid regular en un espacio tridimensional. Este vóxel puede contener cualquier valor definido por la aplicación o incluso múltiples valores. 
 
 El proceso de generar superficies discretas en una representación volumétrica a través de vóxeles se le llama voxelización (ver Figura \ref{fig:rigid_grid}).
 

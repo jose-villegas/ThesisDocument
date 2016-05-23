@@ -6,7 +6,7 @@ En esta sección se estudiaron configuraciones que afectan la calidad de imagen 
 \label{subsec:final}
 Todas las imágenes en esta sección fueron renderizadas con una resolución de pantalla de $1920x1080p$, con una resolución para la representación de vóxeles de $512^3$ vóxeles y con un factor de longitud de marcha del cono de $0.5$. La representación de vóxeles solo contiene iluminación directa. 
 
-En todas las imágenes para el resultado final por escena se puede apreciar la aparición de distintos fenómenos de iluminación global como mezclado de colores, reflexión difusa, reflexión especular para superficies reflectivas y oclusión ambiental.
+En todas las imágenes, para el resultado final por escena, se puede apreciar la aparición de distintos fenómenos de iluminación global como mezclado de colores, reflexión difusa, reflexión especular para superficies reflectivas y oclusión ambiental.
 
 \begin{figure}[H]
 	\centering
@@ -141,7 +141,7 @@ En todas las imágenes para el resultado final por escena se puede apreciar la a
 
 En esta sección se demuestra la diferencia de la imagen final al agregar iluminación global a la representación con vóxeles. La inclusión de iluminación global sobre los vóxeles nos permite aproximar el segundo rebote de luz. La diferencia entre imágenes fue procesada utilizando PerceptualDiff. Los píxeles azules describen donde se encuentran las áreas con mayor diferencia al ojo humano.
 
-Para todas las escenas se puede observar una diferencia considerable con respecto a los resultados de la sección anterior al incluir iluminación global de vóxeles. Los detalles de reflexión especular aumentan al estar la representación en vóxeles mas iluminada, y la reflexión difusa se propaga hacia zonas anteriormente ocluidas.
+En todas las imágenes se puede observar una diferencia considerable con respecto a los resultados de la sección anterior al incluir iluminación global de vóxeles. Los detalles de reflexión especular aumentan al estar la representación en vóxeles mas iluminada por la inclusión del rebote difuso, y la reflexión difusa alcanza regiones anteriormente ocluidas en todas las escenas.
 
 \begin{figure}[H]
 	\centering
@@ -220,7 +220,7 @@ Para todas las escenas se puede observar una diferencia considerable con respect
 
 En esta sección se demuestra la diferencia de la imagen final con distintas resoluciones para la representación en vóxeles. Todas las imágenes serán comparadas con los resultados de la sección \ref{subsec:final} donde se utiliza una resolución para los volúmenes de $512^3$ vóxeles sin iluminación global de vóxeles. En las imágenes se puede apreciar como la diferencia aumenta a medida que se disminuye la resolución.
 
-Todas las imágenes en esta sección presentan perdida de precisión durante el cálculo de iluminación indirecta con respecto a los resultados de la sección \ref{subsec:final}. Para escenas de gran escala como Sponza este problema de precisión es mayor. En la escena Sponza, se observa la aparición de colores erróneos durante el cálculo de iluminación indirecta sobre las columnas superiores en la escena, al utilizar una resolución de $64^3$ vóxeles.
+Todas las imágenes en esta sección presentan perdida de precisión durante el cálculo de iluminación indirecta, con respecto a los resultados de la sección \ref{subsec:final}. Para escenas de gran escala como Sponza este problema de precisión es mayor. En la escena Sponza, se observa la aparición de colores erróneos durante el cálculo de iluminación indirecta, especialmente sobre las columnas superiores en la escena, al utilizar una resolución de $64^3$ vóxeles.
 
 \begin{figure}[H]
 	\centering
@@ -430,7 +430,7 @@ Todas las imágenes en esta sección presentan perdida de precisión durante el 
 
 El factor de longitud de marcha del cono afecta tanto el rendimiento como la calidad visual final. Valores mayores a $1$ no son recomendados ya que saltarían vóxeles constantemente durante el trazado. En esta sección se compara contra el factor $0.5$ en la sección \ref{subsec:final} con valores de $1$ y $2.5$.
 
-Los defectos de aumentar el factor de longitud son notables al utilizar valores mayores a $1$. Ello asegura que habrá salto de muestras durante el recorrido del cono. Esto es notable en la escena Cornell Box con factor de longitud de $2.5$, especialmente en las sombras suaves que son generadas con trazado de conos. Para la mayoría de las escenas aumentar el factor de $0.5$ (sección \ref{subsec:final}) a $1$ no afecta de gran manera la diferencia perceptual, sin embargo esta diferencia puede aumentar dependiendo de dónde se encuentre el observador.
+Los defectos de aumentar el factor de longitud son notables al utilizar valores mayores a $1$. Ello asegura que habrá salto de muestras durante el recorrido del cono. Esto es notable en la escena Cornell Box con factor de longitud de $2.5$, especialmente sobre las sombras suaves que son generadas con trazado de conos. Para la mayoría de las escenas, aumentar el factor de $0.5$ (sección \ref{subsec:final}) a $1$ no afecta de gran manera la diferencia perceptual, sin embargo esta diferencia puede aumentar dependiendo de dónde se encuentre el observador.
 
 \begin{figure}[H]
 	\centering
@@ -582,7 +582,7 @@ El factor de longitud afecta especialmente la calidad de las reflexiones especul
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{media/finals/test_s010.png}
+	\includegraphics[width=.7\linewidth]{media/finals/test_s010.png}
 	\caption{Demostración de reflexión especular con factor de longitud de marcha $0.1$ y volúmenes con resolución de $512^3$ vóxeles.}
 	\label{fig:spec_reflec010}
 \end{figure}
