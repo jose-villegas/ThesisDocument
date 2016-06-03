@@ -508,109 +508,38 @@
 	"buffers":
 	[
 		{
-			"file": "chapters/implementation/content/voxel_pipeline.tex",
-			"settings":
-			{
-				"buffer_size": 21908,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "chapters/implementation/content/voxel_shading.tex",
 			"settings":
 			{
-				"buffer_size": 12312,
+				"buffer_size": 12313,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "chapters/implementation/content/hierarchy.tex",
+			"file": "cover/cover.tex",
 			"settings":
 			{
-				"buffer_size": 9569,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "chapters/implementation/content/voxel_cone_tracing.tex",
-			"settings":
-			{
-				"buffer_size": 18474,
+				"buffer_size": 908,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/tests/content/performance.tex",
-			"settings":
-			{
-				"buffer_size": 25500,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/tests/content/quality.tex",
-			"settings":
-			{
-				"buffer_size": 34999,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Program Files (x86)/MiKTeX 2.9/miktex/config/updmap.cfg",
-			"settings":
-			{
-				"buffer_size": 12250,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/implementation/content/voxel_gi.tex",
-			"settings":
-			{
-				"buffer_size": 4323,
-				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "main.tex",
 			"settings":
 			{
-				"buffer_size": 4466,
+				"buffer_size": 4488,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "chapters/theory/content/techniques.tex",
+			"contents": "Package Control Messages\n========================\n\nHexViewer\n---------\n\n  # HexViewer 2.3.0\n  \n  ## New\n  \n  - Option to use uppercase hex characters (see settings file).\n  - Hopefully more clear error messages.\n",
 			"settings":
 			{
-				"buffer_size": 10288,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "chapters/tests/content/scenes.tex",
-			"settings":
-			{
-				"buffer_size": 9040,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Searching 214 files for \"sobras\"\n\nD:\\Documents\\Projects\\Thesis\\chapters\\proposal\\content\\voxel_shading.tex:\n   53  \\end{figure}\n   54  \n   55: En nuestra implementación existen distintas opciones para trazar sobras sobre los vóxeles. Este proceso se realiza durante el sombreado de vóxeles explicado anteriormente. \n   56  \n   57  Para luces directas se utiliza mapeo de sombras visto en la sección \\ref{subsec:shadowmapping}. En esta técnica es necesario obtener la posición en espacio de mundo del vóxel. Para esto la posición tridimensional del vóxel en espacio de textura se transforma a espacio de mundo. De la transformación se obtiene la posición central del vóxel. Utilizar el centro del vóxel para mapeo de sombras, puede ocasionar problemas cuando este punto esta ocluido por otras superficies dentro del mismo vóxel o fragmentos cercanos (ver Figura \\ref{fig:voxel_shadow_translate}). Esto sucede ya que el mapa de sombras es una representación mucho más detallada de la escena vista desde una fuente de luz. Para solventar este problema se traslada la posición del vóxel según el vector normal por el tamaño medio de un vóxel.\n\n1 match in 1 file\n",
-			"settings":
-			{
-				"buffer_size": 1158,
+				"buffer_size": 212,
 				"line_ending": "Windows",
-				"name": "Find Results",
+				"name": "Package Control Messages",
+				"read_only": true,
 				"scratch": true
-			}
-		},
-		{
-			"file": "chapters/proposal/content/voxel_shading.tex",
-			"settings":
-			{
-				"buffer_size": 8664,
-				"line_ending": "Unix"
 			}
 		}
 	],
@@ -681,7 +610,6 @@
 	[
 		"/D/Documents/Projects/Thesis",
 		"/D/Documents/Projects/Thesis/chapters",
-		"/D/Documents/Projects/Thesis/chapters/conclusion",
 		"/D/Documents/Projects/Thesis/chapters/implementation",
 		"/D/Documents/Projects/Thesis/chapters/implementation/content",
 		"/D/Documents/Projects/Thesis/chapters/proposal",
@@ -695,32 +623,38 @@
 	],
 	"file_history":
 	[
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_pipeline.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_shading.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/hierarchy.tex",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_cone_tracing.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/performance.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/quality.tex",
+		"/C/Program Files (x86)/GigaVoxels/Data/Shaders/Voxelization/voxelization_VS.glsl",
+		"/C/Program Files (x86)/GigaVoxels/Data/Shaders/Voxelization/voxelization_GS.glsl",
+		"/C/Program Files (x86)/GigaVoxels/Data/Shaders/VoxelizationSignedDistanceField/signedDist_VS.glsl",
+		"/C/Program Files (x86)/GigaVoxels/Data/Shaders/VoxelizationSignedDistanceField/signedDist_FS.glsl",
+		"/C/Program Files (x86)/GigaVoxels/Data/Shaders/Voxelization/voxelization_FS.glsl",
+		"/C/Program Files (x86)/MiKTeX 2.9/miktex/config/updmap.cfg",
+		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_gi.tex",
+		"/D/Documents/Projects/Thesis/main.tex",
+		"/D/Documents/Projects/Thesis/chapters/theory/content/techniques.tex",
+		"/D/Documents/Projects/Thesis/chapters/tests/content/scenes.tex",
+		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_shading.tex",
 		"/D/Documents/Projects/Thesis/references.bib",
 		"/D/Documents/Projects/Thesis/chapters/implementation/content/architecture.tex",
-		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_pipeline.tex",
 		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxelization.tex",
 		"/D/Documents/Projects/Thesis/chapters/implementation/content/technology.tex",
-		"/D/Documents/Projects/Thesis/chapters/theory/content/techniques.tex",
-		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_shading.tex",
 		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_structure.tex",
 		"/D/Documents/Projects/Thesis/chapters/proposal/content/cone_tracing.tex",
 		"/D/Documents/Projects/Thesis/chapters/proposal/content/voxel_gi.tex",
-		"/D/Documents/Projects/Thesis/chapters/implementation/content/hierarchy.tex",
 		"/D/Documents/Projects/Thesis/chapters/theory/content/interactive_gi.tex",
 		"/D/Documents/Projects/Thesis/chapters/proposal/proposal.tex",
 		"/D/Documents/Projects/Thesis/chapters/theory/content/surfaces.tex",
-		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_gi.tex",
 		"/D/Documents/Projects/Thesis/chapters/theory/content/radiometry.tex",
-		"/D/Documents/Projects/Thesis/main.tex",
-		"/D/Documents/Projects/Thesis/chapters/tests/content/performance.tex",
 		"/D/Documents/Projects/Thesis/chapters/conclusion/conclusion.tex",
 		"/D/Documents/Projects/Thesis/chapters/theory/content/rendering_equation.tex",
-		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_shading.tex",
 		"/D/Documents/Projects/Thesis/introduction/introduction.tex",
-		"/D/Documents/Projects/Thesis/chapters/tests/content/quality.tex",
 		"/D/Documents/Projects/Thesis/chapters/proposal/content/emissive_voxels.tex",
-		"/D/Documents/Projects/Thesis/chapters/tests/content/scenes.tex",
-		"/D/Documents/Projects/Thesis/chapters/implementation/content/voxel_cone_tracing.tex",
 		"/D/Documents/Projects/Thesis/chapters/tests/content/memory.tex",
 		"/D/Documents/Projects/Thesis/chapters/tests/content/enviroment.tex",
 		"/D/Documents/Projects/Thesis/listing_language.tex",
@@ -808,6 +742,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"title={",
+			"title = {",
+			"title =",
+			"computo",
 			" \n",
 			"sobras",
 			"shaders",
@@ -931,11 +869,7 @@
 			"Fuente",
 			"voxeltrace_shadowing",
 			"triangulo",
-			"iluminacion_global_de_voxeles",
-			"[",
-			".49",
-			"media/leaking_detail.png",
-			"Methods"
+			"iluminacion_global_de_voxeles"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -958,54 +892,24 @@
 	"groups":
 	[
 		{
-			"selected": 9,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "chapters/implementation/content/voxel_pipeline.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 21908,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 6345.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "chapters/implementation/content/voxel_shading.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12312,
+						"buffer_size": 12313,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								6099,
+								6093
 							]
 						],
 						"settings":
@@ -1013,171 +917,27 @@
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2174.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "chapters/implementation/content/hierarchy.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9569,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9490,
-								9490
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2655.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "chapters/implementation/content/voxel_cone_tracing.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 18474,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 225.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "chapters/tests/content/performance.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 25500,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								24333,
-								24036
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 6169.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "chapters/tests/content/quality.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 34999,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/C/Program Files (x86)/MiKTeX 2.9/miktex/config/updmap.cfg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12250,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1802,
-								1812
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 450.0,
+						"translation.y": 2025.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "chapters/implementation/content/voxel_gi.tex",
+					"buffer": 1,
+					"file": "cover/cover.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4323,
+						"buffer_size": 908,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								835,
-								835
+								907,
+								907
 							]
 						],
 						"settings":
@@ -1185,27 +945,27 @@
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 405.0,
+						"translation.y": 218.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 2,
 					"file": "main.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4466,
+						"buffer_size": 4488,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1069,
-								1069
+								1005,
+								1005
 							]
 						],
 						"settings":
@@ -1215,143 +975,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 165.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "chapters/theory/content/techniques.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10288,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3239,
-								3239
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 495.0,
+						"translation.y": 465.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "chapters/tests/content/scenes.tex",
+					"buffer": 3,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9040,
+						"buffer_size": 212,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8751,
-								8751
+								212,
+								212
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1575.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1158,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										208,
-										214
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								210,
-								210
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 1,
-							"result_base_dir": "",
-							"result_file_regex": "^([^ 	].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+							"auto_indent": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_width": 2,
+							"word_wrap": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "chapters/proposal/content/voxel_shading.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8664,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 526.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]

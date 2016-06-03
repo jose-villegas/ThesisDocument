@@ -94,7 +94,7 @@ vec3 BRDF(Light light, vec3 normal, vec3 albedo)
 
 \subsection{Mapeo y Trazado de Sombras}
 
-Para obtener resultados coherentes es necesario ocluir vóxeles. En nuestra implementación es posible utilizar mapeado de sombras solo para una luz direccional. Esta técnica es explicada en la sección \ref{subsec:shadowmapping}. La posición a proyectar $p_{v}$ es trasladada según el vector normal del vóxel $n_{v}$ por una distancia equivalente al tamaño medio de un vóxel en espacio de mundo $V_{wsSize}$, esto es equivalente a la siguiente ecuación: $p_{v} = p_{v} + n_{v}\cdot V_{wsSize} \cdot 0.5$. Esto se hace para evitar problemas ya mencionados en la sección \ref{sub:trazado_de_sombras_sobre_el_volumen}.
+Para obtener resultados coherentes es necesario ocluir vóxeles. En nuestra implementación es posible utilizar mapeado de sombras solo para una luz direccional. Esta técnica es explicada en la sección \ref{subsec:shadowmapping}. La posición a proyectar $p_{v}$ es trasladada según el vector normal del vóxel $n_{v}$ por una distancia equivalente al tamaño medio de un vóxel en espacio de mundo $V_{wsSize}$, esto es equivalente a la siguiente ecuación: $p_{v} = p_{v} + n_{v}\times V_{wsSize}\times 0.5$. Esto se hace para evitar problemas ya mencionados en la sección \ref{sub:trazado_de_sombras_sobre_el_volumen}.
 
 Una de las ventajas de este trabajo es la capacidad de incluir muchas luces con iluminación global en escena. Por tanto es necesario alguna forma de incluir sombras para otros tipos de luces y más de una fuente de luz. Nuestra implementación realiza trazado de rayos sobre el volumen para incorporar sombras para cualquier tipo de luz dentro del área de proyección del volumen de vóxeles.
 
